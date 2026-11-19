@@ -1,0 +1,352 @@
+# 由 tools/normalize_faq.py 归一化：FAQ 只保留「结论一句 + 指针」，事实以被指向的权威文档为准（见 00_schema/single_source.md）
+scenario: s3_usage
+version: 2
+updated: 2026-10-23
+faq:
+- id: faq-s3.001
+  question: 第一次使用怎么操作
+  intent: usage.first_time
+  scope:
+    appliance: air_conditioner
+  answer: '装好后师傅会完成试机，之后您自己用就四步：
+
+    1. 插上电源，遥控器装好电池
+
+    2. 按开关键开机
+
+    3. 选模式（凉快选制冷，冬天选制热）
+
+    4. 调温度和风向，制冷时导风板朝上，制热朝下
+
+    '
+  source: 03_product/*/usage.yaml#first_use
+  verified: true
+- id: faq-s3.002
+  question: 滤网怎么清洗
+  intent: usage.maintenance
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: '1. 先关机断电
+
+    2. 双手抓住面板两端下侧的扣手位，把面板打开约 75 度卡住
+
+    3. 抬起滤尘网中间的凸部，往下拉出来
+
+    4. 温水加中性洗涤剂洗，放阴凉处晾干…详见 midea-kfr-35gw-q2 的 usage.yaml（maintenance）。'
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/usage.yaml#maintenance
+  verified: true
+- id: faq-s3.003
+  question: 滤网多久清洗一次
+  intent: usage.maintenance
+  scope:
+    appliance: air_conditioner
+    model:
+    - haier-kfr-35gw-e1-1
+  answer: 说明书建议两周左右清洗一次。详见 haier-kfr-35gw-e1-1 的 usage.yaml（maintenance.过滤网）。
+  source: 03_product/air_conditioner/haier/KFR-35GW-E1-1/usage.yaml#maintenance.过滤网
+  verified: true
+- id: faq-s3.004
+  question: 滤网多久清洗一次
+  intent: usage.maintenance
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: 这台说明书没写具体周期。详见 midea-kfr-35gw-q2 的 usage.yaml（maintenance）。
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/usage.yaml#maintenance
+  verified: true
+  note: 说明书无周期，必须标注"建议非条款"
+- id: faq-s3.005
+  question: 怎么开自清洁
+  intent: usage.operation
+  scope:
+    appliance: air_conditioner
+    model:
+    - haier-kfr-35gw-e1-1
+  answer: 按遥控器上的【自清洁】键就进去了，面板会显示符号和进度条，灯带是雾白色。详见 haier-kfr-35gw-e1-1 的 usage.yaml（operations.self_clean）。
+  source: 03_product/air_conditioner/haier/KFR-35GW-E1-1/usage.yaml#operations.self_clean
+  verified: true
+- id: faq-s3.006
+  question: 怎么开自清洁
+  intent: usage.operation
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: 这个型号没有自清洁功能，所以没有这个键。详见 midea-kfr-35gw-q2 的 usage.yaml。
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/usage.yaml
+  verified: true
+  note: 功能不存在时，给替代方案，且不得把导风板清洁说成自清洁
+- id: faq-s3.007
+  question: 怎么连 WiFi / APP 连不上
+  intent: usage.connect
+  scope:
+    appliance: air_conditioner
+  answer: '1. 手机装「智家」或「美居」App，注册登录
+
+    2. App 首页点「+」添加设备，扫机身二维码或选型号
+
+    3. 按向导连网，一定选 2.4GHz 那个 Wi-Fi
+
+    4. 失败就重来一次，手机尽量靠近空调
+
+    连不上常见原因：连了 5G（不支持）、Wi-Fi 名带中文、路由器下设备太多。
+
+    '
+  source: 03_product/*/usage.yaml#wifi_bind
+  verified: true
+- id: faq-s3.008
+  question: 长时间不用怎么处理
+  intent: usage.maintenance
+  scope:
+    appliance: air_conditioner
+  answer: 断电，把滤网清洗晾干装回，遥控器电池取出来分开存放。等下次用之前先通电看看运转正常不，再长时间开。
+  source: 03_product/*/usage.yaml#long_absence
+  verified: true
+- id: faq-s3.009
+  question: 为什么开 26 度还是不凉
+  intent: usage.setting_confusion
+  scope:
+    appliance: air_conditioner
+  answer: 先看三点：模式是不是在"送风"（送风不制冷）、设定温度是不是比室温低、滤网是不是该洗了。另外室外超过 43℃、或者房间西晒西窗大开，效果都会打折。这三点都排除还是不凉，我帮您走排查流程。
+  source: 03_product/*/usage.yaml#limits
+  verified: true
+- id: faq-s3.010
+  question: 遥控器按了没反应
+  intent: usage.operation
+  scope:
+    appliance: air_conditioner
+  answer: 先换电池，换完还是没反应就把电池取出来等几分钟再装回去。另外遥控距离一般在 7 米内、中间别挡东西，室内机 1 米内也别装日光灯，会干扰信号。都不行就是遥控器或接收头的问题了，我帮您登记。
+  source: 03_product/*/usage.yaml / faults.yaml
+  verified: true
+  handoff:
+    needed: true
+    reason: two_rounds_failed
+- id: faq-s3.011
+  question: 电饭煲水位线怎么用，米种刻度是什么意思
+  intent: usage.operation
+  scope:
+    appliance: rice_cooker
+  answer: 内锅上一般有两组刻度，对应不同米种（常见是东北米和丝苗米），同样的米量下两个米种要加的水不一样——所以先确认您煮的是哪种米，再看对应那条线的刻度。加水量不要超过最高水位线，超了容易溢锅。另外面板上的"米种"键（如果有）要和内锅刻度对上。
+  source: 03_product/rice_cooker/*/usage.yaml#water_line
+  verified: true
+- id: faq-s3.012
+  question: 电饭煲内胆怎么清洗，能用钢丝球吗
+  intent: usage.maintenance
+  scope:
+    appliance: rice_cooker
+  answer: 要看您是哪款。涂层内胆只能海绵或软布洗，钢丝球、清洁球、金属铲都会刮花涂层，也不能进洗碗机——碱性洗涤剂会破坏涂层。不锈钢零涂层的机型（比如 316L
+    那个）本身没涂层，可以用钢丝球。上盖内盖一般能一键拆下来单独洗，洗完擦干装回。
+  source: 03_product/rice_cooker/*/usage.yaml#cleaning
+  verified: true
+  note: 必须先确认型号，同品牌内部答案不同
+- id: faq-s3.013
+  question: 洗衣机放多少洗涤剂合适
+  intent: usage.operation
+  scope:
+    appliance: washer
+  answer: 按洗涤剂包装上的用量来，再参考水质硬度和衣物脏污程度，别凭感觉多倒。倒多了机器会检测到泡沫过多，自动加水漂洗、延长程序时间，衣服反而更容易残留。低泡的机洗专用洗涤剂最稳妥。
+  source: 03_product/washer/*/usage.yaml#detergent
+  verified: true
+- id: faq-s3.014
+  question: 洗衣机的筒自洁怎么用，多久做一次
+  intent: usage.maintenance
+  scope:
+    appliance: washer
+  answer: 有筒自洁程序的机型，清空内筒、不放衣物，选筒自洁/高温洗跑一遍就行，一般一两个月一次，潮湿地区可以更勤。用完记得把门留一条缝、料盒抽出来晾干，异味基本都从门封圈积水和料盒残留来。
+  source: 03_product/washer/*/features.yaml#self_clean + usage.yaml#cleaning
+  verified: true
+- id: faq-s3.015
+  question: 洗完衣服洗衣机的门要开着吗
+  intent: usage.maintenance
+  scope:
+    appliance: washer
+  answer: 建议开一条缝。刚洗完筒里有水汽，密封圈褶皱处也容易存水，门一直关着就容易发霉发臭。但家里有小孩的话要注意别让他们爬进去，能把门微开固定住最好。
+  source: 03_product/washer/*/usage.yaml#cleaning
+  verified: true
+- id: faq-s3.016
+  question: 电饭煲预约怎么设，能预约多久
+  intent: usage.operation
+  scope:
+    appliance: rice_cooker
+  answer: '一般是先选功能、再按"预约"调完成时间（不是开始时间，注意别搞反），最后按开始。各型号上限不同：有的建议不超过 12 小时（超过米饭容易变味），有的写
+    24 小时预约。另外"热饭""保温""蛋糕"这类功能通常不能预约。您是哪款？我查一下具体上限。
+
+    '
+  source: 03_product/rice_cooker/*/specs.yaml#timer_max_h
+  verified: true
+- id: faq-s3.017
+  question: 电饭煲第一次用要做什么
+  intent: usage.first_time
+  scope:
+    appliance: rice_cooker
+  answer: '1. 取出内锅和所有包装件，包括内锅与加热盘之间那块纸卡
+
+    2. 用清水洗净内锅，软布擦干——内外表面都要干，外表面带水放回去会污损加热盘
+
+    3. 内锅放回煲体，轻轻转动让它完全落位，压下面盖听到"咔嗒"声
+
+    4. 面板丝印和内锅边缘的型号核对一下（同一份说明书常覆盖多个型号）
+
+    介意新锅味道的话，可以先放水煮一次倒掉。
+
+    '
+  source: 03_product/rice_cooker/*/usage.yaml#first_use + install.yaml#unpack_check
+  verified: true
+- id: faq-s3.018
+  question: 电饭煲保温能放多久，保温后饭变硬了
+  intent: usage.operation
+  scope:
+    appliance: rice_cooker
+  answer: 说明书建议的保温时长一般是 5~6 小时（不同型号 5 或 6），超过就会干硬、发黄甚至变味。保温不是"放多久都行"，米饭在 60℃ 左右长时间放着容易滋生细菌。要留到下一顿，最好是煮好后盛出来冷藏，吃之前再加热，别一直保温。
+  source: 03_product/rice_cooker/*/specs.yaml#keep_warm_advice_h
+  verified: true
+  note: 数值来自各型号 specs；不建议超过说明书建议时长，但不得把建议说成"超过就坏"
+- id: faq-s3.019
+  question: 电饭煲的上盖、蒸汽阀怎么拆下来洗
+  intent: usage.maintenance
+  scope:
+    appliance: rice_cooker
+  answer: '1. 先断电，等彻底冷却
+
+    2. 按下或上推可拆盖按钮，取下内盖，清水冲洗后擦干，按卡槽装回听到卡合声
+
+    3. 蒸汽阀取下清洗后装回，必须卡到位——没装到位会漏汽，直接影响煮饭效果
+
+    带微压阀的机型（如上盖有可旋阀体）要注意方向：逆时针旋到开锁位取下，装回顺时针旋到闭合位，凸点要对位，不能浮起或倾斜。
+
+    '
+  source: 03_product/rice_cooker/*/usage.yaml#maintenance.clean_lid_and_valve
+  verified: true
+  note: 微压阀装错是"漏汽/煮不熟"的高频原因，回答必须强调对位
+- id: faq-s3.020
+  question: 内胆能不能放进洗碗机洗
+  intent: usage.maintenance
+  scope:
+    appliance: rice_cooker
+  answer: 不能。说明书明确禁止把内锅和可拆盖放进洗碗机——洗碗机的碱性洗涤剂会破坏涂层，涂层一旦起泡脱落就不可逆了。正确做法是等冷却后用软海绵加中性清洁剂手洗，软布擦干再放回。同理也不要用钢丝球、清洁球、金属铲。唯一的例外是不锈钢零涂层内胆（如
+    316L 那款），它本身没有涂层，可以用钢丝球，但不代表能进洗碗机。
+  source: 03_product/rice_cooker/*/usage.yaml#maintenance.clean_inner_pot
+  verified: true
+- id: faq-s3.021
+  question: 稀饭和煮粥有什么区别，该按哪个
+  intent: usage.operation
+  scope:
+    appliance: rice_cooker
+    model:
+    - supor-sf50fc733
+  answer: 这台面板上"稀饭"和"煮粥"是两个独立的功能键，不是同一个功能的不同叫法，别当成一个用。详见 supor-sf50fc733 的 usage.yaml（model_notes）。
+  source: 03_product/rice_cooker/supor/SF50FC733/usage.yaml#model_notes
+  verified: true
+  note: 同品牌其他型号未必分开设键，回答前必须确认型号
+- id: faq-s3.022
+  question: 电饭煲在高原能用吗，为什么煮不熟
+  intent: usage.operation
+  scope:
+    appliance: rice_cooker
+    model:
+    - supor-sf50fc733
+  answer: 这台说明书明确写了正常工作海拔范围是 0~2000 米。详见 supor-sf50fc733 的 usage.yaml（model_notes）。
+  source: 03_product/rice_cooker/supor/SF50FC733/usage.yaml#model_notes
+  verified: true
+  note: 其他型号说明书没给海拔限值，不要替它们套用 2000 米这个数字
+  handoff:
+    needed: false
+- id: faq-s3.023
+  question: 洗衣机刚装好第一次怎么用
+  intent: usage.first_time
+  scope:
+    appliance: washer
+  answer: '1. 先拆掉机身背面 4 颗运输螺栓，不拆脱水时会剧烈震动甚至损坏机器——"新机就抖"九成是这条
+
+    2. 调平：对角线按压顶盖，转底脚调到不晃，有水平仪更好
+
+    3. 先跑一次筒自洁程序，不放衣物也不放洗涤剂
+
+    4. 打开进水龙头，检查进水管接口有没有渗漏
+
+    '
+  source: 03_product/washer/*/usage.yaml#first_use
+  verified: true
+  note: 螺栓数量以各型号说明书为准（本库均为 4 颗）；这条要主动说，不要等用户报震动才提
+- id: faq-s3.024
+  question: 洗衣机该选哪个程序，温度调多少
+  intent: usage.operation
+  scope:
+    appliance: washer
+  answer: 先看衣物护理标签，按标签给的温度上限选，标签画了手洗标就别用机洗程序。日常棉织物 30~40℃ 够用，60℃ 以上主要用于除螨和重污，但会加速衣物损伤和串色。易缩水的羊毛、真丝选对应专用程序，转速调到最低。拿不准的话，按"棉织物
+    + 30℃ + 800 转"起步最稳。
+  source: 03_product/washer/*/usage.yaml#wash_steps
+  verified: true
+  note: 具体程序名各品牌不同（西门子多为棉织物/混合/化纤），不要用某一家的程序名代替
+- id: faq-s3.025
+  question: 自动投放怎么用，洗衣凝珠能放料盒吗
+  intent: usage.operation
+  scope:
+    appliance: washer
+    model:
+    - littleswan-tg10k60
+    - littleswan-tg100v618plus
+    - littleswan-tg10v628plus
+    - littleswan-tg10ve40
+  answer: 自动投放盒能存一定量的洗衣液和柔顺剂，装满了就不用每次加，机器按衣量和脏污程度自己投。详见 littleswan-tg10k60 的 usage.yaml（detergent）。
+  source: 03_product/washer/littleswan/TG10K60/usage.yaml#detergent
+  verified: true
+  note: 无自动投放的机型不适用，回答前先确认这台有没有该功能
+- id: faq-s3.026
+  question: 洗衣机的过滤器（排污口）怎么清理
+  intent: usage.maintenance
+  scope:
+    appliance: washer
+  answer: '1. 拔掉电源插头，轻按过滤器门让它弹开
+
+    2. 拉出紧急排水管，先确认筒内水已冷却，再拔堵头放水（防烫伤）
+
+    3. 用钳子夹住过滤阀向左旋下，取出里面的毛絮杂物
+
+    …详见 littleswan-tg10k60 的 usage.yaml（maintenance.filter_clean）。'
+  source: 03_product/washer/littleswan/TG10K60/usage.yaml#maintenance.filter_clean
+  verified: true
+  note: 周期属说明书缺项，必须标注"建议非条款"
+- id: faq-s3.027
+  question: 洗烘一体能烘多少衣服，为什么烘不干
+  intent: usage.operation
+  scope:
+    appliance: washer
+  answer: 洗烘一体的烘干容量比洗涤容量小，比如洗 10kg 的那台只能烘 7kg——所以一次洗满就要分两批烘，塞满了必然烘不干。详见 siemens-wn54a1x42w
+    的 usage.yaml（model_notes + specs.yaml#dry_capacity_kg）。
+  source: 03_product/washer/siemens/WN54A1X42W/usage.yaml#model_notes + specs.yaml#dry_capacity_kg
+  verified: true
+  note: 只在洗烘一体/干衣机上有意义，单洗机型要说明"这台没有烘干"
+- id: faq-s3.028
+  question: 洗衣机为什么洗得比预计时间长
+  intent: usage.setting_confusion
+  scope:
+    appliance: washer
+  answer: 最常见是泡沫过多。详见 littleswan-tg10k60 的 usage.yaml（model_notes.foam_detection）。
+  source: 03_product/washer/littleswan/TG10K60/usage.yaml#model_notes.foam_detection
+  verified: true
+- id: faq-s3.029
+  question: 洗衣机能记住上次的程序吗，停电了怎么办
+  intent: usage.operation
+  scope:
+    appliance: washer
+    model:
+    - littleswan-tg10k60
+  answer: 这台有程序记忆，默认开启，会记住上次用的程序和参数，下次直接按启动就行。详见 littleswan-tg10k60 的 usage.yaml（model_notes）。
+  source: 03_product/washer/littleswan/TG10K60/usage.yaml#model_notes
+  verified: true
+  note: 程序记忆/断电续跑不是全系标配，回答前确认型号
+out_of_scope:
+  appliances:
+  - refrigerator
+  - microwave
+  reason: 01_source 里只有空调、洗衣机、电饭煲三个品类的说明书，冰箱没有任何原始资料
+  answer: 冰箱这块我这边暂时没有产品资料，不敢凭经验给您结论。您这个型号的说明书/客服电话我帮您找，或者直接转人工。
+  forbid:
+  - 用空调的"不制冷"排查链回答冰箱不制冷
+  - 编造冰箱的保修年限、故障代码含义
+  - 说"冰箱都差不多"来收尾
+  note: 06_platform_policy 里出现的"冰箱"只是退换货条款的通用占位词，不代表本库有冰箱数据

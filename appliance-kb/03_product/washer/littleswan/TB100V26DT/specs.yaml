@@ -1,0 +1,35 @@
+# 参数来源：小天鹅 TB100V26DT「产品介绍」页「规格及技术参数」表（图片资料 → OCR）
+# 键名受 00_schema/spec_dictionary/washer.yaml 约束
+product_id: littleswan-tb100v26dt
+updated: 2026-10-22
+
+specs:
+  capacity_kg:          {value: 10.0, unit: kg, source: "ocr#产品介绍.jpg"}
+  dry_capacity_kg:      {value: null, unit: kg, source: "ocr#产品介绍.jpg", note: 说明书未给干衣容量}
+  spin_speed_rpm:       null            # 波轮说明书未给脱水转速
+  energy_grade:         {value: 1, unit: 级, source: "ocr#产品介绍.jpg"}
+  water_consumption_l:  null            # 说明书未给单次耗水量
+  power_w:              {value: 390, unit: W, source: "ocr#产品介绍.jpg"}
+  power_supply:         {value: "220V~/50Hz", source: "ocr#产品介绍.jpg"}
+  size_mm:              {w: 550, h: 930, d: 565, unit: mm, source: "ocr#产品介绍.jpg",
+                         note: 原文「外形尺寸(宽X厚X高mm) 550X565X930」，已按 宽/厚/高 拆成 w/d/h——波轮标的是「厚」不是「深」}
+  size_max_mm:          null            # 波轮说明书只给一组外形尺寸
+  weight_kg:            {value: 33, unit: kg, source: "ocr#产品介绍.jpg", note: 机器净重}
+  door_width_min_mm:    null            # 说明书只给使用预留空间，未给搬运最小门宽
+  loading_type:         {value: 波轮（顶开式）, source: "ocr#产品介绍.jpg"}
+  needs_water_inlet:    {value: true, source: "ocr#产品介绍.jpg"}
+  needs_drain:          {value: true, source: "ocr#产品介绍.jpg"}
+  drain_type:           {value: 下排水, source: "业务方核实物（2026-10-23）", confidence: confirmed, note: 说明书未标上/下排水。业务方按实物确认为下排水——安装处必须有地漏，不能套「上排水不需要地漏」的规则"}
+  water_pressure_mpa:   {min: 0.03, max: 1.0, unit: MPa, source: "ocr#产品介绍.jpg"}
+  needs_level_ground:   {value: true, source: "ocr#常见问题.jpg",
+                         note: 说明书要求装在坚固水平地面并调平}
+  noise_wash_db:        {value: 56, unit: dB(A), source: "ocr#产品介绍.jpg",
+                         note: 说明书标注「洗涤脱水噪音dB(A) 56/66」，未注明声功率级还是声压级，与其他型号口径可能不同}
+  noise_spin_db:        {value: 66, unit: dB(A), source: "ocr#产品介绍.jpg",
+                         note: 说明书标注「洗涤脱水噪音dB(A) 56/66」，未注明声功率级还是声压级，与其他型号口径可能不同}
+
+missing:
+  - water_consumption_l
+  - door_width_min_mm
+  - spin_speed_rpm（说明书未给脱水转速）
+  - size_max_mm（说明书只有一组外形尺寸）

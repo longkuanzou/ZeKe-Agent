@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "industry": "homeapp",
+  "embedding_mode": "local_model",
+  "embed_model_id": "BAAI/bge-small-zh-v1.5",
+  "positive_top1_min": 0.508562,
+  "negative_top1_max": 0.531636,
+  "threshold": 0.45,
+  "overlap": true,
+  "positive_samples": 154,
+  "negative_samples": 5,
+  "note": "正负分布重叠：已退回默认阈值；需要相对阈值/两段式闸门，绝对阈值在这套语料上分不开"
+}

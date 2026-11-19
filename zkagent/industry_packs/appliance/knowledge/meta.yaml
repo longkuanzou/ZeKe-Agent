@@ -1,0 +1,92 @@
+# 知识文档的元数据（**数据，不是代码分支**）：文档类型与可见性
+#
+# acl_tags 语义：为空表示「公开」；非空表示调用方必须持有**全部**标签才可见。
+# roles 为渠道/坐席侧预留（P3 只记录与过滤，不做身份判定）。
+#
+# 注意：调用方（模型）自报的 acl_tags 一律**不被信任**，见 zkagent/core/rag/knowledge_tool.py。
+#
+# ── 用户链路（journey）由**目录**决定，不在这里声明 ────────────────────────────
+# 目录            链路          典型内容
+# presale/        售前咨询      选购思路、功能支持矩阵、容量/匹数经验值（**不含具体参数**）
+# install/        安装咨询      安装条件、预约流程、收费标准
+# usage/          使用咨询      首次使用、清洁保养、操作技巧
+# troubleshoot/   故障排查      故障码、现象排查步骤、转人工边界
+# after_sales/    售后政策      保修、退换、物流、发票、会员、投诉
+# repair_request/ 报修建单      报修流程、信息采集、备件与进度
+# internal/       内部口径      坐席内部规则（受限，不属对外链路）
+#
+# 规则：**一篇只属于一条链路**；同一事实只在一篇定义，跨链路用「见《标题》」引用。
+# 具体型号与参数（容量/能效/尺寸/价格/库存）**不进文档**，走商品查询工具。
+version: 1
+
+defaults:
+  doc_type: faq
+  acl_tags: []
+  roles: []
+
+docs:
+  # ── 售前咨询 ────────────────────────────────────────────────────────────────
+  - doc_id: presale/overview.md
+    doc_type: manual
+  - doc_id: presale/feature_matrix.md
+    doc_type: manual
+  - doc_id: presale/sizing_guide.md
+    doc_type: manual
+
+  # ── 安装咨询 ────────────────────────────────────────────────────────────────
+  - doc_id: install/installation.md
+    doc_type: manual
+  - doc_id: install/site_requirements.md
+    doc_type: manual
+  - doc_id: install/installation_fees.md
+    doc_type: policy
+
+  # ── 使用咨询 ────────────────────────────────────────────────────────────────
+  - doc_id: usage/first_use.md
+    doc_type: manual
+  - doc_id: usage/cleaning_maintenance.md
+    doc_type: manual
+  - doc_id: usage/operation_tips.md
+    doc_type: manual
+
+  # ── 故障排查 ────────────────────────────────────────────────────────────────
+  - doc_id: troubleshoot/error_codes_washer.md
+    doc_type: manual
+  - doc_id: troubleshoot/error_codes_aircon.md
+    doc_type: manual
+  - doc_id: troubleshoot/error_codes_fridge.md
+    doc_type: manual
+  - doc_id: troubleshoot/noise_and_vibration.md
+    doc_type: manual
+  - doc_id: troubleshoot/handoff_boundary.md
+    doc_type: policy
+
+  # ── 售后政策 ────────────────────────────────────────────────────────────────
+  - doc_id: after_sales/warranty/warranty_policy.md
+    doc_type: policy
+  - doc_id: after_sales/returns/return_policy.md
+    doc_type: policy
+  - doc_id: after_sales/returns/exchange_policy.md
+    doc_type: policy
+  - doc_id: after_sales/logistics/delivery.md
+    doc_type: faq
+  - doc_id: after_sales/billing/invoice.md
+    doc_type: faq
+  - doc_id: after_sales/membership/benefits.md
+    doc_type: policy
+  - doc_id: after_sales/complaints/escalation.md
+    doc_type: policy
+
+  # ── 报修建单 ────────────────────────────────────────────────────────────────
+  - doc_id: repair_request/repair.md
+    doc_type: manual
+  - doc_id: repair_request/intake.md
+    doc_type: manual
+  - doc_id: repair_request/progress_and_parts.md
+    doc_type: manual
+
+  # ── 内部口径：仅持有 internal 标签的调用方可检索到 ───────────────────────────
+  - doc_id: internal/refund_approval_limits.md
+    doc_type: internal
+    acl_tags: [internal]
+    roles: [agent]

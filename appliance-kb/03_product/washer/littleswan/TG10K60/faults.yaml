@@ -1,0 +1,113 @@
+# 型号差异：只放 TG10K60 特有的东西
+# 跨型号通用的现象排查在 04_scenario/s4_troubleshoot/symptoms.yaml
+product_id: littleswan-tg10k60
+updated: 2026-10-22
+
+codes:
+  has_code_display: true
+  display: LED（面板显示信息代码）
+  # 代码数字来自 JPG 资料的 OCR，630 / 613 已与原图核对；
+  # 其余条目的数字 OCR 有粘连（如"1888""16818"），只保留含义、不落数字。
+  rule: [关机后重新开机启动, 同一代码再次出现则报修]
+  known:
+    - code: "630"
+      meaning: 门未合上
+      action: 确认衣物没有被门压住，重新关门后按启动键继续
+      confidence: confirmed
+      source: "ocr#常见问题.jpg"
+    - code: "613"
+      meaning: 料盒未关
+      action: 关机后重新开机启动，并将料盒关闭到位
+      confidence: confirmed
+      source: "ocr#常见问题.jpg"
+    - meaning: 洗涤进水超时
+      action: 确认水龙头已打开、水压正常；不要弯折进水管；清洁进水阀过滤网
+      confidence: partial
+      note: 代码数字在 OCR 中与相邻字符粘连，需对照原图补
+    - meaning: 漂洗进水超时
+      action: 确认机身后排水管管夹未被拆下；排水管不要插入下水道过深处；确认管内无积水
+      confidence: partial
+    - meaning: 衣物不平衡
+      action: 取出衣物抖散或拧掉部分水分后重新放入，按启动/暂停键重新运行
+      confidence: partial
+    - meaning: 排水超时
+      action: 清理排水泵杂物；排水管最高处不要超过 100cm
+      confidence: partial
+    - meaning: 洗衣机溢水
+      action: 关机后重新开机启动；检查排水管是否插入过深或堵塞
+      confidence: partial
+    - meaning: 其他
+      action: 再次出现相同提示则报修
+      confidence: partial
+
+# 说明书明确写出的"现象 → 原因 → 解决"，可作为自助排查第一步
+self_check:
+  - symptom: 机门打不开
+    cause: 正在工作，安全保护设计（门锁）
+    action: 关闭电源重新开机，等待机器安全后开门
+    source: "ocr#常见问题.jpg"
+  - symptom: 漏水
+    cause: 进水管或排水管连接不牢
+    action: 检查并紧固水管，清理排水管
+    source: "ocr#常见问题.jpg"
+  - symptom: 料盒中有残留洗衣粉
+    cause: 洗衣粉受潮、结块
+    action: 清洁并擦干料盒
+    source: "ocr#常见问题.jpg"
+  - symptom: 洗涤效果不佳
+    cause: 衣物太脏 / 洗涤剂剂量不足
+    action: 选择合适的洗衣程序；正确选择洗涤剂或专用机洗低泡洗衣粉
+    source: "ocr#常见问题.jpg"
+  - symptom: 指示灯或显示屏不亮
+    cause: 断电 / 电脑板、线束故障
+    action: 确认未停电，以及电源插头正确插接
+    source: "ocr#常见问题.jpg"
+  - symptom: 震动过大、噪音较大
+    cause: 运输螺栓未拆除 / 机器未安装在坚固的水平地面
+    action: 拆除背面 4 颗运输螺栓；对角线按压机器顶盖，调整底脚使机器平稳
+    source: "ocr#常见问题.jpg"
+  - symptom: 脱水延时或不脱水
+    cause: 衣物过少或过多触发偏心保护 / 检测到泡沫过多等待消泡
+    action: 调整衣物数量并分布均匀后重新运行脱水；泡沫情况等待程序自行完成
+    source: "ocr#常见问题.jpg"
+
+protection:
+  unbalance_detect_rpm: {value: 100, unit: r/min, source: "ocr#使用说明-特色功能介绍.jpg",
+    text: 高速脱水前以约 100rpm 做偏心检测，多次仍不平衡则提示 Ub}
+  drain_hose_max_height_mm: {value: 1000, source: "ocr#常见问题.jpg"}
+
+# 说明书明确"属正常"的现象，用于拦截假故障工单
+normal_phenomena:
+  - id: spin_delay_low_load
+    symptom: 衣物较少时脱水延时或不脱水
+    explain: 偏心保护会先低速检测并重新分布衣物；增加部分衣物均匀分布后按启动键继续
+    source: "ocr#温馨提示.jpg"
+  - id: foam_extra_time
+    symptom: 洗涤中程序时间变长、迟迟不脱水
+    explain: 检测到泡沫过多会进入静置或缓慢转动、进水除泡，属正常
+    source: "ocr#使用说明-特色功能介绍.jpg"
+  - id: power_off_resume
+    symptom: 停电后机器停了，来电后没有继续
+    explain: 断电记忆在来电后继续运行；若断电期间按了电源键关机，则需重新开始
+    source: "ocr#使用说明-特色功能介绍.jpg"
+  - id: program_memory_default
+    symptom: 开机后程序不是默认的，而是上次用的
+    explain: 程序记忆默认开启，记录上次程序与参数；可在美的美居 App 或关机长按面板键 3 秒关闭
+    source: "ocr#使用说明-特色功能介绍.jpg"
+  - id: ub_prompt
+    symptom: 面板显示 Ub
+    explain: 衣物不平衡保护提示，不是硬件故障；取出抖散或拧掉部分水分后重新放入即可
+    source: "ocr#使用说明-特色功能介绍.jpg"
+  - id: door_locked_running
+    symptom: 运行中机门打不开
+    explain: 安全保护设计，运行中门锁不放行；需关机后等待安全时间再开
+    source: "ocr#常见问题.jpg"
+
+model_specific_notes:
+  - 本机为上排水：排水超时先查排水管高度（≤100cm）和管夹，不要先去查地漏
+  - 本机带自动投放：料盒未关会报代码（613），用户常误以为机器坏了
+  - 本机无烘干：用户说"不干"时先确认是不是单洗机型，不存在"烘干坏了"
+
+missing:
+  - 完整故障代码表（说明书给出的代码条目不全，且部分数字 OCR 不可靠）
+  - 各代码对应的具体故障部件（说明书未列，需品牌售后代码表）

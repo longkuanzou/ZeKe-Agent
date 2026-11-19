@@ -1,0 +1,48 @@
+# 安装条件：安装咨询（s2）与上门前确认的唯一依据
+# 洗衣机看的是 电/水/排水/门，不是空调的 电/位/管
+product_id: littleswan-tb100v26dt
+updated: 2026-10-22
+
+electrical:
+  supply: {value: "220V~/50Hz", source: "ocr#产品介绍.jpg"}
+  rated_power_w: {value: 390, source: "ocr#产品介绍.jpg"}
+  dedicated_circuit: {value: null, source: null,
+    note: 说明书未强制要求专用回路；带加热洗的机型功率大，建议独立回路加漏电保护（建议口径，非厂家强制）}
+  grounding: {value: true, source: null,
+    note: 说明书未单列接地章节，按 I 类电器通用要求必须可靠接地}
+
+water:
+  inlet_required: {value: true, source: "ocr#产品介绍.jpg"}
+  pressure_mpa: {min: 0.03, max: 1.0, source: "ocr#产品介绍.jpg",
+    text: 使用水压 0.03~1.0MPa；低于下限表现为进水超时，高于上限需加装减压阀}
+
+drain:
+  type: {value: null, source: "ocr#产品介绍.jpg",
+    text: 说明书未标注上排水还是下排水；波轮机多为下排水，但不得据此回答，需按实物或铭牌确认}
+  hose_setup: {source: "ocr#快速入门.jpg",
+    text: 洗衣前需放下排水管；排水管不得高于机器排水口，否则排不出去}
+
+space:
+  top_clearance_mm: {value: null, source: null,
+    text: 波轮为顶开盖，上方必须留出开盖空间；说明书未给具体数值，需按现场确认}
+  level_ground: {value: true, source: "ocr#常见问题.jpg",
+    text: 必须放在坚固水平地面并调平；不平会直接表现为脱水震动大、噪音大、机器移位}
+
+transport:
+  note: 波轮说明书未提运输螺栓；搬运时按外形尺寸与整机重量评估
+  net_weight_kg: {value: 33, source: "ocr#产品介绍.jpg"}
+
+pre_visit_checklist:
+  - 放置位置是否有进水龙头（普通 3/4 螺纹）
+  - 排水往哪里排（说明书未标排水方式，需现场确认）
+  - 插座位置与是否带地线，会不会被机身挡住
+  - 机器上方是否有足够开盖空间
+  - 从楼下到房间最窄门口宽度、楼梯转角
+  - 楼层与是否有电梯（影响上楼费）
+
+chargeable_items: [上楼费, 远程上门, 加长进水管, 拆门/扩门洞, 加装水龙头]
+not_applicable: [高空作业费, 加长冷媒管, 支架费]      # 洗衣机不产生这些费用
+
+missing:
+  - 开盖预留空间具体数值（说明书为图示，需按现场确认）
+  - 是否强制专用回路（说明书未写，按建议口径回答）

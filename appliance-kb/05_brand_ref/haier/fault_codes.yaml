@@ -1,0 +1,334 @@
+# 海尔空调故障代码表
+#
+# 这份文件的性质变了，务必先读这段：
+#   2026-10-21 版本：本批 5 份海尔说明书全篇无代码释义，所以是"空表 + 处置规则"。
+#   2026-10-23 版本：说明书依然没有，但按用户要求补充了网络来源的代码表。
+#
+# 因此现在文件里同时存在两种可信度完全不同的东西：
+#   ① 有说明书依据的：has_official_table=false、official_process（如果有）
+#   ② 只有网络依据的：codes 里的每一条，全部 verified:false
+#
+# 对外答复口径由 usable_scope 决定，不由"表里有没有这条"决定。
+policy_id: brand.haier.fault_codes
+brand: haier
+brand_cn: 海尔
+applies_to: {appliance: [air_conditioner]}
+updated: 2026-10-23
+
+verified: false
+source_kind: web
+source: "海尔官网英文站故障代码自检页 + 海尔海外服务手册（2025-04 抓取整理）"
+source_note: >
+  代码表来自品牌官网公开页面与海外服务资料，**没有**与中国大陆在售机型的说明书逐一对照，
+  也没有经海尔售后确认。海外机型与国内机型的代码命名有差异的概率不低。
+
+has_official_table: false        # 本批 5 份说明书里有没有代码释义表 → 没有
+has_codes: true                  # 本文件里有没有可用条目 → 有，但都是网络来源
+usable_scope: triage_only        # full | triage_only | none
+usable_scope_note: >
+  triage_only 的含义：这些代码**只用于内部三步判断**——① 归到哪一类问题
+  ② 严重程度够不够停机 ③ 建单时带上代码让师傅备件。
+  对外**不许**把 "E1 = 室内环温传感器故障" 这种部件级结论直接念给用户，
+  因为一旦代码表有偏差，用户会拿着错误部件名去和师傅对质。
+  对外只说类别 + 处置："这个代码一般是传感器或通信这类问题，先断电 10 分钟再上电；
+  还显示就不用再试了，我帮您登记，师傅带检测仪上门确认具体是哪个件。"
+
+# ── 代码 ────────────────────────────────────────────────
+# class 用于分诊归类（sensor / comm / protection / module / compressor / refrigerant / config）
+# severity 取值同 symptoms.yaml：attention（可继续观察）| stop_and_call（停机报修）
+codes_source: "haier.com 故障代码自检页（2025-04）"
+
+codes:
+  # 室内机：传感器
+  - code: E1
+    cn: 室内环境温度传感器故障
+    class: sensor
+    severity: attention
+    user_action: 断电 10 分钟后上电重试；仍显示则报修
+    verified: false
+  - code: E2
+    cn: 室内盘管（蒸发器）温度传感器故障
+    class: sensor
+    severity: attention
+    user_action: 断电 10 分钟后上电重试；仍显示则报修
+    verified: false
+  - code: E5
+    cn: 防冻结保护（室内盘管温度过低）
+    class: protection
+    severity: attention
+    user_action: 先清洗滤网、检查回风是否被遮挡；仍在制冷中报此码多为缺冷媒，需上门
+    note: 这条最容易被误判成"传感器坏了"，实际常见成因是滤网脏堵或冷媒不足
+    verified: false
+
+  # 室内机：电路板 / 风机
+  - code: E4
+    cn: 室内主板存储（EEPROM）参数异常
+    class: module
+    severity: stop_and_call
+    user_action: 报修，更换/重写室内主板
+    verified: false
+  - code: E9
+    cn: 室内过载保护
+    class: protection
+    severity: stop_and_call
+    user_action: 停机报修，不要反复重启
+    verified: false
+  - code: E14
+    cn: 室内风机故障
+    class: module
+    severity: attention
+    user_action: 断电重启一次，风机仍不转则报修
+    verified: false
+
+  # 室内外通信
+  - code: E7
+    cn: 室内外机通信故障
+    class: comm
+    severity: stop_and_call
+    user_action: 停机报修；先确认室内外连接线未被老鼠咬断/未受潮
+    note: 装机后立刻出现此码，优先怀疑连线接错或未接，属安装返修范围
+    verified: false
+
+  # 室外机：传感器
+  - code: F6
+    cn: 室外环境温度传感器故障
+    class: sensor
+    severity: attention
+    user_action: 断电 10 分钟后上电重试；仍显示则报修
+    verified: false
+  - code: F7
+    cn: 吸气温度传感器故障
+    class: sensor
+    severity: attention
+    user_action: 报修
+    verified: false
+  - code: F21
+    cn: 室外盘管（冷凝器）温度传感器故障
+    class: sensor
+    severity: attention
+    user_action: 报修
+    verified: false
+  - code: F25
+    cn: 排气温度传感器故障
+    class: sensor
+    severity: attention
+    user_action: 报修
+    verified: false
+
+  # 室外机：变频模块 / 驱动
+  - code: F1
+    cn: IPM 功率模块保护（过流或过热）
+    class: module
+    severity: stop_and_call
+    user_action: 停机报修；外机散热不良（遮挡、翅片脏堵）是常见外因，先确认外机周围通畅
+    verified: false
+  - code: F3
+    cn: 模块板与室外主板通信故障
+    class: comm
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+  - code: F12
+    cn: 室外主板存储（EEPROM）故障
+    class: module
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+  - code: F27
+    cn: 电流采样异常
+    class: module
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+  - code: F35
+    cn: 驱动板/模块板故障
+    class: module
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+
+  # 室外机：风机 / 压缩机
+  - code: F8
+    cn: 室外直流风机异常
+    class: module
+    severity: stop_and_call
+    user_action: 停机报修；外机风扇不转会导致高压保护连锁报码
+    verified: false
+  - code: F11
+    cn: 压缩机失步（启动或运转失步）
+    class: compressor
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+  - code: F28
+    cn: 压缩机位置检测异常
+    class: compressor
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+  - code: F22
+    cn: 交流过流保护
+    class: protection
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+  - code: F23
+    cn: 压缩机 U/V/W 相过流保护
+    class: protection
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+
+  # 室外机：系统保护
+  - code: F4
+    cn: 排气温度过高保护
+    class: protection
+    severity: stop_and_call
+    user_action: 停机报修；缺冷媒、毛细管堵、外机散热差都会触发
+    verified: false
+  - code: F13
+    cn: 缺冷媒 / 制冷剂泄漏
+    class: refrigerant
+    severity: stop_and_call
+    user_action: 停机报修，禁止用户自行加注
+    note: 报此码时机器通常还能转但不制冷，容易被当成"效果差"拖到过保
+    verified: false
+  - code: F14
+    cn: 四通阀换向异常
+    class: valve
+    severity: stop_and_call
+    user_action: 停机报修；典型表现是制冷制热模式与实际出风相反
+    verified: false
+  - code: F19
+    cn: 电压过高或过低保护
+    class: protection
+    severity: attention
+    user_action: 先用万用表或其它电器确认家里电压是否正常；电压恢复后自动复位
+    note: 农村末端电压、工地临时电最常见；不是机器故障，不要按硬件问题建单
+    verified: false
+  - code: F20
+    cn: 高压保护（系统压力过高）
+    class: protection
+    severity: stop_and_call
+    user_action: 停机报修；先确认外机出风是否被遮挡、翅片是否脏堵
+    verified: false
+
+  # 配置类
+  - code: F43
+    cn: 室内外机型号不匹配（容量/协议不配对）
+    class: config
+    severity: stop_and_call
+    user_action: 停机报修；多为多联机装错室内机或主板不配套
+    note: 装机后首次上电即报，属安装责任，不进保修判定
+    verified: false
+
+# ── 处置规则 ────────────────────────────────────────────
+handling_rule:
+  when_user_reports_code:
+    - 记录代码原文（含字母大小写、是否闪烁、是否只在外机板上可见）
+    - 查本表 → 命中则取 class + severity，按 usable_scope 的口径对外
+    - 未命中 → 不给含义，按"代码未收录"建单
+    - 必问一句"现在还能正常制冷/制热吗"作为分诊依据
+    - severity=stop_and_call → 第一句就说停机，不要再让用户观察
+  answer_template_attention: >
+    这个代码一般是{class_cn}这一类的问题。先按标准流程试一次：关机、断开电源 10 分钟，
+    再上电开机。不显示了可以继续用；还显示的话就不用再试了，我帮您登记，
+    师傅带检测仪上门确认具体是哪个件。
+  answer_template_stop: >
+    这个代码需要先停机，把电源断开，不要再反复开机试了，避免二次损坏。
+    我这边马上帮您登记，麻烦提供一下型号和安装时间。
+  forbid:
+    - 对外把代码念成部件级定论（"就是室内环温传感器坏了"）
+    - 跨品牌套用含义（美的 E1 是通信故障，与海尔完全不同）
+    - 同一问题让用户反复断电重启超过一次
+    - 用网络代码表去否定说明书的书面表述
+
+class_cn:      # 对外的模糊说法，故意不给部件名
+  sensor: 传感器检测异常
+  comm: 室内外机之间通信异常
+  protection: 保护性停机
+  module: 电控板或变频模块异常
+  compressor: 压缩机运转异常
+  refrigerant: 制冷剂循环异常
+  valve: 换向部件异常
+  config: 机型配置不匹配
+
+escalate_hotline: "4006 999 999"
+
+todo:
+  - 向海尔售后索取国内机型的官方代码表，核对本表（海外机型命名可能有差异）
+  - 核对通过后把 usable_scope 提升为 full，并逐条把 verified 置 true
+  - 补录后同步更新 03_product/air_conditioner/haier/*/faults.yaml 的 codes 段
+
+# ══════════════════════════════════════════════════════════════
+# 业务方速查表交叉核对（2026-10-23 新增）
+#
+# 业务方给了《常见错误代码及含义速查表》，E 段与本文件**大面积不一致**：
+#   本文件（haier.com 英文站 + 海外服务手册）：E1 室内环温传感器 / E2 室内盘管传感器 / E4 室内主板 EEPROM / E7 室内外机通信
+#   业务方速查表                              ：E0/E1 内外机通讯 / E2/E3 系统内部故障·低压保护(缺氟) / E4/E6 压缩机排气保护·电压过低保护
+#
+# 两边都不是本批 5 份说明书的原文（说明书全篇无代码释义），谁也不能压倒谁。
+# 但有一条重要区别：**本文件的来源是海外站点与海外手册，业务方表多半是国内售后速查**，
+# 而海尔国内外机型的代码命名本来就不完全一致 → 国内场景下业务方表可能更贴近实际。
+# 反向风险也存在（速查表常把不同系列混在一起），所以不裁定，两套并存。
+biz_crosscheck:
+  source_kind: biz_provided
+  source: "业务方提供的常见错误代码速查表（2026-10-23）"
+  verdict: library_prevails          # wide_conflict_on_e_codes（原描述，见下方 ruling）
+  ruling_policy: >
+    2026-10-23 业务方裁定：**凡与现有条目冲突的，一律以现有表为准**（速查表对应条目不采纳）。
+    理由：速查表未标机型平台，现有表至少能追到说明书或可对照的官方代码族。
+    本条裁定不改变 usable_scope——"采用哪一套"和"这套本身是否经售后核实"是两件事。
+  ruling_date: 2026-10-23
+  ruling_by: 业务方
+
+  conflict:
+    - code: E1
+      ours: 室内环境温度传感器故障（sensor, attention）
+      biz: 内 / 外机通讯故障
+      severity_agree: partial        # 传感器类多可观察，通讯类多为停机
+      reply: 断电 10 分钟重上电；仍显示则建单，只说"传感器或通讯这类问题"，不报部件
+    - code: E2
+      ours: 室内盘管（蒸发器）温度传感器故障（sensor, attention）
+      biz: 系统内部故障 / 系统低压保护（缺氟）
+      severity_agree: partial
+      reply: 同上；若同时"制冷效果变差"，可提示"可能涉及冷媒"，但要说明需上门检测确认
+    - code: E4
+      ours: 室内主板存储（EEPROM）参数异常（module, stop_and_call）
+      biz: 压缩机排气保护
+      severity_agree: stop_and_call
+      reply: 停机报修，不报部件
+
+  biz_only:                          # 本文件未收录，仅业务方表有
+    - {code: E0, cn: 内 / 外机通讯故障, severity: stop_and_call, status: 未核实}
+    - {code: E3, cn: 系统低压保护（缺氟）, severity: attention, status: 未核实}
+    - {code: E6, cn: 电压过低保护, severity: attention, status: 未核实}
+  biz_only_note: >
+      E6（电压过低保护）先让用户确认家里电压/是否多台大功率同时运行，
+      电压恢复后通常会自行复位——这条即使代码表有偏差，处置也不会错。
+
+  ours_only:                         # 本文件有、速查表没有的，继续按本文件做内部分诊
+    - {codes: [E5, E7, E9, E14], note: 防冻结 / 室内外机通信 / 室内过载 / 室内风机}
+    - {codes: F1..F43 共 23 条, note: F 段业务方表完全未覆盖，本文件继续作为唯一来源}
+
+  note: >
+    冲突集中在 E 段 7 条里的 3 条（E1/E2/E4），比例过高，说明两份表大概率来自不同系列或不同代机型。
+    在拿到海尔国内售后书面代码表之前，E 段一律按 triage_only 使用，对外只给"类别 + 处置"。
+
+  # ── 裁定结果（2026-10-23）──────────────────────────────
+  adopt:
+    - {code: "F1..F43（23 条）", note: 速查表未覆盖，继续作为唯一来源}
+    - {code: E5, note: 速查表未覆盖}
+    - {code: E7, note: 速查表未覆盖}
+    - {code: E9, note: 速查表未覆盖}
+    - {code: E14, note: 速查表未覆盖}
+  not_adopt:
+    - {code: E1, ours: 室内环境温度传感器故障, biz: 内/外机通讯故障, action: 按现有表分诊}
+    - {code: E2, ours: 室内盘管温度传感器故障, biz: 系统内部故障/低压保护, action: 按现有表分诊}
+    - {code: E4, ours: 室内主板 EEPROM 参数异常, biz: 压缩机排气保护, action: 按现有表分诊}
+    - {code: E0, ours: 未收录, biz: 内/外机通讯故障, action: 按"代码未收录"处理：建单 + 记录代码原文}
+    - {code: E3, ours: 未收录, biz: 系统低压保护（缺氟）, action: 按"代码未收录"处理}
+    - {code: E6, ours: 未收录, biz: 电压过低保护, action: 按"代码未收录"处理；可先让用户确认家里电压}
+  note: >
+    速查表 E 段 7 条里 3 条冲突、3 条未收录，只有 F 段之外的边角码对得上——
+    这份表基本不能用于海尔空调。现有表继续按 triage_only 用。

@@ -1,0 +1,33 @@
+# 3c 知识元数据：只写 doc_type；journey 由目录推导。
+version: 1
+
+defaults:
+  doc_type: faq
+  acl_tags: []
+  roles: []
+
+docs:
+  - doc_id: presale/selection.md
+    doc_type: manual
+  - doc_id: presale/compare.md
+    doc_type: manual
+  - doc_id: install/activation.md
+    doc_type: manual
+  - doc_id: install/fees.md
+    doc_type: manual
+  - doc_id: usage/first_use.md
+    doc_type: manual
+  - doc_id: usage/care.md
+    doc_type: manual
+  - doc_id: troubleshoot/no_power.md
+    doc_type: manual
+  - doc_id: troubleshoot/handoff.md
+    doc_type: manual
+  - doc_id: after_sales/warranty.md
+    doc_type: manual
+  - doc_id: after_sales/returns.md
+    doc_type: manual
+  - doc_id: repair_request/flow.md
+    doc_type: manual
+  - doc_id: repair_request/progress.md
+    doc_type: manual

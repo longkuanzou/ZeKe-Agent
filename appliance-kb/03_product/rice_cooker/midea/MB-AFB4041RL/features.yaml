@@ -1,0 +1,41 @@
+# 功能清单：售前「有没有」「支不支持」类问题的唯一依据
+# supported: true 有 / false 明确没有 / null 说明书未提及（按不确定处理，不得推定）
+product_id: midea-mb-afb4041rl
+updated: 2026-10-23
+
+features:
+  ih_heating: {supported: false, note: 本机为底盘加热，不是 IH；用户问「是不是 IH」要明确说不是}
+  keep_warm: {supported: true, note: 烹饪结束自动进入保温；原文「建议在保温在 5 小时内为佳」，未声明最长保温时长}
+  timer: {supported: true, note: 原文「预约时间建议不要超过 12 小时」；功能「热饭」「蛋糕」「保温」「无水焗」不能预约}
+  pre_soak: {supported: true, note: 说明书要求杂粮/糙米/豆类烹饪前先用温水浸泡，属使用前提而非独立功能}
+  steam: {supported: null}
+  cake: {supported: true}
+  porridge: {supported: true, note: 面板上「稀饭」与「煮粥/香浓粥」是两个功能，浓稠度不同，不要合并回答}
+  soup: {supported: true}
+  quick_cook: {supported: true}
+  clay_pot: {supported: true}
+  reheat: {supported: true, note: 热饭只适用于当餐剩饭；放置太久的冷饭不要用热饭，会有异味}
+  low_sugar: {supported: false, note: 本机无低糖饭功能，用户问「能不能降糖」答不能}
+  claypot_rice: {supported: null}
+  no_water_bake: {supported: true}
+  braise: {supported: null}
+  multi_grain: {supported: true}
+  brown_rice: {supported: null}
+  mixed_bean: {supported: null}
+  rice_type_select: {supported: false, note: 面板无独立米种键，只能按内锅上的米种刻度对位}
+  texture_select: {supported: null}
+  detachable_lid: {supported: true, note: 内盖/盖板可拆洗}
+  detachable_steam_valve: {supported: true, note: 蒸汽阀可拆洗，装回必须卡到位，否则漏汽影响效果}
+  micro_pressure: {supported: false, note: 本机是常压煮饭，没有微压阀；用户拿「微压更香」对比时不要含糊}
+  self_clean: {supported: null}
+  steam_rack: {supported: true, note: 随机附蒸笼，可上蒸下煮}
+  touch_panel_top: {supported: null}
+  app: {supported: null, note: 说明书未提联网功能，按不支持处理}
+
+# 明确不能说的（防止幻觉，也防投诉）
+cannot_claim:
+  - 任何「降糖」宣传（本机无低糖功能）
+  - 涂层的具体材质与厚度（说明书只说涂层名称，未给参数）
+  - 「可以进洗碗机」（说明书明确禁止内锅与可拆盖进洗碗机/碱性清洗设备）
+  - 「可以用钢丝球刷内锅」（说明书明确禁止）
+  - 说明书未列出的烹饪程序（面板上没有的功能一律不承诺）

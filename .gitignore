@@ -1,0 +1,61 @@
+# 运行期产物（不入版本库）：业务库、检查点、索引、Trace、离线报告
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+indexes/
+traces/
+out/
+*.log
+
+# 环境与密钥（只提交 .env.example）
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# 工具缓存
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.vscode
+
+# IDE 内部数据（计划、记忆、临时笔记）
+.codebuddy/
+
+# 设计与过程文档：设计稿、阶段进度、复盘、评测报告不随公开仓库发布
+docs/
+reading_history.md
+tests/README.md
+tests/test_readme.md
+/appliance-kb/10_ops/
+/appliance-kb/09_eval/_audit.json
+/appliance-kb/09_eval/答案确认页.html
+/appliance-kb/09_eval/答案待确认清单.md
+
+# 上游知识库：只保留重建检索层所需的分层。
+# 01_source（原始扫描件）、02_ingest（抽取中间产物）、08_index（脚本产物）不入库。
+/appliance-kb/01_source/
+/appliance-kb/02_ingest/
+/appliance-kb/08_index/
+
+# homeapp 包的知识由 apps/build_kb_pack 生成，不入库（种子数据与配置随包提供）
+/zkagent/industry_packs/homeapp/knowledge/
+
+# 阶段验证脚本是交付物，不受忽略规则影响
+!tests/gates/run_p*.sh

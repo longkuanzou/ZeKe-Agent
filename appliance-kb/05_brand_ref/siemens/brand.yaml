@@ -1,0 +1,40 @@
+# 西门子品牌级信息（洗衣机 / 干衣机 / 洗干一体）
+#
+# 品牌归属：博西家电（BSH）。同一平台还有博世家电，代码体系与备件体系基本同源，
+# 但**不要拿博世的编号或政策直接答西门子用户**——用户不认，且渠道不同。
+policy_id: brand.siemens.profile
+brand: siemens
+brand_cn: 西门子
+appliance_scope: [washer]
+verified: true
+source: "02_ingest/washer/siemens/*/text.md（各型号说明书）"
+updated: 2026-10-23
+
+service:
+  hotline: "400 889 9999"
+  hotline_source: "说明书 p36「客户服务热线：400 889 9999」"
+  hotline_hours: null
+  app: Home Connect
+  app_note: >
+    西门子的联网功能走 Home Connect，但本批 5 个平台的说明书都没单列联网章节
+    （WG52A108AW 的 features.yaml 里 `wifi` 是 null，说明书未提及）。
+    用户问"能不能连手机"时按型号查 features.yaml#wifi，null 就回答
+    "这台说明书里没写联网功能，我按面板确认后回您"，不要统一答"可以"。
+  app_source: 03_product/washer/siemens/*/features.yaml#wifi
+  warranty_statement: 保修期与保修条款请咨询客服热线（说明书原文，未给年限）
+
+standard:
+  source: null
+  note: 本批 5 份资料未列执行标准号，不得引用 GB 4706.24 / GB/T 4288 之类通用标准号充当依据
+
+notes:
+  - 说明书明确要求**只用原厂备件与附件**，非原厂件导致的损坏不在保修范围；回答"能不能自己买配件"时必须带这条
+  - 排水是**上排水**（本批 5 个平台均如此）：不需要地漏，但排水管末端必须 0~100cm 且不得浸入水中
+  - 进水接头 G3/4 外螺纹，**只用手拧紧**，用工具会拧裂螺纹——这是"漏水报修"里最常见的自伤原因
+  - 运输固定螺栓 4 颗（13 号扳手），不拆就脱水会剧烈震动并可能损坏机器
+  - 两台 WQ53E2D01W + WQ53E2D11W 是**洗干套装（洗衣机 + 热泵干衣机）**，不是单机，
+    用户报"烘不干"时先确认他说的是哪一台
+
+todo:
+  - 补服务时间、Home Connect 服务入口、官方收费标准页
+  - 补执行标准号（需从包装或铭牌取证）

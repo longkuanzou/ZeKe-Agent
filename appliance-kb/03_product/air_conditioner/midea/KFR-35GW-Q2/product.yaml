@@ -1,0 +1,34 @@
+product_id: midea-kfr-35gw-q2
+status: ready
+appliance: air_conditioner
+appliance_cn: 空调
+brand: midea
+brand_cn: 美的
+model: KFR-35GW/Q2
+model_slug: KFR-35GW-Q2
+indoor_model: KFR-35G/Q2
+outdoor_model: KFR-35W/X258
+product_type: 分体挂壁式（变频）
+product_type_tags: [挂机, 壁挂, 变频, 冷暖, 电辅热]
+colloquial: 1.5匹
+energy_grade: 1
+launch_year: null
+updated: 2026-10-21
+
+source_docs:
+  - file: 美的-KFR-35GW-Q2-使用说明书.pdf
+    pages: 38
+    note: 有文本层，作为主抽取源
+  - file: 说明书-part1.jpg
+    note: 拍照版，仅用于核对图表/示意图，需 OCR
+  - file: 说明书-part2.jpg
+    note: 拍照版，仅用于核对图表/示意图，需 OCR
+
+notes:
+  - 说明书技术参数页明确"由于产品改良，参数可能变更，以产品铭牌为准"，回答参数类问题时统一附此免责
+  - 本机无自清洁功能（说明书仅提供"待机清洁状态"用于擦拭导风板），售前不承诺自清洁
+  - 支持美的美居 App，仅 2.4GHz 网络
+
+related:
+  same_series: []
+  compare_group: s1_1.5p_wall

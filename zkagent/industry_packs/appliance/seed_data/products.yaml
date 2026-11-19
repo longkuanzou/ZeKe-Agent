@@ -1,0 +1,117 @@
+# 商品目录种子数据（售前「硬参数」的唯一来源）
+#
+# 为什么单独建表而不是写进 knowledge/*.md：
+#   参数类问题（容量/能效/尺寸/价格/库存）需要**精确值**与**精确匹配**，
+#   放进文档会切块混排、跨品类串行，还会与结构化数据各存一份导致漂移。
+#   知识库只放「软知识」（怎么选、是否适合、安装条件说明），见 knowledge/presale/。
+#
+# 约定：
+#   - 金额一律整数「分」；
+#   - features_json 是 JSON 数组字符串（YAML 里用单引号包住）；
+#   - status: on_sale 在售 / off_shelf 已下架（下架机型仍可查，用于「同型号现售价」类判断）；
+#   - sku 与 seed_data/orders.yaml 中的 sku 对齐，保证「订单 → 商品」可追溯。
+products:
+  - sku: AIR-1999-E
+    category: aircon
+    model: KFR-26GW/E1
+    name: 空调 1 匹壁挂机（定频）
+    price_cents: 199900
+    capacity: 1匹
+    energy_grade: 三级
+    dimensions_mm: "800*275*200"
+    features_json: '["定频", "自清洁"]'
+    install_notes: 需独立回路与可靠接地；外机位需具备排水与维修空间
+    status: on_sale
+    updated_at: "2026-10-01T00:00:00"
+
+  - sku: AIR-4599-D
+    category: aircon
+    model: KFR-35GW/D2
+    name: 空调 1.5 匹壁挂机（变频）
+    price_cents: 459900
+    capacity: 1.5匹
+    energy_grade: 一级
+    dimensions_mm: "885*290*210"
+    features_json: '["变频", "自清洁", "新风"]'
+    install_notes: 需独立回路与可靠接地；新风款需预留外墙开孔位置
+    status: on_sale
+    updated_at: "2026-10-01T00:00:00"
+
+  - sku: AIR-7999-L
+    category: aircon
+    model: KFR-72LW/L3
+    name: 空调 3 匹柜机（变频）
+    price_cents: 799900
+    capacity: 3匹
+    energy_grade: 一级
+    dimensions_mm: "1750*480*350"
+    features_json: '["变频", "自清洁", "新风"]'
+    install_notes: 需独立回路；柜机需预留机身周边散热空间，外机位需承重与排水条件
+    status: on_sale
+    updated_at: "2026-10-01T00:00:00"
+
+  - sku: REF-2599-F
+    category: fridge
+    model: BCD-318D
+    name: 冰箱 318L 双门（直冷）
+    price_cents: 259900
+    capacity: 318L
+    energy_grade: 二级
+    dimensions_mm: "595*650*1780"
+    features_json: '["直冷", "手动除霜"]'
+    install_notes: 需静置 4 小时后再通电；两侧与背部各留 5cm 以上散热间距
+    status: on_sale
+    updated_at: "2026-10-01T00:00:00"
+
+  - sku: REF-6999-B
+    category: fridge
+    model: BCD-501W
+    name: 冰箱 501L 十字对开门（风冷）
+    price_cents: 699900
+    capacity: 501L
+    energy_grade: 一级
+    dimensions_mm: "830*700*1900"
+    features_json: '["风冷无霜", "变频", "制冰机"]'
+    install_notes: 门体开启需预留 90° 以上空间；需静置 4 小时后再通电
+    status: on_sale
+    updated_at: "2026-10-01T00:00:00"
+
+  - sku: WSH-1499-B
+    category: washer
+    model: TB80-V20
+    name: 洗衣机 8kg 波轮
+    price_cents: 149900
+    capacity: 8kg
+    energy_grade: 二级
+    dimensions_mm: "520*540*880"
+    features_json: '["快洗", "桶风干"]'
+    install_notes: 需匹配的进水管与水龙头；排水管需低于机身或接入地漏
+    status: on_sale
+    updated_at: "2026-10-01T00:00:00"
+
+  - sku: WSH-3299-A
+    category: washer
+    model: TG100-V88
+    name: 洗衣机 10kg 滚筒洗烘一体
+    price_cents: 329900
+    capacity: 10kg
+    energy_grade: 一级
+    dimensions_mm: "595*600*850"
+    features_json: '["洗烘一体", "烘干", "除菌洗", "筒自洁", "变频"]'
+    install_notes: 需匹配的进水管与水龙头；机身必须调平，运输螺钉使用前必须拆除
+    status: on_sale
+    updated_at: "2026-10-01T00:00:00"
+
+  # 已停产机型：仍保留在目录里，用于「同型号现售价」这类判断；默认检索不含它
+  - sku: REF-1799-A
+    category: fridge
+    model: BCD-206D
+    name: 冰箱 206L 双门（已停产）
+    price_cents: 179900
+    capacity: 206L
+    energy_grade: 二级
+    dimensions_mm: "545*570*1600"
+    features_json: '["直冷", "手动除霜"]'
+    install_notes: 需静置 4 小时后再通电；两侧与背部各留 5cm 以上散热间距
+    status: off_shelf
+    updated_at: "2026-06-01T00:00:00"

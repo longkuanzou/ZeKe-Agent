@@ -1,0 +1,55 @@
+# 型号差异：只放本型号特有的东西
+# 跨型号通用的现象排查在 04_scenario/s4_troubleshoot/symptoms.yaml
+product_id: midea-mb-re576s
+updated: 2026-10-23
+
+codes:
+  has_code_display: false
+  known: []      # 本资料未给故障代码表
+  note: 说明书只有「常见问题」现象排查，无逐码表；用户报具体代码时不得自行释义，统一按现象对应，无法对应即建单
+
+self_check:
+  - symptom: 煮出来过软、过硬、过稠、过稀、没煮熟、焦饭、米汤溢出、沸腾不足
+    cause: 米水比例不对（没按水位线加水） / 功能选错 / 内锅底或加热盘有异物 / 蒸汽阀（微压阀）没装到位 / 内锅变形
+    action: 先按水位线重新加水并选对应功能；擦干并清掉内锅底与加热盘上的异物；确认蒸汽阀装到位、听到卡合声；内锅变形则送修更换，不可继续使用
+    source: 'ocr#img:产品简介.jpg'
+  - symptom: 保温时有异味、变色、发干
+    cause: 密封圈与内锅边沿夹了异物 / 产品漏气 / 保温时间过长
+    action: 清除边沿异物；漏气需换密封圈（送修）；保温建议控制在 5 小时内
+    source: 'ocr#img:产品简介.jpg'
+  - symptom: 工作过程中有异响
+    cause: 内锅外表面有水未擦干 / 继电器通断声音
+    action: 用前把内锅外表面擦干；继电器通断的「咔嗒」声属正常
+    source: 'ocr#img:产品简介.jpg'
+
+normal_phenomena:
+  - id: relay_click
+    symptom: 工作过程中有「咔嗒」通断声
+    explain: 继电器/温控器通断的正常声音，不是故障
+    source: 'ocr#img:产品简介.jpg'
+  - id: steam_from_valve
+    symptom: 上盖蒸汽阀冒白汽、有水汽
+    explain: 微压/排气设计的正常排气，靠蒸汽阀控压，不要堵住出汽口
+    source: 'ocr#img:产品简介.jpg'
+  - id: rice_crust
+    symptom: 锅底有一层薄锅巴
+    explain: 底盘加热在最后焖饭阶段升温收水，薄锅巴属正常；厚到发黑才是异常
+    source: 'ocr#img:产品简介.jpg'
+
+protection:
+  no_water_no_heat:
+    value: true
+    source: null
+    text: 未放内锅或未放水时机器不加热（防干烧/检锅），属保护设计，不是故障
+  overheat_cutoff:
+    value: true
+    source: null
+    text: 热熔断器为一次性保护，动作后必须送修，不可自行短接
+
+model_specific_notes:
+  - 「饭不好吃」类投诉先按米水比、功能选择、加热盘异物、蒸汽阀是否装到位四条排查，四条都排除后才怀疑感温元件
+
+missing:
+  - 完整故障代码表（本资料未给，用户报码需建单核实）
+  - 各故障对应的具体部件与判废标准（说明书只写「送指定维修点维修」）
+  - 保修年限与包修范围（部分型号说明书有「一年包修」条款，但需与最新三包政策核对）

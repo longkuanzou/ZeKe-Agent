@@ -1,0 +1,26 @@
+products:
+  - sku: PHN-4999-X
+    category: phone
+    model: X100 Pro
+    name: 旗舰手机 X100 Pro 256G
+    price_cents: 499900
+    capacity: 256GB
+    energy_grade: 不适用
+    dimensions_mm: "162*75*8.5"
+    features_json: '["5G", "256GB", "高刷屏", "快充"]'
+    install_notes: 无需上门安装；首次开机按引导激活
+    status: on_sale
+    updated_at: "@now-1d"
+
+  - sku: PAD-3299-A
+    category: tablet
+    model: Pad Air 11
+    name: 平板 Pad Air 11 128G
+    price_cents: 329900
+    capacity: 128GB
+    energy_grade: 不适用
+    dimensions_mm: "250*180*6.5"
+    features_json: '["11英寸", "128GB", "手写笔支持", "Wi-Fi"]'
+    install_notes: 无需上门安装；手写笔需单独购买
+    status: on_sale
+    updated_at: "@now-1d"

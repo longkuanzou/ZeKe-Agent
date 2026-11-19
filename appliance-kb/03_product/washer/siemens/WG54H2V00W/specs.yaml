@@ -1,0 +1,36 @@
+# 参数来源：西门子 WG54H2V00W「技术数据」页（PDF 原生文本层）
+# 键名受 00_schema/spec_dictionary/washer.yaml 约束
+product_id: siemens-wg54h2v00w
+updated: 2026-10-23
+
+specs:
+  capacity_kg:          {value: 10.0, unit: kg, source: p18}
+  dry_capacity_kg:      null            # 单洗机型，无干衣容量
+  spin_speed_rpm:       null            # 技术数据页未给脱水转速
+  energy_grade:         {value: 1, unit: 级, source: p18, note: GB 12021.4}
+  water_consumption_l:  null
+  power_w:              {value: 1900, unit: W, source: p18}
+  power_supply:         {value: 220V，50Hz, source: p18}
+  rated_current_a:      {value: 10, unit: A, source: p18, note: 原文「最小接线保险」}
+  size_mm:              {w: 598, h: 848, d: 590, unit: mm, source: p18,
+                         note: 原文「电器高度 84.8cm / 电器宽度 59.8cm / 电器深度 59.0cm」，已换算成 mm 并按 w/h/d 存放}
+  door_open_depth_mm:   {value: 1073, unit: mm, source: p18,
+                         note: 门打开时的整机深度，过道/门口转弯要按这个算，不是机身深度}
+  weight_kg:            {value: 78.4, unit: kg, source: p18}
+  door_width_min_mm:    null
+  loading_type:         {value: 滚筒（前开式）, source: p18}
+  needs_water_inlet:    {value: true, source: p18}
+  needs_drain:          {value: true, source: p18}
+  drain_type:           {value: 上排水, source: p18, note: 排水泵排水，排水管末端 0~100cm 高度}
+  water_pressure_mpa:   {min: 0.1, max: 1.0, unit: MPa, source: p18,
+                         note: 原文 0.1~1 MPa（1~10 bar）；低于下限需增压，高于上限需装减压阀}
+  needs_level_ground:   {value: true, source: p18, note: 必须调平，否则震动与噪音明显增大}
+  noise_wash_db:        {value: 46, unit: dB(A), source: p18, note: GB/T 19606}
+  noise_spin_db:        {value: 69, unit: dB(A), source: p18, note: 脱水噪声，GB/T 19606}
+  hose_inlet_cm:        {value: 120, unit: cm, source: p18}
+  hose_drain_cm:        {value: 150, unit: cm, source: p18}
+
+missing:
+  - spin_speed_rpm（技术数据页未给，面板可调）
+  - door_width_min_mm（说明书未给搬运最小门宽，只给机身与开门深度）
+  - water_consumption_l（说明书未给单次耗水量）

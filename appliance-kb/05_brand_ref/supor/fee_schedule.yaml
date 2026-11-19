@@ -1,0 +1,128 @@
+# 苏泊尔电饭煲收费与配件政策
+#
+# 说明书只写"不属于包修范围的产品，将提供收费维修服务，苏泊尔特约售后服务商将热情为您服务"，
+# **没有金额**。且苏泊尔的售后模式是"送到特约服务商"，不是上门——这是与空调/洗衣机最大的差别，
+# 所以收费项目里根本没有"上门费""高空费""安装费"。
+policy_id: brand.supor.fee_schedule
+brand: supor
+brand_cn: 苏泊尔
+applies_to: {appliance: [rice_cooker]}
+source: "F50X96 系列通用本售后服务页（收费维修口径）；金额为行业参考"
+verified: true                  # 收费维修口径有说明书依据
+price_verified: false
+price_basis: >
+  2025 年小家电维修市场公开报价区间；小家电以送修为主，上门属于增值服务，
+  各区域差异大；仅用于给用户心理预期，不构成报价。
+price_source_url: "全国服务热线 400-8899-717 / 官方微信公众号"
+updated: 2026-10-23
+
+principle: >
+  包修期内、家庭使用、非人为故障 → 免费维修（需带包修证明到特约服务商处）。
+  不属于包修范围的 → 收费维修。报价在检修后出具，须用户同意再修。
+
+items:
+  - key: installation
+    cn: 安装费
+    unit: 台
+    price_min: 0
+    price_max: 0
+    verified: true
+    note: 电饭煲免安装；不存在安装费、高空费、加长管费
+  - key: repair_labor
+    cn: 保外维修人工费
+    unit: 台
+    price_min: 30
+    price_max: 80
+    verified: false
+    note: 送修价；上门维修普遍另加上门费
+  - key: home_visit
+    cn: 上门服务费（非标配）
+    unit: 次
+    price_min: 30
+    price_max: 80
+    verified: false
+    note: 部分区域不提供上门，需先确认；不要主动承诺"师傅上门"
+  - key: inner_pot
+    cn: 内胆更换
+    unit: 个
+    price_min: 80
+    price_max: 300
+    verified: false
+    note: 差异极大：普通涂层胆 80~120，球釜 120~180，纯钛/不锈钢 200~300+；按型号配件价，不得报统一价
+  - key: upper_lid
+    cn: 上盖/内盖组件
+    unit: 套
+    price_min: 40
+    price_max: 120
+    verified: false
+  - key: seal_ring
+    cn: 密封圈
+    unit: 个
+    price_min: 15
+    price_max: 50
+    verified: false
+  - key: micro_pressure_valve
+    cn: 微压阀组件
+    unit: 套
+    price_min: 30
+    price_max: 80
+    verified: false
+    note: 微压机型核心件，装不到位会漏汽影响效果
+  - key: sugar_reducer
+    cn: 低糖甑（配件）
+    unit: 个
+    price_min: 50
+    price_max: 120
+    verified: false
+    note: 低糖饭必须用配套低糖甑，单独补件常见
+  - key: far_infrared_tube
+    cn: 顶部远红外发热管更换
+    unit: 套
+    price_min: 60
+    price_max: 150
+    verified: false
+  - key: shipping_back
+    cn: 寄修往返运费
+    unit: 次
+    price_min: 20
+    price_max: 60
+    verified: false
+    note: 保内质量问题通常由品牌承担；保外或人为损坏由用户承担
+
+not_applicable: [高空作业费, 加长冷媒管, 加长进水管, 地漏改造, 拆门/扩门洞, 支架费, 上楼费]
+
+answer_rules:
+  - 先说明"电饭煲不需要安装，也没有安装费"
+  - 先说售后模式是"送到特约服务商"，再说费用；不要让用户以为一定有人上门
+  - 内胆价格必须按型号问清再报区间，不同内胆差 3 倍
+  - 给区间必须带定性："这是行业常见范围，具体以服务商检修后报价为准"
+  - 用户追问具体金额 → 引导 400-8899-717 或官方微信公众号
+
+todo:
+  - 补官方配件价目表（内胆按型号分别列），这是电饭煲售后最贵也最常问的一项
+
+# ══════════════════════════════════════════════════════════════
+# 保外维修收费（2026-10-23 新增）
+#
+# 苏泊尔的情况和空调/洗衣机不一样：小家电基本走**送修**，没有"上门检测费"这一项，
+# 也没有简修/小修/中修的分级，只有"人工费 + 配件费"两块。
+repair_grade_labor:
+  source_kind: biz_reference
+  source: "业务方提供的电饭煲保外维修收费标准参考（2026-10-23）"
+  price_verified: false
+  service_mode: 送修（不默认上门）
+  labor: {price_min: 30, price_max: 100}
+  parts: {price_min: 10, price_max: 30}
+  parts_caveat: >
+    配件 10~30 元这个区间只可能覆盖小件（密封圈、蒸汽阀、电源线、饭勺这类）。
+    内胆、加热盘、主控板显然不在这个区间内——用户问这三样时不得引用 10~30。
+  note: >
+    苏泊尔"配件便宜"这个印象来自小件，不能推及内胆。内胆是电饭煲最贵的配件，
+    换内胆常常接近换新机的成本，回答时要直说这一点，不要含糊。
+
+repair_grade_answer_rules:
+  - 先说服务方式是送修，不要默认"师傅上门"（与 s6 剧本一致）
+  - 人工 30~100 可以直接报，这是小家电的常见量级
+  - 配件 10~30 必须限定成"小件"，内胆/加热盘/主控板不适用，需按型号查价目表
+  - 用户问"换个内胆多少钱" → 答"内胆要按型号单独报，通常接近新机价格的一大半，
+    我帮您查这个型号的内胆价；如果接近整机价，其实不如换新"

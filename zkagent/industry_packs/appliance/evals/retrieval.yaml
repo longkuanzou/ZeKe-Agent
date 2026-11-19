@@ -1,0 +1,301 @@
+# 检索评测集（gold 标注）——用于 Recall@k / MRR@k / nDCG@k，见 DESIGN §6.3.7
+#
+# 约定：
+# - gold 用 **doc_id**（相对 knowledge/ 的路径），评测在**文档级**计算：
+#   检索返回的分块先按 doc_id 去重，避免「一篇文档切了很多块」虚高召回；
+# - rel 为相关性等级（2 = 强相关，1 = 弱相关），供 nDCG 使用，缺省为 1；
+# - journey 标注该用例属于哪条**用户链路**，用于分组指标（`--by-journey`）：
+#   它能直接回答「哪条链路覆盖不足」，而不是只有一个总体平均分；
+# - filters 可指定 doc_types / journeys / acl_tags（默认不传 = 只检索公开文档）。
+#
+# 注意：**售前链路的参数类问题（容量/能效/尺寸/价格）不在这里评测**——那些走
+# search_products / get_product（结构化查询），用工具测试覆盖；本文档只评测「软知识」检索。
+version: 1
+
+queries:
+  # ── 售前咨询 ────────────────────────────────────────────────────────────────
+  - id: presale_aircon_dry
+    journey: presale
+    query: 空调能烘干衣服吗
+    gold:
+      - {doc_id: presale/feature_matrix.md, rel: 2}
+
+  - id: presale_pick_capacity
+    journey: presale
+    query: 1.5 匹空调适合多大房间
+    gold:
+      - {doc_id: presale/sizing_guide.md, rel: 2}
+
+  - id: presale_washer_type
+    journey: presale
+    query: 滚筒和波轮怎么选
+    gold:
+      - {doc_id: presale/overview.md, rel: 2}
+
+  # ── 安装咨询 ────────────────────────────────────────────────────────────────
+  - id: install_free_scope
+    journey: install
+    query: 空调安装包含哪些免费项目
+    gold:
+      - {doc_id: install/installation.md, rel: 2}
+
+  - id: install_fridge_door
+    journey: install
+    query: 冰箱进门要留多宽
+    gold:
+      - {doc_id: install/site_requirements.md, rel: 2}
+
+  - id: install_fees_pipe
+    journey: install
+    query: 空调加长管线怎么收费
+    gold:
+      - {doc_id: install/installation_fees.md, rel: 2}
+
+  - id: install_upstairs_fee
+    journey: install
+    query: 没有电梯要收上楼费吗
+    gold:
+      - {doc_id: install/installation_fees.md, rel: 2}
+
+  # ── 使用咨询 ────────────────────────────────────────────────────────────────
+  - id: usage_washer_first
+    journey: usage
+    query: 新洗衣机第一次用要注意什么
+    gold:
+      - {doc_id: usage/first_use.md, rel: 2}
+
+  - id: usage_fridge_stand
+    journey: usage
+    query: 冰箱搬回家要静置多久才能通电
+    gold:
+      - {doc_id: usage/first_use.md, rel: 2}
+
+  # ── 故障排查 ────────────────────────────────────────────────────────────────
+  - id: ts_washer_e1
+    journey: troubleshoot
+    query: 洗衣机显示 E1 不进水怎么办
+    gold:
+      - {doc_id: troubleshoot/error_codes_washer.md, rel: 2}
+
+  - id: ts_washer_e4
+    journey: troubleshoot
+    query: 洗衣机脱水震动很大报 E4
+    gold:
+      - {doc_id: troubleshoot/error_codes_washer.md, rel: 2}
+
+  - id: ts_aircon_e1
+    journey: troubleshoot
+    query: 空调报 E1 是什么故障
+    gold:
+      - {doc_id: troubleshoot/error_codes_aircon.md, rel: 2}
+
+  - id: ts_fridge_noise
+    journey: troubleshoot
+    query: 冰箱嗡嗡响正常吗
+    gold:
+      - {doc_id: troubleshoot/noise_and_vibration.md, rel: 2}
+      - {doc_id: troubleshoot/error_codes_fridge.md, rel: 1}
+
+  - id: ts_handoff
+    journey: troubleshoot
+    query: 哪些情况必须转人工处理
+    gold:
+      - {doc_id: troubleshoot/handoff_boundary.md, rel: 2}
+
+  # ── 售后政策 ────────────────────────────────────────────────────────────────
+  - id: warranty_period_aircon
+    journey: after_sales
+    query: 空调保修几年
+    gold:
+      - {doc_id: after_sales/warranty/warranty_policy.md, rel: 2}
+
+  - id: warranty_compressor_fridge
+    journey: after_sales
+    query: 冰箱压缩机保修多久
+    gold:
+      - {doc_id: after_sales/warranty/warranty_policy.md, rel: 2}
+
+  - id: warranty_out_of_scope
+    journey: after_sales
+    query: 哪些情况不属于保修范围
+    gold:
+      - {doc_id: after_sales/warranty/warranty_policy.md, rel: 2}
+
+  - id: return_seven_days
+    journey: after_sales
+    query: 七天无理由退货需要满足什么条件
+    gold:
+      - {doc_id: after_sales/returns/return_policy.md, rel: 2}
+
+  - id: return_unboxed
+    journey: after_sales
+    query: 拆封了的冰箱还能七天无理由退货吗
+    gold:
+      - {doc_id: after_sales/returns/return_policy.md, rel: 2}
+
+  - id: return_before_shipping
+    journey: after_sales
+    query: 未发货的订单可以申请退款吗
+    gold:
+      - {doc_id: after_sales/returns/return_policy.md, rel: 2}
+
+  - id: return_high_value_manual
+    journey: after_sales
+    query: 退款金额较大需要人工审核吗
+    gold:
+      - {doc_id: after_sales/returns/return_policy.md, rel: 2}
+      - {doc_id: after_sales/complaints/escalation.md, rel: 1}
+
+  - id: exchange_conditions
+    journey: after_sales
+    query: 换货需要满足哪些条件
+    gold:
+      - {doc_id: after_sales/returns/exchange_policy.md, rel: 2}
+
+  - id: logistics_update
+    journey: after_sales
+    query: 物流信息长时间不更新怎么办
+    gold:
+      - {doc_id: after_sales/logistics/delivery.md, rel: 2}
+
+  - id: invoice_special
+    journey: after_sales
+    query: 怎么开增值税专用发票
+    gold:
+      - {doc_id: after_sales/billing/invoice.md, rel: 2}
+
+  - id: membership_gold_tier
+    journey: after_sales
+    query: 金卡会员有哪些售后权益
+    gold:
+      - {doc_id: after_sales/membership/benefits.md, rel: 2}
+
+  - id: complaint_response_time
+    journey: after_sales
+    query: 投诉多久会有响应
+    gold:
+      - {doc_id: after_sales/complaints/escalation.md, rel: 2}
+
+  # ── 报修建单 ────────────────────────────────────────────────────────────────
+  - id: repair_visit_fee
+    journey: repair_request
+    query: 上门维修要收上门费吗
+    gold:
+      - {doc_id: repair_request/repair.md, rel: 2}
+
+  - id: repair_intake
+    journey: repair_request
+    query: 报修需要提供哪些信息
+    gold:
+      - {doc_id: repair_request/intake.md, rel: 2}
+
+  - id: repair_progress
+    journey: repair_request
+    query: 维修进度怎么查
+    gold:
+      - {doc_id: repair_request/progress_and_parts.md, rel: 2}
+
+  # ── M1/M13 扩充：全部从现有 26 篇文档出题；等价项逐条写 note ──────────────────
+  - id: presale_aircon_dehumidify
+    journey: presale
+    query: 空调除湿和制冷有什么区别
+    gold:
+      - {doc_id: presale/feature_matrix.md, rel: 2}
+      - {doc_id: usage/operation_tips.md, rel: 1, note: 日常使用章节也直接解释了除湿模式}
+
+  - id: presale_fridge_capacity
+    journey: presale
+    query: 冰箱人均容积怎么估算
+    gold:
+      - {doc_id: presale/sizing_guide.md, rel: 2}
+      - {doc_id: presale/overview.md, rel: 1, note: 选购思路章节给出同一口径的经验值}
+
+  - id: presale_washer_dry_capacity
+    journey: presale
+    query: 带烘干的洗衣机要选多大容量
+    gold:
+      - {doc_id: presale/sizing_guide.md, rel: 2}
+      - {doc_id: presale/feature_matrix.md, rel: 1, note: 功能矩阵列出烘干支持与容量对应关系}
+
+  - id: install_fridge_clearance
+    journey: install
+    query: 冰箱安装要预留多大空间
+    gold:
+      - {doc_id: install/site_requirements.md, rel: 2}
+      - {doc_id: install/installation.md, rel: 1, note: 安装准备章节也列了散热间距}
+
+  - id: install_washer_water
+    journey: install
+    query: 洗衣机安装对水龙头有什么要求
+    gold:
+      - {doc_id: install/site_requirements.md, rel: 2}
+      - {doc_id: install/installation.md, rel: 1, note: 安装前准备含进水条件}
+
+  - id: usage_aircon_filter
+    journey: usage
+    query: 空调滤网多久清洗一次
+    gold:
+      - {doc_id: usage/cleaning_maintenance.md, rel: 2}
+      - {doc_id: usage/operation_tips.md, rel: 1, note: 使用技巧里重复了清洗周期}
+
+  - id: usage_new_fridge
+    journey: usage
+    query: 新冰箱第一次使用要静置多久
+    gold:
+      - {doc_id: usage/first_use.md, rel: 2}
+      - {doc_id: usage/operation_tips.md, rel: 1, note: 注意事项章节给出同一静置要求}
+
+  - id: troubleshoot_washer_e2
+    journey: troubleshoot
+    query: 洗衣机显示 E2 是什么故障
+    gold:
+      - {doc_id: troubleshoot/error_codes_washer.md, rel: 2}
+      - {doc_id: troubleshoot/handoff_boundary.md, rel: 1, note: 排水异常何时转人工由边界文档定义}
+
+  - id: troubleshoot_aircon_leak
+    journey: troubleshoot
+    query: 空调室内机滴水怎么处理
+    gold:
+      - {doc_id: troubleshoot/error_codes_aircon.md, rel: 2}
+      - {doc_id: troubleshoot/handoff_boundary.md, rel: 1, note: 漏水属需要上门判断的情形}
+
+  - id: after_sales_warranty_card
+    journey: after_sales
+    query: 保修卡丢了还能保修吗
+    gold:
+      - {doc_id: after_sales/warranty/warranty_policy.md, rel: 2}
+      - {doc_id: after_sales/membership/benefits.md, rel: 1, note: 会员权益章节说明电子凭证可替代}
+
+  - id: after_sales_damaged_parcel
+    journey: after_sales
+    query: 签收时发现外包装破损怎么办
+    gold:
+      - {doc_id: after_sales/logistics/delivery.md, rel: 2}
+      - {doc_id: after_sales/returns/return_policy.md, rel: 1, note: 破损签收后的退换路径在退货政策}
+
+  - id: repair_required_info
+    journey: repair_request
+    query: 报修要准备哪些信息
+    gold:
+      - {doc_id: repair_request/intake.md, rel: 2}
+      - {doc_id: repair_request/repair.md, rel: 1, note: 报修方式章节列了同样的必填项}
+
+  - id: repair_parts_wait
+    journey: repair_request
+    query: 维修备件一般要等多久
+    gold:
+      - {doc_id: repair_request/progress_and_parts.md, rel: 2}
+      - {doc_id: repair_request/repair.md, rel: 1, note: 维修周期章节给出备件等待区间}
+
+  - id: after_sales_invoice_title
+    journey: after_sales
+    query: 发票抬头写错了还能改吗
+    gold:
+      - {doc_id: after_sales/billing/invoice.md, rel: 2}
+
+  - id: after_sales_complaint_sla
+    journey: after_sales
+    query: 投诉后多久会回复
+    gold:
+      - {doc_id: after_sales/complaints/escalation.md, rel: 2}
+      - {doc_id: troubleshoot/handoff_boundary.md, rel: 1, note: 升级到人工后的时限在两处一致}

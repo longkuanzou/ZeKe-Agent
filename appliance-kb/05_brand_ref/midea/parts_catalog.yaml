@@ -1,0 +1,252 @@
+# 美的备件/耗材目录（空调 + 电饭煲）
+policy_id: brand.midea.parts_catalog
+brand: midea
+applies_to: {appliance: [air_conditioner, rice_cooker]}
+verified: false
+source: null
+updated: 2026-10-23
+
+consumables:
+  - key: filter_mesh
+    cn: 滤尘网
+    part_no: null
+    price: null
+  - key: remote_battery
+    cn: 遥控器电池
+    spec: null
+
+replaceable_parts:
+  - key: remote
+    cn: 遥控器
+  - key: filter_mesh
+    cn: 滤尘网
+  - key: drain_hose
+    cn: 排水管
+  - key: bracket
+    cn: 安装支架
+  - key: pcb_indoor
+    cn: 室内机主板
+  - key: pcb_outdoor
+    cn: 室外机主板
+  - key: fan_motor
+    cn: 风机电机
+  - key: compressor
+    cn: 压缩机
+  - key: four_way_valve
+    cn: 四通阀
+
+# ── 电饭煲 ──────────────────────────────────────────────
+# 电饭煲的"备件"其实大半是用户能自己装的配件（内胆、密封圈、蒸汽阀），
+# 这类问题九成不需要上门：先判断是件坏了还是没装到位，能寄件就寄件。
+rice_cooker_consumables:
+  - key: inner_pot
+    cn: 内锅/内胆
+    note: 涂层脱落、变形才换；变形后继续用会导致受热不均、煮不熟
+  - key: seal_ring
+    cn: 上盖密封圈
+    note: 老化漏汽会表现为"饭夹生、蒸汽从边上冒"
+  - key: steam_valve
+    cn: 蒸汽阀/微压阀组件
+    note: 微压机型核心件；装不到位（没听到卡合声）会漏汽
+  - key: measuring_cup
+    cn: 量杯
+  - key: rice_spatula
+    cn: 饭勺/汤勺
+  - key: steam_rack
+    cn: 蒸笼
+
+rice_cooker_replaceable_parts:
+  - key: heating_plate
+    cn: 电热盘（底盘加热机型）
+  - key: ih_coil
+    cn: 线圈盘（IH 机型）
+  - key: top_sensor
+    cn: 上盖温度传感器
+  - key: bottom_sensor
+    cn: 底部温度传感器
+  - key: igbt
+    cn: IGBT 功率模块
+  - key: pcb
+    cn: 主控板
+  - key: lid_latch
+    cn: 开盖扣/盖锁组件
+  - key: far_infrared_tube
+    cn: 顶部远红外发热管（苏泊尔微压机型有，美的机型无此件）
+
+todo:
+  - 补零件号与参考价
+  - 注意 KFR-35GW/A11 为小天鹅品牌，备件体系可能独立，需单独确认
+
+# ══════════════════════════════════════════════════════════════
+# 备件参考价（2026-10-23 业务方提供《家电备件价格参考表》）
+#
+# 性质：市场参考价（含配件费），不含上门费/人工费/高空作业费；零件号为参考编号，
+#      实际报修以官方售后系统查到的零件号为准。官方原厂件通常是兼容件的 2~3 倍。
+# 所以 price_verified 保持 false —— 能答「换个排水泵大概多少钱」，
+# 不能答「这是我们的标准价」，也不能把配件价当成「修好一共多少钱」。
+price_verified: false
+price_basis: >
+  业务方提供的备件价格参考表（2024~2026 年公开数据整理），
+  区间为市场价含配件费、不含人工与上门费；实际以当地售后网点报价为准。
+price_source: 家电备件价格参考表.xlsx（业务方 2026-10-23 提供）
+parts_price_list:
+  air_conditioner:
+    source_sheet: 美的空调备件
+    items:
+      - key: remote
+        cn: 遥控器
+        part_no: "MD-AC-RC-001"
+        price_min: 30
+        price_max: 65
+        price_unit: 元
+        note: "原装款约42~46元"
+      - key: filter_mesh
+        cn: 滤尘网
+        part_no: "MD-AC-FM-001"
+        price_min: 8
+        price_max: 25
+        price_unit: 元
+        note: "耗材，定期清洗更换"
+      - key: drain_hose
+        cn: 排水管
+        part_no: "MD-AC-DH-001"
+        price_min: 3
+        price_max: 15
+        price_unit: 元/米
+        note: "官方售后参考价"
+      - key: bracket
+        cn: 安装支架
+        part_no: "MD-AC-BR-001"
+        price_min: 40
+        price_max: 150
+        price_unit: 元
+        note: "普通款40~46元，加厚不锈钢款90~199元"
+      - key: pcb_indoor
+        cn: 室内机主板
+        part_no: "MD-AC-PCB-I-001"
+        price_min: 200
+        price_max: 600
+        price_unit: 元
+        note: "定频挂机板100~300元，变频板200~1000元"
+      - key: pcb_outdoor
+        cn: 室外机主板
+        part_no: "MD-AC-PCB-O-001"
+        price_min: 300
+        price_max: 1200
+        price_unit: 元
+        note: "变频大功率机型/柜机偏高"
+      - key: fan_motor
+        cn: 风机电机
+        part_no: "MD-AC-FM-002"
+        price_min: 90
+        price_max: 450
+        price_unit: 元
+        note: "内机50~120元，外机90~160元(配件价)"
+      - key: compressor
+        cn: 压缩机
+        part_no: "MD-AC-CMP-001"
+        price_min: 600
+        price_max: 2000
+        price_unit: 元
+        note: "1.5匹挂机600~2000元，3匹柜机1800~2800元"
+      - key: four_way_valve
+        cn: 四通阀
+        part_no: "MD-AC-FWV-001"
+        price_min: 150
+        price_max: 500
+        price_unit: 元
+        note: "更换含人工总费用约400~1500元"
+  rice_cooker:
+    source_sheet: 美的电饭煲备件
+    items:
+      - key: inner_pot
+        cn: 内锅/内胆
+        part_no: "MD-RC-IP-001"
+        price_min: 80
+        price_max: 300
+        price_unit: 元
+        note: "涂层脱落/变形才换；变形后继续用导致受热不均"
+      - key: seal_ring
+        cn: 上盖密封圈
+        part_no: "MD-RC-SR-001"
+        price_min: 20
+        price_max: 80
+        price_unit: 元
+        note: "老化漏汽表现为饭夹生、蒸汽从边上冒"
+      - key: steam_valve
+        cn: 蒸汽阀/微压阀组件
+        part_no: "MD-RC-SV-001"
+        price_min: 15
+        price_max: 60
+        price_unit: 元
+        note: "微压机型核心件；装不到位会漏汽"
+      - key: measuring_cup
+        cn: 量杯
+        part_no: "MD-RC-MC-001"
+        price_min: 5
+        price_max: 15
+        price_unit: 元
+        note: "耗材"
+      - key: rice_spatula
+        cn: 饭勺/汤勺
+        part_no: "MD-RC-RS-001"
+        price_min: 5
+        price_max: 15
+        price_unit: 元
+        note: "耗材"
+      - key: steam_rack
+        cn: 蒸笼
+        part_no: "MD-RC-SR-002"
+        price_min: 10
+        price_max: 30
+        price_unit: 元
+        note: "耗材"
+      - key: heating_plate
+        cn: 电热盘(底盘加热机型)
+        part_no: "MD-RC-HP-001"
+        price_min: 50
+        price_max: 200
+        price_unit: 元
+        note: "加热异常时更换"
+      - key: ih_coil
+        cn: 线圈盘(IH机型)
+        part_no: "MD-RC-IC-001"
+        price_min: 80
+        price_max: 250
+        price_unit: 元
+        note: "IH机型核心加热件"
+      - key: top_sensor
+        cn: 上盖温度传感器
+        part_no: "MD-RC-TS-001"
+        price_min: 8
+        price_max: 30
+        price_unit: 元
+        note: "温度异常/E1/E2代码"
+      - key: bottom_sensor
+        cn: 底部温度传感器
+        part_no: "MD-RC-BS-001"
+        price_min: 8
+        price_max: 30
+        price_unit: 元
+        note: "底部测温元件"
+      - key: igbt
+        cn: IGBT功率模块
+        part_no: "MD-RC-IGBT-001"
+        price_min: 30
+        price_max: 100
+        price_unit: 元
+        note: "IH机型功率驱动件"
+      - key: pcb
+        cn: 主控板
+        part_no: "MD-RC-PCB-001"
+        price_min: 50
+        price_max: 400
+        price_unit: 元
+        note: "按键失灵/显示异常时更换；IH高端主板500~800元"
+      - key: lid_latch
+        cn: 开盖扣/盖锁组件
+        part_no: "MD-RC-LL-001"
+        price_min: 15
+        price_max: 50
+        price_unit: 元
+        note: "盖锁故障时更换"

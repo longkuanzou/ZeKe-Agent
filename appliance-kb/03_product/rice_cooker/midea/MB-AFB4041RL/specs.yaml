@@ -1,0 +1,34 @@
+# 参数：售前（s1）与安装/放置（s2）的唯一依据
+# 说明书没印的参数一律 null 并进 missing —— 宁可说「查不到」，不能拿同品牌同容积机型代填
+product_id: midea-mb-afb4041rl
+updated: 2026-10-23
+
+specs:
+  capacity_l:           {value: 4.0, unit: L, source: 'ocr#img:产品简介.jpg', confidence: inferred, note: 说明书未印额定容积；按型号编码 40（→4L）与快速入门页水位线最大刻度 8 杯米双重推断。对客回答「4L」可以，但被追问铭牌时必须承认是推断}
+  capacity_cups:        null            # 说明书未给额定煮饭量
+  alias_model:          null
+  power_w:              {value: 760, unit: W, source: 'ocr#img:产品简介.jpg', note: 额定输入功率；5L 与 4L 底盘加热机型常见值同为 750~760W，功率不能用来区分容量}
+  voltage:              {value: 220V~，50Hz, source: 'ocr#img:产品简介.jpg'}
+  heating_type:         {value: 底盘加热, source: 'ocr#img:产品简介.jpg', confidence: confirmed, note: 故障章写「电热盘上有异物」，是底盘加热的典型表述（IH 机型写「线圈盘」）}
+  inner_pot_material:   {value: 铝合金内胆 + 特氟龙涂层, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 说明书只写「内锅」，未标材质；清洁章写「请勿用钢丝球清洗内锅，以免刮伤内锅涂层」，确认有涂层。材质与厚度（1.7mm 铝合金 + 特氟龙）来自品牌官方产品页，标 web}
+  inner_pot_thickness_mm: {value: 1.7, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  size_mm:              {w: 323, h: 222, d: 262, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 原文按「长×宽×高」标 323×262×222mm，已换算为 宽×高×深；属网络核对值}
+  weight_kg:            {value: 3.3, unit: kg, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  energy_grade:         null            # 说明书未印能效表
+  thermal_efficiency_pct: null
+  standby_power_w:      null
+  keep_warm_energy_wh:  null
+  keep_warm_max_h:      null            # 说明书未声明最长保温时长
+  keep_warm_advice_h:   {value: 5, unit: h, source: 'ocr#img:产品简介.jpg', note: 原文「建议在保温在 5 小时内为佳」，未声明最长保温时长}
+  timer_max_h:          {value: 12, unit: h, source: 'ocr#img:产品简介.jpg', note: 原文「预约时间建议不要超过 12 小时」；功能「热饭」「蛋糕」「保温」「无水焗」不能预约}
+
+missing:
+  - capacity_l（推断值，说明书未印额定容积，须核对机身铭牌/能效标识）
+  - capacity_cups（说明书只给水位线刻度，未给额定煮饭量）
+  - energy_grade / thermal_efficiency_pct / standby_power_w / keep_warm_energy_wh（说明书未印能效表）
+  - keep_warm_max_h（说明书未声明最长保温时长）
+
+pending_verify:
+  - size_mm —— 网络值（web），核对包装标贴或实测后转 confirmed
+  - weight_kg —— 网络值，需实测或查铭牌
+  - inner_pot_material / inner_pot_thickness_mm —— 网络值，核对说明书食品接触材料页后转 confirmed

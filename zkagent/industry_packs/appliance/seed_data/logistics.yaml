@@ -1,0 +1,27 @@
+# 种子物流：A1002（未发货）刻意没有记录，用于验证「查不到物流」的如实处理
+logistics:
+  - order_id: A1001
+    carrier: 顺丰速运
+    tracking_no: SF1234567890
+    status: delivered
+    updated_at: "2026-10-09T14:05:00"
+  - order_id: A1003
+    carrier: 中通快递
+    tracking_no: ZT1122334455
+    status: delivered
+    updated_at: "2026-10-12T16:10:00"
+  - order_id: A1004
+    carrier: 京东物流
+    tracking_no: JD9876543210
+    status: delivered
+    updated_at: "2026-10-01T10:30:00"
+  - order_id: A1005
+    carrier: 顺丰速运
+    tracking_no: SF5555666677
+    status: delivered
+    updated_at: "2026-09-20T10:20:00"
+  - order_id: A1006
+    carrier: 顺丰速运
+    tracking_no: SF7777888899
+    status: in_transit
+    updated_at: "2026-10-13T08:00:00"

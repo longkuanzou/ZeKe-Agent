@@ -1,0 +1,83 @@
+# 工单字段定义（与工单系统字段的映射契约）
+# 用途：① 客服/机器人收字段时有唯一标准；② 对接工单系统时按此映射，避免字段名各写各的
+version: 1
+updated: 2026-10-21
+
+ticket_types:
+  repair:      {cn: 维修, 触发: [故障排查未解决, 用户直接要求报修]}
+  install:     {cn: 安装, 触发: [s2 预约]}
+  relocate:    {cn: 移机/拆装, 触发: [用户要求移机, 以旧换新]}
+  inspection:  {cn: 上门勘查, 触发: [安装条件不明确, 需现场判断外机位置]}
+  cleaning:    {cn: 清洗保养, 触发: [深度清洗, 异味处理]}
+
+fields:
+  required:
+    - key: appliance
+      type: enum
+      map_to: product_category
+    - key: product_model
+      type: ref
+      map_to: product_model
+      validate: 必须能在 03_product 找到；找不到则标记 model_unverified
+      why: 决定备件与代码规则
+    - key: symptom_text
+      type: text
+      map_to: fault_description
+      rule: 保留用户原话 + 客服归类后的 symptom_id
+    - key: contact
+      type: phone
+      map_to: customer_phone
+      validate: 11 位手机号或固话
+    - key: address
+      type: object
+      map_to: service_address
+      fields: [province, city, district, detail, floor, has_elevator]
+    - key: preferred_time
+      type: enum
+      map_to: appointment_slot
+      values: [工作日上午, 工作日下午, 周末, 尽快]
+    - key: warranty_status
+      type: enum
+      map_to: warranty_flag
+      values: [保修内, 已过保, 不确定]
+      derive_from: [product_model, receipt_date]
+
+  recommended:
+    - key: error_code
+      map_to: error_code
+    - key: self_check_done
+      map_to: tried_steps
+      why: 师傅不必重复引导
+    - key: install_env
+      map_to: site_note
+      fields: [wall_type, outdoor_position, pipe_length_m]
+      applies_to: [install, inspection]
+    - key: parts_likely
+      map_to: required_parts
+      source: 05_brand_ref/{brand}/parts_catalog.yaml
+      why: 需备件的要提前备，否则二次上门
+    - key: order_no
+      map_to: order_id
+      why: 关联订单可自动带出型号与购买日期
+
+  system:
+    - key: priority
+      map_to: priority
+      values: [normal, urgent]
+      rule: 命中 safety_redlines 或 severity=stop_and_call → urgent
+    - key: source
+      map_to: ticket_source
+      values: [ai_agent, human_agent, user_self_service]
+
+# 去重：同一用户 + 同一型号 + 未完结状态 → 不重复建单，改为追加备注
+dedup:
+  keys: [contact, product_model]
+  window_days: 7
+  on_hit: 关联到已有工单并追加说明，告知用户"已帮您催一下，不用重复报"
+
+# 进度节点（对外只暴露这六个状态）
+status_flow: [已受理, 已派单, 工程师已联系, 已上门, 维修中, 已完成]
+status_extra: [已取消, 待备件]
+status_notes:
+  - 待备件: 可以主动告知"配件在调货，预计 X 天"，这是可说的确定性信息
+  - 工程师已联系: 此时才可给"上门时间"，之前只能给"联系窗口"

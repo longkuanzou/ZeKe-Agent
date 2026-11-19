@@ -1,0 +1,61 @@
+# 参数来源：美的 KFR-35GW/Q2 使用说明书 p30「技术参数」表
+# 键名受 00_schema/spec_dictionary/air_conditioner.yaml 约束
+product_id: midea-kfr-35gw-q2
+updated: 2026-10-21
+
+specs:
+  cooling_capacity_w:   {value: 3510, min: 150, max: 5250, unit: W,    source: p30}
+  heating_capacity_w:   {value: 5010, min: 150, max: 6790, unit: W,    source: p30}
+  cooling_power_w:      {value: 845,  min: 70,  max: 2050, unit: W,    source: p30}
+  heating_power_w:      {value: 1240, min: 70,  max: 2150, unit: W,    source: p30}
+  auxiliary_heat_w:     {value: 850,  unit: W,  source: p30}
+  mid_cooling_capacity_w: {value: 1660, unit: W, source: p30}
+  mid_heating_capacity_w: {value: 2440, unit: W, source: p30}
+  low_temp_heating_capacity_w: {value: 4920, unit: W, source: p30}
+  low_temp_heating_power_w:    {value: 1835, unit: W, source: p30}
+  max_input_power_w:    {value: 3150, unit: W, source: p30}
+  standby_power_w:      {value: 3, unit: W, source: p30}
+
+  efficiency_apf:       {value: 5.32, unit: APF,  source: p30}
+  efficiency_seer:      {value: 6.35, unit: SEER, source: p30}
+  efficiency_hspf:      {value: 4.07, unit: HSPF, source: p30}
+  energy_grade:         {value: 1, unit: 级, source: p30, note: GB 21455-2019}
+
+  power_supply:         {value: "220V~/50Hz", source: p30}
+  current_cooling_a:    {value: 4.0, min: 0.4, max: 9.6, unit: A, source: p30}
+  current_heating_a:    {value: 5.8, min: 0.4, max: 10.0, unit: A, source: p30}
+  max_input_current_a:  {value: 15.0, unit: A, source: p30}
+  power_cord_spec:      {value: "3×1.5", unit: mm², source: p30, note: RVV 300/500V}
+  connection_wire_spec: {value: "4×1.0", unit: mm², source: p30, note: YZW 300/500V，线长不超过5米}
+  fuse_spec:            {value: "T 5A/250VAC；T 16A/250VAC；T 20A/250VAC(室外)", source: p30}
+
+  noise_indoor_db:      {min: 18, standard: 35, max: 41, unit: dB(A), source: p30,
+                         note: 静音-高-超强三档声压级}
+  noise_outdoor_db:     {min: 38, max: 51, unit: dB(A), source: p30}
+  airflow_m3h:          {value: 820, unit: m³/h, source: p30, note: 送风模式最大风量}
+
+  size_indoor_mm:       {w: 876, h: 305, d: 215, unit: mm, source: p30,
+                         note: "说明书标注(宽×高×深)，已按标注拆分；实际选购前以铭牌/实物复核"}
+  size_outdoor_mm:      {w: 765, h: 555, d: 303, unit: mm, source: p30,
+                         note: "原文 765(820)×555×303，括号内数值含义说明书未说明，暂不采用"}
+  weight_indoor_kg:     null
+  weight_outdoor_kg:    null
+
+  pipe_max_length_m:    {value: 15, unit: m, source: p26, note: 原文"最多允许加长15米连接管"}
+  pipe_max_height_diff_m: null
+  refrigerant_type:     {value: "R32", source: p30}
+  refrigerant_charge_g: {value: 680, unit: g, source: p30}
+  refrigerant_extra_per_m: {value: 18, unit: g/m, source: p26}
+  min_room_area_m2:     {value: 4, unit: m², source: p30}
+  drain_required:       {value: true, source: p18}
+
+missing:
+  - weight_indoor_kg      # 说明书未列，仅"见铭牌"
+  - weight_outdoor_kg
+  - pipe_max_height_diff_m
+  - 适用面积（㎡）        # 说明书只给"最小房间面积4㎡"，无推荐面积，需另行维护推荐口径
+
+# 供对比表直接取用的派生结论（不改原始参数，只做口径换算，需在回答中标注"约"）
+derived:
+  colloquial_hp: "1.5匹"          # 3500W 档，行业口径
+  voltage_note: "标准 220V 家用电，最大输入电流 15A，安装需专用分支回路"

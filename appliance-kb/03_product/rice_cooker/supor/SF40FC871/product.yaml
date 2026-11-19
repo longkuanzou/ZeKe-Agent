@@ -1,0 +1,32 @@
+product_id: supor-sf40fc871
+status: ready
+appliance: rice_cooker
+appliance_cn: 电饭煲
+brand: supor
+brand_cn: 苏泊尔
+model: SF40FC871
+model_slug: SF40FC871
+indoor_model: null
+outdoor_model: null
+product_type: 电饭煲（底盘加热，4L）
+product_type_source: 说明书参数表 + 型号编码
+colloquial: 4升电饭煲
+energy_grade: 2
+launch_year: null
+updated: 2026-10-23
+
+source_docs:
+  - file: 说明书.pdf
+
+material_status:
+  text_extracted: true
+  text_source: ocr
+  ocr_needed: true
+  ocr_done: true
+  ocr_scope: partial
+  ocr_note: PDF 部分页为扫描页，已对扫描页补 OCR
+
+notes:
+  - 面板是顶置触控设计（产品特点原话「操作不弯腰」），用户说「找不到按键」多半是在正面找，要引导看锅盖顶部
+  - 内盖一键可拆，清洗口径是「海绵冲洗 + 干软布擦干」，明确禁止钢丝球与清洁球
+  - 随机附件含保修卡，一年包修，包修期自实际收到产品之日起算（网购凭证/电子保修卡/发票为凭）

@@ -1,0 +1,16 @@
+# 家电零售行业包 —— 行业差异的入口清单（纯数据，不含任何代码分支）
+id: appliance
+name: 家电客服
+products:
+  - 空调
+  - 洗衣机
+  - 冰箱
+knowledge_dir: knowledge/
+policies_file: policies/rules.yaml
+prompts:
+  system: prompts/system.md
+  fewshots: prompts/fewshots.yaml
+tools_file: tools.yaml
+eval_cases: evals/cases.yaml
+seed_data: seed_data/
+demo_scenarios: demo_scenarios.yaml

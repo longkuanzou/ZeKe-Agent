@@ -1,0 +1,182 @@
+# 美的收费标准（空调 + 电饭煲）
+#
+# 说明书 p36 给了完整的"协议收费项清单"和判定口径（哪些情况收、怎么协商），但没给金额。
+# 2026-10-23 按用户要求补入行业参考区间：
+#   项目清单 + 判定口径 → verified: true（有说明书依据）
+#   金额 → price_verified: false + price_basis（行业参考，非官方标准价）
+#
+# 两个品类的收费结构完全不同，所以拆 items_by_appliance：
+#   空调有安装与高空/加长管；电饭煲免安装，只有保外维修与配件。
+#   把空调的"高空作业费"拿来答电饭煲问题，是这套知识库里最典型的跨品类错误。
+policy_id: brand.midea.fee_schedule
+brand: midea
+brand_cn: 美的
+applies_to: {appliance: [air_conditioner, rice_cooker]}
+source: "说明书 p36（空调协议收费清单与判定口径）；金额为行业参考"
+verified: true
+price_verified: false
+price_basis: >
+  2025 年主流电商平台与本地服务商公开报价区间（含材料，不含税），
+  一线城市取上沿、三四线下沿；仅用于给用户心理预期，不构成报价。
+price_source_url: "美的官网/美的官方公众号-收费标准（说明书 p36 指引）"
+updated: 2026-10-23
+
+principle: >
+  凭有效凭证可一次性享受市内免费上门设计和安装；
+  以下情况为协议收费，须由服务人员出具收费标准并与用户协商。
+
+items_by_appliance:
+  # ══════════════════════════════════════════════════ 空调
+  air_conditioner:
+    - key: extra_pipe
+      cn: 加长连接管
+      unit: 米
+      price_min: 80
+      price_max: 120
+      verified: false
+      note: 最长可加长 15m（Q2），18g/m 追加冷媒
+    - key: high_altitude
+      cn: 高空作业（4 楼及 4 楼以上墙外施工）
+      unit: 台
+      price_min: 100
+      price_max: 200
+      verified: false
+      threshold: 4 楼及以上 + 墙外施工
+    - key: drilling
+      cn: 打孔（钢筋混凝土墙、砖墙、水钻打孔）
+      unit: 个
+      price_min: 50
+      price_max: 150
+      verified: false
+    - key: relocation
+      cn: 搬迁移位、重新安装
+      unit: 台
+      price_min: 200
+      price_max: 500
+      verified: false
+      note: 挂机 200~350，柜机 300~500；与高空费、加长管叠加计
+    - key: remote_travel
+      cn: 远程交通费
+      unit: 次
+      price_min: 50
+      price_max: 200
+      verified: false
+      threshold: 用户距服务商 20 公里以上
+    - key: dismantle_grille
+      cn: 拆防盗网、预埋管路等特殊环境
+      unit: 次
+      price_min: 50
+      price_max: 200
+      verified: false
+    - key: repair_labor
+      cn: 保外维修人工费
+      unit: 台
+      price_min: 50
+      price_max: 200
+      verified: false
+      note: 上门检测费 30~50（多数可抵扣），维修人工 100~200，不含配件
+    - key: cleaning
+      cn: 深度清洗
+      unit: 台
+      price_min: 100
+      price_max: 260
+      verified: false
+
+  # ══════════════════════════════════════════════════ 电饭煲
+  rice_cooker:
+    - key: installation
+      cn: 安装费
+      unit: 台
+      price_min: 0
+      price_max: 0
+      verified: true
+      note: 电饭煲免安装，拆箱插电即用；不存在安装费、高空费、加长管费
+    - key: repair_labor
+      cn: 保外维修人工费
+      unit: 台
+      price_min: 40
+      price_max: 80
+      verified: false
+      note: 小家电上门人工普遍低于大家电；部分服务商对小家电只做寄修
+    - key: inspection
+      cn: 上门检测费
+      unit: 次
+      price_min: 20
+      price_max: 50
+      verified: false
+      note: 检测后维修通常可抵扣；用户放弃维修则单独收
+    - key: shipping_back
+      cn: 寄修往返运费
+      unit: 次
+      price_min: 20
+      price_max: 60
+      verified: false
+      note: 保内质量问题由品牌承担；保外或人为损坏由用户承担
+    - key: inner_pot
+      cn: 内胆更换（配件费）
+      unit: 个
+      price_min: 60
+      price_max: 200
+      verified: false
+      note: 差异极大：普通铝合金涂层胆 60~100，球釜 100~150，纯钛/不锈钢 150~200；具体按型号配件价，不得报"统一 100 元"
+    - key: seal_ring
+      cn: 上盖密封圈更换
+      unit: 个
+      price_min: 15
+      price_max: 50
+      verified: false
+    - key: steam_valve
+      cn: 蒸汽阀/微压阀组件
+      unit: 套
+      price_min: 20
+      price_max: 60
+      verified: false
+      note: 微压机型零件更贵；用户丢件或装不到位导致漏汽的，属自费件
+
+answer_rules:
+  - 先确认品类再答费用，空调与电饭煲的项目清单没有交集
+  - 电饭煲：先说明"这类产品不需要安装，也没有安装费"，避免用户以为要付装机钱
+  - 给区间时必须带定性："这是行业常见范围，具体以师傅出具的标准为准"
+  - 用户追问"到底多少钱" → 引导美的官网/官方公众号收费标准，或转人工报价
+  - 收费前须"出具标准并与用户协商"，这条是品牌承诺，可用于处理费用争议
+  - 严禁说的话：'美的规定加长管 100 元一米'（金额无官方依据）
+
+todo:
+  - 补官方收费标准（金额表），补后可把 price_verified 置 true 并把区间收敛为单价
+  - 电饭煲上门 vs 寄修的服务方式，各地不一致，需按区域确认
+
+# ══════════════════════════════════════════════════════════════
+# 保外维修分级人工费（2026-10-23 新增）
+#
+# 美的是唯一"金额带区间 + 标注视机型"的品牌，说明它的分级本来就不是硬价目表。
+# 两个品类分开记：空调按挂机/柜机，电饭煲按工时费 + 配件区间。
+repair_grade_labor:
+  source_kind: biz_reference
+  source: "业务方提供的空调/电饭煲保外维修收费标准参考（2026-10-23）"
+  price_verified: false
+  scope_note: 基础人工费，不含配件费与远程费；具体以当地官方售后网点实际报价为准
+
+  air_conditioner:
+    grades:
+      - appliance: 挂机空调
+        trip_inspection: {price_min: 50, price_max: 100}
+        minor_adjust: {price_min: 80, price_max: 100}
+        small_repair: {price_min: 150, price_max: 150}
+        medium_major: {price_min: 300, price_max: 300, open_ended: true, note: 视机型上浮}
+    note: >
+      美的给了"视机型"这个开口，所以中修/大修不能报死 300。
+      答"300 起，视机型上浮"，比答"300"安全。
+
+  rice_cooker:
+    labor_hours: {price_min: 30, price_max: 300}
+    parts: {price_min: 100, price_max: 500}
+    parts_scope: [主板, 内胆, 加热盘]
+    note: >
+      电饭煲按"人工工时 + 原厂配件"两块算，没有空调那种简修/小修分档。
+      内胆和加热盘是最贵的两项，也是用户最常问的。
+
+repair_grade_answer_rules:
+  - 空调保外："上门检测 50~100，简修 80~100，小修 150 上下，中修大修 300 起视机型，配件另算"
+  - 电饭煲保外："人工 30~300 看修什么，配件 100~500，主板/内胆/加热盘是大头"
+  - 电饭煲用户问"修值不值" → 只给客观信息（人工+配件区间 vs 新机价），不劝退也不劝修
+  - 严禁把"视机型"的开口省略掉，报成一个确定的数

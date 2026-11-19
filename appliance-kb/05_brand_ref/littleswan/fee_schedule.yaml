@@ -1,0 +1,145 @@
+# 小天鹅洗衣机安装与维修收费标准
+#
+# 说明书没有任何收费条款（本批 5 份小天鹅资料都没写），所以：
+#   verified: false —— 项目清单也不是说明书给的，是按洗衣机品类通行做法 + 本库 install.yaml 的
+#                      chargeable_items 反推的，不是品牌书面口径。
+#   price_verified: false —— 金额是行业参考区间。
+#
+# 洗衣机与空调最容易被搞混的地方：洗衣机**没有高空作业费**（不挂外墙），
+# 但多了"加装水龙头""地漏改造"这两个水路项目。空调的加长冷媒管在洗衣机上不存在。
+policy_id: brand.littleswan.fee_schedule
+brand: littleswan
+brand_cn: 小天鹅
+applies_to: {appliance: [washer]}
+source: null
+source_note: 说明书未载收费条款；项目清单按品类通行做法整理
+verified: false
+price_verified: false
+price_basis: >
+  2025 年主流电商平台与本地服务商公开报价区间（含材料，不含税），
+  一线城市取上沿、三四线下沿；仅用于给用户心理预期，不构成报价。
+price_source_url: null
+updated: 2026-10-23
+
+principle: >
+  标准安装（放置调平、接进水管、接排水管、通电试机）通常含在售价内；
+  因安装环境额外增加的管材、水路改造、特殊搬运需另付，须动工前告知并征得同意。
+
+items:
+  - key: standard_install
+    cn: 标准安装
+    unit: 台
+    price_min: 0
+    price_max: 0
+    verified: false
+    note: 含拆运输螺栓、调平、接进排水、试机；不得另行收取
+  - key: extra_inlet_hose
+    cn: 加长进水管
+    unit: 米
+    price_min: 10
+    price_max: 25
+    verified: false
+    note: 随机进水管一般 1~1.5m；长度不够才收
+  - key: extra_drain_hose
+    cn: 加长排水管
+    unit: 米
+    price_min: 10
+    price_max: 25
+    verified: false
+  - key: add_faucet
+    cn: 加装水龙头 / 专用洗衣机龙头
+    unit: 个
+    price_min: 60
+    price_max: 150
+    verified: false
+    note: 含龙头与安装；用户自备龙头只收安装费 30~50
+  - key: drain_renovation
+    cn: 地漏改造 / 加装下水三通
+    unit: 处
+    price_min: 80
+    price_max: 200
+    verified: false
+    note: 上排水机型不需要地漏，别主动报这项
+  - key: door_widening
+    cn: 拆门 / 扩门洞
+    unit: 次
+    price_min: 80
+    price_max: 200
+    verified: false
+    note: 机身 60cm 级、门打开深度可达 100cm+，过道或转角不够时才产生
+  - key: upstairs
+    cn: 上楼费（无电梯）
+    unit: 层/台
+    price_min: 10
+    price_max: 30
+    verified: false
+    note: 洗衣机整机 60~70kg，比空调内机重，部分服务商按重量分档
+  - key: remote_travel
+    cn: 远程交通费
+    unit: 次
+    price_min: 50
+    price_max: 200
+    verified: false
+    threshold: 通常 20 公里以外起收
+  - key: relocation
+    cn: 移机（拆 + 装）
+    unit: 台
+    price_min: 150
+    price_max: 300
+    verified: false
+  - key: cleaning
+    cn: 上门深度清洗（内筒/排水泵/料盒）
+    unit: 台
+    price_min: 120
+    price_max: 260
+    verified: false
+    note: 属超保或非保修项目；用户说"有异味"时不要一上来就推这项
+  - key: repair_labor
+    cn: 保外维修人工费
+    unit: 台
+    price_min: 60
+    price_max: 200
+    verified: false
+    note: 上门检测费 30~50（多数可抵扣）；维修人工 60~200，不含配件
+  - key: stacking_kit
+    cn: 叠放支架（干衣机叠放）
+    unit: 套
+    price_min: 150
+    price_max: 400
+    verified: false
+    note: 支架本身的价格差异大；是否可叠放需按机型组合确认，不得口头承诺
+
+not_applicable: [高空作业费, 加长冷媒管, 支架费]
+
+answer_rules:
+  - 洗衣机没有高空作业费，用户若从空调经验推问，要明确否认
+  - 上排水机型不需要地漏，别为了凑项目报价
+  - 先讲标准安装免费，再讲可能产生的额外项，顺序反了用户会觉得到处要钱
+  - 给区间必须带定性："这是行业常见范围，具体以师傅上门实测后出具的标准为准"
+  - 用户追问具体金额 → 引导官方客服 400-8228-228 或转人工报价
+
+todo:
+  - 向小天鹅售后索取书面收费标准（本表项目清单目前没有品牌依据）
+
+# ══════════════════════════════════════════════════════════════
+# 保外维修分级人工费（2026-10-23 新增）
+repair_grade_labor:
+  source_kind: biz_reference
+  source: "业务方提供的洗衣机保外维修收费标准参考（2026-10-23）"
+  price_verified: false
+  scope_note: 基础人工费，不含配件费与远程费；具体以当地官方售后网点实际报价为准
+  grades:
+    - appliance: 洗衣机
+      trip_inspection: {price_min: 50, price_max: 50, waive_if_repaired: true}
+      minor_adjust: {price_min: 100, price_max: 200}
+      small_repair: {price_min: 200, price_max: 500}
+      medium_major: {price_min: 500, price_max: 1000}
+  note: >
+    "上门检测费 50，修好免收"这条是本库唯一带 waive 规则的收费项，
+    比金额本身更重要——用户最反感的是"来了收 50 又没修"。
+
+repair_grade_answer_rules:
+  - 先讲"上门检测费 50，修好的话这笔不收"，再讲人工等级
+  - 小修 200~500、中修大修 500~1000 的跨度很大，不要凭症状自己给用户定级
+  - 用户问"换个主板多少钱" → 只讲"中修/大修档 500~1000 的人工，主板配件另算"，具体以网点报价为准
+  - 严禁把 500~1000 说成"最多 1000 元搞定"

@@ -1,0 +1,35 @@
+# 参数：售前（s1）与安装/放置（s2）的唯一依据
+# 说明书没印的参数一律 null 并进 missing —— 宁可说「查不到」，不能拿同品牌同容积机型代填
+product_id: supor-f40h9083s
+updated: 2026-10-23
+
+specs:
+  capacity_l:           {value: 4.0, unit: L, source: p1, confidence: inferred, note: 说明书 6 页无技术参数页；按型号编码 F40（40→4L）推断}
+  capacity_cups:        null            # 说明书未给额定煮饭量
+  alias_model:          null
+  power_w:              {value: 1600, unit: W, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 说明书 6 页无技术参数页；1600W 来自品牌官方产品页，与 F40H8093S 同平台（4L 微压 + 远红外），功率一致}
+  voltage:              {value: 220V~，50Hz, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）'}
+  heating_type:         {value: 底盘加热 + 顶部远红外发热管, source: p1, confidence: confirmed, note: 故障章单列「远红外发热管不加热或不亮」，说明顶部有远红外管；加热盘部分写「线圈盘（或电热盘）」}
+  inner_pot_material:   {value: '''纯钛（内锅基材内层 100% 采用纯钛板材）''', source: p1, note: 与 F40H8093S 同款纯钛内锅定义；本机型另有「低糖甑」配件，低糖饭靠它实现}
+  inner_pot_thickness_mm: null          # 说明书未给内胆厚度
+  size_mm:              {w: 326, h: 235, d: 270, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 与 F40H8093S 同平台同尺寸（326×270×235mm），已换算为 宽×高×深；属网络核对值}
+  weight_kg:            {value: 5.1, unit: kg, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: inferred, note: 在 F40H8093S 的 4.9kg 基础上加低糖甑（约 0.2kg）估 5.1kg；属合理估算，不是实测值}
+  energy_grade:         null            # 说明书未印能效表
+  thermal_efficiency_pct: null
+  standby_power_w:      null
+  keep_warm_energy_wh:  null
+  keep_warm_max_h:      null            # 说明书未声明最长保温时长
+  keep_warm_advice_h:   null
+  timer_max_h:          null            # 说明书只说明「预约时间需大于烹饪时间」，未给时长上限
+
+missing:
+  - capacity_l（推断值，说明书未印额定容积，须核对机身铭牌/能效标识）
+  - capacity_cups（说明书只给水位线刻度，未给额定煮饭量）
+  - energy_grade / thermal_efficiency_pct / standby_power_w / keep_warm_energy_wh（说明书未印能效表）
+  - keep_warm_max_h（说明书未声明最长保温时长）
+  - timer_max_h（说明书未给预约时长上限）
+
+pending_verify:
+  - size_mm —— 网络值（web），核对包装标贴或实测后转 confirmed
+  - weight_kg —— 估算值，需实测或查铭牌
+  - power_w —— 网络值，核对铭牌后转 confirmed

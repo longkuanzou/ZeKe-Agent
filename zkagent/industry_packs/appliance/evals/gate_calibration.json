@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "industry": "appliance",
+  "embedding_mode": "local_model",
+  "embed_model_id": "BAAI/bge-small-zh-v1.5",
+  "positive_top1_min": 0.566645,
+  "negative_top1_max": 0.402774,
+  "threshold": 0.4847,
+  "positive_samples": 44,
+  "negative_samples": 5,
+  "note": "阈值取正例最小值与负例最大值的中间点"
+}

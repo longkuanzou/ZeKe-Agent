@@ -1,0 +1,39 @@
+# 3c 检索评测集：六条链路各 1 条，gold 均指向真实文档。
+version: 1
+
+queries:
+  - id: 3c_presale_selection
+    journey: presale
+    query: 手机怎么选
+    gold:
+      - {doc_id: presale/selection.md, rel: 2}
+
+  - id: 3c_install_activation
+    journey: install
+    query: 新手机怎么激活
+    gold:
+      - {doc_id: install/activation.md, rel: 2}
+
+  - id: 3c_usage_care
+    journey: usage
+    query: 电池怎么保养
+    gold:
+      - {doc_id: usage/care.md, rel: 2}
+
+  - id: 3c_troubleshoot_power
+    journey: troubleshoot
+    query: 手机开不了机怎么办
+    gold:
+      - {doc_id: troubleshoot/no_power.md, rel: 2}
+
+  - id: 3c_after_sales_warranty
+    journey: after_sales
+    query: 手机保修几年
+    gold:
+      - {doc_id: after_sales/warranty.md, rel: 2}
+
+  - id: 3c_repair_progress
+    journey: repair_request
+    query: 报修后怎么查进度
+    gold:
+      - {doc_id: repair_request/progress.md, rel: 2}

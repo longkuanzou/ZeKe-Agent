@@ -1,0 +1,312 @@
+version: 1
+intents:
+- intent: presale.spec
+  journey: presale
+  scenario: s1_presale
+  phrases:
+  - 上排水还是下排水
+  - 保温能放几小时
+  - 烘干能烘几公斤
+  - 一小时几度电
+  - 内胆什么材质
+  - 是 ih 吗
+  - 脱水转速多少
+  - 静音多少分贝
+  - 制冷量多少
+  - 够几个人吃
+  - 是几级能效
+  - 能预约多久
+  - 几级能效
+  - 功率多少
+  - 噪音多大
+  - 多大匹数
+  - 尺寸多大
+  - 洗几公斤
+  - 几升的
+- intent: presale.feature
+  journey: presale
+  scenario: s1_presale
+  phrases:
+  - 内胆能进洗碗机吗
+  - 微压是什么意思
+  - 低糖饭有用吗
+  - 支持自清洁吗
+  - 有羊毛认证吗
+  - 空气洗是什么
+  - 能不能连手机
+  - 能拆上盖洗吗
+  - 能洗羽绒服吗
+  - 有筒自洁吗
+  - 能连手机吗
+  - 自动投放吗
+  - 带语音吗
+  - 有新风吗
+  - 能预约吗
+- intent: presale.fit
+  journey: presale
+  scenario: s1_presale
+  phrases:
+  - 40平厨房会不会太小
+  - 卫生间门窄能进去吗
+  - 层高3米能装吗
+  - 没有地漏能装吗
+  - 顶楼西晒行不行
+  - 20平够用吗
+  - 3个人够用吗
+  - 橱柜放得下吗
+  - 老房子能用吗
+  - 能嵌进柜子吗
+  - 高原能用吗
+  - 放得下吗
+- intent: presale.compare
+  journey: presale
+  scenario: s1_presale
+  phrases:
+  - ih 和底盘加热差在哪
+  - 小天鹅和西门子怎么选
+  - 洗烘一体还是分开买
+  - 深度差3cm要紧吗
+  - 苏泊尔和美的怎么选
+  - 4l 还是 5l
+  - 涂层和纯钛怎么选
+  - 滚筒和波轮哪个好
+  - 和xx比哪个好
+  - 柜机还是挂机
+  - 这两个差在哪
+- intent: presale.price
+  journey: presale
+  scenario: s1_presale
+  phrases:
+  - 以旧换新
+  - 有活动吗
+  - 多少钱
+- intent: presale.stock
+  journey: presale
+  scenario: s1_presale
+  phrases:
+  - 多久发货
+  - 有货吗
+- intent: install.feasibility
+  journey: install
+  scenario: s2_install
+  phrases:
+  - 能装在我家卫生间吗
+  - 外机能挂墙上吗
+  - 没有地漏怎么办
+  - 需要师傅上门吗
+  - 插座有要求吗
+  - 门太窄能进吗
+  - 需要什么条件
+  - 需要改水电吗
+  - 我家能装吗
+  - 放哪儿合适
+  - 要先布线吗
+  - 要安装吗
+- intent: install.booking
+  journey: install
+  scenario: s2_install
+  phrases:
+  - 买了什么时候装
+  - 什么时候能上门
+  - 怎么预约安装
+- intent: install.fee
+  journey: install
+  scenario: s2_install
+  phrases:
+  - 加长管多少钱一米
+  - 加水龙头收费吗
+  - 上楼要收费吗
+  - 安装要钱吗
+  - 拆门要钱吗
+  - 高空费多少
+- intent: install.change
+  journey: install
+  scenario: s2_install
+  phrases:
+  - 装错位置了能改吗
+  - 想移机
+- intent: usage.first_time
+  journey: usage
+  scenario: s3_usage
+  phrases:
+  - 刚装好第一次怎么用
+  - 新锅第一次怎么用
+  - 新机要注意什么
+  - 要不要先跑一遍
+  - 运输螺栓要拆吗
+  - 先煮一锅水吗
+  - 第一次怎么用
+  - 遥控器怎么按
+  - 内锅怎么放
+  - 怎么开机
+  - 要开锅吗
+- intent: usage.operation
+  journey: usage
+  scenario: s3_usage
+  phrases:
+  - 稀饭和煮粥有什么区别
+  - 怎么连wifi
+  - 脱水转速怎么调
+  - 自动投放怎么开
+  - 怎么开自清洁
+  - 水位线怎么对
+  - 洗涤剂放多少
+  - 睡眠模式在哪
+  - 保温怎么关
+  - 口感怎么调
+  - 怎么调风向
+  - 温度调多少
+  - 米种怎么选
+  - 选哪个程序
+  - 预约怎么设
+  - 凝珠放哪
+  - 怎么定时
+  - 怎么预约
+- intent: usage.maintenance
+  journey: usage
+  scenario: s3_usage
+  phrases:
+  - 蒸汽阀/微压阀怎么洗
+  - 长时间不用怎么办
+  - 进水滤网怎么清
+  - 门封发霉怎么办
+  - 加热盘怎么清
+  - 多久清洗一次
+  - 筒自洁怎么用
+  - 能用钢丝球吗
+  - 过滤器怎么清
+  - 上盖怎么拆
+  - 内胆怎么洗
+  - 料盒怎么洗
+  - 滤网怎么拆
+  - 怎么保养
+- intent: usage.setting_confusion
+  journey: usage
+  scenario: s3_usage
+  phrases:
+  - 为什么显示的温度不一样
+  - 为什么门要等两分钟才开
+  - 为什么锅底有一层锅巴
+  - 为什么26度还不凉
+  - 为什么保温后饭变硬
+  - 为什么一直咔嗒响
+  - 为什么显示 ub
+  - 为什么自动变风速
+  - 为什么洗这么久
+  - 为什么脱水不干
+  - 为什么冒白汽
+- intent: usage.connect
+  journey: usage
+  scenario: s3_usage
+  phrases:
+  - app 连不上
+  - wifi怎么连
+  - 一直离线
+- intent: troubleshoot.symptom
+  journey: troubleshoot
+  scenario: s4_troubleshoot
+  phrases:
+  - 盖子打不开
+  - 涂层掉了
+  - 盖子漏汽
+  - 门打不开
+  - 不保温
+  - 不制冷
+  - 不制热
+  - 不加热
+  - 不排水
+  - 不脱水
+  - 不进水
+  - 噪音大
+  - 外机吵
+  - 有异味
+  - 烘不干
+  - 震动大
+  - 饭不熟
+  - 溢锅
+  - 漏水
+  - 糊锅
+  - 跳闸
+- intent: troubleshoot.code
+  journey: troubleshoot
+  scenario: s4_troubleshoot
+  phrases:
+  - 显示end
+  - 面板闪代码
+  - 出现f2
+  - 指示灯闪
+  - 显示e1
+  - 显示e2
+  - 显示e3
+  - 显示ub
+- intent: troubleshoot.noise
+  journey: troubleshoot
+  scenario: s4_troubleshoot
+  phrases:
+  - 蒸汽阀噗噗响
+  - 咔嗒通断声
+  - 外机声音大
+  - 排水嘎嘎响
+  - 脱水咣当响
+  - 进水嗡嗡响
+  - 咔咔响
+  - 嗡嗡响
+  - 流水声
+- intent: aftersale.return
+  journey: after_sales
+  scenario: s5_aftersale
+  phrases:
+  - 七天无理由能退吗
+  - 装了不满意能退吗
+  - 拆封了还能退吗
+  - 煮过一次能退吗
+- intent: aftersale.warranty
+  journey: after_sales
+  scenario: s5_aftersale
+  phrases:
+  - 压缩机保修多久
+  - 过了保修怎么办
+  - 内胆保几年
+  - 电机保几年
+  - 保修几年
+- intent: aftersale.fee_dispute
+  journey: after_sales
+  scenario: s5_aftersale
+  phrases:
+  - 这个费用合理吗
+  - 为什么收我钱
+  - 能开发票吗
+- intent: aftersale.shipping
+  journey: after_sales
+  scenario: s5_aftersale
+  phrases:
+  - 换货运费怎么算
+  - 退货谁出运费
+- intent: aftersale.second_sale
+  journey: after_sales
+  scenario: s5_aftersale
+  phrases:
+  - 会影响二次销售吗
+  - 包装扔了还能退吗
+- intent: service.create_ticket
+  journey: repair_request
+  scenario: s6_service
+  phrases:
+  - 安排师傅上门
+  - 帮我报修
+  - 要维修
+- intent: service.track
+  journey: repair_request
+  scenario: s6_service
+  phrases:
+  - 师傅什么时候来
+  - 修到哪一步了
+  - 工单进度
+- intent: service.parts
+  journey: repair_request
+  scenario: s6_service
+  phrases:
+  - 内胆能单独买吗
+  - 换个滤网多少钱
+  - 备件要等多久
+  - 有没有配件

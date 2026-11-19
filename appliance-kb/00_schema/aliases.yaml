@@ -1,0 +1,103 @@
+# 政策 → 用户常用问法（只用于**检索正文**，不改变政策口径）
+#
+# 为什么单独一份：用户说「保修几年」，政策正文写的是「包修 6 年」，二字组不重合，
+# 纯语义也未必能跨过去。把用户话术作为检索信号补进去，比让 FAQ 复述一遍政策更安全
+# —— 同义词不会漂移成第二套事实（见 `00_schema/single_source.md`）。
+#
+# 匹配顺序：`by_policy` 精确命中优先，其次按 `by_suffix` 的后缀（`brand.midea.warranty`
+# → `warranty`）。
+
+by_suffix:
+  warranty:
+    - 保修
+    - 包修
+    - 质保
+    - 保修几年
+    - 保修期
+    - 包修几年
+    - 整机保修
+  fee_schedule:
+    - 安装费
+    - 高空费
+    - 打孔费
+    - 加长管
+    - 收费
+    - 安装多少钱
+    - 要另外收费吗
+  fault_codes:
+    - 故障码
+    - 报错
+    - 代码
+    - 显示 E
+    - 报警
+  parts_catalog:
+    - 备件
+    - 配件
+    - 零件
+    - 换件
+  profile:
+    - 品牌介绍
+    - 这个牌子怎么样
+
+by_policy:
+  platform.return:
+    - 退货
+    - 退款
+    - 退换
+    - 七天无理由
+    - 能不能退
+    - 想退
+  platform.shipping:
+    - 运费
+    - 退货运费
+    - 谁出运费
+    - 运费谁承担
+  platform.opened_box:
+    - 拆封
+    - 拆了还能退吗
+    - 包装扔了还能退吗
+    - 二次销售
+    - 已安装能退吗
+  platform.install_fee_benchmark:
+    - 安装收费
+    - 安装要钱吗
+    - 免费安装
+    - 安装收费标准
+
+# 参数字段 → 用户口语（拼进参数卡对应小节，字段名本身用户不会说）
+spec_keys:
+  weight_kg: [多重, 重量, 多少公斤, 有多重]
+  capacity_l: [几升, 多少升, 容量多大]
+  capacity_kg: [几公斤, 能洗多少, 容量多大]
+  drain_type: [上排水还是下排水, 排水方式, 怎么排水]
+  spin_speed_rpm: [脱水转速, 转速多少, 甩干转速]
+  inner_pot_material: [内胆材质, 内胆是什么材质, 什么材质, 能用钢丝球吗, 钢丝球会刮花吗]
+  size_indoor_mm: [室内机多大, 尺寸多大, 多宽多高]
+  size_outdoor_mm: [外机多大, 外机尺寸]
+  dry_capacity_kg: [能烘多少, 烘干容量, 烘几公斤]
+  cooling_capacity_w: [制冷量, 几匹, 多大匹数]
+  heating_capacity_w: [制热量, 制热够不够]
+  energy_grade: [几级能效, 能效等级, 省电吗]
+  noise_indoor_db: [噪音多大, 静音多少分贝, 吵不吵]
+  airflow_m3h: [风量多大]
+  power_supply: [用什么电, 电压多少]
+  pipe_max_length_m: [加长管最长多少米, 管路多长]
+  size_mm: [机身多深, 尺寸多大, 多宽多高, 放得下吗, 柜子能嵌进去吗, 深度多少]
+  loading_type: [滚筒还是波轮, 上开盖还是前开, 衣服怎么放]
+  needs_water_inlet: [要不要接水, 需要进水吗]
+  needs_drain: [要不要排水, 需要地漏吗]
+  needs_level_ground: [地面不平行吗, 要不要水平地面]
+  refrigerant_charge_g: [用多少冷媒, 冷媒充注量, 要加多少氟]
+  min_room_area_m2: [房间最小多少平, 几平米能用]
+
+# 安装/使用小节 → 用户口语（拼进 fact 切片正文）
+sections:
+  electrical: [电源要求, 要不要专用插座, 电压要求]
+  water: [要不要进水, 要接水管吗, 预留水龙头]
+  drain: [排水怎么处理, 要地漏吗, 排水管怎么接]
+  space: [安装位置有什么要求, 放得下吗, 留多大空间]
+  transport: [进门尺寸, 电梯能进吗, 楼道能过吗]
+  bracket: [外机支架要求, 支架要多结实]
+  piping: [管路最长多少米, 加长管怎么收费]
+  maintenance: [怎么清洗, 多久清洗一次, 滤网怎么拆]
+  operations: [怎么操作, 怎么开机, 哪个模式]

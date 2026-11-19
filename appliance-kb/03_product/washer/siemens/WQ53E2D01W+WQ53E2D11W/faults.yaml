@@ -1,0 +1,71 @@
+# 型号差异：只放本型号特有的东西
+# 跨型号通用的现象排查在 04_scenario/s4_troubleshoot/symptoms.yaml
+product_id: siemens-wq53e2d01w-wq53e2d11w
+updated: 2026-10-23
+
+codes:
+  has_code_display: true
+  display: 数字显示屏 + 故障信息（E 开头数字码）
+  rule: [关机后重新开机启动, 同一故障信息再次出现则报修]
+  known: []      # 说明书按「故障信息」描述现象与处理，未给完整逐码表
+  note: 说明书用「故障信息」段落描述处理方法，不做逐码释义；用户报具体代码时先按现象对应，无法对应则建单
+
+self_check:
+  - symptom: 机器不启动
+    cause: 门没关好 / 未按启动键 / 儿童锁开启 / 停电
+    action: 关好门并听到锁合声；按启动/暂停；解除儿童锁；确认供电
+    source: "p30"
+  - symptom: 机器不进水
+    cause: 水龙头未开 / 进水管弯折或过滤网堵 / 水压不足
+    action: 打开水龙头；检查进水管是否弯折；清洗进水阀过滤网；确认水压不低于 0.1MPa（1 bar）
+    source: "p30"
+  - symptom: 机器不排水
+    cause: 排水软管弯折、挤压或安装过高 / 排水泵或滤网堵塞
+    action: 检查排水软管走向，末端不得高于 100cm 且不得浸入水中；清洁排水泵
+    source: "p30"
+  - symptom: 机器漏水
+    cause: 进水管螺纹未拧紧 / 排水软管松脱或破损
+    action: 进水接头只用手拧紧（用工具会拧裂螺纹）；检查排水软管与接口
+    source: "p30"
+  - symptom: 脱水效果差、衣物仍湿
+    cause: 设定了低脱水转速 / 衣物不平衡机器自动降速
+    action: 下次设定较高脱水转速；把大件与小件混装，避免单件偏心
+    source: "p30"
+  - symptom: 震动大、噪音大、机器移位
+    cause: 运输固定件未拆除 / 未调平 / 地面不坚固
+    action: 拆除背面运输螺栓；用水平仪调平并锁紧防松螺母
+    source: "p30"
+  - symptom: 洗涤效果不佳
+    cause: 衣物过脏 / 洗涤剂不足 / 装载过量
+    action: 选择合适程序与温度；按水质硬度调整用量；不要超过最大负载量
+    source: "p30"
+
+normal_phenomena:
+  - id: drum_light_noise
+    symptom: 排水泵有嘎嘎声
+    explain: 排水泵排水时属正常；若持续异响先清排水泵滤网检查异物
+    source: "p30"
+  - id: door_locked_running
+    symptom: 运行中机门打不开
+    explain: 门锁保护，运行中不放行；程序结束约 2 分钟后自动解锁
+    source: "p30"
+  - id: low_spin_auto
+    symptom: 脱水转速比设定的低
+    explain: 机器检测到衣物不平衡会自动降低转速，属保护行为
+    source: "p30"
+  - id: foam_extra_time
+    symptom: 程序时间变长、迟迟不结束
+    explain: 检测到泡沫过多会追加漂洗，属正常
+    source: "p30"
+
+protection:
+  drain_hose_max_height_mm: {value: null, source: null,
+    note: 干衣机不强制接排水；接直排时软管不得高于排水口}
+
+model_specific_notes:
+  - 干衣机「烘不干」先查绒毛滤网与换热器是否堵塞，再查衣物是否超量，最后才怀疑机器
+  - 干衣机水箱未装到位不会启动，用户常误以为坏了
+
+missing:
+  - 完整故障代码表（说明书写的是故障现象与处理，未给逐码释义）
+  - 各代码对应的具体故障部件

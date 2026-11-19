@@ -1,0 +1,33 @@
+product_id: supor-sf50fc733
+status: ready
+appliance: rice_cooker
+appliance_cn: 电饭煲
+brand: supor
+brand_cn: 苏泊尔
+model: SF50FC733
+model_slug: SF50FC733
+indoor_model: null
+outdoor_model: null
+product_type: 电饭煲（底盘加热，5L）
+product_type_source: 说明书参数表 + 型号编码
+colloquial: 5升电饭煲
+energy_grade: null
+launch_year: null
+updated: 2026-10-23
+
+source_docs:
+  - file: 说明书.pdf
+
+material_status:
+  text_extracted: true
+  text_source: ocr
+  ocr_needed: true
+  ocr_done: true
+  ocr_scope: partial
+  ocr_note: PDF 部分页为扫描页，已对扫描页补 OCR
+
+notes:
+  - 型号在说明书里以两个写法出现：SF50FC733 与 CFXB50FC9133Q-75，报价/建单时两种都要能对上
+  - 说明书明确「器具正常工作的海拔高度范围为 0-2000 米」：高原地区用户报「煮不熟/溢锅」先问海拔，超过 2000 米属超范围使用
+  - 明确禁止把内锅、可拆盖放进洗碗机（碱性清洗剂会破坏涂层），这是「洗坏内胆」纠纷的判定依据
+  - 面板「稀饭」与「煮粥」是两个独立功能键，不要合并回答

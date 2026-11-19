@@ -1,0 +1,31 @@
+# 参数：售前（s1）与安装/放置（s2）的唯一依据
+# 说明书没印的参数一律 null 并进 missing —— 宁可说「查不到」，不能拿同品牌同容积机型代填
+product_id: supor-sf40fc871
+updated: 2026-10-23
+
+specs:
+  capacity_l:           {value: 4.0, unit: L, source: p6, note: 说明书第 6 页规格表：SF40FC871 4.0L / 750W / 煮米 2~8 杯}
+  capacity_cups:        {value: 2~8, unit: 杯, source: p6, note: 说明书规格表「煮米(杯)」列}
+  alias_model:          null
+  power_w:              {value: 750, unit: W, source: p6, note: 额定输入功率；5L 与 4L 底盘加热机型常见值同为 750~760W，功率不能用来区分容量}
+  voltage:              {value: 220V~，50Hz, source: p6}
+  heating_type:         {value: 底盘加热, source: p6, confidence: confirmed, note: 故障章写「发热盘元件烧坏」「内锅与发热盘之间有异物」，电路图为「主电热盘」}
+  inner_pot_material:   {value: 蓝钻不粘厚釜（能效表「内锅材质」列填「金属」）, source: p6, note: 产品特点章写「蓝钻不粘厚釜技术」；清洁章明确「切勿用钢丝球或清洁球等擦拭内锅内外表面」}
+  inner_pot_thickness_mm: null          # 说明书未给内胆厚度
+  size_mm:              {w: 318, h: 224, d: 263, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 品牌官方产品页标 318×263×224mm（长×宽×高），已换算为 宽×高×深；属网络核对值}
+  weight_kg:            {value: 3.0, unit: kg, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  energy_grade:         {value: 2, unit: 级, source: p6, note: 能效表口径}
+  thermal_efficiency_pct: {value: 83, unit: '%', source: p6}
+  standby_power_w:      {value: 1.0, unit: W, source: p6}
+  keep_warm_energy_wh:  {value: 33, unit: W·h, source: p6}
+  keep_warm_max_h:      null            # 说明书未声明最长保温时长
+  keep_warm_advice_h:   {value: 6, unit: h, source: p6, note: 原文「建议保温时间以 6 小时内为佳，以免米饭变色或变味」；能效表最节能档为「快煮饭」}
+  timer_max_h:          null            # 说明书第 6 页「预约」键说明只讲操作，未给时长上限
+
+missing:
+  - keep_warm_max_h（说明书未声明最长保温时长）
+  - timer_max_h（说明书未给预约时长上限）
+
+pending_verify:
+  - size_mm —— 网络值（web），核对包装标贴或实测后转 confirmed
+  - weight_kg —— 网络值，需实测或查铭牌

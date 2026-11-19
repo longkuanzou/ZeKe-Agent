@@ -1,0 +1,25 @@
+# 少样本示例：示范「先检索、再回答、带编号来源」，以及按链路/型号收窄检索。
+version: 1
+examples:
+  - user: "这台制冷量多少？"
+    assistant_action: knowledge_search
+    assistant_arguments:
+      query: "制冷量 额定制冷量"
+      journey: presale
+      product_id: "<用户已告知的型号的 product_id>"
+    note: 参数类问题必须落到具体型号；型号不明时先追问，不要用同品类其他型号顶替。
+
+  - user: "洗衣机不排水怎么办？"
+    assistant_action: knowledge_search
+    assistant_arguments:
+      query: "不排水 排水异常 排查"
+      journey: troubleshoot
+      appliance: washer
+    note: 故障类先按检索到的排查步骤引导；命中安全红线则先停机再报修。
+
+  - user: "整机保修多久？"
+    assistant_action: knowledge_search
+    assistant_arguments:
+      query: "保修期 整机 主要部件"
+      journey: after_sales
+    note: 政策类给出条件与依据；知识库没有的口径不承诺。

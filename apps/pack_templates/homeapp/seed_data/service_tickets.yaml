@@ -1,0 +1,61 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+service_tickets:
+- ticket_id: T2601
+  order_id: H2617
+  user_id: H1
+  type: install
+  description: 空调挂机安装（已完成）
+  status: completed
+  scheduled_time: '@now-6d'
+  created_at: '@now-6d'
+- ticket_id: T2602
+  order_id: H2601
+  user_id: H1
+  type: install
+  description: 空调安装，等待预约
+  status: created
+  scheduled_time: null
+  created_at: '@now-1h'
+- ticket_id: T2603
+  order_id: H2610
+  user_id: H2
+  type: install
+  description: 柜机安装，已约周六上午
+  status: scheduled
+  scheduled_time: '@now+2d'
+  created_at: '@now-1d'
+- ticket_id: T2604
+  order_id: H2619
+  user_id: H2
+  type: repair
+  description: 洗衣机脱水噪音大（保内，待上门检测）
+  status: created
+  scheduled_time: null
+  created_at: '@now-3d'
+- ticket_id: T2605
+  order_id: H2625
+  user_id: H4
+  type: repair
+  description: 电饭煲不加热，二次报修，等待加热盘备件
+  status: scheduled
+  scheduled_time: '@now+1d'
+  created_at: '@now-6d'
+- ticket_id: T2606
+  order_id: H2625
+  user_id: H4
+  type: repair
+  description: 电饭煲不加热（首次维修，已更换温控器）
+  status: completed
+  scheduled_time: '@now-19d'
+  created_at: '@now-20d'
+- ticket_id: T2607
+  order_id: H2626
+  user_id: H1
+  type: repair
+  description: 柜机制冷差，第三次报修
+  status: created
+  scheduled_time: null
+  created_at: '@now-1d'

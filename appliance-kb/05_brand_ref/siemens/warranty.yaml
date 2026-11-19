@@ -1,0 +1,62 @@
+# 西门子洗衣机/干衣机保修政策
+#
+# ── 来源沿革 ──────────────────────────────────────────
+# 说明书原话只有一句："关于您所在国家的保修期和保修条款的说明，请咨询本产品所提供的公司客服热线。"
+# 也就是说说明书**故意不给年限**——博西家电按国家/渠道分别定。
+#
+# 2026-10-23 业务方补入口径（国家三包基准）：整机 1 年 + 主要零部件 3 年，
+# 部分高端机型（iQdrive 电机）电机 10 年。缺口从"没有年限"变成"有基准 + 例外要按型号判"。
+policy_id: brand.siemens.warranty
+brand: siemens
+brand_cn: 西门子
+applies_to: {appliance: [washer]}
+verified: true
+source_kind: manual + biz_provided
+source: "说明书「保修期和保修条款」段落（指向客服热线）+ 业务方提供的国家三包口径（2026-10-23）"
+source_note: 说明书只给"咨询客服热线"，年限本身来自国家三包基准与业务方口径
+confidence: biz_provided
+updated: 2026-10-23
+
+duration:
+  whole_machine: 1 年
+  main_parts: 3 年
+  main_parts_note: 主要零部件免费包修 3 年
+  motor_special:
+    years: 10
+    scope: 部分高端机型（iQdrive 电机）
+    note: 业务方 2026-10-23 确认：**本库 5 台全部为 iQdrive 电机**，因此对以下 5 个型号可直接答"电机 10 年"
+    confirmed_models:
+      - siemens-wg52a108aw
+      - siemens-wg54h2v00w
+      - siemens-wm12p2602w
+      - siemens-wn54a1x42w
+      - siemens-wq53e2d01w
+    out_of_scope_note: 本库之外的西门子机型不适用，仍按"部分高端机型"处理，不主动承诺
+  legal_basis: 国家三包政策（整机 1 年 / 主要部件 3 年）
+  evidence: 业务方口径
+
+start_from: null               # 说明书未写；按发票/签收日期口头确认，不下结论
+start_fallback: null
+require_documents: null
+
+manual_statement: >
+  关于您所在国家的保修期和保修条款的说明，请咨询本产品所提供的公司客服热线。
+
+answer_rules:
+  - 用户问"保几年" → 可以答基准："按国家三包是整机 1 年、主要零部件 3 年。"
+    但要补一句"具体以您这台机器的保修卡为准，渠道不同会有差异"
+  - 用户问"电机是不是保 10 年" → 本库 5 台**可以直接答"是，iQdrive 电机包修 10 年"**；
+    其他机型先确认是否 iQdrive，确认不了就说"只有部分 iQdrive 机型是 10 年"
+  - 不得把"主要零部件 3 年"扩大成"整机 3 年"，也不得把"电机 10 年"说成"整机 10 年"
+  - 用户报"售后说要收费" → 讲"是否在保看购机凭证与故障是否属保修范围"，不做受理结论
+  - 说明书只写"咨询客服热线"，所以遇到用户拿保修卡主张更长年限时，以用户凭证为准，不争辩
+
+handoff:
+  hotline: "400 889 9999"
+  hotline_source: "说明书 p36「客户服务热线：400 889 9999」"
+  reason: warranty_term_by_channel
+
+todo:
+  - 确认本库 5 台（WG52A108AW / WG54H2V00W / WM12P2602W / WN54A1X42W / WQ53E2D01W）是否 iQdrive 电机
+  - 补"主要零部件"的具体清单（电脑板、加热管、电机、水泵是否都在内）
+  - 补"非原厂备件导致的损坏不予保修"这类排除条款的原文页（说明书 p23 附近提到只用原厂备件）

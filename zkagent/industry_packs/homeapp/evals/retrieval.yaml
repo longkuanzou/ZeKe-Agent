@@ -1,0 +1,2208 @@
+version: 1
+queries:
+- id: e-s1_presale-001
+  journey: presale
+  intent_journey: presale
+  query: 这台制冷量多少？
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-q2@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.spec / KFR-35GW/Q2
+- id: e-s1_presale-002
+  journey: presale
+  intent_journey: presale
+  query: 这台制冷量多少？
+  gold:
+  - doc_id: presale/fact/haier-kfr-35gw-e1-1@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.spec / KFR-35GW/E1-1
+- id: e-s1_presale-003
+  journey: presale
+  intent_journey: presale
+  query: 这台制热量多少？
+  gold:
+  - doc_id: presale/fact/haier-kfr-35gw-e1-1plus@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1plus
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.spec / KFR-35GW/E1-1Plus
+- id: e-s1_presale-004
+  journey: presale
+  intent_journey: presale
+  query: 3 匹柜机制冷量多少？
+  gold:
+  - doc_id: presale/fact/haier-kfr-72lw-e1-1@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-72lw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.spec / KFR-72LW/E1-1
+- id: e-s1_presale-005
+  journey: presale
+  intent_journey: presale
+  query: 3 匹柜机制冷量多少？
+  gold:
+  - doc_id: presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-72lw-n8ks1-1p
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.spec / KFR-72LW/N8KS1-1P
+- id: e-s1_presale-006
+  journey: presale
+  intent_journey: presale
+  query: 循环风量多少？
+  gold:
+  - doc_id: presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-72lw-n8ks1-1p
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.spec / KFR-72LW/N8KS1-1P
+- id: e-s1_presale-007
+  journey: presale
+  intent_journey: presale
+  query: 循环风量多少？
+  gold:
+  - doc_id: presale/fact/haier-kfr-72lw-e1-1@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-72lw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.spec / KFR-72LW/E1-1
+- id: e-s1_presale-008
+  journey: presale
+  intent_journey: presale
+  query: 这台室内机多大？能放进预留位吗
+  gold:
+  - doc_id: presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-72lw-n8ks1-1p
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.spec / KFR-72LW/N8KS1-1P
+- id: e-s1_presale-009
+  journey: presale
+  intent_journey: presale
+  query: 这台室内机多大？
+  gold:
+  - doc_id: presale/fact/haier-kfr-72lw-e1-1@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-72lw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.spec / KFR-72LW/E1-1
+- id: e-s1_presale-010
+  journey: presale
+  intent_journey: presale
+  query: 这台是几级能效？
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-q2@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.spec / KFR-35GW/Q2
+- id: e-s1_presale-012
+  journey: presale
+  intent_journey: presale
+  query: 这台用多少冷媒？
+  gold:
+  - doc_id: presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-72lw-n8ks1-1p
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.spec / KFR-72LW/N8KS1-1P
+- id: e-s1_presale-013
+  journey: presale
+  intent_journey: presale
+  query: 这台排水方式是上排水还是下排水？
+  gold:
+  - doc_id: presale/fact/littleswan-tb100v26dt@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tb100v26dt
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: presale.spec / TB100V26DT
+- id: e-s1_presale-014
+  journey: presale
+  intent_journey: presale
+  query: 这台排水方式是上排水还是下排水？
+  gold:
+  - doc_id: presale/fact/littleswan-tg10k60@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: presale.spec / TG10K60
+- id: e-s1_presale-015
+  journey: presale
+  intent_journey: presale
+  query: 这台洗涤容量多大？
+  gold:
+  - doc_id: presale/fact/siemens-wn54a1x42w@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wn54a1x42w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: presale.spec / WN54A1X42W
+- id: e-s1_presale-016
+  journey: presale
+  intent_journey: presale
+  query: 这台烘干容量多少？
+  gold:
+  - doc_id: presale/fact/siemens-wq53e2d01w-wq53e2d11w@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wq53e2d01w-wq53e2d11w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: presale.spec / WQ53E2D01W+WQ53E2D11W
+- id: e-s1_presale-017
+  journey: presale
+  intent_journey: presale
+  query: 这台脱水转速多少？
+  gold:
+  - doc_id: presale/fact/littleswan-tg100v618plus@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg100v618plus
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: presale.spec / TG100V618PLUS
+- id: e-s1_presale-018
+  journey: presale
+  intent_journey: presale
+  query: 这台机身多深？柜子能嵌进去吗
+  gold:
+  - doc_id: presale/fact/littleswan-tg10v628plus@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10v628plus
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: presale.spec / TG10V628PLUS
+- id: e-s1_presale-019
+  journey: presale
+  intent_journey: presale
+  query: 这台多重？
+  gold:
+  - doc_id: presale/fact/siemens-wm12p2602w@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wm12p2602w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: presale.spec / WM12P2602W
+- id: e-s1_presale-020
+  journey: presale
+  intent_journey: presale
+  query: 这台几升的？
+  gold:
+  - doc_id: presale/fact/midea-mb-re576s@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-re576s
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: presale.spec / MB-RE576S
+- id: e-s1_presale-021
+  journey: presale
+  intent_journey: presale
+  query: 这台几升的？
+  gold:
+  - doc_id: presale/fact/supor-f50x96@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: presale.spec / F50X96
+- id: e-s1_presale-022
+  journey: presale
+  intent_journey: presale
+  query: 内胆是什么材质？
+  gold:
+  - doc_id: presale/fact/supor-f50x96@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: presale.spec / F50X96
+- id: e-s1_presale-023
+  journey: presale
+  intent_journey: presale
+  query: 内胆是什么材质？
+  gold:
+  - doc_id: presale/fact/supor-sf40fc871@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf40fc871
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: presale.spec / SF40FC871
+- id: e-s1_presale-024
+  journey: presale
+  intent_journey: presale
+  query: 这台功率多大？
+  gold:
+  - doc_id: presale/fact/midea-mb-40hb9t@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-40hb9t
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: presale.spec / MB-40HB9T
+- id: e-s1_presale-025
+  journey: presale
+  intent_journey: presale
+  query: 这台是 IH 还是底盘加热？
+  gold:
+  - doc_id: presale/fact/midea-mb-afb4041rl@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-afb4041rl
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: presale.spec / MB-AFB4041RL
+- id: e-s1_presale-026
+  journey: presale
+  intent_journey: presale
+  query: 这台机身尺寸多少？
+  gold:
+  - doc_id: presale/fact/supor-f50x96@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: presale.spec / F50X96
+- id: e-s1_presale-027
+  journey: presale
+  intent_journey: presale
+  query: 支持自清洁吗？
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-q2@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.feature / KFR-35GW/Q2
+- id: e-s1_presale-028
+  journey: presale
+  intent_journey: presale
+  query: 有自清洁功能吗
+  gold:
+  - doc_id: presale/fact/haier-kfr-35gw-e1-1@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.feature / KFR-35GW/E1-1
+- id: e-s1_presale-029
+  journey: presale
+  intent_journey: presale
+  query: 这台能烘干衣服吗？
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-q2@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.feature / KFR-35GW/Q2
+- id: e-s1_presale-030
+  journey: presale
+  intent_journey: presale
+  query: 这台是单洗还是洗烘一体？
+  gold:
+  - doc_id: presale/fact/littleswan-tg10v628plus@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10v628plus
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: presale.feature / TG10V628PLUS
+- id: e-s1_presale-031
+  journey: presale
+  intent_journey: presale
+  query: 能连 WiFi 吗？
+  gold:
+  - doc_id: presale/fact/siemens-wg52a108aw@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wg52a108aw
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: presale.feature / WG52A108AW
+- id: e-s1_presale-032
+  journey: presale
+  intent_journey: presale
+  query: 带自动投放吗？
+  gold:
+  - doc_id: presale/fact/littleswan-tg10k60@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: presale.feature / TG10K60
+- id: e-s1_presale-033
+  journey: presale
+  intent_journey: presale
+  query: 有没有低糖饭功能？
+  gold:
+  - doc_id: presale/fact/midea-mb-re576s@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-re576s
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: presale.feature / MB-RE576S
+- id: e-s1_presale-034
+  journey: presale
+  intent_journey: presale
+  query: 有没有低糖饭功能？
+  gold:
+  - doc_id: presale/fact/supor-f40h9083s@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f40h9083s
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: presale.feature / F40H9083S
+- id: e-s1_presale-035
+  journey: presale
+  intent_journey: presale
+  query: 能蒸东西吗？
+  gold:
+  - doc_id: presale/fact/supor-sf50fc733@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf50fc733
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: presale.feature / SF50FC733
+- id: e-s1_presale-036
+  journey: presale
+  intent_journey: presale
+  query: 我家 3 平方的小房间能装吗
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-q2@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.fit / KFR-35GW/Q2
+- id: e-s1_presale-037
+  journey: presale
+  intent_journey: presale
+  query: 20 平的卧室够用吗
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-q2@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.fit / KFR-35GW/Q2
+- id: e-s1_presale-038
+  journey: presale
+  intent_journey: presale
+  query: 我家 8 平米厨房放得下洗衣机吗
+  gold:
+  - doc_id: presale/fact/littleswan-tg10k60@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: presale.fit / TG10K60
+- id: e-s1_presale-046
+  journey: presale
+  intent_journey: presale
+  query: 这台制冷量多少？
+  gold:
+  - doc_id: presale/fact/haier-kfr-35gw-01kmc81u1@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-01kmc81u1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.spec / KFR-35GW/01KMC81U1
+- id: e-s1_presale-047
+  journey: presale
+  intent_journey: presale
+  query: 这台循环风量多少？
+  gold:
+  - doc_id: presale/fact/haier-kfr-72lw-e1-1plus@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-72lw-e1-1plus
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: presale.spec / KFR-72LW/E1-1Plus
+- id: e-s1_presale-048
+  journey: presale
+  intent_journey: presale
+  query: 支持自清洁吗？
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-a11@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-a11
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.feature / KFR-35GW/A11
+- id: e-s1_presale-049
+  journey: presale
+  intent_journey: presale
+  query: 能连 WiFi 吗？
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-ks2p@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-ks2p
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.feature / KFR-35GW/KS2P
+- id: e-s1_presale-050
+  journey: presale
+  intent_journey: presale
+  query: 支持自清洁吗？
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-n8ks1-1p@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-n8ks1-1p
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: presale.feature / KFR-35GW/N8KS1-1P
+- id: e-s2_install-001
+  journey: install
+  intent_journey: install
+  query: 安装需要什么条件
+  gold:
+  - doc_id: install/fact/midea-kfr-35gw-q2@s2#electrical.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: install.feasibility / KFR-35GW/Q2
+- id: e-s2_install-007
+  journey: presale
+  intent_journey: install
+  query: 加长管最长能加多少米
+  gold:
+  - doc_id: presale/fact/haier-kfr-35gw-e1-1@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: install.fee / KFR-35GW/E1-1
+- id: e-s2_install-008
+  journey: presale
+  intent_journey: install
+  query: 加长管最长能加多少米
+  gold:
+  - doc_id: presale/fact/midea-kfr-35gw-q2@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: install.fee / KFR-35GW/Q2
+- id: e-s2_install-009
+  journey: after_sales
+  intent_journey: install
+  query: 高空费什么时候收
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_midea_fee_schedule.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: install.fee / KFR-35GW/Q2
+- id: e-s2_install-010
+  journey: after_sales
+  intent_journey: install
+  query: 5 楼没电梯，安装总共要收多少钱？
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_midea_fee_schedule.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: install.fee / KFR-35GW/Q2
+- id: e-s2_install-011
+  journey: after_sales
+  intent_journey: install
+  query: 打孔要另收费吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_haier_fee_schedule.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: install.fee / KFR-35GW/E1-1
+- id: e-s2_install-012
+  journey: after_sales
+  intent_journey: install
+  query: 洗衣机安装是免费的吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_install_fee_benchmark.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: install.fee / TG10K60
+- id: e-s2_install-013
+  journey: install
+  intent_journey: install
+  query: 什么时候能来装
+  gold:
+  - doc_id: install/faq/global@s2#faq-s2.001.md
+    rel: 2
+  - doc_id: install/faq/global@s2#faq-s2.002.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: install.booking / KFR-35GW/Q2
+- id: e-s3_usage-001
+  journey: usage
+  intent_journey: usage
+  query: 第一次使用怎么操作
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.001.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: usage.first_time
+- id: e-s3_usage-002
+  journey: usage
+  intent_journey: usage
+  query: 滤网怎么拆下来洗
+  gold:
+  - doc_id: usage/fact/midea-kfr-35gw-q2@s3#maintenance.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: usage.maintenance / KFR-35GW/Q2
+- id: e-s3_usage-003
+  journey: usage
+  intent_journey: usage
+  query: 滤网多久洗一次
+  gold:
+  - doc_id: usage/fact/haier-kfr-35gw-e1-1@s3#maintenance.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: usage.maintenance / KFR-35GW/E1-1
+- id: e-s3_usage-004
+  journey: usage
+  intent_journey: usage
+  query: 滤网多久洗一次
+  gold:
+  - doc_id: usage/fact/midea-kfr-35gw-q2@s3#maintenance.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: usage.maintenance / KFR-35GW/Q2
+- id: e-s3_usage-005
+  journey: usage
+  intent_journey: usage
+  query: 怎么开自清洁
+  gold:
+  - doc_id: usage/fact/haier-kfr-35gw-e1-1@s3#operations.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: usage.operation / KFR-35GW/E1-1
+- id: e-s3_usage-006
+  journey: usage
+  intent_journey: usage
+  query: 怎么开自清洁
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.006.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: usage.operation / KFR-35GW/Q2
+- id: e-s3_usage-007
+  journey: usage
+  intent_journey: usage
+  query: 怎么连 WiFi / APP 连不上
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.007.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: usage.connect / KFR-35GW/Q2
+- id: e-s3_usage-008
+  journey: troubleshoot
+  intent_journey: usage
+  query: 空调老掉线
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym19.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: usage.connect / KFR-35GW/E1-1
+- id: e-s3_usage-009
+  journey: usage
+  intent_journey: usage
+  query: 长时间不用怎么处理
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.008.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: usage.maintenance
+- id: e-s3_usage-010
+  journey: usage
+  intent_journey: usage
+  query: 为什么开 26 度还是不凉
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.009.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: usage.setting_confusion
+- id: e-s3_usage-011
+  journey: usage
+  intent_journey: usage
+  query: 遥控器按了没反应
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.010.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: usage.operation
+- id: e-s3_usage-012
+  journey: usage
+  intent_journey: usage
+  query: 电饭煲水位线怎么用，米种刻度是什么意思
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.011.md
+    rel: 2
+  filters:
+    appliances:
+    - rice_cooker
+  note: usage.operation
+- id: e-s3_usage-013
+  journey: usage
+  intent_journey: usage
+  query: 电饭煲内胆怎么清洗，能用钢丝球吗
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.012.md
+    rel: 2
+  filters:
+    appliances:
+    - rice_cooker
+  note: usage.maintenance
+- id: e-s3_usage-014
+  journey: presale
+  intent_journey: usage
+  query: 苏泊尔 F50X96 内胆能用钢丝球刷吗
+  gold:
+  - doc_id: presale/fact/supor-f50x96@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: usage.maintenance / F50X96
+- id: e-s3_usage-015
+  journey: presale
+  intent_journey: usage
+  query: 苏泊尔 SF40FC871 内胆能用钢丝球吗
+  gold:
+  - doc_id: presale/fact/supor-sf40fc871@s1#params.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf40fc871
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: usage.maintenance / SF40FC871
+- id: e-s3_usage-016
+  journey: usage
+  intent_journey: usage
+  query: 洗衣机放多少洗涤剂合适
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.013.md
+    rel: 2
+  filters:
+    appliances:
+    - washer
+  note: usage.operation
+- id: e-s3_usage-017
+  journey: usage
+  intent_journey: usage
+  query: 洗衣机的筒自洁怎么用，多久做一次
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.014.md
+    rel: 2
+  filters:
+    appliances:
+    - washer
+  note: usage.maintenance
+- id: e-s3_usage-018
+  journey: usage
+  intent_journey: usage
+  query: 洗完衣服洗衣机的门要开着吗
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.015.md
+    rel: 2
+  filters:
+    appliances:
+    - washer
+  note: usage.maintenance
+- id: e-s3_usage-019
+  journey: usage
+  intent_journey: usage
+  query: 电饭煲预约怎么设，能预约多久
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.016.md
+    rel: 2
+  filters:
+    appliances:
+    - rice_cooker
+  note: usage.operation
+- id: e-s3_usage-020
+  journey: usage
+  intent_journey: usage
+  query: 电饭煲第一次用要做什么
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.017.md
+    rel: 2
+  filters:
+    appliances:
+    - rice_cooker
+  note: usage.first_time
+- id: e-s3_usage-021
+  journey: usage
+  intent_journey: usage
+  query: 电饭煲保温能放多久，保温后饭变硬了
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.018.md
+    rel: 2
+  filters:
+    appliances:
+    - rice_cooker
+  note: usage.operation
+- id: e-s3_usage-022
+  journey: usage
+  intent_journey: usage
+  query: 电饭煲的上盖、蒸汽阀怎么拆下来洗
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.019.md
+    rel: 2
+  filters:
+    appliances:
+    - rice_cooker
+  note: usage.maintenance
+- id: e-s3_usage-023
+  journey: usage
+  intent_journey: usage
+  query: 内胆能不能放进洗碗机洗
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.020.md
+    rel: 2
+  filters:
+    appliances:
+    - rice_cooker
+  note: usage.maintenance
+- id: e-s3_usage-024
+  journey: usage
+  intent_journey: usage
+  query: 稀饭和煮粥有什么区别，该按哪个
+  gold:
+  - doc_id: usage/fact/supor-sf50fc733@s3#model_notes.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf50fc733
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: usage.operation / SF50FC733
+- id: e-s3_usage-025
+  journey: usage
+  intent_journey: usage
+  query: 电饭煲在高原能用吗，为什么煮不熟
+  gold:
+  - doc_id: usage/fact/supor-sf50fc733@s3#model_notes.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf50fc733
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: usage.operation / SF50FC733
+- id: e-s3_usage-026
+  journey: usage
+  intent_journey: usage
+  query: 洗衣机刚装好第一次怎么用
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.023.md
+    rel: 2
+  filters:
+    appliances:
+    - washer
+  note: usage.first_time
+- id: e-s3_usage-027
+  journey: usage
+  intent_journey: usage
+  query: 洗衣机该选哪个程序，温度调多少
+  gold:
+  - doc_id: usage/faq/global@s3#faq-s3.024.md
+    rel: 2
+  filters:
+    appliances:
+    - washer
+  note: usage.operation
+- id: e-s3_usage-028
+  journey: usage
+  intent_journey: usage
+  query: 自动投放怎么用，洗衣凝珠能放料盒吗
+  gold:
+  - doc_id: usage/fact/littleswan-tg10k60@s3#detergent.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: usage.operation / TG10K60
+- id: e-s3_usage-029
+  journey: usage
+  intent_journey: usage
+  query: 洗衣机的过滤器（排污口）怎么清理
+  gold:
+  - doc_id: usage/fact/littleswan-tg10k60@s3#maintenance.md
+    rel: 2
+  filters:
+    appliances:
+    - washer
+  note: usage.maintenance
+- id: e-s3_usage-030
+  journey: usage
+  intent_journey: usage
+  query: 洗烘一体能烘多少衣服，为什么烘不干
+  gold:
+  - doc_id: usage/fact/siemens-wn54a1x42w@s3#model_notes.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wn54a1x42w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: usage.operation / WN54A1X42W
+- id: e-s3_usage-031
+  journey: usage
+  intent_journey: usage
+  query: 洗衣机为什么洗得比预计时间长
+  gold:
+  - doc_id: usage/fact/littleswan-tg10k60@s3#model_notes.md
+    rel: 2
+  filters:
+    appliances:
+    - washer
+  note: usage.setting_confusion
+- id: e-s3_usage-032
+  journey: usage
+  intent_journey: usage
+  query: 洗衣机能记住上次的程序吗，停电了怎么办
+  gold:
+  - doc_id: usage/fact/littleswan-tg10k60@s3#model_notes.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: usage.operation / TG10K60
+- id: e-s4_troubleshoot-001
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机摸着有点麻手
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym01.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.safety / TG10K60
+- id: e-s4_troubleshoot-002
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲闻到有焦味
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym02.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.safety / F50X96
+- id: e-s4_troubleshoot-004
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调内机往下滴水
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym07.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.safety / KFR-35GW/Q2
+- id: e-s4_troubleshoot-005
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 开起来有流水声，是不是坏了
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym09.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: troubleshoot.noise / KFR-35GW/E1-1
+- id: e-s4_troubleshoot-006
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调噼啪响
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym10.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.noise / KFR-35GW/Q2
+- id: e-s4_troubleshoot-007
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 制冷的时候自己变成送风了
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym15.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.symptom / KFR-35GW/Q2
+- id: e-s4_troubleshoot-008
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 刚关掉想再开，按了没反应
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym16.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.symptom / KFR-35GW/Q2
+- id: e-s4_troubleshoot-009
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 制热时外机冒白汽，是不是烧了
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym17.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-72lw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: troubleshoot.symptom / KFR-72LW/E1-1
+- id: e-s4_troubleshoot-010
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调出风口滴水
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym08.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.symptom / KFR-35GW/Q2
+- id: e-s4_troubleshoot-011
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲工作时有咔嗒声
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym42.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf50fc733
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.noise / SF50FC733
+- id: e-s4_troubleshoot-012
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲上盖冒白汽
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym43.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-40hb9t
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: troubleshoot.symptom / MB-40HB9T
+- id: e-s4_troubleshoot-013
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 锅底有一层锅巴
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym44.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.symptom / F50X96
+- id: e-s4_troubleshoot-014
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调不制冷
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym04.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.symptom / KFR-35GW/Q2
+- id: e-s4_troubleshoot-015
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调制热不热，吹冷风
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym05.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.symptom / KFR-35GW/Q2
+- id: e-s4_troubleshoot-016
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调没以前凉了
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym06.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: troubleshoot.symptom / KFR-35GW/E1-1
+- id: e-s4_troubleshoot-017
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调出风有异味
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym12.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.symptom / KFR-35GW/Q2
+- id: e-s4_troubleshoot-018
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 外机声音特别大
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym11.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-72lw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: troubleshoot.symptom / KFR-72LW/E1-1
+- id: e-s4_troubleshoot-019
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 空调开不了机，面板不亮
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym13.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.symptom / KFR-35GW/Q2
+- id: e-s4_troubleshoot-020
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机脱水时震动很大
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym20.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.symptom / TG10K60
+- id: e-s4_troubleshoot-021
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机不脱水
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym21.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wg52a108aw
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: troubleshoot.symptom / WG52A108AW
+- id: e-s4_troubleshoot-022
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机不进水
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym22.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg100v618plus
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.symptom / TG100V618PLUS
+- id: e-s4_troubleshoot-023
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机不排水
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym23.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10ve40
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.symptom / TG10VE40
+- id: e-s4_troubleshoot-024
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机底下有水
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym24.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wg54h2v00w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: troubleshoot.safety / WG54H2V00W
+- id: e-s4_troubleshoot-025
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机报漏水保护
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym30.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wn54a1x42w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: troubleshoot.safety / WN54A1X42W
+- id: e-s4_troubleshoot-026
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机门打不开
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym25.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10v628plus
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.symptom / TG10V628PLUS
+- id: e-s4_troubleshoot-027
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机有霉味
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym26.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg100v618plus
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.symptom / TG100V618PLUS
+- id: e-s4_troubleshoot-028
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机洗不干净
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym27.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wm12p2602w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: troubleshoot.symptom / WM12P2602W
+- id: e-s4_troubleshoot-029
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗衣机不通电
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym29.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tb100v26dt
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.symptom / TB100V26DT
+- id: e-s4_troubleshoot-030
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 洗烘一体烘不干
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym32.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wn54a1x42w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: troubleshoot.symptom / WN54A1X42W
+- id: e-s4_troubleshoot-031
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲通电不加热
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym33.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f40h8093s
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.symptom / F40H8093S
+- id: e-s4_troubleshoot-032
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 饭老是夹生
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym34.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-re576s
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: troubleshoot.symptom / MB-RE576S
+- id: e-s4_troubleshoot-033
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲溢锅了
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym35.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf40fc871
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.symptom / SF40FC871
+- id: e-s4_troubleshoot-034
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲糊锅
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym36.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-afb4041rl
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: troubleshoot.symptom / MB-AFB4041RL
+- id: e-s4_troubleshoot-035
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲不保温了
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym37.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf50fc733
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.symptom / SF50FC733
+- id: e-s4_troubleshoot-036
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 电饭煲盖子打不开
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym39.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.symptom / F50X96
+- id: e-s4_troubleshoot-037
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 内胆涂层掉了
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym40.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-sf40fc871
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.symptom / SF40FC871
+- id: e-s4_troubleshoot-038
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 低糖饭没效果
+  gold:
+  - doc_id: troubleshoot/fact/global@s4#sym41.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f40h9083s
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.symptom / F40H9083S
+- id: e-s4_troubleshoot-039
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 显示 E1 是什么故障
+  gold:
+  - doc_id: troubleshoot/policy/global@policy#brand_midea_fault_codes.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: troubleshoot.code / KFR-35GW/Q2
+- id: e-s4_troubleshoot-041
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 西门子洗衣机显示 E19
+  gold:
+  - doc_id: troubleshoot/policy/global@policy#brand_siemens_fault_codes.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wg52a108aw
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: troubleshoot.code / WG52A108AW
+- id: e-s4_troubleshoot-042
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 小天鹅滚筒显示 630
+  gold:
+  - doc_id: troubleshoot/policy/global@policy#brand_littleswan_fault_codes.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: troubleshoot.code / TG10K60
+- id: e-s4_troubleshoot-043
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 苏泊尔电饭煲显示 E0
+  gold:
+  - doc_id: troubleshoot/policy/global@policy#brand_supor_fault_codes.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: troubleshoot.code / F50X96
+- id: e-s4_troubleshoot-044
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 美的电饭煲显示 E1
+  gold:
+  - doc_id: troubleshoot/policy/global@policy#brand_midea_fault_codes.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-40hb9t
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: troubleshoot.code / MB-40HB9T
+- id: e-s4_troubleshoot-045
+  journey: troubleshoot
+  intent_journey: troubleshoot
+  query: 我的美的报 E1 了
+  gold:
+  - doc_id: troubleshoot/policy/global@policy#brand_midea_fault_codes.md
+    rel: 2
+  filters:
+    brands:
+    - midea
+  note: troubleshoot.code
+- id: e-s5_aftersale-001
+  journey: after_sales
+  intent_journey: after_sales
+  query: 保修几年
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_midea_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: aftersale.warranty / KFR-35GW/Q2
+- id: e-s5_aftersale-002
+  journey: after_sales
+  intent_journey: after_sales
+  query: 保修几年
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_haier_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-72lw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: aftersale.warranty / KFR-72LW/E1-1
+- id: e-s5_aftersale-003
+  journey: after_sales
+  intent_journey: after_sales
+  query: 洗衣机保修几年
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_littleswan_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: aftersale.warranty / TG10K60
+- id: e-s5_aftersale-004
+  journey: after_sales
+  intent_journey: after_sales
+  query: 西门子洗衣机保修几年
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_siemens_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wg52a108aw
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: aftersale.warranty / WG52A108AW
+- id: e-s5_aftersale-005
+  journey: after_sales
+  intent_journey: after_sales
+  query: 西门子洗衣机电机会不会是 3 年
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_siemens_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - siemens-wm12p2602w
+    appliances:
+    - washer
+    brands:
+    - siemens
+  note: aftersale.warranty / WM12P2602W
+- id: e-s5_aftersale-006
+  journey: after_sales
+  intent_journey: after_sales
+  query: 电饭煲保修几年
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_supor_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: aftersale.warranty / F50X96
+- id: e-s5_aftersale-008
+  journey: after_sales
+  intent_journey: after_sales
+  query: 发票丢了还能保修吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_haier_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-e1-1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: aftersale.warranty / KFR-35GW/E1-1
+- id: e-s5_aftersale-009
+  journey: after_sales
+  intent_journey: after_sales
+  query: 没有发票怎么算保修起始时间
+  gold:
+  - doc_id: after_sales/policy/global@policy#brand_midea_warranty.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: aftersale.warranty / KFR-35GW/Q2
+- id: e-s5_aftersale-010
+  journey: after_sales
+  intent_journey: after_sales
+  query: 装好了不满意能退吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: aftersale.return / KFR-35GW/Q2
+- id: e-s5_aftersale-011
+  journey: after_sales
+  intent_journey: after_sales
+  query: 拆封了还能七天无理由吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: aftersale.return / KFR-35GW/Q2
+- id: e-s5_aftersale-012
+  journey: after_sales
+  intent_journey: after_sales
+  query: 退货谁出运费
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: aftersale.return / KFR-35GW/Q2
+- id: e-s5_aftersale-013
+  journey: after_sales
+  intent_journey: after_sales
+  query: 退钱要多久能到
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: aftersale.return / KFR-35GW/Q2
+- id: e-s5_aftersale-014
+  journey: after_sales
+  intent_journey: after_sales
+  query: 退货申请期限是多久
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: aftersale.return
+- id: e-s5_aftersale-015
+  journey: after_sales
+  intent_journey: after_sales
+  query: 要准备什么材料
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: aftersale.return
+- id: e-s5_aftersale-016
+  journey: after_sales
+  intent_journey: after_sales
+  query: 洗衣机没通水能退吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tg10k60
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: aftersale.return / TG10K60
+- id: e-s5_aftersale-017
+  journey: after_sales
+  intent_journey: after_sales
+  query: 电饭煲煮过一次饭还能退吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    product_ids:
+    - supor-f50x96
+    appliances:
+    - rice_cooker
+    brands:
+    - supor
+  note: aftersale.return / F50X96
+- id: e-s5_aftersale-018
+  journey: after_sales
+  intent_journey: after_sales
+  query: 包装箱扔了还能退吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: aftersale.return
+- id: e-s5_aftersale-019
+  journey: after_sales
+  intent_journey: after_sales
+  query: 已经激活的机器能退吗
+  gold:
+  - doc_id: after_sales/policy/global@policy#platform_return.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: aftersale.return
+- id: e-s6_service-002
+  journey: repair_request
+  intent_journey: repair_request
+  query: 师傅什么时候到
+  gold:
+  - doc_id: repair_request/faq/global@s6#faq-s6.001.md
+    rel: 2
+  - doc_id: repair_request/faq/global@s6#faq-s6.002.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-kfr-35gw-q2
+    appliances:
+    - air_conditioner
+    brands:
+    - midea
+  note: service.track / KFR-35GW/Q2
+- id: e-s2_install-014
+  journey: install
+  intent_journey: install
+  query: 这台安装对电源有什么要求
+  gold:
+  - doc_id: install/fact/haier-kfr-35gw-01kmc81u1@s2#electrical.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-01kmc81u1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: install.feasibility / KFR-35GW/01KMC81U1
+- id: e-s2_install-015
+  journey: install
+  intent_journey: install
+  query: 安装位置有什么要求
+  gold:
+  - doc_id: install/fact/haier-kfr-35gw-01kmc81u1@s2#space.md
+    rel: 2
+  filters:
+    product_ids:
+    - haier-kfr-35gw-01kmc81u1
+    appliances:
+    - air_conditioner
+    brands:
+    - haier
+  note: install.feasibility / KFR-35GW/01KMC81U1
+- id: e-s2_install-016
+  journey: install
+  intent_journey: install
+  query: 这台安装对电源有什么要求
+  gold:
+  - doc_id: install/fact/midea-mb-40hb9t@s2#electrical.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-40hb9t
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: install.feasibility / MB-40HB9T
+- id: e-s2_install-017
+  journey: install
+  intent_journey: install
+  query: 这台安装对电源有什么要求
+  gold:
+  - doc_id: install/fact/midea-mb-afb4041rl@s2#electrical.md
+    rel: 2
+  filters:
+    product_ids:
+    - midea-mb-afb4041rl
+    appliances:
+    - rice_cooker
+    brands:
+    - midea
+  note: install.feasibility / MB-AFB4041RL
+- id: e-s2_install-018
+  journey: install
+  intent_journey: install
+  query: 这台安装对电源有什么要求
+  gold:
+  - doc_id: install/fact/littleswan-tb100v26dt@s2#electrical.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tb100v26dt
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: install.feasibility / TB100V26DT
+- id: e-s2_install-019
+  journey: install
+  intent_journey: install
+  query: 要不要预留进水
+  gold:
+  - doc_id: install/fact/littleswan-tb100v26dt@s2#water.md
+    rel: 2
+  filters:
+    product_ids:
+    - littleswan-tb100v26dt
+    appliances:
+    - washer
+    brands:
+    - littleswan
+  note: install.feasibility / TB100V26DT
+- id: e-s6_service-008
+  journey: repair_request
+  intent_journey: repair_request
+  query: 我要报修
+  gold:
+  - doc_id: repair_request/faq/global@s6#faq-s6.001.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: service.create_ticket
+- id: e-s6_service-009
+  journey: repair_request
+  intent_journey: repair_request
+  query: 师傅什么时候能来
+  gold:
+  - doc_id: repair_request/faq/global@s6#faq-s6.002.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: service.track
+- id: e-s6_service-010
+  journey: repair_request
+  intent_journey: repair_request
+  query: 上门要收费吗
+  gold:
+  - doc_id: repair_request/faq/global@s6#faq-s6.003.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: service.create_ticket
+- id: e-s6_service-011
+  journey: repair_request
+  intent_journey: repair_request
+  query: 工单进度查询
+  gold:
+  - doc_id: repair_request/faq/global@s6#faq-s6.004.md
+    rel: 2
+  filters:
+    appliances:
+    - air_conditioner
+  note: service.track

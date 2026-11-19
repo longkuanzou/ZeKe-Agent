@@ -1,0 +1,32 @@
+# 参数：售前（s1）与安装/放置（s2）的唯一依据
+# 说明书没印的参数一律 null 并进 missing —— 宁可说「查不到」，不能拿同品牌同容积机型代填
+product_id: supor-sf50fc733
+updated: 2026-10-23
+
+specs:
+  capacity_l:           {value: 5.0, unit: L, source: 'ocr#说明书:p6', note: 说明书第 6 页规格表：SF50FC733 5L / 750W / 煮米 2~10 杯}
+  capacity_cups:        {value: 2~10, unit: 杯, source: 'ocr#说明书:p6', note: 说明书规格表「煮米(杯)」列}
+  alias_model:          {value: CFXB50FC9133Q-75, source: 'ocr#说明书:p6', note: 同一份说明书里出现的另一种型号写法，用户报这个型号也要能对上}
+  power_w:              {value: 750, unit: W, source: 'ocr#说明书:p6', note: 额定输入功率；5L 与 4L 底盘加热机型常见值同为 750~760W，功率不能用来区分容量}
+  voltage:              {value: 220V~，50Hz, source: 'ocr#说明书:p6'}
+  heating_type:         {value: 底盘加热, source: 'ocr#说明书:p6', confidence: confirmed, note: 产品特点与电路图写「主电热盘」「底部螺纹技术」，属底盘加热}
+  inner_pot_material:   {value: 球形厚釜（铝合金 1.5mm），陶瓷纳米级晶体涂层, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 产品特点原文「创新球形厚釜技术，环流沸腾，粒粒饱满」「陶瓷纳米级晶体，耐磨更加持久不粘」；清洁要求用软布+非碱性清洗剂，禁用钢丝球/清洁球。基材与厚度（铝合金 1.5mm）来自品牌官方产品页}
+  inner_pot_thickness_mm: {value: 1.5, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  size_mm:              {w: 384, h: 257, d: 285, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 品牌官方产品页标 384×285×257mm（长×宽×高），已换算为 宽×高×深；属网络核对值}
+  weight_kg:            {value: 4.1, unit: kg, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  energy_grade:         null            # 说明书未印能效表
+  thermal_efficiency_pct: null
+  standby_power_w:      null
+  keep_warm_energy_wh:  null
+  keep_warm_max_h:      null            # 说明书未声明最长保温时长
+  keep_warm_advice_h:   null
+  timer_max_h:          {value: 24, unit: h, source: 'ocr#说明书:p6', note: 产品特点原文「24 小时预约定时」；这是预约上限，不是建议值}
+
+missing:
+  - energy_grade / thermal_efficiency_pct / standby_power_w / keep_warm_energy_wh（说明书未印能效表）
+  - keep_warm_max_h（说明书未声明最长保温时长）
+
+pending_verify:
+  - size_mm —— 网络值（web），核对包装标贴或实测后转 confirmed
+  - weight_kg —— 网络值，需实测或查铭牌
+  - inner_pot_material / inner_pot_thickness_mm —— 网络值，核对说明书食品接触材料页后转 confirmed

@@ -1,0 +1,56 @@
+# 安装条件：安装咨询（s2）与上门前确认的唯一依据
+# 洗衣机看 电/水/排水/门；干衣机只看 电/空间/排水（可无）
+product_id: siemens-wg54h2v00w
+updated: 2026-10-23
+
+electrical:
+  supply: {value: 220V，50Hz, source: p18}
+  rated_power_w: {value: 1900, source: p18}
+  min_fuse_a: {value: 10, source: p18,
+    text: 原文「最小接线保险 10A」；插座与线路按此配置}
+  grounding: {value: true, source: null,
+    note: 说明书要求居家电气安装符合当地法规并包含漏电保护断路器}
+
+water:
+  inlet_required: {value: true, source: p18}
+  pressure_mpa: {min: 0.1, max: 1.0, source: p18,
+    text: 水压 0.1~1MPa（1~10 bar）；水龙头打开时流量至少 8 升/分钟；高于上限需装减压阀}
+  connector: {value: '水龙头 G3/4 外螺纹', source: 'p8',
+    text: 只用**手**拧紧螺纹接头，用钳子会拧裂螺纹}
+  hose_inlet_cm: {value: 120, source: p18}
+
+drain:
+  type: {value: 上排水, source: p18}
+  sink_required: {value: false, source: null,
+    text: 上排水不需要地漏，可排入水槽、虹吸管或下水道井口；不能按「必须留地漏」回答}
+  max_hose_height_mm: {value: 1000, source: 'p8',
+    text: 排水软管末端高度 0~100cm；任何部位不得高于 100cm，且末端不得浸入排出的水中（会回流）}
+  hose_drain_cm: {value: 150, source: p18}
+
+space:
+  body_mm: {w: 598, h: 848, d: 590, source: p18}
+  door_open_depth_mm: {value: 1073, source: p18,
+    text: 门打开时的深度；过道宽度与门洞转弯必须按这个算，只看机身深度会判断错误}
+  stackable: {value: null, source: null,
+    text: 是否可叠放需看是否配叠放支架与机型组合，说明书未给通用结论，不得口头承诺}
+
+transport:
+  net_weight_kg: {value: 78.4, source: p18}
+  transport_bolts: {value: 4, source: 'p7',
+    text: 背面 4 颗运输固定螺栓，用 13 号扳手松开拆下，再装入孔塞；不拆就脱水会剧烈震动}
+
+pre_visit_checklist:
+  - 放置位置有水龙头吗，接口是不是 G3/4 外螺纹
+  - 水压是否稳定（低于 0.1MPa 会报进水故障）
+  - 水龙头打开时流量是否达到 8 升/分钟
+  - 插座位置与是否带地线，会不会被机身挡住
+  - 是否需要嵌入柜体（决定预留间隙与散热）
+  - 从楼下到房间最窄门口宽度、楼梯转角
+  - 楼层与是否有电梯（影响上楼费）
+
+chargeable_items: [上楼费, 远程上门, 加长进水管, 拆门/扩门洞, 加装水龙头]
+not_applicable: [高空作业费, 加长冷媒管, 支架费]
+
+missing:
+  - door_width_min_mm（说明书未给搬运最小门宽）
+  - 是否可叠放叠放支架型号（说明书未给通用结论）

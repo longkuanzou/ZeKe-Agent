@@ -1,0 +1,58 @@
+# 安装与放置：电饭煲免安装，这一层回答的是「插得上吗、放哪儿不能放、开箱验什么」
+# 空调的「高空费/加长铜管/支架费」、洗衣机的「水龙头/地漏」在本品类一律不适用
+product_id: supor-f40h9083s
+updated: 2026-10-23
+
+install_required: false
+install_note: 电饭煲免安装，拆箱插电即用；不产生安装费，也不派安装工单
+
+electrical:
+  rated_power_w: {value: 1600, source: p1}
+  plug:
+    value: 10A 三孔接地插座
+    source: null
+    note: 说明书要求单独使用额定电流 10A 以上的插座；与其它大功率电器共用插座会过热打火
+  extension_cord:
+    value: false
+    source: null
+    note: 不建议用延长线/排插；必须用时，所接电器总额定电流不得超过插座或线路额定值
+  grounding:
+    value: true
+    source: null
+    note: 必须接地；不可用两孔插头或剪断地线
+
+placement:
+  surface:
+    value: 平稳、干燥、耐热的台面
+    source: null
+    note: 不要放在炉灶旁、水源边或倾斜台面；机身四周留出散热与出汽空间
+  steam_direction:
+    value: null
+    source: null
+    text: 上盖蒸汽阀会向上/向前排出高温蒸汽，出汽方向上不要有插座、吊柜与易受潮物品
+  keep_away: [明火炉灶, 水槽溅水区, 微波炉等发热电器上方, 窗帘等易燃物旁]
+  altitude_limit_m:
+    value: null
+    source: null
+    note: 说明书未给海拔限制；高原用户报「煮不熟/溢锅」时按使用环境问题处理，不要承诺一定能用
+
+unpack_check:
+  items:
+    - 开箱先核对型号与面板丝印是否一致（同一份说明书常覆盖多个型号）
+    - 检查内锅是否有磕碰变形（内锅变形会直接导致受热不均、煮不熟）
+    - 检查配件是否齐全
+    - 首次使用前取出内锅与所有包装件，用清水洗净内锅并擦干内外表面；可先放水煮一次倒掉去味
+  accessories: [低糖甑, 微压阀, 量杯, 说明书+快速入门]
+
+pre_visit_checklist:
+  - 用户报的型号到底是什么（同外观多型号，先确认铭牌）
+  - 插座位置与是否 10A 三孔接地（老房子两孔插座是高频问题）
+  - 放置台面是否平稳、出汽方向有没有插座或吊柜
+  - 海拔是否超过 2000 米（高原地区煮不熟要先问这个）
+
+chargeable_items: [远程上门, 上门检测费]
+not_applicable: [高空作业费, 加长冷媒管, 支架费, 加长进水管, 加装水龙头, 地漏改造, 拆门/扩门洞]
+
+missing:
+  - 外形尺寸为 web 值（326×270×235mm 宽×深×高），非说明书原文，用户量柜格时须留 2~3cm 散热与出汽余量
+  - 说明书未给电源线长度

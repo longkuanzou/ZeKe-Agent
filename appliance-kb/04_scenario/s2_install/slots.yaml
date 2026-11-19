@@ -1,0 +1,155 @@
+# s2 安装 · 槽位与追问顺序（三品类）
+#
+# ── 2026-10-23 改版 ────────────────────────────────────
+# 旧版整份是空调口径（外机位/承重墙/管长）。另外两个品类的"安装"根本不是一回事：
+#   空调   ：真有安装工程（打孔、支架、加长管、高空作业），费用项目多，先判定能不能装
+#   洗衣机 ：本质是"就位 + 拆运输螺栓 + 接管调平"，费用少但条件苛刻（水、电、地、门宽）
+#   电饭煲 ：免安装，不派安装工单，只做开箱核对与摆放条件
+# 三者的槽位、追问顺序、判定表、收费项全部不同，按 appliance 分块。
+version: 2
+scenario: s2_install
+updated: 2026-10-23
+
+common:
+  required: [product_model]
+
+appliances:
+
+  # ══════════════════════════════════════════════════ 空调
+  air_conditioner:
+    install_required: true
+    required:
+      - product_model
+      - install_power_ready       # 是否独立回路插座
+      - install_outdoor_space     # 外机位：预留机位 / 需打支架
+      - install_wall_type         # 砖墙 / 混凝土 / 幕墙 / 轻质墙
+    optional:
+      - room_area_m2
+      - install_pipe_length_m     # 超过 5m 要加长管
+      - install_floor
+      - install_has_elevator
+      - address                   # 预约类必需
+      - contact                   # 预约类必需
+      - preferred_time            # 预约类必需
+
+    # 追问顺序：先问"决定能不能装"的，再问"决定多少钱"的
+    ask_order:
+      install.feasibility: [product_model, install_power_ready, install_outdoor_space, install_wall_type]
+      install.fee: [product_model, install_floor, install_has_elevator, install_pipe_length_m]
+      install.booking: [product_model, address, contact, preferred_time]
+
+    prompts:
+      install_power_ready: 安装的位置有插座吗？空调得单独一路电，不能和其他大功率的共用。
+      install_outdoor_space: 室外机准备放哪？有预留机位，还是要打支架挂在外墙上？
+      install_wall_type: 那面墙是砖墙还是混凝土？承重不一样，支架打孔方式也不同。
+      install_pipe_length_m: 室内机和室外机大概离多远？超过 5 米就要加长管了。
+
+    # 三查结果 → 结论
+    verdicts:
+      all_pass: 可以装，把收费项提前说明
+      area_too_small: 不可装（R32 安全要求），给替代方案
+      no_power: 可装但需先整改布线/加插座，说明由谁做、是否收费
+      no_outdoor_space: 需评估外挂方案，可能涉及物业报备，转 s6 现场勘查
+      wall_unsuitable: 幕墙/轻质墙需特殊支架或转其他安装位
+
+    fee_items: [高空作业费, 打孔费, 支架费, 加长管, 加长电源线, 拆机/移机, 远程费]
+    fee_source: 05_brand_ref/{brand}/fee_schedule.yaml
+
+  # ══════════════════════════════════════════════════ 洗衣机
+  washer:
+    install_required: true            # 但比空调轻，多数是"就位 + 接管"
+    required:
+      - product_model
+      - ws_water_inlet                # 放置位附近有专用进水龙头吗
+      - ws_drain_route                # 地漏 / 墙排 / 排入水槽
+      - ws_space_cm                   # 放置位净宽×净深（不是机身尺寸）
+    optional:
+      - ws_door_width_cm              # 门洞/过道宽度，抬不进去是高频退货原因
+      - ws_ground_level               # 地面是否水平坚固
+      - ws_embed                      # 是否要嵌进柜体（决定左右后上间隙与正面开门空间）
+      - address
+      - contact
+      - preferred_time
+
+    ask_order:
+      install.feasibility: [product_model, ws_water_inlet, ws_drain_route, ws_space_cm, ws_door_width_cm]
+      install.fee: [product_model, ws_water_inlet, ws_drain_route]
+      install.booking: [product_model, address, contact, preferred_time]
+
+    prompts:
+      ws_water_inlet: 放洗衣机的位置附近有专用水龙头吗？还是要从别处接过来？
+      ws_drain_route: 那个位置有地漏吗？没有的话往墙上排或者排到水槽也可以，我看哪种行。
+      ws_space_cm: 位置净宽净深大概多少厘米？机身 60cm 左右，还要留散热和进水的余量。
+      ws_door_width_cm: 卫生间的门有多宽？滚筒五六十公斤，门太窄抬不进去。
+      ws_ground_level: 地面是瓷砖还是木地板？平的还是有点斜？
+
+    # 关键：上排水 ≠ 必须地漏。这条答错会直接劝退本来能装的用户
+    key_rules:
+      - id: drain_by_type
+        rule: 上排水机型不需要地漏，可排入水槽或专用排水接口；只有下排水机型必须有地漏
+        source: 03_product/washer/*/install.yaml#drain
+      - id: hose_height
+        rule: 上排水排水管最高处不得超过 100cm，超了排水泵顶不上去会报排水超时
+        source: 03_product/washer/littleswan/TG10K60/install.yaml#drain.max_hose_height_mm
+      - id: transport_bolts
+        rule: 机身背面 4 颗运输螺栓必须拆除，不拆就脱水会剧烈震动甚至损坏
+        source: 03_product/washer/*/usage.yaml#first_use
+        priority: 最高    # "新机就抖"的头号原因，必须主动提
+      - id: water_pressure
+        rule: 进水水压 0.03~1MPa；低于下限表现为进水超时，高于上限需加减压阀
+        source: 03_product/washer/littleswan/TG10K60/install.yaml#water.pressure_mpa
+      - id: embed_gap
+        rule: 嵌入柜体时左右后上要留间隙（本库机型 左/右/上 15mm、后 30mm）；正面另需 900mm 开门空间
+        source: 03_product/washer/littleswan/TG10K60/install.yaml#space
+      - id: level_ground
+        rule: 地面不平会直接表现为脱水震动大、噪音大、机器移位；必须调平
+        source: 03_product/washer/*/install.yaml#space.level_ground
+
+    verdicts:
+      all_pass: 可以装，提醒先拆运输螺栓、调平、跑一次筒自洁
+      no_inlet: 需先装专用水龙头，说明由谁做、是否收费
+      no_drain: 上排水机型可排入水槽/墙排；下排水机型必须先做地漏
+      space_too_tight: 放不下，改推窄机身或换位置，不要说"挤一挤能进"
+      door_too_narrow: 抬不进去，需拆门/扩门洞（属收费项）或换安装位置
+      ground_uneven: 需调平，严重倾斜要另做垫层
+
+    fee_items: [拆门/扩门洞, 加长进水管, 加装水龙头, 地漏改造, 搬运上楼, 远程费]
+    fee_source: 05_brand_ref/{brand}/fee_schedule.yaml
+    fee_note: 小天鹅/西门子的官方收费表尚未拿到，先按项目名列出，金额按"以现场为准"回答
+
+  # ══════════════════════════════════════════════════ 电饭煲
+  rice_cooker:
+    install_required: false
+    required: [product_model]
+    optional:
+      - rc_socket                # 是否 10A 三孔接地插座
+      - rc_countertop            # 台面是否平稳、耐热
+      - rc_steam_direction       # 出汽方向有没有插座/吊柜
+      - rc_altitude_m            # 海拔（超 2000m 属超范围使用）
+
+    ask_order:
+      install.feasibility: [product_model, rc_socket, rc_steam_direction, rc_altitude_m]
+
+    prompts:
+      rc_socket: 插座是 10A 三孔带接地的吗？老房子两孔插座是常见问题。
+      rc_steam_direction: 打算放哪儿？上盖会往上冒热蒸汽，上面别是插座或吊柜。
+      rc_altitude_m: 是在高原地区用吗？有的型号明确写了正常工作海拔 0~2000 米。
+
+    verdicts:
+      all_pass: 拆箱插电即用，不派安装工单
+      two_prong_socket: 需先换三孔接地插座，不得用两孔或剪地线
+      steam_blocked: 换个位置或挪开上方插座/吊柜，蒸汽长期熏会受潮
+      altitude_over: 引用说明书限值，说明属超范围使用，不承诺煮饭效果
+      damaged_pot: 内锅变形会直接导致煮不熟，开箱发现就走换新
+
+    fee_items: [远程上门, 上门检测费]
+    fee_source: 05_brand_ref/supor/fee_schedule.yaml
+    not_applicable: [高空作业费, 加长冷媒管, 支架费, 加长进水管, 加装水龙头, 地漏改造, 拆门/扩门洞]
+    must_tell: 电饭煲免安装，不产生安装费；如对方要求收安装费，属异常收费，转人工
+
+# ══════════════════════════════════════════════════════ 费用类回答的结构约束（三品类通用）
+fee_answer:
+  must_include: [项目名, 单价或计费方式, "以现场实测/标准为准"]
+  must_not: [总价, 口头折扣, 承诺免收]
+  source: 05_brand_ref/{brand}/fee_schedule.yaml
+  forbid: 把空调的收费项套到电饭煲上（小家电没有高空作业费、支架费）

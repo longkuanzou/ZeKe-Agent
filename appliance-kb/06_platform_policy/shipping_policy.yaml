@@ -1,0 +1,35 @@
+# 运费政策
+policy_id: platform.shipping
+applies_to: {channel: [平台, 自营], appliance: [air_conditioner, washer, refrigerator, rice_cooker, microwave]}
+verified: false
+legal_basis: 《消费者权益保护法》第二十五条（无理由退货的运费由消费者承担，另有约定除外）
+updated: 2026-10-21
+
+rules:
+  - id: platform.shipping.no_reason
+    cn: 无理由退货的运费
+    rule: 由消费者承担（法定默认）
+    note: 大件家电运费较高，必须在下单/退货前提示，避免"退完发现运费抵得上半台机器"
+    verified: true
+  - id: platform.shipping.quality
+    cn: 质量问题退换的运费
+    rule: 由责任方承担（商家/平台）
+    verified: true
+  - id: platform.shipping.exchange
+    cn: 换货运费
+    rule: 质量问题免费更换；无理由换货按无理由退货处理
+    verified_platform_detail: false
+  - id: platform.shipping.large_item
+    cn: 大件家电退货运费
+    rule: 按物流计价，可能含上楼/下楼费、拆机费
+    price: null
+    verified: false
+    note: 金额必须查物流报价，不得估算
+
+answer_rules:
+  - 只能说责任归属，不给金额
+  - 大件退货必须提醒"可能产生拆机费/搬运费"
+  - 用户问"能不能免运费"→ 不给承诺，走人工审批
+
+todo:
+  - 确认大件家电退货运费标准与拆机费归属

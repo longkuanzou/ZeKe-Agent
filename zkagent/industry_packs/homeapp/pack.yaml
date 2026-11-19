@@ -1,0 +1,17 @@
+# 家电客服知识问答包（由 appliance-kb 生成；静态配置手写，知识由打包器写入）
+id: homeapp
+name: 家电客服（知识问答）
+products:
+  - 空调
+  - 洗衣机
+  - 电饭煲
+knowledge_dir: knowledge/
+policies_file: policies/rules.yaml
+prompts:
+  system: prompts/system.md
+  fewshots: prompts/fewshots.yaml
+tools_file: tools.yaml
+eval_cases: evals/cases.yaml
+eval_retrieval: evals/retrieval.yaml
+seed_data: seed_data/
+demo_scenarios: null

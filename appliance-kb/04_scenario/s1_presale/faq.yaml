@@ -1,0 +1,190 @@
+# 由 tools/normalize_faq.py 归一化：FAQ 只保留「结论一句 + 指针」，事实以被指向的权威文档为准（见 00_schema/single_source.md）
+scenario: s1_presale
+updated: 2026-10-21
+faq:
+- id: faq-s1.001
+  question: 这台多大匹数/多大制冷量
+  intent: presale.spec
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: 制冷量 3510W（150~5250W 之间自动调节），制热量 5010W，行业口径算 1.5 匹。详见 midea-kfr-35gw-q2 参数卡。
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/specs.yaml#cooling_capacity_w
+  verified: true
+- id: faq-s1.002
+  question: 这台多大匹数/多大制冷量
+  intent: presale.spec
+  scope:
+    appliance: air_conditioner
+    model:
+    - haier-kfr-35gw-e1-1
+  answer: 制冷量 3510W（150~5350W），制热量 5110W，1.5 匹。详见 haier-kfr-35gw-e1-1 参数卡。
+  source: 03_product/air_conditioner/haier/KFR-35GW-E1-1/specs.yaml#cooling_capacity_w
+  verified: true
+- id: faq-s1.003
+  question: 一小时耗多少电
+  intent: presale.spec
+  scope:
+    appliance: air_conditioner
+  answer: 按额定功率折算，制冷约 0.85 度/小时、制热约 1.24 度/小时，这是额定工况的参考值。实际耗电跟设定温度、房间保温、开门次数关系很大，变频机长时间运行会明显低于这个数。
+  source: 03_product/*/specs.yaml#cooling_power_w
+  verified: true
+  note: 不得给出"一晚一度电"这类承诺
+- id: faq-s1.004
+  question: 静音吗/噪音多大
+  intent: presale.spec
+  scope:
+    appliance: air_conditioner
+  answer: 室内机分三档：超静档 16~18dB(A)、高风 35dB(A)、超强 41dB(A)；室外机 51dB(A)。这几个值是在消音室里按国标测的，装在家里会受墙体和环境影响。
+  source: 03_product/*/specs.yaml#noise_indoor_db
+  verified: true
+- id: faq-s1.005
+  question: 室内机多大尺寸，会不会太占地方
+  intent: presale.spec
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: 室内机 876×305×215mm（宽×高×深），室外机 765×555×303mm。详见 midea-kfr-35gw-q2 参数卡。
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/specs.yaml#size_indoor_mm
+  verified: true
+- id: faq-s1.006
+  question: 支持自清洁吗
+  intent: presale.feature
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: 这个型号没有自清洁功能。详见 midea-kfr-35gw-q2 的 features.yaml（self_clean）。
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/features.yaml#self_clean
+  verified: true
+- id: faq-s1.007
+  question: 支持自清洁吗
+  intent: presale.feature
+  scope:
+    appliance: air_conditioner
+    model:
+    - haier-kfr-35gw-e1-1
+  answer: 有的，除菌自清洁。详见 haier-kfr-35gw-e1-1 的 features.yaml（self_clean）。
+  source: 03_product/air_conditioner/haier/KFR-35GW-E1-1/features.yaml#self_clean
+  verified: true
+- id: faq-s1.008
+  question: 是几级能效
+  intent: presale.spec
+  scope:
+    appliance: air_conditioner
+    model:
+    - haier-kfr-35gw-e1-1
+  answer: 这台说明书里没有标注能效等级，我不跟您猜。详见 haier-kfr-35gw-e1-1 参数卡。
+  source: 03_product/air_conditioner/haier/KFR-35GW-E1-1/specs.yaml#energy_grade
+  handoff:
+    needed: true
+    reason: data_missing
+  verified: true
+  note: 典型"知识缺口"答法：给已确认的、坦白缺的、给获取路径
+- id: faq-s1.009
+  question: 能烘干衣服吗
+  intent: presale.feature
+  scope:
+    appliance: air_conditioner
+  answer: 空调没有烘干功能。除湿模式能降湿度，但风温低、风量小，达不到烘干衣物的效果；真需要烘干要看洗烘一体机或独立烘干机。
+  source: features.yaml#dry
+  verified: true
+  note: 跨品类问题，必须明确否定并给正确品类，不能含糊
+- id: faq-s1.010
+  question: 20 平的房间够用吗
+  intent: presale.fit
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+    - haier-kfr-35gw-e1-1
+  answer: 1.5 匹（3500W）对 20㎡ 一般够用。按每平米 150~200W 估算，20㎡ 需要 3000~4000W，正好在这个区间（这是经验估算，不是厂家标注的适用面积）。顶楼、西晒、层高超过
+    3 米的话建议往上选一档。
+  source: 03_product/*/specs.yaml#cooling_capacity_w
+  verified: true
+  note: 必须带"经验估算"标注
+- id: faq-s1.011
+  question: 房间小于 4 平方能装吗
+  intent: presale.fit
+  scope:
+    appliance: air_conditioner
+  answer: 不行。这两台机器用的是 R32 制冷剂，说明书写明安装、运行、存放的房间面积都要大于 4㎡，这是安全要求，不是建议。小面积空间建议考虑其他方案。
+  source: install.yaml#space.min_room_area_m2
+  verified: true
+  handoff:
+    needed: false
+  note: 硬性拒绝项，不协商
+- id: faq-s1.012
+  question: 柜机和挂机怎么选
+  intent: presale.compare
+  scope:
+    appliance: air_conditioner
+  answer: 主要看面积和外机位置。挂机（35 机型）适合 20㎡ 以内卧室，省空间；柜机（72 机型）风量大，适合 30㎡ 以上客厅，但占地约 0.3㎡ 且要地面排水和更粗的电源。您客厅多大？外机位有预留吗？
+  source: 04_scenario/s1_presale/compare.yaml
+  verified: true
+- id: faq-s1.013
+  question: 能连手机吗/支持语音吗
+  intent: presale.feature
+  scope:
+    appliance: air_conditioner
+  answer: 支持手机控制，装「智家/美居」App 绑定即可，注意只支持 2.4GHz 网络，5G 连不上是正常的。语音这块两个型号说明书写法不同，我确认下再回复您，不先给您答案。
+  source: features.yaml#wifi /
+  verified: true
+  handoff:
+    needed: true
+    reason: voice_uncertain
+- id: faq-s1.014
+  question: 洗衣机 10 公斤是能洗 10 公斤干衣服吗
+  intent: presale.spec
+  scope:
+    appliance: washer
+  answer: 是干衣重量，不是水的重量，也不是湿衣服重量。10kg 大致对应 3~5 口之家的日常量，一套 1.8m 床品（被套＋床单＋枕套）约 2~2.5kg。要注意洗烘一体机的烘干容量通常比洗涤容量小，烘的时候得减量，不然烘不透。
+  source: 03_product/washer/*/specs.yaml#capacity_kg + features.yaml#dry
+  verified: true
+- id: faq-s1.015
+  question: 上排水和下排水有什么区别，我家该选哪个
+  intent: presale.spec
+  scope:
+    appliance: washer
+  answer: 上排水是把水往上抽走，排水管末端挂在 1 米以内的高度，可以排进水槽或直接插下水管，位置灵活，但泵要多做功；下排水靠重力，必须靠近地漏。您家阳台或卫生间有地漏的话两种都行；没地漏、只能往水槽排，就得选上排水。买之前务必确认，装的时候改不了。
+  source: 03_product/washer/*/install.yaml#drain
+  verified: true
+- id: faq-s1.016
+  question: 电饭煲 4 升够几个人吃
+  intent: presale.spec
+  scope:
+    appliance: rice_cooker
+  answer: 4L 大致够 3~5 人，5L 够 5~8 人。但更准的办法是看煮米杯数：4L 一般 2~8 杯，5L 一般 2~10 杯（1 杯米约 1 碗饭）。家里有饭量大的、或者习惯一次煮两顿的，建议往大一号选。您家常住几口人？
+  source: 03_product/rice_cooker/*/specs.yaml#capacity_l /
+  verified: false
+  note: 人份换算属经验口径，说明书只给容积与杯数，不给人数
+- id: faq-s1.017
+  question: IH 和底盘加热的电饭煲差在哪
+  intent: presale.compare
+  scope:
+    appliance: rice_cooker
+  answer: 底盘加热靠锅底一块电热盘往上传热，结构简单、价格低；IH 是靠线圈盘让整个内锅自己发热，受热更均匀，功率也高得多（4L 底盘约 760W，IH
+    约 1300W）。日常煮饭两者都能胜任，追求口感一致性和火力响应就选 IH。另外顶部带远红外管的机型是第三种思路，主打上部加热减少夹生。
+  source: 03_product/rice_cooker/*/specs.yaml#heating_type /
+  verified: true
+- id: faq-s1.018
+  question: 电饭煲内胆会不会掉涂层，能用钢丝球洗吗
+  intent: presale.feature
+  scope:
+    appliance: rice_cooker
+  answer: 要分机型：涂层内胆（大多数型号）不能用钢丝球、不能用金属铲、不能进洗碗机，用了会刮花；不锈钢零涂层的机型（比如 316L 内胆那款）本身没有涂层可掉，耐刮得多。您看中的是哪款？我按那个型号给您准确答复，这个不能一概而论。
+  source: 03_product/rice_cooker/*/specs.yaml#inner_pot_material
+  verified: true
+  note: 同品牌内部就有两种答案，必须先收敛型号
+- id: faq-s1.019
+  question: 电饭煲放得进橱柜格吗 / 尺寸多大
+  intent: presale.spec
+  scope:
+    appliance: rice_cooker
+  answer: 我这边能查到几个型号的机身尺寸（例如 4L 的在 32×26×22cm 左右，5L 的在 38×28×26cm 左右），但这类数据来自官网参数，不是说明书原文，您按它量柜格时一定要多留
+    2~3cm，上面还要留开盖和排汽的空间。您量好柜格尺寸告诉我，我帮您对着看。
+  source: 03_product/rice_cooker/*/specs.yaml#size_mm
+  verified: false
+  note: 尺寸为 confidence=web 的值，须说明来源并给余量建议

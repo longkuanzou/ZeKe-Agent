@@ -1,0 +1,31 @@
+product_id: supor-f40h9083s
+status: ready
+appliance: rice_cooker
+appliance_cn: 电饭煲
+brand: supor
+brand_cn: 苏泊尔
+model: F40H9083S
+model_slug: F40H9083S
+indoor_model: null
+outdoor_model: null
+product_type: 电饭煲（微压+低糖，纯钛内胆，4L）
+product_type_source: 说明书参数表 + 型号编码
+colloquial: 4升低糖微压钛釜电饭煲
+energy_grade: null
+launch_year: null
+updated: 2026-10-23
+
+source_docs:
+  - file: 说明书.pdf
+
+material_status:
+  text_extracted: true
+  text_source: pdf
+  ocr_needed: false
+  ocr_done: false
+  ocr_scope: none
+
+notes:
+  - 低糖饭是本品与 F40H8093S 的关键差异：必须用配套「低糖甑」，不放甑就是普通煮饭，不能宣称降糖率
+  - 说明书未给任何降糖比例/检测报告，禁止回答具体降糖百分比
+  - 说明书 6 页无技术参数页：功率、电压、尺寸、净重、能效全部缺失

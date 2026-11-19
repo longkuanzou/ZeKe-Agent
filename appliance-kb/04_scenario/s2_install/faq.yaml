@@ -1,0 +1,156 @@
+# 由 tools/normalize_faq.py 归一化：FAQ 只保留「结论一句 + 指针」，事实以被指向的权威文档为准（见 00_schema/single_source.md）
+scenario: s2_install
+updated: 2026-10-21
+faq:
+- id: faq-s2.001
+  question: 安装需要什么条件
+  intent: install.feasibility
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: 三件事：一是要有专用电源回路（最大电流 15A，不用和别的电器共用），插座要带地线；二是房间面积要≥4㎡；三是室外机有位子，墙面能承重。详见 midea-kfr-35gw-q2
+    的 install.yaml。
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/install.yaml
+  verified: true
+- id: faq-s2.002
+  question: 需要提前留水电位吗
+  intent: install.feasibility
+  scope:
+    appliance: air_conditioner
+  answer: 空调不用进水，只要电。要留的是：一路专用电源（带地线插座）、一个穿墙孔、还有冷凝水的排水去向（挂机一般顺管排到室外）。洗衣机和冰箱才涉及进水和门宽，空调这块不看门宽。
+  source: 03_product/*/install.yaml
+  verified: true
+  note: 用户常把洗衣机/冰箱的安装条件套到空调上，要主动纠正
+- id: faq-s2.003
+  question: 我家房间只有 3 平方能装吗
+  intent: install.feasibility
+  scope:
+    appliance: air_conditioner
+  answer: 装不了。这两台都是 R32 冷媒，说明书写明安装和运行的空间面积要大于 4㎡，属于安全要求。这种小空间建议考虑其他降温方案，或者先跟我们的方案同事聊一下。
+  source: 03_product/*/install.yaml#space
+  verified: true
+  handoff:
+    needed: false
+    reason: hard_reject
+- id: faq-s2.004
+  question: 加长管要多少钱/最长能加多长
+  intent: install.fee
+  scope:
+    appliance: air_conditioner
+    model:
+    - haier-kfr-35gw-e1-1
+  answer: 这台最长只能加到 10 米，超过 5 米每加 1 米要补 20g 冷媒。详见 haier-kfr-35gw-e1-1 的 install.yaml（piping）。
+  source: 03_product/air_conditioner/haier/KFR-35GW-E1-1/install.yaml#piping
+  verified: true
+- id: faq-s2.005
+  question: 加长管要多少钱/最长能加多长
+  intent: install.fee
+  scope:
+    appliance: air_conditioner
+    model:
+    - midea-kfr-35gw-q2
+  answer: 这台最多可以加长到 15 米，每加 1 米补 18g 冷媒。详见 midea-kfr-35gw-q2 的 install.yaml（piping）。
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/install.yaml#piping
+  verified: true
+- id: faq-s2.006
+  question: 5 楼没电梯要收上楼费吗
+  intent: install.fee
+  scope:
+    appliance: air_conditioner
+  answer: 无电梯的高楼层一般是有的，按楼层和机型（柜机比挂机重）计，具体金额以收费标准为准。这项会在师傅上门前先跟您说清，不会装完了才提。
+  source: 05_brand_ref/{brand}/fee_schedule.yaml
+  verified: false
+  note: 金额未确认 → 不给数字，只给计费方式和"提前告知"承诺
+- id: faq-s2.007
+  question: 高空作业费怎么算
+  intent: install.fee
+  scope:
+    appliance: air_conditioner
+  answer: 按外机的作业高度和挂法算，比如外墙悬挂、需要吊绳的会另计。这项属于可能产生的费用，不是每单都收，师傅会先判断再报价，您同意后才动工。
+  source: 05_brand_ref/{brand}/fee_schedule.yaml#high_altitude
+  verified: false
+- id: faq-s2.008
+  question: 外机可以放阳台吗
+  intent: install.feasibility
+  scope:
+    appliance: air_conditioner
+  answer: 可以，封闭阳台要注意通风和排水，别让热风在原位循环，否则制冷效果会明显变差。另外阳台如果没做排水，冷凝水要引到地漏，不能直接淌到楼下。
+  source: 03_product/*/install.yaml#space
+  verified: true
+- id: faq-s2.009
+  question: 什么时候能上门安装
+  intent: install.booking
+  scope:
+    appliance: air_conditioner
+  answer: 我先帮您把安装预约登记上，登记后师傅会在 24 小时内联系您约具体时间。方便给我地址和电话吗？另外确认下安装位置有没有专用插座，没有的话要提前布。
+  source: 04_scenario/s2_install/playbook.md
+  verified: true
+  handoff:
+    needed: false
+  tool: 安装预约系统
+  note: 只说"24 小时内联系"，不承诺上门时刻
+- id: faq-s2.010
+  question: 旧空调能帮忙拆吗
+  intent: install.fee
+  scope:
+    appliance: air_conditioner
+  answer: 可以，拆旧机属于收费项目，跟安装分开计。拆之前师傅会先回收冷媒，不会直接剪管。如果您有以旧换新的需求，那走的是另一套流程，我可以帮您转过去。
+  source: 05_brand_ref/{brand}/fee_schedule.yaml#dismantle
+  verified: false
+- id: faq-s2.011
+  question: 安装要把墙打穿吗
+  intent: install.feasibility
+  scope:
+    appliance: air_conditioner
+  answer: 是的，要打一个穿墙孔走铜管和排水管，孔径按管径来。如果是承重墙或幕墙，需要物业同意，这个最好提前问一下，避免师傅到了装不了。
+  source: 03_product/*/install.yaml#bracket
+  verified: true
+- id: faq-s2.012
+  question: 电饭煲需要上门安装吗
+  intent: install.feasibility
+  scope:
+    appliance: rice_cooker
+  answer: 不需要。这类产品拆箱插电就能用，我们不派安装工单，也不会产生安装费。您只需要确认两件事：一是插座是 10A 三孔带接地的，别跟其它大功率电器共用；二是放的位置平稳、出汽方向没有插座和吊柜。到货后记得先检查一下内锅有没有磕碰变形。
+  source: 03_product/rice_cooker/*/install.yaml#install_required
+  verified: true
+  handoff:
+    needed: false
+- id: faq-s2.013
+  question: 电饭煲第一次用要注意什么
+  intent: install.feasibility
+  scope:
+    appliance: rice_cooker
+  answer: 四步：① 核对型号和面板丝印是不是一致（同外观有好几个型号，很容易拿错说明书）；② 内锅拿出来看有没有磕碰变形，变形会直接导致煮不熟，这个属于到货问题要马上反馈；③
+    核对配件齐不齐；④ 洗净内锅并擦干，先放水煮一锅倒掉去去味。之后就能正常用了。
+  source: 03_product/rice_cooker/*/install.yaml#unpack_check
+  verified: true
+- id: faq-s2.014
+  question: 洗衣机安装需要什么条件
+  intent: install.feasibility
+  scope:
+    appliance: washer
+  answer: 四项：① 带接地的插座，线路要能带得住（10A 级）；② 一个水龙头，接口是 G3/4 外螺纹，水压别低于 0.1MPa；③ 排水去向——上排水的机型不用地漏，可以排进水槽或下水管；④
+    搬运路径，最窄门宽和楼梯转角要够，机器进门后还要留开门的空间。这四项您哪项不确定，我帮您逐条对。
+  source: 03_product/washer/*/install.yaml
+  verified: true
+- id: faq-s2.015
+  question: 洗衣机进不了门怎么办
+  intent: install.feasibility
+  scope:
+    appliance: washer
+  answer: 机身一般是 60cm 宽、85cm 高这个级别，难过的不是机身宽度而是开门的深度——滚筒机门打开能占 100cm 以上。所以别看最窄处能不能过人，要看转弯时门能不能打开。实在过不去，可以拆门（收费项），但扩门洞得先跟物业确认。您方便说下最窄的门口和走廊宽度吗？
+  source: 03_product/washer/*/install.yaml#space
+  verified: true
+  handoff:
+    needed: true
+    reason: install_feasibility
+- id: faq-s2.016
+  question: 洗衣机加长进水管要另外收费吗
+  intent: install.fee
+  scope:
+    appliance: washer
+  answer: 标准安装含在售价里，随机进水管一般 1~1.5 米。超出长度要按米加收，行业上大致 10~25 元一米，接水龙头的位置太远还可能要加装一个专用龙头。具体以师傅上门实测后出的标准为准，会在动工前跟您确认。
+  source: 05_brand_ref/{brand}/fee_schedule.yaml#extra_inlet_hose
+  verified: false
+  note: 金额为行业参考区间（price_verified=false），不可当作品牌标准价

@@ -1,0 +1,169 @@
+# 小天鹅洗衣机备件/耗材目录
+# 报修建单时回答"师傅带什么件"，售前/使用回答"哪些件要自己买"
+policy_id: brand.littleswan.parts_catalog
+brand: littleswan
+brand_cn: 小天鹅
+applies_to: {appliance: [washer]}
+verified: false
+source: null
+updated: 2026-10-23
+
+consumables:            # 用户可自购/易损
+  - key: inlet_hose
+    cn: 进水管
+    note: 随机附 1 根；加长属安装收费项
+  - key: drain_hose
+    cn: 排水管
+    note: 上排水果汁机型的排水管高度要求 ≤100cm
+  - key: pump_filter
+    cn: 排水泵过滤网
+    note: 排水超时的第一检查对象，用户可自行清理
+  - key: detergent_box
+    cn: 洗涤剂料盒
+    note: 带自动投放机型才有；料盒未关到位会报 613
+  - key: door_seal
+    cn: 门封圈
+    note: 发霉/破损需更换，属耗材性质，通常不在免费保修内
+
+replaceable_parts:      # 建单选件用
+  - key: door_lock
+    cn: 门锁开关
+  - key: water_inlet_valve
+    cn: 进水阀
+  - key: drain_pump
+    cn: 排水泵
+  - key: water_level_sensor
+    cn: 水位传感器
+  - key: pcb
+    cn: 电脑板/主控板
+  - key: motor
+    cn: 电机
+  - key: belt
+    cn: 皮带（波轮/部分滚筒）
+  - key: shock_absorber
+    cn: 减震器
+  - key: stacking_kit
+    cn: 叠放支架（干衣机叠放用）
+
+included_accessories:   # 说明书可确认的随机附件
+  source: null
+  note: 本批 5 份资料未列完整附件清单，不得承诺随机赠送品
+  items: []
+
+todo:
+  - 补零件号与参考价，才能支撑"换件多少钱"
+  - 补随机附件清单（进水管长度、是否含扳手等）
+
+# ══════════════════════════════════════════════════════════════
+# 备件参考价（2026-10-23 业务方提供《家电备件价格参考表》）
+#
+# 性质：市场参考价（含配件费），不含上门费/人工费/高空作业费；零件号为参考编号，
+#      实际报修以官方售后系统查到的零件号为准。官方原厂件通常是兼容件的 2~3 倍。
+# 所以 price_verified 保持 false —— 能答「换个排水泵大概多少钱」，
+# 不能答「这是我们的标准价」，也不能把配件价当成「修好一共多少钱」。
+price_verified: false
+price_basis: >
+  业务方提供的备件价格参考表（2024~2026 年公开数据整理），
+  区间为市场价含配件费、不含人工与上门费；实际以当地售后网点报价为准。
+price_source: 家电备件价格参考表.xlsx（业务方 2026-10-23 提供）
+parts_price_list:
+  source_sheet: 小天鹅洗衣机备件
+  items:
+    - key: inlet_hose
+      cn: 进水管
+      part_no: "LSW-WH-IH-001"
+      price_min: 15
+      price_max: 35
+      price_unit: 元
+      note: "随机附1根；加长属安装收费项"
+    - key: drain_hose
+      cn: 排水管
+      part_no: "LSW-WH-DH-001"
+      price_min: 10
+      price_max: 30
+      price_unit: 元
+      note: "上排水机型排水管高度要求≤100cm"
+    - key: pump_filter
+      cn: 排水泵过滤网
+      part_no: "LSW-WH-PF-001"
+      price_min: 3
+      price_max: 15
+      price_unit: 元
+      note: "排水超时第一检查对象，用户可自行清理"
+    - key: detergent_box
+      cn: 洗涤剂料盒
+      part_no: "LSW-WH-DB-001"
+      price_min: 20
+      price_max: 60
+      price_unit: 元
+      note: "带自动投放机型才有；料盒未关到位会报613"
+    - key: door_seal
+      cn: 门封圈
+      part_no: "LSW-WH-DS-001"
+      price_min: 30
+      price_max: 120
+      price_unit: 元
+      note: "发霉/破损需更换，属耗材性质通常不在免费保修内"
+    - key: door_lock
+      cn: 门锁开关
+      part_no: "LSW-WH-DL-001"
+      price_min: 30
+      price_max: 150
+      price_unit: 元
+      note: "门锁失效(E30/E31)时需更换"
+    - key: water_inlet_valve
+      cn: 进水阀
+      part_no: "LSW-WH-WIV-001"
+      price_min: 15
+      price_max: 80
+      price_unit: 元
+      note: "不进水/进水异常时更换"
+    - key: drain_pump
+      cn: 排水泵
+      part_no: "LSW-WH-DP-001"
+      price_min: 50
+      price_max: 200
+      price_unit: 元
+      note: "不排水/排水超时(E20/E21)时更换"
+    - key: water_level_sensor
+      cn: 水位传感器
+      part_no: "LSW-WH-WLS-001"
+      price_min: 30
+      price_max: 120
+      price_unit: 元
+      note: "水位异常/不脱水时可能故障"
+    - key: pcb
+      cn: 电脑板/主控板
+      part_no: "LSW-WH-PCB-001"
+      price_min: 80
+      price_max: 500
+      price_unit: 元
+      note: "程序紊乱/按键失灵/全屏乱码时更换"
+    - key: motor
+      cn: 电机
+      part_no: "LSW-WH-MTR-001"
+      price_min: 180
+      price_max: 800
+      price_unit: 元
+      note: "变频电机更贵；E60/E61电机故障代码"
+    - key: belt
+      cn: 皮带
+      part_no: "LSW-WH-BLT-001"
+      price_min: 15
+      price_max: 60
+      price_unit: 元
+      note: "波轮/部分滚筒机型有"
+    - key: shock_absorber
+      cn: 减震器
+      part_no: "LSW-WH-SA-001"
+      price_min: 16
+      price_max: 70
+      price_unit: 元/套
+      note: "脱水震动过大时更换"
+    - key: stacking_kit
+      cn: 叠放支架
+      part_no: "LSW-WH-SK-001"
+      price_min: 80
+      price_max: 150
+      price_unit: 元
+      note: "干衣机叠放用"

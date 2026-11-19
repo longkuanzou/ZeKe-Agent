@@ -1,0 +1,82 @@
+# 新品类参数字典模板
+# 用法：复制为 {appliance}.yaml，改 appliance / appliance_cn，按本品类的说明书参数表增删 keys。
+# 原则：键名用英文小写下划线，单位写在 unit；一个键只表达一个量，不要把"宽×高×深"存成一个字符串。
+
+appliance: washer              # air_conditioner | washer | refrigerator | rice_cooker | microwave
+appliance_cn: 洗衣机
+version: 1
+updated: 2026-01-01
+
+keys:
+  # ── 能力 ──
+  capacity_kg:
+    cn: 洗涤容量
+    unit: kg
+    aliases: [额定洗涤容量, 容量]
+    used_in: [s1]
+  spin_speed_rpm:
+    cn: 最高脱水转速
+    unit: r/min
+    used_in: [s1, s3]
+
+  # ── 能效 ──
+  energy_grade:
+    cn: 能效等级
+    unit: 级
+    used_in: [s1]
+  water_consumption_l:
+    cn: 单次耗水量
+    unit: L
+    used_in: [s1]
+
+  # ── 结构与安装 ──
+  size_mm:
+    cn: 外形尺寸
+    unit: mm
+    note: 必须拆 w/h/d；洗衣机通常是宽×深×高
+  weight_kg:
+    cn: 整机质量
+    unit: kg
+  door_width_min_mm:
+    cn: 入户门最小宽度要求
+    unit: mm
+    used_in: [s2]
+    note: 冰箱/洗衣机最高频的"进不了门"问题，务必单列
+
+  # ── 安装条件（品类特有）──
+  needs_water_inlet:
+    cn: 是否需进水
+    unit: null
+    used_in: [s2]
+  needs_drain:
+    cn: 是否需排水/地漏
+    unit: null
+    used_in: [s2]
+  needs_level_ground:
+    cn: 是否需水平地面
+    unit: null
+    used_in: [s2]
+
+  # ── 功能 ──
+  feature_dry:
+    cn: 烘干功能
+    unit: null
+    used_in: [s1]
+  feature_steam:
+    cn: 蒸汽洗
+    unit: null
+    used_in: [s1]
+  feature_self_clean:
+    cn: 筒自洁
+    unit: null
+    used_in: [s1, s3]
+
+# ── 各品类最小键集（用来判断"字典起步够不够用"）──
+# 空调: cooling_capacity_w, heating_capacity_w, energy_grade, noise_indoor_db,
+#       min_room_area_m2, pipe_max_length_m, refrigerant_type, size_indoor_mm
+# 洗衣机: capacity_kg, spin_speed_rpm, energy_grade, size_mm, needs_water_inlet,
+#         needs_drain, door_width_min_mm, feature_dry
+# 冰箱: capacity_l, energy_grade, size_mm, door_width_min_mm, weight_kg,
+#       climate_class, noise_db, defrost_type
+# 电饭煲: capacity_l, power_w, inner_pot_material, size_mm, feature_keep_warm
+# 微波炉: capacity_l, power_w, size_mm, feature_grill, feature_convection

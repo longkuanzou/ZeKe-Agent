@@ -1,0 +1,187 @@
+# 西门子洗衣机/干衣机备件/耗材目录
+#
+# 西门子这条线有个真实约束：说明书 p23 附近明确写"请只使用制造商的原厂备件和原厂附件，
+# 使用非原厂备件和非原厂附件可能会发生危险"。所以答复"能不能自己买配件"时，
+# 不能简单说"可以"，要带出这条原厂要求，并说明非原厂件导致的损坏不在保修范围。
+policy_id: brand.siemens.parts_catalog
+brand: siemens
+brand_cn: 西门子
+applies_to: {appliance: [washer]}
+verified: true
+source: "说明书（原厂备件要求段落）+ 运输螺栓/排水泵相关章节"
+updated: 2026-10-23
+
+oem_requirement:
+  verified: true
+  text: 请只使用制造商的原厂备件和原厂附件；使用非原厂备件和非原厂附件可能会发生危险
+  source: "02_ingest/washer/siemens/*/text.md"
+
+consumables:
+  - key: inlet_hose
+    cn: 进水管（含 G3/4 螺纹接头）
+    note: 螺纹接头只用手拧紧，用工具会拧裂
+  - key: drain_hose
+    cn: 排水软管
+    note: 末端高度 0~100cm，不得浸入排出水中
+  - key: pump_filter
+    cn: 排水泵滤网
+    note: 排水超时/泵异响的第一检查对象
+  - key: transport_bolt
+    cn: 运输固定螺栓 + 孔塞
+    note: 4 颗，13 号扳手；丢了要补，不装会漏水和剧烈震动
+  - key: door_seal
+    cn: 门封圈
+    note: 发霉/破损需更换
+
+replaceable_parts:
+  - key: door_lock
+    cn: 门锁开关
+  - key: water_inlet_valve
+    cn: 进水阀
+  - key: drain_pump
+    cn: 排水泵
+  - key: aquastop_inlet
+    cn: AquaStop 进水管组件
+    note: 触发 E23 底座积水报警时涉及；属安全件，只能原厂
+  - key: heating_element
+    cn: 加热管/加热模块
+  - key: pcb
+    cn: 主控板
+  - key: motor
+    cn: 电机
+  - key: drum_bearing
+    cn: 滚筒轴承
+  - key: shock_absorber
+    cn: 减震器
+  - key: stacking_kit
+    cn: 叠放支架（干衣机叠放用）
+
+included_accessories:
+  source: null
+  note: 说明书只提到"从滚筒中取出附件"，未列完整清单，不得承诺随机赠送品
+  items: []
+
+todo:
+  - 补零件号与参考价
+  - 补 AquaStop 进水管是否为标配（影响 E23 的判定与收费）
+
+# ══════════════════════════════════════════════════════════════
+# 备件参考价（2026-10-23 业务方提供《家电备件价格参考表》）
+#
+# 性质：市场参考价（含配件费），不含上门费/人工费/高空作业费；零件号为参考编号，
+#      实际报修以官方售后系统查到的零件号为准。官方原厂件通常是兼容件的 2~3 倍。
+# 所以 price_verified 保持 false —— 能答「换个排水泵大概多少钱」，
+# 不能答「这是我们的标准价」，也不能把配件价当成「修好一共多少钱」。
+price_verified: false
+price_basis: >
+  业务方提供的备件价格参考表（2024~2026 年公开数据整理），
+  区间为市场价含配件费、不含人工与上门费；实际以当地售后网点报价为准。
+price_source: 家电备件价格参考表.xlsx（业务方 2026-10-23 提供）
+parts_price_list:
+  source_sheet: 西门子洗衣机备件
+  items:
+    - key: inlet_hose
+      cn: 进水管(含G3/4螺纹接头)
+      part_no: "SIW-WH-IH-001"
+      price_min: 25
+      price_max: 60
+      price_unit: 元
+      note: "螺纹接头只用手拧紧，用工具会拧裂"
+    - key: drain_hose
+      cn: 排水软管
+      part_no: "SIW-WH-DH-001"
+      price_min: 15
+      price_max: 40
+      price_unit: 元
+      note: "末端高度0~100cm，不得浸入排出水中"
+    - key: pump_filter
+      cn: 排水泵滤网
+      part_no: "SIW-WH-PF-001"
+      price_min: 5
+      price_max: 20
+      price_unit: 元
+      note: "排水超时/泵异响第一检查对象"
+    - key: transport_bolt
+      cn: 运输固定螺栓+孔塞
+      part_no: "SIW-WH-TB-001"
+      price_min: 15
+      price_max: 40
+      price_unit: 元
+      note: "4颗，13号扳手；丢了要补，不装会漏水和剧烈震动"
+    - key: door_seal
+      cn: 门封圈
+      part_no: "SIW-WH-DS-001"
+      price_min: 50
+      price_max: 180
+      price_unit: 元
+      note: "发霉/破损需更换；西门子要求只使用原厂备件"
+    - key: door_lock
+      cn: 门锁开关
+      part_no: "SIW-WH-DL-001"
+      price_min: 50
+      price_max: 200
+      price_unit: 元
+      note: "门锁异常(E1)时更换"
+    - key: water_inlet_valve
+      cn: 进水阀
+      part_no: "SIW-WH-WIV-001"
+      price_min: 40
+      price_max: 120
+      price_unit: 元
+      note: "进水异常时更换"
+    - key: drain_pump
+      cn: 排水泵
+      part_no: "SIW-WH-DP-001"
+      price_min: 60
+      price_max: 250
+      price_unit: 元
+      note: "排水故障时更换；官方配件费参考100~200元"
+    - key: aquastop_inlet
+      cn: AquaStop进水管组件
+      part_no: "SIW-WH-AS-001"
+      price_min: 80
+      price_max: 200
+      price_unit: 元
+      note: "触发E23底座积水报警时涉及；属安全件只能原厂"
+    - key: heating_element
+      cn: 加热管/加热模块
+      part_no: "SIW-WH-HE-001"
+      price_min: 80
+      price_max: 300
+      price_unit: 元
+      note: "加热异常时更换"
+    - key: pcb
+      cn: 主控板
+      part_no: "SIW-WH-PCB-001"
+      price_min: 200
+      price_max: 945
+      price_unit: 元
+      note: "官方原厂主板500~945元；更换人工费中修150元"
+    - key: motor
+      cn: 电机
+      part_no: "SIW-WH-MTR-001"
+      price_min: 200
+      price_max: 800
+      price_unit: 元
+      note: "iQdrive BLDC电机；中修更换人工费150元"
+    - key: drum_bearing
+      cn: 滚筒轴承
+      part_no: "SIW-WH-DB-001"
+      price_min: 80
+      price_max: 250
+      price_unit: 元
+      note: "异响/脱水震动大时更换；属大修范围"
+    - key: shock_absorber
+      cn: 减震器
+      part_no: "SIW-WH-SA-001"
+      price_min: 40
+      price_max: 120
+      price_unit: 元
+      note: "震动过大时更换"
+    - key: stacking_kit
+      cn: 叠放支架
+      part_no: "SIW-WH-SK-001"
+      price_min: 100
+      price_max: 200
+      price_unit: 元
+      note: "干衣机叠放用"

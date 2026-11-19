@@ -1,0 +1,53 @@
+# 3c 的规则与 appliance 保持同一套业务语义；差异是数据与话术，不是代码分支。
+version: 1
+
+settings:
+  four_eyes: true
+  approval_ttl_hours: 24
+
+rules:
+  - id: refund.requires_order_lookup
+    description: 退款/取消前必须先查订单，否则无从判断状态与归属
+    priority: 10
+    match:
+      action: [create_refund_ticket, cancel_order, approve_refund]
+      prior_tool_missing: get_order
+    effect: deny
+    suggested_action: get_order
+
+  - id: refund.block_unshipped_order
+    description: 未发货订单不存在「退货」语义，只能取消订单
+    priority: 20
+    match:
+      action: [create_refund_ticket]
+      order_status: [created, paid]
+    effect: deny
+    suggested_action: cancel_order
+
+  - id: refund.auto_within_policy
+    description: 已签收 7 天内且金额不超过 1000 元，可自动创建退货退款
+    priority: 30
+    match:
+      action: [create_refund_ticket]
+      order_status: [delivered]
+      days_since_delivered: {lte: 7}
+      amount_cents: {lte: 100000}
+    effect: allow
+
+  - id: refund.escalate_high_value_or_overdue
+    description: 金额超过 1000 元或超过 7 天，转人工审批
+    priority: 40
+    match:
+      action: [create_refund_ticket]
+      any_of:
+        - amount_cents: {gt: 100000}
+        - days_since_delivered: {gt: 7}
+    effect: escalate
+
+  - id: cancel.requires_confirmation
+    description: 取消订单属高风险操作，需人工确认后执行
+    priority: 50
+    match:
+      action: [cancel_order]
+      order_status: [paid, shipped]
+    effect: require_confirmation

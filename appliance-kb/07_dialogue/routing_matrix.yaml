@@ -1,0 +1,110 @@
+# 路由矩阵：意图 → 场景 → 知识源 → 工具 → 兜底
+# 检索时按此表决定"去哪找答案"，而不是全库向量搜（全库搜会把售后条款召回到售前问句上）
+version: 1
+updated: 2026-10-21
+
+routes:
+  - intent: presale.spec
+    scenario: s1_presale
+    primary: 03_product/{brand}/{model}/specs.yaml
+    secondary: 00_schema/spec_dictionary/{appliance}.yaml
+    tool: null
+    if_missing_model: 先追问 product_model；若用户只说"空调"，给档位区间并说明需型号才能报准数
+
+  - intent: presale.feature
+    scenario: s1_presale
+    primary: 03_product/{brand}/{model}/features.yaml
+    if_flag_null: 回答"说明书未标注，我帮您确认后回复"，不得推定支持或不支持
+
+  - intent: presale.fit
+    scenario: s1_presale
+    primary: 03_product/{brand}/{model}/specs.yaml#min_room_area_m2
+    secondary: 03_product/{brand}/{model}/specs.yaml#cooling_capacity_w
+    rule: 面积 < 最小房间面积 → 明确不可装；面积判断推荐能力 → 按每㎡ 150~200W 估算（行业口径，须标注"按经验估算"）
+
+  - intent: presale.compare
+    scenario: s1_presale
+    primary: 04_scenario/s1_presale/compare.md
+    secondary: 两个型号的 specs.yaml
+    rule: 只比同档位；跨档位不做参数优劣，只做面积匹配建议
+
+  - intent: presale.price
+    scenario: s1_presale
+    tool: 商品/价格接口
+    primary: null
+    note: 知识库不存价格，禁止用历史价或估算价回答
+
+  - intent: install.feasibility
+    scenario: s2_install
+    primary: 03_product/{brand}/{model}/install.yaml
+    needs: [power, space, piping]      # 三项都过才能说"可以装"
+    rule: 最小房间面积、接地、专用回路任一不满足 → 明确拒绝，不协商
+
+  - intent: install.fee
+    scenario: s2_install
+    primary: 05_brand_ref/{brand}/fee_schedule.yaml
+    secondary: 03_product/{brand}/{model}/install.yaml#chargeable_items
+    rule: 只报单项单价 + 可能产生的项目；无 verified 的价格一律加"以师傅现场确认为准"
+
+  - intent: install.booking
+    scenario: s2_install
+    tool: 安装预约系统
+    needs: [product_model, address, contact, preferred_time]
+
+  - intent: usage.operation
+    scenario: s3_usage
+    primary: 03_product/{brand}/{model}/usage.yaml
+    rule: 步骤顺序照抄，不合并、不省略"断电"类安全步骤
+
+  - intent: usage.maintenance
+    scenario: s3_usage
+    primary: 03_product/{brand}/{model}/usage.yaml#maintenance
+    rule: 说明书给了周期就用说明书（如海尔两周）；没给则给建议并注明"建议，非说明书条款"
+
+  - intent: usage.setting_confusion
+    scenario: s3_usage
+    primary: 03_product/{brand}/{model}/faults.yaml#normal_phenomena
+    fallback: 归到 s4_troubleshoot
+
+  - intent: troubleshoot.symptom
+    scenario: s4_troubleshoot
+    primary: 04_scenario/s4_troubleshoot/symptoms.yaml
+    secondary: 03_product/{brand}/{model}/faults.yaml#normal_phenomena
+    order: ① 安全红线判定 ② 正常现象过滤 ③ 环境/设置排查 ④ 机型自查 ⑤ 建单
+    tool: 工单系统（第 ⑤ 步）
+
+  - intent: troubleshoot.code
+    scenario: s4_troubleshoot
+    primary: 05_brand_ref/{brand}/fault_codes.yaml
+    if_not_found: 不猜测，走 service.create_ticket 并标注"代码未收录"
+    if_brand_has_no_table: 海尔该型号说明书无代码表 → 直接建单（见 03_product/.../faults.yaml#codes.note）
+
+  - intent: aftersale.return
+    scenario: s5_aftersale
+    primary: 06_platform_policy/return_policy.yaml
+    secondary: 06_platform_policy/opened_box.yaml
+    needs: [order_channel, receipt_date, installed, opened]
+    rule: 渠道不同规则不同，先确认渠道再回答
+
+  - intent: aftersale.warranty
+    scenario: s5_aftersale
+    primary: 05_brand_ref/{brand}/warranty.yaml
+    secondary: 03_product/{brand}/{model}/product.yaml#source_docs
+    rule: 保修期算起点是"安装完成日"，不是下单日
+
+  - intent: service.create_ticket
+    scenario: s6_service
+    tool: 工单系统
+    needs: [product_model, contact, address, symptom_text, preferred_time]
+    precheck: [是否已完成 s4 自查, 是否命中安全红线（命中则加急标记）]
+
+  - intent: service.track
+    scenario: s6_service
+    tool: 工单系统
+    needs: [ticket_id or contact]
+
+fallback:
+  - when: 意图不明确
+    do: 二选一追问（了解产品 / 机器有问题），不开放自由回答
+  - when: 命中知识缺口（specs 为 null / 政策 verified:false）
+    do: 给"已确认的部分 + 待确认的部分"，并承诺回访；同时写 10_ops/backlog.md

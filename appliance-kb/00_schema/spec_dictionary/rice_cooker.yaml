@@ -1,0 +1,191 @@
+# 电饭煲参数标准字典 v1
+# 电饭煲的知识重点与前两个品类差别很大：没有安装（免安装）、没有外机，
+# 用户问题集中在"煮出来好不好吃/怎么用/糊底/按键失灵"，所以 s1 看容量与加热方式，s3 看米水比与菜单。
+appliance: rice_cooker
+appliance_cn: 电饭煲
+version: 1
+updated: 2026-10-22
+
+keys:
+  capacity_l:
+    cn: 额定容积
+    unit: L
+    aliases: [容量, 升数, 几升]
+    used_in: [s1]
+    note: 3L≈2-4人，4L≈3-5人，5L≈5-8人（行业口径，非说明书条款）
+  capacity_cups:
+    cn: 额定煮饭量
+    unit: 杯
+    aliases: [几杯米, 杯数]
+    used_in: [s1]
+    note: 说明书通常按"量杯"给，比升数更贴近用户理解
+  alias_model:
+    cn: 型号别名
+    unit: null
+    aliases: [对应型号, 同款型号]
+    used_in: [s1, s6]
+    note: 苏泊尔等品牌同一份说明书覆盖多个型号，用户报的型号可能不在封面；两种写法都要能对上
+
+  power_w:
+    cn: 额定功率
+    unit: W
+    aliases: [功率, 加热功率]
+    used_in: [s1, s2]
+    note: 功率决定对插座/线路的要求，>1000W 建议单独插座
+  voltage:
+    cn: 额定电压
+    unit: V
+    aliases: [电压, 220V]
+    used_in: [s2]
+
+  heating_type:
+    cn: 加热方式
+    unit: null
+    aliases: [底盘加热, IH电磁加热, 立体加热]
+    used_in: [s1]
+    note: IH 与底盘加热的口径差异是售前对比的核心，不可混说
+  inner_pot_material:
+    cn: 内胆材质
+    unit: null
+    aliases: [内胆, 釜, 钛, 涂层, 陶晶]
+    used_in: [s1, s3]
+    note: 材质影响"能不能用钢丝球/能不能进洗碗机"的回答
+
+  size_mm:
+    cn: 外形尺寸
+    unit: mm
+    aliases: [外形尺寸, 尺寸, 产品尺寸]
+    used_in: [s1]
+    note: >
+      拆 w/h/d。电饭煲的坑在排列顺序：说明书参数表按"宽×高×深"，
+      而品牌官网/电商详情页普遍按"长×宽×高"（长即宽、宽即深）。
+      从官网取值时必须换算，否则高度会被当成深度——装橱柜量错就是这么来的。
+      凡换算过的都在 note 里写明原文顺序。
+  weight_kg:
+    cn: 整机质量
+    unit: kg
+    aliases: [净重, 重量]
+    used_in: [s1]
+  inner_pot_thickness_mm:
+    cn: 内胆厚度
+    unit: mm
+    aliases: [内胆厚度]
+    used_in: [s1]
+
+  energy_grade:
+    cn: 能效等级
+    unit: 级
+    aliases: [能效等级]
+    used_in: [s1]
+    note: 电饭煲有能效标识，但不少说明书不印，缺就写 null
+  thermal_efficiency_pct:
+    cn: 热效率值
+    unit: "%"
+    aliases: [热效率]
+    used_in: [s1]
+    note: 与能效等级同表给出；一级能效门槛 84%（4L 级），用户对比"省不省电"看这个
+  standby_power_w:
+    cn: 待机功率
+    unit: W
+    aliases: [待机功率, 待机耗电]
+    used_in: [s1]
+  keep_warm_energy_wh:
+    cn: 保温能耗
+    unit: W·h
+    aliases: [保温能耗, 保温耗电]
+    used_in: [s1]
+  keep_warm_max_h:
+    cn: 最长保温时长（说明书声明的上限）
+    unit: h
+    aliases: [能保温多久, 保温时间上限]
+    used_in: [s3]
+    note: 说明书常写「可实现 24 小时保温，但建议不超过 5 小时」；24 落本键，"建议 5 小时"落 keep_warm_advice_h，两个数都要有，否则会把"上限"当"建议"回答
+  keep_warm_advice_h:
+    cn: 建议保温时长
+    unit: h
+    aliases: [建议保温多久]
+    used_in: [s3]
+    note: 超过这个时长米饭会变色变味，是"保温后有异味"投诉的直接答复依据
+  timer_max_h:
+    cn: 预约最长时间
+    unit: h
+    aliases: [能预约多久, 预约上限]
+    used_in: [s3]
+    note: 多数说明书建议不超过 12 小时（超过米饭变味），这是建议值不是机器上限，回答时要区分
+
+  feature_keep_warm:
+    cn: 保温功能
+    unit: null
+    aliases: [保温, 自动保温]
+    used_in: [s1, s3]
+  feature_preset:
+    cn: 预约功能
+    unit: null
+    aliases: [预约, 定时]
+    used_in: [s3]
+  feature_cake:
+    cn: 蛋糕/酸奶等扩展菜单
+    unit: null
+    aliases: [蛋糕功能, 酸奶]
+    used_in: [s1]
+  steam_valve:
+    cn: 蒸汽阀可拆洗
+    unit: null
+    aliases: [蒸汽阀, 排气阀]
+    used_in: [s3]
+  detachable_lid:
+    cn: 上盖可拆洗
+    unit: null
+    aliases: [上盖可拆, 内盖]
+    used_in: [s3]
+
+# 功能键的中文名（features.yaml 用英文键存，检索要用中文词）
+# 不加这张表，用户搜"柴火饭"匹配不到 feature key `clay_pot`，召回直接丢一半。
+feature_names:
+  ih_heating: IH 电磁加热
+  keep_warm: 保温
+  timer: 预约 / 定时
+  pre_soak: 浸泡
+  steam: 蒸煮
+  cake: 蛋糕
+  porridge: 煮粥 / 稀饭
+  soup: 煲汤
+  quick_cook: 快煮
+  clay_pot: 柴火饭
+  detachable_lid: 可拆内盖
+  detachable_steam_valve: 可拆蒸汽阀 / 微压阀
+  micro_pressure: 微压
+  app: APP 联网
+  low_sugar: 低糖饭
+  claypot_rice: 煲仔饭
+  no_water_bake: 无水焗
+  braise: 卤肉
+  multi_grain: 杂粮饭
+  brown_rice: 糙米饭
+  mixed_bean: 豆豆饭
+  rice_type_select: 米种选择
+  texture_select: 口感选择
+  reheat: 热饭
+  self_clean: 清洁程序
+  steam_rack: 配蒸笼
+  touch_panel_top: 顶置触控面板
+
+# 说明书原文写法 → 标准键
+raw_aliases:
+  额定容积: capacity_l
+  容量(L): capacity_l
+  额定功率: power_w
+  额定电压: voltage
+  产品尺寸: size_mm
+  外形尺寸: size_mm
+  净重: weight_kg
+  内胆: inner_pot_material
+  内锅: inner_pot_material
+  能效等级: energy_grade
+  热效率值: thermal_efficiency_pct
+  待机功率: standby_power_w
+  保温能耗: keep_warm_energy_wh
+  煮米(杯): capacity_cups
+
+ambiguous:
+  _ambiguous_capacity: 部分说明书只写"3L/4L/5L"而不写杯数，两者换算依赖量杯规格，不可硬套

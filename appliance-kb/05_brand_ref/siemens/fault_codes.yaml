@@ -1,0 +1,247 @@
+# 西门子洗衣机/干衣机故障代码表
+#
+# 本批 5 份西门子资料（WG/WM/WN/WQ 四个平台）说明书写的是「故障信息 + 处理方法」，
+# 不做逐码释义，所以 has_official_table=false。
+# 下面的逐码表来自博西家电（西门子家电）公开服务资料，属网络来源，verified=false。
+#
+# 一个必须记住的细节：西门子同一含义常有 E 与 F 两种前缀写法（E16 / F16），
+# 老机型面板显示 F，新机型显示 E，含义相同。用户报 F 码不要当成"另一种故障"。
+policy_id: brand.siemens.fault_codes
+brand: siemens
+brand_cn: 西门子
+applies_to: {appliance: [washer]}
+updated: 2026-10-23
+
+verified: false
+source_kind: web
+source: "西门子家电官方服务号（搜狐「小西」）公布的故障代码表 + 多站交叉（2025-04 整理）"
+source_note: >
+  该表覆盖西门子/博世洗衣机与洗干一体机，与本批 5 个平台的说明书未逐条对照。
+
+has_official_table: false
+has_codes: true
+usable_scope: triage_only
+usable_scope_note: >
+  对外可以说"这个代码是门没关好/水压太低/排水不畅这一类"，因为这三类本身就是用户能自己查的；
+  涉及加热、转速、AquaStop 底水检测的，只说类别 + 停机，不说部件。
+
+prefix_note: E 与 F 前缀含义相同（新机型显示 E，老机型显示 F），不是两种故障
+
+codes_source: "西门子家电官方服务号故障代码表（2025-04）"
+
+codes:
+  - code: E16
+    alias: [F16]
+    cn: 机门未关好
+    class: door
+    severity: attention
+    user_action: 关好门听到锁合声；门缝有衣物卡住则取出后重关
+    verified: false
+  - code: E17
+    alias: [F17]
+    cn: 进水水压过低（低于 10 升/分钟）
+    class: water
+    severity: attention
+    user_action: 全开水龙头；确认水压不低于 0.1MPa；清洗进水阀过滤网
+    note: 说明书 p8 独立写了水压要求（0.1~1MPa、流量 ≥8L/min），与本条一致，可互为依据
+    verified: false
+  - code: E18
+    alias: [F18]
+    cn: 排水泵堵塞或排水管弯折
+    class: drain
+    severity: attention
+    user_action: 清理排水泵滤网；检查排水管走向，末端 0~100cm 且不得浸入水中
+    verified: false
+  - code: E19
+    alias: [F19]
+    cn: 水温未达到设定值
+    class: heat
+    severity: stop_and_call
+    user_action: 停机报修
+    verified: false
+  - code: E20
+    alias: [F20]
+    cn: 加热异常（异常升温）
+    class: heat
+    severity: stop_and_call
+    user_action: 立即停机断电报修，不要再运行热水程序
+    verified: false
+  - code: E21
+    alias: [F21]
+    cn: 转速过低（电机或测速异常）
+    class: motor
+    severity: stop_and_call
+    user_action: 停机报修；先排除衣物过载与严重不平衡
+    verified: false
+  - code: E23
+    alias: [F23]
+    cn: 底座积水（AquaStop 漏水保护触发）
+    class: water
+    severity: stop_and_call
+    user_action: 立即关闭水龙头并断电，不要再开机；报修
+    note: 这条是真漏水信号，属 safety_redlines 范围，必须先停机再解释
+    verified: false
+  - code: E29
+    alias: [F29]
+    cn: 水压过低（与 E17 同类，部分平台写法）
+    class: water
+    severity: attention
+    verified: false
+  - code: E31
+    alias: [F31]
+    cn: 溢水（水位超过安全线）
+    class: water
+    severity: stop_and_call
+    user_action: 关水龙头、断电；查进水阀是否关不死、排水是否受阻
+    verified: false
+  - code: E32
+    alias: [F32]
+    cn: 衣物不平衡检测
+    class: unbalance
+    severity: attention
+    user_action: 取出衣物抖散、大小件混装后重新脱水；空桶单件脱水也会报
+    note: 优先按"正常保护"解释，不要一上来就派单
+    verified: false
+  - code: E33
+    alias: [F33]
+    cn: 泡沫过多（追加消泡）
+    class: foam
+    severity: normal
+    user_action: 等程序自行完成；下次减少洗涤剂用量或改用低泡型
+    note: 属正常保护行为，不建单
+    verified: false
+
+# 面板提示（不是故障码，但用户会当故障报）
+panel_hints:
+  - display: "CL"
+    cn: 儿童锁已开启
+    severity: normal
+    user_action: 长按带钥匙符号的按键约 3 秒解除
+    verified: false
+  - display: "nr0（或 End）"
+    cn: 程序结束提示
+    severity: normal
+    user_action: 无需处理
+    verified: false
+
+# ── 有本机说明书依据的（可直接对外，这是本批最靠得住的部分）──
+self_check_from_manual:
+  source: "03_product/washer/siemens/*/faults.yaml（说明书 p30）"
+  verified: true
+  items:
+    - symptom: 机器不启动
+      cause: 门没关好 / 未按启动键 / 儿童锁开启 / 停电
+      action: 关好门听到锁合声；按启动/暂停；解除儿童锁；确认供电
+    - symptom: 机器不进水
+      cause: 水龙头未开 / 进水管弯折或过滤网堵 / 水压不足
+      action: 打开水龙头；检查进水管弯折；清洗进水阀过滤网；确认水压不低于 0.1MPa
+    - symptom: 机器不排水
+      cause: 排水软管弯折、挤压或安装过高 / 排水泵或滤网堵塞
+      action: 检查排水软管走向（末端不得高于 100cm 且不得浸入水中）；清洁排水泵
+    - symptom: 机器漏水
+      cause: 进水管螺纹未拧紧 / 排水软管松脱或破损
+      action: 进水接头只用手拧紧（用工具会拧裂螺纹）；检查排水软管与接口
+    - symptom: 脱水效果差、衣物仍湿
+      cause: 设定了低脱水转速 / 衣物不平衡自动降速
+      action: 下次设定较高脱水转速；大件与小件混装避免单件偏心
+    - symptom: 震动大、噪音大、机器移位
+      cause: 运输固定件未拆除 / 未调平 / 地面不坚固
+      action: 拆除背面 4 颗运输螺栓；用水平仪调平并锁紧防松螺母
+    - symptom: 洗涤效果不佳
+      cause: 衣物过脏 / 洗涤剂不足 / 装载过量
+      action: 选择合适程序与温度；按水质硬度调整用量；不超过最大负载
+
+handling_rule:
+  when_user_reports_code:
+    - 先问是哪几个字符（E 还是 F 开头），并记下是否闪烁
+    - 查本表 → 命中按 class 决定口径；E23（底座积水）立即按漏水停机
+    - E33 泡沫、CL 童锁 → 按正常现象解释，不建单
+    - 未命中 → 不猜，建单并标注"代码未收录 + 代码原文"
+    - 说明书 p30 的「故障信息」条目优先于本表的网络释义使用
+  forbid:
+    - 把 F 码当成与 E 码不同的故障
+    - 跨品牌套用（西门子 E16 是门未关好，小天鹅 E16 没有这个含义）
+    - 对 AquaStop 积水报警引导用户继续开机试
+
+escalate_hotline: "400 889 9999"
+
+todo:
+  - 向博西家电售后索取官方代码表，逐条核对本表（尤其 E19/E20/E21 的边界）
+  - 核对通过后把 usable_scope 提升为 full
+
+# ══════════════════════════════════════════════════════════════
+# 业务方速查表交叉核对（2026-10-23 新增）
+#
+# 业务方给了《常见错误代码及含义速查表》，其中对 E19/E20/E21 的解释与本文件**完全相反**：
+#   本文件（西门子家电官方服务号，2025-04）：E19 水温未达标 / E20 加热异常 / E21 转速过低 —— 全是加热与电机
+#   业务方速查表                       ：E19 分配器阀门 / E20 排水水位温度传感器 / E21 进排水系统 —— 全是水与投放
+#
+# 两边都不是本批说明书的原文（说明书不做逐码释义），所以**谁也没有压倒性依据**。
+# 处理方式：
+#   ① 不覆盖任何一边，两套都留在文件里
+#   ② 严重度两边一致（都要停机建单），所以对外话术不受影响：统一说"要停机检查"
+#   ③ 只有"要不要报具体部件名"受影响 → 冲突项一律不报部件
+biz_crosscheck:
+  source_kind: biz_provided
+  source: "业务方提供的常见错误代码速查表（2026-10-23）"
+  verdict: library_prevails          # conflict_on_core_codes（原描述，见下方 ruling）
+  ruling_policy: >
+    2026-10-23 业务方裁定：**凡与现有条目冲突的，一律以现有表为准**（速查表对应条目不采纳）。
+    理由：速查表未标机型平台，现有表至少能追到说明书或可对照的官方代码族。
+    本条裁定不改变 usable_scope——"采用哪一套"和"这套本身是否经售后核实"是两件事。
+  ruling_date: 2026-10-23
+  ruling_by: 业务方
+
+  matched_with_wording:            # 根因一致、措辞不同，可合并使用
+    - code: E17
+      ours: 进水水压过低（低于 10 升/分钟）
+      biz: 进水超时
+      note: 同一件事的两种说法——水压不足的直接表现就是进水超时
+    - code: E18
+      ours: 排水泵堵塞或排水管弯折
+      biz: 排水超时（堵塞）
+      note: 一致
+
+  conflict:                        # 禁止覆盖，只做内部对照
+    - code: E19
+      ours: 水温未达到设定值（分类 heat，严重度 stop_and_call）
+      biz: 分配器 / 内部阀门控制错误（限带 i-DOS 智能投放的机型）
+      severity_agree: stop_and_call
+      applicability: 本库 5 台均未见标明 i-DOS；若确实无此功能，E19 更可能是温度相关
+      reply: 停机报修，只说"这个代码要停机，师傅带检测仪上门确认"，不报部件
+    - code: E20
+      ours: 加热异常（异常升温，分类 heat）
+      biz: 排水 / 水位 / 温度传感器异常
+      severity_agree: stop_and_call
+      reply: 同上，停机报修
+    - code: E21
+      ours: 转速过低（电机或测速异常，分类 motor）
+      biz: 进水 / 排水系统异常
+      severity_agree: stop_and_call
+      reply: 同上，停机报修
+
+  biz_only:                        # 本文件未收录，仅业务方表有，按"待核"使用
+    - {code: E1, cn: 门锁异常, severity: stop_and_call, status: 未核实}
+    - {code: E3, cn: 温度传感器异常, severity: stop_and_call, status: 未核实}
+  biz_only_note: >
+      这两条与本文件的 E16（机门未关好）可能重叠，也可能属于不同平台。
+      对外只说到"门或温度检测这类问题，需要师傅确认"，不报部件名。
+
+  note: >
+    E19/E20/E21 的裁定直接决定"是加热系统还是进排水系统"的备件方向，
+    核错的代价是师傅带错件白跑一趟。必须由博西售后出书面代码表定版，见 todo 与 confirm_queue。
+
+  # ── 裁定结果（2026-10-23）──────────────────────────────
+  adopt:
+    - {code: E17, cn: 进水水压过低 / 进水超时, note: 两边一致，可合并使用}
+    - {code: E18, cn: 排水泵堵塞 / 排水超时, note: 两边一致，可合并使用}
+    - {code: "E16 / E23 / E31 / E32 / E33 / CL / End", note: 速查表未覆盖，继续用现有表}
+  not_adopt:
+    - {code: E19, ours: 水温未达到设定值, biz: 分配器/内部阀门控制错误, action: 按现有表归类为加热类，停机报修}
+    - {code: E20, ours: 加热异常（异常升温）, biz: 排水/水位/温度传感器异常, action: 按现有表归类为加热类，停机报修}
+    - {code: E21, ours: 转速过低（电机或测速异常）, biz: 进水/排水系统异常, action: 按现有表归类为电机类，停机报修}
+    - {code: E1, ours: 未收录, biz: 门锁异常, action: 按"代码未收录"处理：建单 + 记录代码原文}
+    - {code: E3, ours: 未收录, biz: 温度传感器异常, action: 按"代码未收录"处理}
+  note: >
+    这三条是备件方向的分歧（加热/电机 vs 进排水），裁定后按现有表走，
+    对外仍然只说"要停机，师傅带检测仪上门"——因为现有表本身也只是官方服务号来源，未经书面确认。

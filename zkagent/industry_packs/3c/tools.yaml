@@ -1,0 +1,47 @@
+# 3c 的工具面与 appliance 对齐；差异只在提示词、知识、种子数据与规则文件。
+version: 1
+
+enabled:
+  - knowledge_search
+  - get_user
+  - verify_user
+  - search_products
+  - get_product
+  - get_order
+  - list_orders
+  - cancel_order
+  - create_refund_ticket
+  - get_refund_ticket
+  - approve_refund
+  - create_service_ticket
+  - schedule_service
+  - get_logistics
+  - escalate_to_human
+
+tags:
+  knowledge_search: [kb, read]
+  get_user: [user, profile]
+  verify_user: [user, identity]
+  search_products: [product, read, presale]
+  get_product: [product, read, presale]
+  get_order: [order]
+  list_orders: [order, list]
+  cancel_order: [order, write, risky]
+  create_refund_ticket: [refund, write, risky]
+  get_refund_ticket: [refund]
+  approve_refund: [refund, write, risky]
+  create_service_ticket: [service, write]
+  schedule_service: [service, write]
+  get_logistics: [logistics]
+  escalate_to_human: [risky, handoff]
+
+overrides:
+  knowledge_search:
+    timeout_s: 20.0
+
+injection:
+  max_tools: 15
+  prefilter_by: [tags, intent, permissions]
+  always_include:
+    - get_order
+    - knowledge_search

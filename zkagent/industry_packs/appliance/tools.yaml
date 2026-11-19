@@ -1,0 +1,56 @@
+# 工具声明：本行业启用哪些归一化工具、如何按需注入。
+# knowledge_search 由 Core 的 RAG 提供（不是业务 API），与其他工具一起注册、按同一套规则过滤。
+version: 1
+
+enabled:
+  - knowledge_search
+  - get_user
+  - verify_user
+  - search_products
+  - get_product
+  - get_order
+  - list_orders
+  - cancel_order
+  - create_refund_ticket
+  - get_refund_ticket
+  - approve_refund
+  - create_service_ticket
+  - schedule_service
+  - get_logistics
+  - escalate_to_human
+
+# 按工具名补充/细化 tag，用于「按 tag 过滤后注入」。
+tags:
+  knowledge_search: [kb, read]
+  get_user: [user, profile]
+  verify_user: [user, identity]
+  search_products: [product, read, presale]
+  get_product: [product, read, presale]
+  get_order: [order]
+  list_orders: [order, list]
+  cancel_order: [order, write, risky]
+  create_refund_ticket: [refund, write, risky]
+  get_refund_ticket: [refund]
+  approve_refund: [refund, write, risky]
+  create_service_ticket: [service, write]
+  schedule_service: [service, write]
+  get_logistics: [logistics]
+  escalate_to_human: [risky, handoff]
+
+# 按工具名覆盖元数据（未列出的使用后端声明的默认值）。
+overrides:
+  knowledge_search:
+    timeout_s: 20.0   # 首次检索要加载嵌入模型；后续走缓存
+  create_service_ticket:
+    timeout_s: 15.0
+  escalate_to_human:
+    timeout_s: 5.0
+
+# 行业扩展工具（P1 暂为空；新增行业工具只需在此声明并让后端实现映射）。
+extensions: []
+
+# 注入上限：当前行业启用 15 个工具，上限设为 15（即「全量但不越界」）。
+# P5 引入意图过滤后会把上限收紧到相关子集——届时上限才会真正裁剪。
+injection:
+  max_tools: 15
+  prefilter_by: [tags, intent, permissions]

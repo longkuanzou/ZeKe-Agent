@@ -1,0 +1,149 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+products:
+- sku: HA-KFR35-E1
+  category: aircon
+  model: KFR-35GW/E1-1
+  name: 海尔 1.5 匹变频挂机 KFR-35GW/E1-1
+  price_cents: 289900
+  capacity: 1.5匹 / 3500W
+  energy_grade: 1级
+  dimensions_mm: 900×200×300
+  features_json: '["变频", "自清洁", "新一级能效", "静音", "电辅热", "APP控制"]'
+  install_notes: 需 16A 独立回路；外机位留 30cm 散热间距
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: MD-KFR35-Q2
+  category: aircon
+  model: KFR-35GW/Q2
+  name: 美的 1.5 匹变频挂机 KFR-35GW/Q2
+  price_cents: 329900
+  capacity: 1.5匹 / 3510W
+  energy_grade: 1级
+  dimensions_mm: 880×195×295
+  features_json: '["变频", "自清洁", "新一级能效", "无风感", "电辅热"]'
+  install_notes: 需 16A 独立回路；外机位留 30cm 散热间距
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: HA-KFR72-E1
+  category: aircon
+  model: KFR-72LW/E1-1
+  name: 海尔 3 匹变频柜机 KFR-72LW/E1-1
+  price_cents: 699900
+  capacity: 3匹 / 7330W
+  energy_grade: 1级
+  dimensions_mm: 400×1850×380
+  features_json: '["变频", "自清洁", "新一级能效", "电辅热", "强力制冷"]'
+  install_notes: 需 16A 独立回路；柜机需预留 40cm 检修空间
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: MD-KFR72-N8
+  category: aircon
+  model: KFR-72LW/N8KS1-1P
+  name: 美的 3 匹变频柜机 KFR-72LW/N8KS1-1P
+  price_cents: 759900
+  capacity: 3匹 / 7320W
+  energy_grade: 1级
+  dimensions_mm: 420×1860×390
+  features_json: '["变频", "自清洁", "新一级能效", "无风感", "电辅热"]'
+  install_notes: 需 16A 独立回路；柜机需预留 40cm 检修空间
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: LS-TB100V26
+  category: washer
+  model: TB100V26DT
+  name: 小天鹅 10 公斤波轮洗衣机 TB100V26DT
+  price_cents: 189900
+  capacity: 10kg
+  energy_grade: 1级
+  dimensions_mm: 580×590×940
+  features_json: '["波轮", "除菌洗", "桶自洁", "10kg大容量"]'
+  install_notes: 需进水与地漏；门宽 ≥62cm
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: LS-TG100V618
+  category: washer
+  model: TG100V618PLUS
+  name: 小天鹅 10 公斤滚筒洗衣机 TG100V618PLUS
+  price_cents: 279900
+  capacity: 10kg
+  energy_grade: 1级
+  dimensions_mm: 595×600×850
+  features_json: '["滚筒", "除菌洗", "筒自洁", "变频", "智能投放"]'
+  install_notes: 需进水与地漏；门宽 ≥62cm；预留 5cm 散热
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: SI-WM12P2602
+  category: washer
+  model: WM12P2602W
+  name: 西门子 10 公斤滚筒洗衣机 WM12P2602W
+  price_cents: 399900
+  capacity: 10kg
+  energy_grade: 1级
+  dimensions_mm: 598×590×848
+  features_json: '["滚筒", "除菌洗", "变频", "15分钟快洗"]'
+  install_notes: 已下架机型；备件供应至 2029 年
+  status: off_shelf
+  updated_at: '@now-1d'
+- sku: SI-WN54A1X42
+  category: washer
+  model: WN54A1X42W
+  name: 西门子 10 公斤洗烘一体机 WN54A1X42W
+  price_cents: 529900
+  capacity: 10kg（烘干 6kg）
+  energy_grade: 1级
+  dimensions_mm: 598×590×848
+  features_json: '["滚筒", "洗烘一体", "烘干", "除菌洗", "智能投放"]'
+  install_notes: 需进水与地漏；门宽 ≥62cm；烘干需独立排水
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: MD-MB40HB9T
+  category: rice_cooker
+  model: MB-40HB9T
+  name: 美的 4L IH 电饭煲 MB-40HB9T
+  price_cents: 59900
+  capacity: 4L
+  energy_grade: 1级
+  dimensions_mm: 350×280×220
+  features_json: '["IH加热", "24小时预约", "可拆内盖", "一级能效"]'
+  install_notes: 免安装，开箱即用；需 10A 插座
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: MD-MBRE576S
+  category: rice_cooker
+  model: MB-RE576S
+  name: 美的 5L IH 电饭煲 MB-RE576S
+  price_cents: 89900
+  capacity: 5L
+  energy_grade: 1级
+  dimensions_mm: 380×300×240
+  features_json: '["IH加热", "5L大容量", "24小时预约", "可拆内盖"]'
+  install_notes: 免安装，开箱即用；需 10A 插座
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: SP-F40H8093S
+  category: rice_cooker
+  model: F40H8093S
+  name: 苏泊尔 4L 电饭煲 F40H8093S
+  price_cents: 45900
+  capacity: 4L
+  energy_grade: 2级
+  dimensions_mm: 340×270×215
+  features_json: '["底盘加热", "24小时预约", "可拆内盖"]'
+  install_notes: 免安装，开箱即用；需 10A 插座
+  status: on_sale
+  updated_at: '@now-1d'
+- sku: SP-F50X96
+  category: rice_cooker
+  model: F50X96
+  name: 苏泊尔 5L IH 电饭煲 F50X96
+  price_cents: 79900
+  capacity: 5L
+  energy_grade: 2级
+  dimensions_mm: 370×295×235
+  features_json: '["IH加热", "5L大容量", "24小时预约"]'
+  install_notes: 免安装，开箱即用；需 10A 插座
+  status: on_sale
+  updated_at: '@now-1d'

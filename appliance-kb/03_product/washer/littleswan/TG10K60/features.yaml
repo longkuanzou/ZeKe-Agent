@@ -1,0 +1,68 @@
+# 功能清单：售前"有没有""支不支持"类问题的唯一依据
+# supported: true 有 / false 明确没有（可用于否定回答）/ null 说明书未提及（按"不确定"处理，不得推定）
+product_id: littleswan-tg10k60
+updated: 2026-10-22
+
+features:
+  # ── 洗涤程序（说明书面板图逐项列出，属于"有"）──
+  program_mixed:      {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 混合}
+  program_cotton:     {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 棉麻}
+  program_quick:      {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 快洗}
+  program_wool:       {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 羊毛}
+  program_down:       {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 羽绒服}
+  program_sport:      {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 冲锋衣精洗}
+  program_rinse_spin: {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 漂洗+脱水}
+  program_spin_only:  {supported: true, source: "ocr#使用说明-程序介绍.jpg", phrase: 单脱水}
+  program_self_clean: {supported: true, source: "ocr#温馨提示.jpg", phrase: 筒自洁}
+
+  # ── 能力类 ──
+  dry:            {supported: false, source: "ocr#产品介绍.jpg",
+                   note: 单洗机型，无烘干功能。价保/售前不得承诺"洗烘一体"}
+  steam:          {supported: true, source: "ocr#产品介绍.jpg",
+                   note: "不是蒸汽，是「高温净洗」高温除菌除螨（说明书明确：本机除菌除螨测试程序即高温净洗）"}
+  self_clean:     {supported: true, source: "ocr#温馨提示.jpg",
+                   note: 新机首次使用建议先跑一次筒自洁，不加衣物、不加洗涤剂}
+  wifi:           {supported: true, source: "ocr#使用说明-特色功能介绍.jpg",
+                   phrase: "智能物联，美的美居 App（远程控制/消息提醒/忘取提醒设置）"}
+  child_lock:     {supported: true, source: "ocr#使用说明-控制面板介绍.jpg", phrase: "长按童锁"}
+  auto_dosing:    {supported: true, source: "ocr#使用说明-控制面板介绍.jpg",
+                   phrase: "智能双投，洗衣液/柔顺剂自动投放，1~4 档可调"}
+  auto_weight:    {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 自动称重}
+  auto_water_level: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 自动水位}
+  foam_sensor:    {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 消泡（泡沫感知检测）}
+  unbalance_sensor: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg",
+                     phrase: "Ub 脱水不平衡感知，约 100rpm 偏心检测"}
+  power_off_memory: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 断电记忆}
+  program_memory: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 程序记忆}
+  drum_light:     {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 筒灯}
+  delay_start:    {supported: true, source: "ocr#使用说明-控制面板介绍.jpg", phrase: 预约时间}
+  forget_take_reminder: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg",
+                         phrase: "忘取无忧：最长 8 小时内周期性抖散（2/4/6/8h 可选）"}
+  micro_bubble:   {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 超微净泡}
+  water_cube:     {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", phrase: 水魔方}
+  hot_wash:       {supported: true, source: "ocr#使用说明-特色功能介绍.jpg",
+                   note: 可调温度；具体档位见面板（冷水洗/30/40/60/90 等，需按面板核对）}
+
+# 销售侧可讲的差异化点（需与实际参数一致，不得夸大）
+selling_points:
+  - key: capacity
+    text: 10kg 大容量滚筒，被套四件套一次洗完
+    support: specs.capacity_kg
+  - key: energy
+    text: 1 级能效，额定功率 1800W
+    support: [specs.energy_grade, specs.power_w]
+  - key: auto_dosing
+    text: 洗衣液、柔顺剂都能自动投放，不用每次倒
+    support: features.auto_dosing
+  - key: quiet
+    text: 洗涤 46dB(A)、脱水 68dB(A)（声功率级）
+    support: [specs.noise_wash_db, specs.noise_spin_db]
+
+# 明确不能说的（防止幻觉，也防投诉）
+cannot_claim:
+  - 烘干 / 洗烘一体（本机无烘干）
+  - 蒸汽洗 / 蒸汽除菌（本机是高温净洗，不是蒸汽）
+  - 空气洗
+  - 除菌率 / 除螨率的具体百分比（说明书未给检测数据）
+  - 具体耗水量（说明书未给）
+  - 排水可接水槽（本机为上排水，需按排水管最高点限值安装，不能随意改）

@@ -1,0 +1,285 @@
+# 空调参数标准字典 v1
+# 作用：把各品牌说明书里的不同叫法，映射到同一批键名。
+# 规则：specs.yaml 只能使用本文件定义的键；新参数先在此登记，再回填型号。
+# 售前对比（s1）依赖本字典做跨品牌对齐，缺键会导致对比表缺列。
+
+appliance: air_conditioner
+appliance_cn: 空调
+version: 1
+updated: 2026-10-21
+
+# ── 键定义 ────────────────────────────────────────────────
+keys:
+  # 能力
+  cooling_capacity_w:
+    cn: 额定制冷量
+    unit: W
+    aliases: [制冷量, 额定制冷量, 制冷能力]
+    used_in: [s1, s2, s4]
+    note: 三段式（额定/最小/最大）分别存 value/min/max
+  heating_capacity_w:
+    cn: 额定制热量
+    unit: W
+    aliases: [制热量, 额定制热量, 热泵制热量]
+    used_in: [s1, s4]
+  cooling_power_w:
+    cn: 制冷功率
+    unit: W
+    aliases: [制冷输入功率, 功率(制冷)]
+    used_in: [s1, s2]
+  heating_power_w:
+    cn: 制热功率
+    unit: W
+    aliases: [制热输入功率, 功率(制热)]
+    used_in: [s1]
+  auxiliary_heat_w:
+    cn: 电辅热功率
+    unit: W
+    aliases: [PTC电热功率, 电加热功率, 电辅热输入功率]
+    used_in: [s1, s4]
+  max_input_power_w:
+    cn: 最大输入功率
+    unit: W
+    aliases: [最大功率]
+    used_in: [s2]
+    note: 选线、选空开、选插座必须看这个值，不看待机功率
+  mid_cooling_capacity_w:
+    cn: 中间制冷量
+    unit: W
+    aliases: [中间制冷量]
+    used_in: [s1]
+    note: 半载能力，反映低频维持能力，是"变频省不省电"的实际参考
+  mid_heating_capacity_w:
+    cn: 中间制热量
+    unit: W
+    aliases: [中间制热量]
+    used_in: [s1]
+  low_temp_heating_capacity_w:
+    cn: 低温制热量
+    unit: W
+    aliases: [低温制热量]
+    used_in: [s1, s4]
+    note: 北方用户/"冬天为什么不热"的关键指标
+  low_temp_heating_power_w:
+    cn: 低温制热功率
+    unit: W
+    aliases: [低温制热输入功率, 低温制热功率]
+    used_in: [s1]
+  standby_power_w:
+    cn: 待机功率
+    unit: W
+    aliases: [待机功率]
+    used_in: [s1]
+
+  # 能效
+  efficiency_apf:
+    cn: 全年能源消耗效率
+    unit: APF
+    aliases: [APF, 全年能源消耗效率]
+    used_in: [s1]
+  efficiency_seer:
+    cn: 制冷季节能源消耗效率
+    unit: SEER
+    aliases: [SEER]
+    used_in: [s1]
+  efficiency_hspf:
+    cn: 制热季节能源消耗效率
+    unit: HSPF
+    aliases: [HSPF]
+    used_in: [s1]
+  energy_grade:
+    cn: 能效等级
+    unit: 级
+    aliases: [能效等级, 能效级别]
+    used_in: [s1]
+    note: 按 GB 21455-2019 新能效，1 级最高
+
+  # 电气
+  power_supply:
+    cn: 电源
+    unit: null
+    aliases: [电源, 额定电压, 电源(V~/Hz)]
+    used_in: [s2]
+  current_cooling_a:
+    cn: 制冷电流
+    unit: A
+    aliases: [电流(制冷), 制冷输入电流]
+    used_in: [s2]
+  current_heating_a:
+    cn: 制热电流
+    unit: A
+    aliases: [电流(制热)]
+    used_in: [s2]
+  max_input_current_a:
+    cn: 最大输入电流
+    unit: A
+    aliases: [最大电流]
+    used_in: [s2]
+  power_cord_spec:
+    cn: 电源线规格
+    unit: mm²
+    aliases: [电源线规格, 电源线]
+    used_in: [s2]
+  connection_wire_spec:
+    cn: 室内外连接线规格
+    unit: mm²
+    aliases: [连接线规格, 室内外连接线]
+    used_in: [s2]
+  fuse_spec:
+    cn: 熔断丝规格
+    unit: null
+    aliases: [熔断丝, 保险丝规格]
+    used_in: [s2]
+
+  # 声学与风量
+  noise_indoor_db:
+    cn: 室内机噪声
+    unit: dB(A)
+    aliases: [噪声(室内), 室内噪声, 噪音]
+    used_in: [s1, s4]
+    note: 三段式 静音档/高风/超强，分别存 min/standard/max；用户问"静音多少分贝"取 min
+  noise_outdoor_db:
+    cn: 室外机噪声
+    unit: dB(A)
+    aliases: [噪声(室外), 室外机噪声]
+    used_in: [s1, s4]
+  airflow_m3h:
+    cn: 循环风量
+    unit: m³/h
+    aliases: [循环风量, 风量]
+    used_in: [s1]
+
+  # 结构与安装
+  size_indoor_mm:
+    cn: 室内机外形尺寸
+    unit: mm
+    aliases: [外形尺寸(室内机), 室内机尺寸]
+    used_in: [s2]
+    note: 必须拆 w/h/d；海尔原文顺序为"宽*深*高"，美的为"宽×高×深"
+  size_outdoor_mm:
+    cn: 室外机外形尺寸
+    unit: mm
+    aliases: [外形尺寸(室外机), 室外机尺寸]
+    used_in: [s2]
+  weight_indoor_kg:
+    cn: 室内机质量
+    unit: kg
+    aliases: [质量(室内机), 室内机重量]
+    used_in: [s2]
+    note: 说明书常写"见铭牌"，此时存 null 并进 backlog
+  weight_outdoor_kg:
+    cn: 室外机质量
+    unit: kg
+    aliases: [质量(室外机), 室外机重量]
+    used_in: [s2]
+  pipe_max_length_m:
+    cn: 连接管最大长度
+    unit: m
+    aliases: [连接管的最大长度, 最多允许加长]
+    used_in: [s2]
+    note: 超长需补冷媒，补注量与品牌相关，见 refrigerant_extra_per_m
+  pipe_max_height_diff_m:
+    cn: 室内外机最大高度差
+    unit: m
+    aliases: [最大高度差]
+    used_in: [s2]
+  refrigerant_type:
+    cn: 制冷剂种类
+    unit: null
+    aliases: [制冷剂种类/充注量, 冷媒]
+    used_in: [s2, s4]
+  refrigerant_charge_g:
+    cn: 制冷剂充注量
+    unit: g
+    aliases: [充注量, 注气量]
+    used_in: [s2]
+  refrigerant_extra_per_m:
+    cn: 管路加长追加量
+    unit: g/m
+    aliases: [每加长1米追加]
+    used_in: [s2]
+    note: 海尔 20g/m（超 5m 起算）、美的 18g/m（最长 15m），差异明显，答前必查本型号
+  min_room_area_m2:
+    cn: 最小房间面积
+    unit: m²
+    aliases: [房间面积, 使用房间最小面积]
+    used_in: [s1, s2]
+    note: 涉及安全（R32 可燃制冷剂），面积不达标不得安装
+  recommended_area_cooling_m2:
+    cn: 建议制冷面积
+    unit: m²
+    aliases: [建议制冷面积, 适用面积]
+    used_in: [s1]
+    note: >
+      部分型号（美的 KS2P/N8KS1 系列）说明书给出建议面积区间，此时必须优先引用官方值，
+      不得再用 150~200W/㎡ 的经验估算；未给出的型号才用估算并标注
+  recommended_area_heating_m2:
+    cn: 建议制热面积
+    unit: m²
+    aliases: [建议制热面积]
+    used_in: [s1]
+  drain_required:
+    cn: 是否需排水
+    unit: null
+    aliases: [排水管, 排水]
+    used_in: [s2]
+
+  # 功能（布尔）
+  feature_self_clean:
+    cn: 自清洁
+    used_in: [s1, s3]
+  feature_dry:
+    cn: 独立除湿/烘干
+    used_in: [s1]
+  feature_wifi:
+    cn: WiFi/APP 控制
+    used_in: [s1, s3, s4]
+  feature_voice:
+    cn: 语音控制
+    used_in: [s1, s3]
+  feature_fresh_air:
+    cn: 新风
+    used_in: [s1]
+  feature_anti_direct_blow:
+    cn: 防直吹
+    used_in: [s1, s3]
+
+# ── 说明书原文写法 → 标准键（抽取时按此匹配）────────────────
+# 只登记各品牌高频写法；新写法先补这里再重跑抽取，避免同一个参数被存成两个键
+raw_aliases:
+  制冷量(W): cooling_capacity_w
+  额定制冷量(W): cooling_capacity_w
+  制热量(W): heating_capacity_w
+  额定制热量(W): heating_capacity_w
+  功率(W): _ambiguous_power        # 需看上一行是"制冷"还是"制热"
+  电流(A): _ambiguous_current
+  室内机循环风量(m³/h): airflow_m3h
+  循环风量(m³/h): airflow_m3h
+  噪声dB(A): noise_indoor_db
+  室内机: noise_indoor_db
+  室外机: noise_outdoor_db
+  外形尺寸(mm): _ambiguous_size    # 需看区块是室内机还是室外机
+  制冷剂种类/充注量: refrigerant_type
+  使用房间最小面积(m²): min_room_area_m2
+  能效等级: energy_grade
+  全年能源消耗效率APF: efficiency_apf
+  制冷季节能源消耗效率SEER: efficiency_seer
+  制热季节能源消耗效率HSPF: efficiency_hspf
+  最大输入功率(W): max_input_power_w
+  最大输入电流(A): max_input_current_a
+  电源(V~/Hz): power_supply
+  待机功率(W): standby_power_w
+  电辅热输入功率(W): auxiliary_heat_w
+  PTC电热功率(W)/电流(A): auxiliary_heat_w
+  熔断丝规格: fuse_spec
+  电源线规格(mm²)(RVV300/500V): power_cord_spec
+  室内外连接线规格(mm²)(YZW300/500V): connection_wire_spec
+  连接管的最大长度: pipe_max_length_m
+  室内机与室外机最大高度差: pipe_max_height_diff_m
+  房间面积: min_room_area_m2
+
+# 需人工确认归属的模糊键（抽取脚本会标 warn，不自动写入）
+ambiguous:
+  _ambiguous_power: 说明书在同一"功率(W)"标签下并列制冷/制热两值，需按上下文归属
+  _ambiguous_current: 同上，制冷/制热两值
+  _ambiguous_size: 说明书标注的宽×深×高顺序各品牌不同，必须拆 w/h/d 后人工核对

@@ -1,0 +1,127 @@
+# 参数来源：说明书参数表（页码见每项 source），2026-10-22 人工核对回填
+# confidence: inferred = 参数表文本错位，按位置推断，待人工复核（见 10_ops/confirm_queue.md）
+product_id: haier-kfr-72lw-e1-1
+updated: 2026-10-22
+
+specs:
+  cooling_capacity_w:
+    value: 7330
+    min: 850
+    max: 9270
+    unit: W
+    source: p35
+  heating_capacity_w:
+    value: 9820
+    min: 850
+    max: 12420
+    unit: W
+    source: p35
+  cooling_power_w:
+    value: 2070
+    min: 250
+    max: 3550
+    unit: W
+    source: p35
+  heating_power_w:
+    value: 2832
+    min: 250
+    max: 4450
+    unit: W
+    source: p35
+  auxiliary_heat_w:
+    value: 2500
+    unit: W
+    source: p35
+    note: PTC 2500W/12.0A
+  current_cooling_a:
+    value: 9.8
+    unit: A
+    source: p35
+  current_heating_a:
+    value: 12.7
+    unit: A
+    source: p35
+  mid_cooling_capacity_w:
+    value: 3600
+    unit: W
+    source: p35
+    confidence: inferred
+  mid_heating_capacity_w:
+    value: 4950
+    unit: W
+    source: p35
+    confidence: inferred
+  low_temp_heating_capacity_w:
+    value: 9022
+    unit: W
+    source: p35
+    confidence: inferred
+  low_temp_heating_power_w:
+    value: 3803
+    unit: W
+    source: p35
+    confidence: inferred
+  standby_power_w:
+    value: 3
+    unit: W
+    source: p35
+  power_supply:
+    value: 220V~/50Hz
+    source: p35
+  noise_indoor_db:
+    min: 20
+    standard: 42
+    max: 47
+    unit: dB(A)
+    source: p35
+  noise_outdoor_db:
+    value: 56
+    unit: dB(A)
+    source: p35
+    confidence: inferred
+  airflow_m3h:
+    value: 1600
+    unit: m³/h
+    source: p35 + 业务方核官方规格页（2026-10-23）
+    confidence: confirmed
+    note: 说明书参数表因错位排版原为推断值；业务方核官方规格页同为 1600 m³/h，两条证据一致，已转 confirmed
+  size_indoor_mm:
+    w: 424
+    h: 1830
+    d: 364
+    unit: mm
+    source: p35（原文方向）+ 业务方核定（2026-10-23）
+    confidence: confirmed
+    note: |
+      **2026-10-23 核定：宽 424 × 高 1830 × 深 364（无需互换）。**
+      依据：海尔官方知识库与苏宁易购自营旗舰店规格参数均统一标注为 424×1830×364mm。
+      说明书 p35 原文标注"宽X高X深"，但数值按 364×1830×424 排（宽深互换），
+      经两个官方渠道交叉核对后确认是说明书表格的列顺序问题，实机为 424 宽 / 364 深。
+      落地柜机前面板宽、侧面深，424>364 也更符合形态。
+      回答预留位/装柜时按 424×1830×364，并提醒留 5cm 以上进出风与接管间隙。
+    cross_check_alt:
+      w: 364
+      h: 1830
+      d: 424
+      source: 说明书 p35 参数表原始数值（宽深互换）
+      status: 已被核定推翻，仅作溯源留档
+  size_outdoor_mm:
+    w: 889
+    h: 643
+    d: 355
+    unit: mm
+    source: p35
+    note: 原文标注顺序 宽X高X深
+    confidence: inferred
+  pipe_max_length_m:
+    value: 15
+    unit: m
+    source: p26
+  pipe_max_height_diff_m:
+    value: 10
+    unit: m
+    source: p26
+  min_room_area_m2: null
+
+missing:
+  - min_room_area_m2

@@ -1,0 +1,81 @@
+# 家电客服（知识问答 + 售前/履约/售后业务办理）。
+#
+# 分工是硬的：
+#   - 参数、价格、库存、优惠 → 商品/库存/促销工具（知识库不存这些）
+#   - 政策、流程、条件、排查步骤 → knowledge_search
+#   - 订单/物流/工单/退款 → 业务工具（只返回本人数据，越权由后端拒绝）
+version: 1
+
+enabled:
+  - knowledge_search
+  - get_user
+  - verify_user
+  - get_user_home
+  - search_products
+  - get_product
+  - list_promotions
+  - get_installation_quote
+  - get_order
+  - list_orders
+  - get_logistics
+  - cancel_order
+  - create_refund_ticket
+  - get_refund_ticket
+  - create_service_ticket
+  - schedule_service
+  - get_service_ticket
+  - get_invoice
+  - submit_invoice_request
+  - escalate_to_human
+
+tags:
+  knowledge_search: [kb, read]
+  get_user: [user, profile]
+  verify_user: [user, identity]
+  get_user_home: [user, home, install]
+  search_products: [product, read, presale]
+  get_product: [product, read, presale]
+  list_promotions: [product, promotion, read, presale]
+  get_installation_quote: [product, install, read]
+  get_order: [order, read]
+  list_orders: [order, read]
+  get_logistics: [logistics, read]
+  cancel_order: [order, write, risky]
+  create_refund_ticket: [refund, write, risky]
+  get_refund_ticket: [refund, read]
+  create_service_ticket: [service, write]
+  schedule_service: [service, write]
+  get_service_ticket: [service, read]
+  get_invoice: [invoice, read]
+  submit_invoice_request: [invoice, write]
+  escalate_to_human: [risky, handoff]
+
+overrides:
+  knowledge_search:
+    timeout_s: 30.0   # 首次检索要加载嵌入模型；后续走缓存
+  escalate_to_human:
+    timeout_s: 5.0
+
+extensions: []
+
+injection:
+  # 20 个工具都在真实链路里用到（23 条业务用例覆盖 17 个，另有 3 个新工具），
+  # 因此配置上限保持 20；裁剪能力用 `tools list --inject-preview --max 10` 核对。
+  max_tools: 20
+  prefilter_by: [tags, intent, permissions]
+  # 核心工具保底：即使上限被调小，这些也必须在注入清单里
+  always_include:
+    - knowledge_search
+    - verify_user
+    - get_order
+    - list_orders
+    - search_products
+    - get_installation_quote
+    - list_promotions
+    - create_refund_ticket
+    - cancel_order
+    - create_service_ticket
+    - schedule_service
+    - get_service_ticket
+    - submit_invoice_request
+    - escalate_to_human

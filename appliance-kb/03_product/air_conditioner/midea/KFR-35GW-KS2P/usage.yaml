@@ -1,0 +1,19 @@
+# 使用与保养：2026-10-22 回填（仅录入说明书可确认的部分）
+product_id: midea-kfr-35gw-ks2p
+updated: 2026-10-22
+
+maintenance:
+  滤尘网:
+    frequency: 建议每月清洁 1 次滤尘网（灰尘多时增加）
+    source: p18
+  cleaning_precondition: 清洁前必须停止运行并断开电源
+
+operations:
+  self_clean: {supported: null, source: null}
+  wifi_bind: {app: 美的美居, note: 仅支持 2.4GHz 频段}
+
+limits:
+  working_env: {cooling: '室外 18~43℃', heating: '室外 -7~24℃', source: p36}
+
+todo:
+  - 首次使用/模式操作/APP 配网的分步步骤尚未逐条回填（说明书有完整章节，待下一批补）

@@ -1,0 +1,23 @@
+product_id: haier-kfr-35gw-e1-1plus
+status: ready
+appliance: air_conditioner
+appliance_cn: 空调
+brand: haier
+brand_cn: 海尔
+model: KFR-35GW/E1-1Plus
+model_slug: KFR-35GW-E1-1Plus
+indoor_model: null
+outdoor_model: null
+product_type: 分体挂壁式（家用直流变频）
+product_type_tags: [挂机, 壁挂, 变频, 冷暖, 自清洁]
+colloquial: 1.5匹
+energy_grade: null
+launch_year: null
+updated: 2026-10-22
+
+source_docs:
+  - file: 说明书.pdf
+
+backfill:
+  method: 人工核对后回填（方案 B）
+  date: 2026-10-22

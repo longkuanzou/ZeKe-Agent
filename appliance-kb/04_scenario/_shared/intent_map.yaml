@@ -1,0 +1,233 @@
+# 意图地图：从用户一句话到场景路由
+# 用途：① 检索前先定场景，避免"不制冷"被误召回到售前页；② 决定必填槽位；③ 决定能否直接答
+#
+# ── 2026-10-23 改版（v2 → v3）──────────────────────────
+# v2 只加了 appliance_routing（定品类），但每个 intent 的 examples 仍是空调语料，
+# 结果是洗衣机/电饭煲用户的话术匹配不上。v3 把 examples 按 appliance 拆开，
+# 并补 appliance_scope（这个意图对哪些品类成立）与 requires_by_appliance（缺槽不同）。
+#
+# 为什么必须按品类拆：本库里同一句话在不同品类下的答案没有交集。
+#   "不加热" 空调=制热故障、电饭煲=不加热、洗衣机=加热洗没启动
+#   "漏水"   空调=内机排水、洗衣机=进排水管/门封、电饭煲=基本不存在（多为溢锅）
+version: 3
+updated: 2026-10-23
+
+scenarios:
+  s1_presale:    {cn: 售前咨询, dir: s1_presale}
+  s2_install:    {cn: 安装咨询, dir: s2_install}
+  s3_usage:      {cn: 使用咨询, dir: s3_usage}
+  s4_troubleshoot: {cn: 故障排查, dir: s4_troubleshoot}
+  s5_aftersale:  {cn: 售后政策, dir: s5_aftersale}
+  s6_service:    {cn: 报修建单, dir: s6_service}
+
+# appliance_scope 不写 = 三个品类都适用
+intents:
+
+  # ── 售前 ──
+  presale.spec:
+    examples:
+      air_conditioner: [多大匹数, 制冷量多少, 一小时几度电, 静音多少分贝, 尺寸多大, 是几级能效]
+      washer: [洗几公斤, 脱水转速多少, 几级能效, 噪音多大, 尺寸多大, 上排水还是下排水, 烘干能烘几公斤]
+      rice_cooker: [几升的, 够几个人吃, 是 IH 吗, 功率多少, 内胆什么材质, 能预约多久, 保温能放几小时]
+    requires: [product_model]
+    answerable_without_model: false
+    note: 无型号只能给"档位区间"（如按容量档/匹数档），并先追问型号或使用条件
+  presale.feature:
+    examples:
+      air_conditioner: [支持自清洁吗, 能不能连手机, 有新风吗, 带语音吗]
+      washer: [有筒自洁吗, 自动投放吗, 能连手机吗, 有羊毛认证吗, 能洗羽绒服吗, 空气洗是什么]
+      rice_cooker: [能预约吗, 低糖饭有用吗, 微压是什么意思, 能拆上盖洗吗, 内胆能进洗碗机吗]
+    requires: [product_model]
+    note: 说明书未写=不确定，禁止推定；false 类回答要给替代方案
+  presale.fit:
+    examples:
+      air_conditioner: [20平够用吗, 顶楼西晒行不行, 层高3米能装吗, 老房子能用吗]
+      washer: [放得下吗, 卫生间门窄能进去吗, 没有地漏能装吗, 能嵌进柜子吗]
+      rice_cooker: [3个人够用吗, 橱柜放得下吗, 40平厨房会不会太小, 高原能用吗]
+    requires: [product_model]
+    requires_by_appliance:
+      air_conditioner: [room_area_m2]
+      washer: [laundry_space_cm]
+      rice_cooker: [household_size]
+    note: 说明书只有"最小房间面积"（空调）/机身尺寸（洗衣机、电饭煲）→ 装配关系给估算并标注"按经验估算"
+  presale.compare:
+    examples:
+      air_conditioner: [和XX比哪个好, 这两个差在哪, 柜机还是挂机]
+      washer: [滚筒和波轮哪个好, 洗烘一体还是分开买, 小天鹅和西门子怎么选, 深度差3cm要紧吗]
+      rice_cooker: [IH 和底盘加热差在哪, 4L 还是 5L, 涂层和纯钛怎么选, 苏泊尔和美的怎么选]
+    requires: [product_model, compare_model]
+    source: 04_scenario/s1_presale/compare.yaml
+    note: 只在同档位/同组内做参数对比；跨组只做"需求匹配"建议，跨品类不做对比
+  presale.price:
+    examples: [多少钱, 有活动吗, 以旧换新]
+    requires: [product_model]
+    external: 商品/价格系统
+    note: 知识库不存价格，必须实时查
+  presale.stock:
+    examples: [有货吗, 多久发货]
+    external: 库存/物流系统
+
+  # ── 安装 ──
+  install.feasibility:
+    examples:
+      air_conditioner: [我家能装吗, 需要什么条件, 要先布线吗, 外机能挂墙上吗]
+      washer: [能装在我家卫生间吗, 需要改水电吗, 没有地漏怎么办, 门太窄能进吗]
+      rice_cooker: [要安装吗, 需要师傅上门吗, 插座有要求吗, 放哪儿合适]
+    requires: [product_model]
+    requires_by_appliance:
+      air_conditioner: [install_power_ready, install_outdoor_space, install_wall_type]
+      washer: [ws_water_inlet, ws_drain_route, ws_space_cm]
+      rice_cooker: [rc_socket]
+    note: 电饭煲免安装，命中的是"摆放条件"而不是安装工程
+  install.booking:
+    examples: [怎么预约安装, 什么时候能上门, 买了什么时候装]
+    requires: [product_model, address, contact]
+    appliance_scope: [air_conditioner, washer]
+    external: 安装预约系统
+    note: 电饭煲不派安装工单，被问到时直接说明免安装
+  install.fee:
+    examples: [安装要钱吗, 高空费多少, 加长管多少钱一米, 上楼要收费吗, 加水龙头收费吗, 拆门要钱吗]
+    requires: [product_model]
+    source_policy: 05_brand_ref/{brand}/fee_schedule.yaml
+    note: 只列可能产生的项目 + 单价；合计需按实际米数/楼层，不得凭口算给总价；空调与洗衣机的收费项不通用
+  install.change:
+    examples: [装错位置了能改吗, 想移机]
+    appliance_scope: [air_conditioner, washer]
+    note: 移机属收费项目，转 s6 建单
+
+  # ── 使用 ──
+  usage.first_time:
+    examples:
+      air_conditioner: [第一次怎么用, 遥控器怎么按, 怎么开机]
+      washer: [刚装好第一次怎么用, 运输螺栓要拆吗, 要不要先跑一遍, 新机要注意什么]
+      rice_cooker: [新锅第一次怎么用, 要开锅吗, 先煮一锅水吗, 内锅怎么放]
+    requires: [product_model]
+  usage.operation:
+    examples:
+      air_conditioner: [怎么定时, 怎么开自清洁, 怎么连WiFi, 怎么调风向, 睡眠模式在哪]
+      washer: [选哪个程序, 脱水转速怎么调, 温度调多少, 洗涤剂放多少, 凝珠放哪, 自动投放怎么开, 怎么预约]
+      rice_cooker: [水位线怎么对, 米种怎么选, 稀饭和煮粥有什么区别, 预约怎么设, 保温怎么关, 口感怎么调]
+    requires: [product_model]
+  usage.maintenance:
+    examples:
+      air_conditioner: [滤网怎么拆, 多久清洗一次, 怎么保养, 长时间不用怎么办]
+      washer: [筒自洁怎么用, 过滤器怎么清, 料盒怎么洗, 门封发霉怎么办, 进水滤网怎么清]
+      rice_cooker: [内胆怎么洗, 能用钢丝球吗, 上盖怎么拆, 蒸汽阀/微压阀怎么洗, 加热盘怎么清]
+    requires: [product_model]
+    note: 电饭煲内胆能否用钢丝球按机型分（316L 零涂层可以，涂层/纯钛不行），必须确认型号
+  usage.setting_confusion:
+    examples:
+      air_conditioner: [为什么26度还不凉, 为什么显示的温度不一样, 为什么自动变风速]
+      washer: [为什么洗这么久, 为什么脱水不干, 为什么显示 Ub, 为什么门要等两分钟才开]
+      rice_cooker: [为什么锅底有一层锅巴, 为什么一直咔嗒响, 为什么保温后饭变硬, 为什么冒白汽]
+    note: 先判断是不是"正常现象/设置问题"，判断不了再进 s4；三品类各有自己的"正常现象"清单
+  usage.connect:
+    examples: [WiFi怎么连, APP 连不上, 一直离线]
+    requires: [product_model]
+    appliance_scope: [air_conditioner, washer]
+    note: 本库电饭煲多数无联网功能，被问到时先核实机型，不要凭空给配网步骤
+
+  # ── 故障 ──
+  troubleshoot.symptom:
+    examples:
+      air_conditioner: [不制冷, 不制热, 漏水, 噪音大, 跳闸, 外机吵]
+      washer: [不脱水, 不进水, 不排水, 震动大, 门打不开, 漏水, 有异味, 烘不干]
+      rice_cooker: [不加热, 饭不熟, 溢锅, 糊锅, 不保温, 盖子打不开, 涂层掉了, 盖子漏汽]
+    requires: [product_model]
+    source: 04_scenario/s4_troubleshoot/symptoms.yaml
+    note: 现象是主入口；必须先做"正常现象/设置问题"过滤，再给排查；跨品类现象词不通用
+  troubleshoot.code:
+    examples:
+      air_conditioner: [显示E1, 出现F2, 面板闪代码]
+      washer: [显示E3, 显示Ub, 显示End]
+      rice_cooker: [显示E1, 显示E2, 指示灯闪]
+    requires: [product_model, error_code]
+    source: 05_brand_ref/{brand}/fault_codes.yaml
+    unknown_code: 建单（不得猜测）
+    note: 同品牌不同品类代码完全不通用；美的空调 E1=通信故障，美的电饭煲 E1=底部传感器
+  troubleshoot.noise:
+    examples:
+      air_conditioner: [嗡嗡响, 咔咔响, 流水声, 外机声音大]
+      washer: [脱水咣当响, 排水嘎嘎响, 进水嗡嗡响]
+      rice_cooker: [咔嗒通断声, 蒸汽阀噗噗响]
+    note: 流水声/噼啪声/通断声属正常现象，先解释再排查
+
+  # ── 售后政策 ──
+  aftersale.return:
+    examples: [七天无理由能退吗, 拆封了还能退吗, 装了不满意能退吗, 煮过一次能退吗]
+    requires: [order_channel, days_since_receipt]
+    source_policy: 06_platform_policy/return_policy.yaml
+    note: 三个品类对"是否已使用"的判定不同（空调看是否安装、洗衣机看是否通水试机、电饭煲看是否煮过）
+  aftersale.warranty:
+    examples: [保修几年, 过了保修怎么办, 压缩机保修多久, 内胆保几年, 电机保几年]
+    requires: [product_model]
+    source_policy: 05_brand_ref/{brand}/warranty.yaml
+    note: 保修年限按 brand + appliance 查，空调 6 年不能套到电饭煲（苏泊尔 1 年）；小天鹅是"新款 3 年/老款 1 年"两档，必须先问型号
+  aftersale.fee_dispute:
+    examples: [为什么收我钱, 这个费用合理吗, 能开发票吗]
+    source_policy: 05_brand_ref/{brand}/fee_schedule.yaml
+  aftersale.shipping:
+    examples: [退货谁出运费, 换货运费怎么算]
+    source_policy: 06_platform_policy/shipping_policy.yaml
+  aftersale.second_sale:
+    examples: [会影响二次销售吗, 包装扔了还能退吗]
+    source_policy: 06_platform_policy/opened_box.yaml
+
+  # ── 报修 ──
+  service.create_ticket:
+    examples: [帮我报修, 安排师傅上门, 要维修]
+    requires: [product_model, contact, symptom]
+    requires_by_appliance:
+      air_conditioner: [address, preferred_time]
+      washer: [address, preferred_time]
+      rice_cooker: []          # 送修，不一定要地址；给就近网点
+    external: 工单系统
+    note: 电饭煲以送修为主，承诺上门是错答
+  service.track:
+    examples: [师傅什么时候来, 修到哪一步了, 工单进度]
+    requires: [ticket_id or contact]
+    external: 工单系统
+  service.parts:
+    examples: [换个滤网多少钱, 有没有配件, 备件要等多久, 内胆能单独买吗]
+    requires: [product_model, part]
+    source: 05_brand_ref/{brand}/parts_catalog.yaml
+
+# 无法归类时的兜底
+fallback:
+  intent: general.unknown
+  action: 追问一句"您是想了解产品、还是机器有问题需要处理"二选一，禁止自由发挥
+
+# ── 品类路由：先定品类，再定场景 ───────────────────────
+# 为什么必须最先定品类：本库里同一句话在不同品类下的答案没有交集。
+# "不加热" 在空调是制热故障，在电饭煲是内锅没放平；
+# "不脱水" 只可能是洗衣机；"漏水" 三个品类各有各的排查链。
+appliance_routing:
+  rules:
+    - 用户提到具体型号（KFR- / MB- / TG / WG / WN / WQ / SF / F40 / F50 …）→ 直接按型号定品类，跳过关键词
+    - 用户提到品类词 → 按下面的词表定品类
+    - 只给了现象没给品类 → 先追问"是什么电器"，不允许按空调默认
+  keywords:
+    air_conditioner: [空调, 挂机, 柜机, 内机, 外机, 遥控器, 制冷, 制热, 匹, 冷媒, 加氟]
+    washer: [洗衣机, 洗烘, 干衣机, 滚筒, 波轮, 脱水, 漂洗, 内筒, 洗衣液, 筒自洁, 烘干, 运输螺栓]
+    rice_cooker: [电饭煲, 电饭锅, 饭煲, 内胆, 内锅, 煮饭, 米, 粥, 保温, 低糖, 柴火饭, 微压, 涂层]
+  ambiguity:
+    - phrase: 不加热
+      note: 空调=制热故障（s4/not_heating）；电饭煲=不加热（s4/rc_no_heat）；洗衣机=加热洗功能未启动
+    - phrase: 漏水
+      note: 空调=室内机排水（s4/water_leak_indoor）；洗衣机=进排水管/门封（s4/ws_leak）；电饭煲=一般不存在，多为溢锅（s4/rc_overflow）
+    - phrase: 有异味
+      note: 空调=滤网发霉；洗衣机=门封圈/料盒；电饭煲=密封圈或焦糊残留
+    - phrase: 不工作
+      note: 必须先拿到品类，否则无法路由——这是解释成本最高的一句话
+    - phrase: 声音大
+      note: 空调=外机风扇/压缩机；洗衣机=脱水不平衡或未拆运输螺栓；电饭煲=继电器通断属正常
+  defaults:
+    appliance: null            # 不做默认值。宁可多问一句，也不要按空调答洗衣机
+    when_unknown: 追问品类，同时给出本库覆盖的三个品类（空调 / 洗衣机 / 电饭煲）
+
+# ── 本库未接入的品类 ────────────────────────────────
+out_of_scope:
+  appliances: [refrigerator, microwave, water_heater, range_hood]
+  reason: 01_source 里没有这些品类的说明书，任何答案都只能靠通用常识，不可作为客服口径
+  action: 告知"这个品类我这边暂时没有资料"，给官方客服/转人工
+  forbid: 用相邻品类的经验套答（例如拿空调的"不制冷"排查链回答冰箱）

@@ -1,0 +1,157 @@
+# 平台退换货政策
+# 状态：法条部分已确认；平台自身的细则（举证标准、审核时限、大件特殊约定）待运营/法务确认
+policy_id: platform.return
+applies_to: {channel: [平台, 自营], appliance: [air_conditioner, washer, refrigerator, rice_cooker, microwave]}
+effective_from: null
+verified: true
+legal_basis: 《消费者权益保护法》第二十五条（七日无理由退货）
+updated: 2026-10-21
+
+rules:
+  - id: platform.return.seven_days
+    cn: 七日无理由退货
+    window: 自签收次日起 7 日内
+    conditions:
+      - 商品完好
+      - 不影响二次销售
+      - 附件、赠品、包装齐全（细则待确认）
+    exclusions:
+      - 消费者定作的商品
+      - 鲜活易腐
+      - 在线下载或拆封的音像制品/软件
+      - 交付的报纸期刊
+      - 其他根据商品性质并经消费者确认不宜退货的
+    appliance_note: >
+      家电的重点在"完好/不影响二次销售"的认定：仅开箱查验未安装接电，通常视为完好；
+      已安装、已打孔、已接管、已使用的，一般不满足条件。
+    verified_legal: true
+    verified_platform_detail: true
+    source: 《消费者权益保护法》第二十五条
+
+  - id: platform.return.quality_return
+    cn: 质量问题退换
+    window: 按国家三包规定（7 日退 / 15 日换，具体以品类规定为准）
+    conditions: [存在性能故障, 有有效凭证]
+    note: 与"无理由退货"是两条线，不可混答
+    verified_platform_detail: true
+
+  - id: platform.return.installed_machine
+    cn: 已安装机器的退货
+    rule: 原则上不支持无理由退货；性能故障按三包处理
+    note: 已安装机型退货涉及拆机、安装费退还、二次销售折价，需人工评估
+    verified_platform_detail: true
+
+answer_rules:
+  - verified=false 时，回答末尾必须加"具体以订单页面和平台规则为准"
+  - 不得替平台做"是否影响二次销售"的审核结论
+  - 大件家电退货的运费与折价，必须先告知再让用户提交
+  - 运费责任归属只在 `platform.shipping` 定义一次，本文不重复写金额或责任方
+
+todo:
+  - 与运营/法务确认平台细则：审核时限、举证材料、"已拆封未安装"的具体认定
+  - 确认大件家电退货是否收取折旧费/拆机费
+
+# ══════════════════════════════════════════════════════════════
+# 平台细则（2026-10-23 业务方补充）
+#
+# 这一节补的是原 todo 里的三项：审核时限、举证材料、"已拆未装"的认定。
+# 性质说明：来自业务方的实际处理口径，不是法条原文，也不是平台书面规则；
+# 所以 verified_platform_detail 从 true 回调为 partial —— 能用来指导答话，
+# 但不能当作"平台一定会这么办"的承诺。
+# ══════════════════════════════════════════════════════════════
+
+verified_platform_detail: partial
+detail_source: 业务方提供的实际处理口径（2026-10-23）
+detail_scope: 大件家电（空调、洗衣机等需上门/物流核验的品类）
+
+timeline:
+  source_kind: biz_provided
+  note: 大件家电要上门验货或物流核验，"申请通过"与"实际退款"之间可能差几天
+  steps:
+    - stage: 退货申请期限
+      legal: 自签收次日起 7 日内
+      practice: 第 7 天 24 点前提交通常有效
+      ask_back: 签收日期（不是下单日期）
+    - stage: 商家 / 平台审核
+      legal: 法律未规定统一小时数
+      practice: 一般 1~3 个工作日内响应
+      ask_back: 是否已提交、有没有被驳回理由
+    - stage: 退款时限
+      legal: 商家收到退回商品后 7 日内退款
+      practice: 质量问题退款通常更快
+    - stage: 大件家电取件
+      practice: 审核通过后安排上门取件，整体周期更长
+      caution: 不得承诺"几天内到账"，只能说"审核 1~3 个工作日、退款自商家收货起 7 日内"
+  answer_rules:
+    - 用户问"什么时候能退钱" → 拆成两段答：审核 1~3 个工作日 + 商家收货后 7 日内
+    - 大件必须提前说"要上门取件/核验"，否则用户会按快递退货的时间预期
+
+evidence_pack:
+  source_kind: biz_provided
+  note: 提交退货申请时建议用户准备的材料（不是平台强制清单，但缺了容易被驳回）
+  items:
+    - key: order_screenshot
+      cn: 订单截图
+      detail: 下单时间、签收时间、商品型号、是否标注"7 天无理由"
+    - key: unboxing_video
+      cn: 开箱视频
+      detail: 最好从快递外包装开始录，拍到封条、机身、配件、序列号
+    - key: condition_photos
+      cn: 商品状态照片
+      detail: 外包装、泡沫、说明书、电源线、赠品、机身码、保护膜
+    - key: not_installed_proof
+      cn: 未安装证明
+      detail: 空调未上墙、洗衣机未通水、热水器未接管路、厨电未打孔
+    - key: not_activated_proof
+      cn: 未激活 / 未使用证明
+      detail: 未联网、未登录账号、未留存个人数据、无运行痕迹
+    - key: chat_log
+      cn: 聊天记录
+      detail: 商家"拆封不退"的说法、是否事前显著提示
+    - key: logistics
+      cn: 物流凭证
+      detail: 退货寄回单号、上门取件记录、签收记录
+    - key: quality_fault_evidence
+      cn: 质量问题的额外材料
+      detail: 故障视频、报错代码、售后检测单
+  burden_of_proof:
+    rule: 商家主张"影响二次销售"的，举证责任在商家
+    caveat: 但用户需要先证明"寄回时商品完好"，所以开箱视频与状态照片是用户侧的关键材料
+    forbid: 不得替商家做"影响二次销售"的认定，也不得替平台做审核结论
+
+opened_not_installed:
+  cn: 「已拆未装」的认定线
+  source_kind: biz_provided
+  note: 本表是本库回答"拆了还能退吗"的主口径，按状态查，不要凭感觉给结论
+  states:
+    - state: 仅拆外箱，未通电
+      verdict: 基本可退
+      evidence: 开箱视频、外包装完好
+    - state: 拆箱通电查验，未安装
+      verdict: 通常可退
+      evidence: 无安装痕迹、配件齐全
+    - state: 洗衣机未通水、未运行
+      verdict: 倾向可退
+      evidence: 进水管未接、滚筒干燥
+    - state: 空调 / 热水器 / 油烟机已安装
+      verdict: 无理由退货风险高
+      evidence: 打孔、上墙、接管即难退
+    - state: 数码家电已激活 / 联网
+      verdict: 可能不退
+      evidence: 激活记录、账号绑定
+    - state: 有划痕、缺件、污渍
+      verdict: 可能不退
+      evidence: 商家验货照片、物流记录
+  appliance_mapping:
+    air_conditioner: 看是否上墙、是否打孔、是否接管（装了就基本走不了无理由）
+    washer: 看是否通水通电试机、运输螺栓是否已拆（拆了即认定已使用）
+    rice_cooker: 看是否煮过饭、内锅是否使用（煮过即影响二次销售）
+
+answer_rules_detail:
+  - 必须先问"装没装/用没用"，再查 opened_not_installed 对应行，不要先给结论再问
+  - 给"可能/倾向/风险高"这类词，不给了"能退/不能退"的绝对判断
+  - 用户已提交被驳回 → 只解释可能的原因（材料不全/已安装/超期），不评价驳回是否合理
+
+todo_detail:
+  - 拿平台书面规则替换本节的业务方口径，届时把 verified_platform_detail 置回 true
+  - 确认大件退货运费与折旧费的实际承担方

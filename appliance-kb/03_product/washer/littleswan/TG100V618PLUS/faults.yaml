@@ -1,0 +1,97 @@
+# 型号差异：只放本型号特有的东西
+# 跨型号通用的现象排查在 04_scenario/s4_troubleshoot/symptoms.yaml
+product_id: littleswan-tg100v618plus
+updated: 2026-10-22
+
+codes:
+  has_code_display: true
+  display: LED（面板显示信息代码）
+  rule: [关机后重新开机启动, 同一代码再次出现则报修]
+  known:
+    - code: "630"
+      meaning: 门未合上
+      action: 确认衣物没有被门压住，重新关门后按启动键继续
+      confidence: confirmed
+    - code: "610"
+      meaning: 进水超时
+      action: 确认水龙头已打开、水压正常、进水管未弯折、进水阀过滤网无堵塞
+      confidence: partial
+      note: 代码数字来自图片 OCR，需对照原图确认
+    - code: "612"
+      meaning: 排水超时
+      action: 清理排水泵杂物，排水管最高处不超过 100cm
+      confidence: partial
+      note: 代码数字来自图片 OCR，需对照原图确认
+  note: 常见问题页有信息代码表，OCR 数字部分可读（630/610/612/621），含义需对照原图确认
+
+# 说明书明确写出的「现象 → 原因 → 解决」，可作为自助排查第一步
+self_check:
+  - symptom: 洗衣机无法启动
+    cause: 机门没关紧 / 水龙头没开 / 没按启动键
+    action: 重新关门；确认打开水龙头；按启动/暂停键
+    source: "ocr#常见问题.jpg"
+  - symptom: 机门打不开
+    cause: 机器安全保护设计，正在工作
+    action: 关闭电源重新开机，等待机器安全后开门
+    source: "ocr#常见问题.jpg"
+  - symptom: 漏水
+    cause: 进水管或排水管连接不牢
+    action: 检查并紧固水管，清理排水管
+    source: "ocr#常见问题.jpg"
+  - symptom: 料盒中有残留洗衣粉
+    cause: 洗衣粉受潮、结块
+    action: 清洁并擦干料盒
+    source: "ocr#常见问题.jpg"
+  - symptom: 洗涤效果不佳
+    cause: 衣物太脏 / 洗涤剂剂量不足
+    action: 选择合适的洗衣程序；选用专用机洗低泡洗衣粉
+    source: "ocr#常见问题.jpg"
+  - symptom: 指示灯或显示屏不亮
+    cause: 断电 / 电脑板、线束故障
+    action: 确认未停电，以及电源插头正确插接；仍不亮则报修
+    source: "ocr#常见问题.jpg"
+  - symptom: 震动过大、噪音较大
+    cause: 运输螺栓未拆除 / 未装在坚固水平地面
+    action: 拆除背面 4 颗运输螺栓；调整底脚使机器平稳
+    source: "ocr#常见问题.jpg"
+  - symptom: 脱水延时或不脱水
+    cause: 衣物过少或过多触发偏心保护 / 泡沫过多等待消泡
+    action: 调整衣物数量并均匀分布后重新运行；泡沫情况等待程序自行完成
+    source: "ocr#常见问题.jpg"
+
+# 说明书明确「属正常」的现象，用于拦截假故障工单
+normal_phenomena:
+  - id: spin_delay_low_load
+    symptom: 衣物较少时脱水延时或不脱水
+    explain: 偏心保护会先低速检测并重新分布衣物；增加部分衣物均匀分布后按启动键继续
+    source: "ocr#常见问题.jpg"
+  - id: foam_extra_time
+    symptom: 洗涤中程序时间变长、迟迟不脱水
+    explain: 检测到泡沫过多会进入静置或缓慢转动、进水除泡，属正常
+    source: "ocr#常见问题.jpg"
+  - id: power_off_resume
+    symptom: 停电后机器停了，来电后没有继续
+    explain: 断电记忆在来电后继续运行；若断电期间按了电源键关机，则需重新开始
+    source: "ocr#常见问题.jpg"
+  - id: ub_prompt
+    symptom: 面板显示 Ub
+    explain: 衣物不平衡保护提示，不是硬件故障；取出抖散或拧掉部分水分后重新放入即可
+    source: "ocr#常见问题.jpg"
+  - id: door_locked_running
+    symptom: 运行中机门打不开
+    explain: 安全保护设计，运行中门锁不放行；需关机后等待安全时间再开
+    source: "ocr#常见问题.jpg"
+
+protection:
+  unbalance_detect_rpm: {value: 100, unit: r/min, source: "ocr#使用说明书-特色功能介绍.jpg",
+    text: 高速脱水前以约 100rpm 做偏心检测，多次仍不平衡则提示 Ub}
+  drain_hose_max_height_mm: {value: 1000, source: "ocr#常见问题.jpg"}
+
+model_specific_notes:
+  - 本机为上排水：排水超时先查排水管高度（≤100cm）和管夹，不要先去查地漏
+  - 本机带自动投放：料盒未关会报代码，用户常误以为机器坏了
+  - 本机无烘干：用户说「不干」时先确认是不是单洗机型，不存在「烘干坏了」
+
+missing:
+  - 完整故障代码表（说明书代码数字 OCR 不可靠，需对照原图或向售后索取官方代码表）
+  - 各代码对应的具体故障部件（说明书未列）

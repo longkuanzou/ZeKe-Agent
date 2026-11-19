@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZeKe · 知识检索数据流</title>
+<style>
+  :root {
+    --bg: #0b0f14;
+    --bg-soft: #121821;
+    --card: #161d27;
+    --card-2: #1b2431;
+    --line: #26303d;
+    --text: #e6edf3;
+    --muted: #8b9bb0;
+    --dim: #64748b;
+    --accent: #4cc2ff;
+    --accent-2: #7c5cff;
+    --ok: #35d07f;
+    --warn: #ffb545;
+    --bad: #ff6b6b;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: radial-gradient(1200px 600px at 20% -10%, #16202c 0%, var(--bg) 55%);
+    color: var(--text); font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
+  code, .mono { font-family: var(--mono); }
+  a { color: var(--accent); }
+
+  header.top {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    padding: 14px 22px; border-bottom: 1px solid var(--line);
+    background: rgba(11, 15, 20, .82); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 20;
+  }
+  .brand { font-weight: 700; letter-spacing: .4px; }
+  .brand span { color: var(--accent); }
+  .stat { color: var(--muted); font-size: 12.5px; }
+  .stat b { color: var(--text); font-weight: 600; }
+  .pill {
+    font-family: var(--mono); font-size: 11.5px; padding: 2px 8px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--muted); background: var(--bg-soft);
+  }
+  .pill.ok { color: var(--ok); border-color: #1e4a36; }
+  .pill.warn { color: var(--warn); border-color: #4a3a1e; }
+  .pill.bad { color: var(--bad); border-color: #4a2222; }
+
+  main { display: grid; grid-template-columns: 392px minmax(0, 1fr); gap: 0; align-items: start; }
+  @media (max-width: 1080px) { main { grid-template-columns: 1fr; } }
+
+  aside {
+    position: sticky; top: 57px; height: calc(100vh - 57px); overflow: auto;
+    padding: 18px 18px 40px; border-right: 1px solid var(--line); background: rgba(18, 24, 33, .5);
+  }
+  .panel-title { font-size: 12px; letter-spacing: .12em; color: var(--dim); text-transform: uppercase; margin: 18px 0 8px; }
+  textarea {
+    width: 100%; min-height: 92px; resize: vertical; padding: 12px 13px; border-radius: 12px;
+    background: var(--card); color: var(--text); border: 1px solid var(--line);
+    font: inherit; line-height: 1.55; outline: none;
+  }
+  textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(76, 194, 255, .12); }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+  button.primary {
+    flex: 1; padding: 10px 16px; border-radius: 10px; border: 1px solid #2b6f96;
+    background: linear-gradient(180deg, #1b6f9e, #14557a); color: #eaf7ff; font-weight: 600; cursor: pointer;
+  }
+  button.primary:disabled { opacity: .55; cursor: not-allowed; }
+  button.ghost {
+    padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--card); color: var(--muted); cursor: pointer; font: inherit;
+  }
+  button.ghost:hover { color: var(--text); border-color: #3a4757; }
+  label.field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--dim); flex: 1 1 46%; }
+  select, input[type="text"] {
+    width: 100%; padding: 7px 9px; border-radius: 8px; background: var(--card);
+    border: 1px solid var(--line); color: var(--text); font: inherit; font-size: 13px;
+  }
+  .switch { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .switch input { accent-color: var(--accent); }
+  .examples { display: flex; flex-wrap: wrap; gap: 6px; }
+  .example {
+    font-size: 12px; padding: 5px 9px; border-radius: 8px; cursor: pointer;
+    color: #b9c8da; background: var(--card); border: 1px solid var(--line);
+  }
+  .example:hover { border-color: var(--accent); color: var(--text); }
+  .hint { font-size: 12px; color: var(--dim); margin-top: 6px; }
+
+  section.flow { padding: 18px 22px 72px; min-height: 60vh; }
+  .empty {
+    border: 1px dashed var(--line); border-radius: 16px; padding: 46px 28px; text-align: center;
+    color: var(--dim); background: rgba(22, 29, 39, .35);
+  }
+  .empty h2 { color: var(--muted); font-size: 17px; margin: 0 0 8px; }
+  .empty ol { text-align: left; max-width: 520px; margin: 14px auto 0; color: var(--dim); font-size: 13px; }
+
+  .stage { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; }
+  .rail { position: relative; display: flex; justify-content: center; }
+  .rail::before {
+    content: ""; position: absolute; top: 4px; bottom: -4px; width: 2px;
+    background: linear-gradient(180deg, var(--line), transparent); left: 50%; transform: translateX(-50%);
+  }
+  .dot {
+    width: 12px; height: 12px; margin-top: 16px; border-radius: 50%;
+    background: var(--card-2); border: 2px solid var(--line); z-index: 1; transition: .25s;
+  }
+  .stage.live .dot { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(76, 194, 255, .14); background: var(--accent); }
+  .stage.done .dot { border-color: #2f6f52; background: var(--ok); }
+
+  .card {
+    background: linear-gradient(180deg, rgba(27, 36, 49, .9), rgba(22, 29, 39, .9));
+    border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin: 8px 0;
+    animation: rise .22s ease-out;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .card h3 {
+    margin: 0; font-size: 13px; letter-spacing: .04em; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .card h3 .idx { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+  .card h3 .ms { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--dim); }
+  .card .body { margin-top: 8px; }
+  .k { color: var(--dim); font-size: 12px; }
+  .v { color: var(--text); }
+  .kv { display: flex; gap: 8px; flex-wrap: wrap; font-size: 12.5px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 2px 8px;
+    border-radius: 999px; border: 1px solid var(--line); background: var(--bg-soft); color: #c7d5e5;
+  }
+  .chip.hit { border-color: #2b6f96; color: #bfe9ff; background: rgba(43, 111, 150, .18); }
+  .chip.miss { border-color: #4a2222; color: #ffb3b3; background: rgba(74, 34, 34, .3); }
+  .chip.warn { border-color: #4a3a1e; color: #ffd699; background: rgba(74, 58, 30, .3); }
+  .chip.ok { border-color: #1e4a36; color: #b6f5d4; background: rgba(30, 74, 54, .3); }
+
+  table.grid { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.grid th { text-align: left; color: var(--dim); font-weight: 500; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+  table.grid td { padding: 4px 6px; border-bottom: 1px solid rgba(38, 48, 61, .55); vertical-align: top; }
+  table.grid tr:last-child td { border-bottom: none; }
+  .doc { font-family: var(--mono); font-size: 11.5px; color: #a9c1d9; word-break: break-all; }
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--muted); }
+
+  .bar { position: relative; height: 5px; border-radius: 4px; background: #1f2937; overflow: hidden; min-width: 40px; }
+  .bar > i { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, #2b6f96, var(--accent)); }
+  .bar.hot > i { background: linear-gradient(90deg, #7c5cff, #b08cff); }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 900px) { .cols { grid-template-columns: 1fr; } }
+  .sub { font-size: 11.5px; color: var(--dim); margin: 0 0 6px; letter-spacing: .05em; }
+
+  details { margin-top: 8px; }
+  summary { cursor: pointer; color: var(--dim); font-size: 12px; }
+  summary:hover { color: var(--muted); }
+  pre.raw {
+    margin: 8px 0 0; padding: 10px; background: #0d131a; border: 1px solid var(--line); border-radius: 10px;
+    font-family: var(--mono); font-size: 11px; color: #9fb3c8; overflow: auto; max-height: 260px;
+  }
+
+  .answer {
+    white-space: pre-wrap; font-size: 14px; line-height: 1.75; padding: 12px 14px;
+    border-left: 3px solid var(--accent); background: rgba(76, 194, 255, .05); border-radius: 8px;
+  }
+  .answer .cite { color: var(--accent); font-family: var(--mono); font-size: 12px; }
+  .chunk {
+    border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; margin: 7px 0;
+    background: rgba(13, 19, 26, .55);
+  }
+  .chunk .head { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 11.5px; }
+  .chunk .text { margin-top: 6px; font-size: 12.5px; color: #c8d6e5; white-space: pre-wrap; }
+  .badge {
+    font-family: var(--mono); font-size: 11px; padding: 1px 6px; border-radius: 6px;
+    background: #1d2836; color: #9fc3df; border: 1px solid #27384a;
+  }
+  .badge.warn { color: #ffd699; border-color: #4a3a1e; background: #2a2114; }
+  .badge.ok { color: #b6f5d4; border-color: #1e4a36; background: #12291f; }
+  .empty-note { color: var(--dim); font-size: 12.5px; }
+  .err { color: var(--bad); font-size: 12.5px; }
+  .totals { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+  .totals b { color: var(--text); font-family: var(--mono); }
+  .spinner {
+    width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--line);
+    border-top-color: var(--accent); animation: spin .7s linear infinite; display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">ZeKe <span>·</span> 知识检索数据流</div>
+  <div class="stat" id="stat-pack">加载中…</div>
+  <div class="stat" id="stat-embed"></div>
+  <div class="stat" id="stat-llm"></div>
+  <div class="stat" id="stat-index"></div>
+</header>
+
+<main>
+  <aside>
+    <div class="panel-title">提问</div>
+    <textarea id="query" placeholder="例如：美的 KFR-35GW/Q2 的制冷量是多少？"></textarea>
+    <div class="row">
+      <button class="primary" id="send">发送（⌘/Ctrl + Enter）</button>
+      <button class="ghost" id="clear">清空</button>
+    </div>
+
+    <div class="panel-title">检索参数</div>
+    <div class="row">
+      <label class="field">模式
+        <select id="mode">
+          <option value="hybrid">hybrid（稠密 + BM25 + RRF）</option>
+          <option value="dense">dense（仅向量）</option>
+          <option value="sparse">sparse（仅 BM25）</option>
+          <option value="hybrid+rerank" id="mode-rerank" disabled>hybrid + rerank（未加载）</option>
+        </select>
+      </label>
+      <label class="field">返回条数
+        <select id="topk">
+          <option>3</option><option selected>5</option><option>8</option><option>12</option>
+        </select>
+      </label>
+    </div>
+    <div class="row">
+      <label class="field">链路（留空=自动路由）
+        <select id="journey"><option value="">自动</option></select>
+      </label>
+      <label class="field">品类（留空=按问题识别）
+        <select id="appliance"><option value="">自动</option></select>
+      </label>
+    </div>
+    <div class="row">
+      <label class="field" style="flex:1 1 100%">型号（留空=按问题识别）
+        <select id="product"><option value="">自动</option></select>
+      </label>
+    </div>
+    <div class="row" style="gap:16px">
+      <label class="switch"><input type="checkbox" id="useJourney" checked /> 按链路收窄</label>
+      <label class="switch"><input type="checkbox" id="useLlm" checked /> 调用模型生成</label>
+    </div>
+    <div class="hint">不调用模型时只跑检索链路，毫秒级返回，适合观察召回与过滤。</div>
+
+    <div class="panel-title">示例问题</div>
+    <div class="examples" id="examples"></div>
+  </aside>
+
+  <section class="flow" id="flow">
+    <div class="empty" id="empty">
+      <h2>一个问题，十段处理，逐段可见</h2>
+      <div>每次提问都会真实执行下面这条链路，并把每一段的中间值与耗时摊开：</div>
+      <ol>
+        <li>实体识别：问题里有没有型号 / 品类</li>
+        <li>链路路由：用嵌入模型比对六条链路的代表问句</li>
+        <li>召回：向量与 BM25 两路候选，各自带分数</li>
+        <li>融合：RRF 名次融合</li>
+        <li>闸门：稠密相似度是否够格算「有依据」</li>
+        <li>过滤：链路 / 品类 / 型号 / 权限，以及**每条被丢弃的原因**</li>
+        <li>精排（可选）：cross-encoder 重排</li>
+        <li>上下文：最终进入提示词的片段与出处页码</li>
+        <li>生成：真实模型流式输出</li>
+        <li>校验：引用是否来自本轮片段、必答数值是否出现</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const state = { meta: null, running: false, stages: {} };
+
+const fmtPct = (x) => (x * 100).toFixed(2) + "%";
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const shortDoc = (doc) => String(doc || "").replace(/\.md$/, "");
+const fmtMs = (ms) => (ms == null ? "" : (ms >= 1000 ? (ms / 1000).toFixed(2) + " s" : ms.toFixed(1) + " ms"));
+
+function bar(value, max, hot) {
+  const w = max > 0 ? Math.max(2, Math.min(100, (value / max) * 100)) : 0;
+  return `<div class="bar${hot ? " hot" : ""}" style="width:100%"><i style="width:${w}%"></i></div>`;
+}
+
+async function loadMeta() {
+  const meta = await (await fetch("/api/meta")).json();
+  state.meta = meta;
+
+  $("stat-pack").innerHTML = `知识包 <b>${esc(meta.pack.id)}</b> · 文档 <b>${meta.pack.docs ?? "?"}</b> · 分块 <b>${meta.pack.chunks ?? "?"}</b>`;
+  $("stat-embed").innerHTML = `嵌入 <b>${esc(meta.embedder.mode || "")}</b> · ${esc(meta.embedder.model || "")}`;
+  $("stat-llm").innerHTML = `模型 <span class="pill ${meta.llm.ready ? "ok" : "warn"}">${esc(meta.llm.provider)}${meta.llm.ready ? "" : " · 无密钥"}</span>`;
+  const idx = meta.index || {};
+  $("stat-index").innerHTML = idx.stale
+    ? `<span class="pill warn">索引有 ${idx.stale_count} 处变更未重建</span>`
+    : `<span class="pill ok">索引最新</span>`;
+
+  if (meta.rerank) $("mode-rerank").disabled = false;
+  if (!meta.llm.ready) { $("useLlm").checked = false; }
+
+  const jSel = $("journey");
+  for (const item of meta.journeys || []) {
+    if (!item.docs) continue;
+    jSel.insertAdjacentHTML("beforeend", `<option value="${esc(item.key)}">${esc(item.label)}（${item.docs}）</option>`);
+  }
+  const aSel = $("appliance");
+  for (const item of meta.appliances || []) {
+    aSel.insertAdjacentHTML("beforeend", `<option value="${esc(item.key)}">${esc(item.label)}（${item.models}）</option>`);
+  }
+  const pSel = $("product");
+  const groups = {};
+  for (const item of meta.models || []) (groups[item.appliance] ||= []).push(item);
+  for (const [app, items] of Object.entries(groups)) {
+    const label = (meta.appliances.find((a) => a.key === app) || {}).label || app;
+    pSel.insertAdjacentHTML("beforeend", `<optgroup label="${esc(label)}">` +
+      items.map((m) => `<option value="${esc(m.product_id)}">${esc(m.label)}${m.colloquial ? " · " + esc(m.colloquial) : ""}</option>`).join("") +
+      `</optgroup>`);
+  }
+
+  const ex = $("examples");
+  for (const [journey, questions] of Object.entries(meta.examples || {})) {
+    const label = (meta.journeys.find((j) => j.key === journey) || {}).label || journey;
+    ex.insertAdjacentHTML("beforeend", `<div style="width:100%;margin-top:6px" class="k">${esc(label)}</div>`);
+    for (const q of questions) {
+      ex.insertAdjacentHTML("beforeend", `<div class="example" data-q="${esc(q)}">${esc(q)}</div>`);
+    }
+  }
+  ex.addEventListener("click", (e) => {
+    const chip = e.target.closest(".example");
+    if (!chip) return;
+    $("query").value = chip.dataset.q;
+    $("query").focus();
+  });
+}
+
+function resetFlow() {
+  $("flow").innerHTML = "";
+  state.stages = {};
+}
+
+function stage(key, title) {
+  if (state.stages[key]) return state.stages[key];
+  const wrap = document.createElement("div");
+  wrap.className = "stage live";
+  wrap.innerHTML = `<div class="rail"><div class="dot"></div></div>
+    <div><div class="card"><h3><span class="idx">${esc(title.idx)}</span>${esc(title.name)}<span class="ms"><span class="spinner"></span></span></h3><div class="body"></div></div></div>`;
+  $("flow").appendChild(wrap);
+  state.stages[key] = wrap;
+  wrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  return wrap;
+}
+
+function finish(key, ms) {
+  const wrap = state.stages[key];
+  if (!wrap) return;
+  wrap.classList.remove("live");
+  wrap.classList.add("done");
+  const msEl = wrap.querySelector(".ms");
+  if (msEl) msEl.textContent = fmtMs(ms);
+}
+
+function body(key, html) {
+  const wrap = state.stages[key];
+  if (wrap) wrap.querySelector(".body").innerHTML = html;
+}
+
+const INDEX = {
+  understand: ["01", "实体识别"],
+  route: ["02", "链路路由"],
+  recall: ["03", "召回（向量 / BM25）"],
+  fuse: ["04", "融合（RRF）"],
+  gate: ["05", "相关性闸门"],
+  filter: ["06", "过滤（链路 / 品类 / 型号 / 权限）"],
+  rerank: ["07", "精排"],
+  context: ["08", "上下文拼装"],
+  llm: ["09", "生成"],
+  check: ["10", "校验（引用 / 必答项）"],
+};
+
+const REASON = {
+  acl: "权限不足",
+  doc_type: "文档类型不符",
+  journey: "链路不符",
+  appliance: "品类不符",
+  product_id: "型号不符",
+  role: "角色不符",
+};
+
+function render(e) {
+  const ev = e.event;
+  if (ev === "understand") {
+    stage("understand", { idx: INDEX.understand[0], name: INDEX.understand[1] });
+    const models = (e.models || []).map((m) => `<span class="chip hit">型号 ${esc(m.label)} <span class="k">← ${esc(m.matched)}</span></span>`).join("") || `<span class="chip miss">未识别到型号</span>`;
+    const apps = (e.appliances || []).map((a) => `<span class="chip hit">品类 ${esc(a.label)} <span class="k">← ${esc(a.matched)}</span></span>`).join("") || `<span class="chip miss">未识别到品类</span>`;
+    const hints = (e.hints || []).filter(Boolean).map((h) => `<div class="k" style="margin-top:6px">提示：${esc(h)}</div>`).join("");
+    body("understand", `<div class="kv">${models}${apps}</div><div class="kv" style="margin-top:8px"><span class="k">问题</span><span class="v mono">${esc(e.query)}</span></div>${hints}`);
+    finish("understand", e.elapsed_ms);
+  }
+
+  if (ev === "route") {
+    stage("route", { idx: INDEX.route[0], name: INDEX.route[1] });
+    const rows = (e.scores || []).map((s) => {
+      const hit = s.journey === e.chosen;
+      return `<tr><td>${hit ? `<span class="chip hit">${esc(s.label)}</span>` : esc(s.label)}</td>
+        <td class="num">${s.score.toFixed(4)}</td>
+        <td style="width:38%">${bar(s.score, 0.9, hit)}</td>
+        <td class="k">${esc(s.intent || "")}<br><span class="doc">${esc(s.question || "")}</span></td></tr>`;
+    }).join("");
+    const CONF = { high: ["ok", "高（意图词命中）"], medium: ["", "中（语义最近邻）"], low: ["warn", "低（不收窄）"], manual: ["", "手动指定"] };
+    const conf = CONF[e.confidence] || ["", e.confidence || ""];
+    body("route", `
+      <div class="kv">
+        <span class="chip ${e.chosen ? "hit" : "warn"}">选中：${esc(e.chosen_label || "不限定")}</span>
+        <span class="chip ${conf[0]}">置信度 ${esc(conf[1])}</span>
+        ${e.keyword ? `<span class="chip ok">命中词「${esc(e.keyword.phrase)}」→ ${esc(e.keyword.intent)}</span>` : ""}
+        <span class="chip ${e.enabled ? "" : "miss"}">${e.enabled ? "已启用链路收窄" : "未启用（全库检索）"}</span>
+        ${e.margin != null ? `<span class="chip">与次优差 ${e.margin.toFixed(4)}</span>` : ""}
+      </div>
+      <div class="k" style="margin-top:6px">判定依据：${esc(e.reason || "")}</div>
+      <table class="grid" style="margin-top:8px"><thead><tr><th>链路</th><th>相似度</th><th></th><th>最接近的代表问句</th></tr></thead><tbody>${rows}</tbody></table>
+      <div class="k" style="margin-top:6px">相似度 = 问题向量与该链路代表问句向量的余弦；每个链路取最高分那条。关键词命中优先于相似度——中文问句里的品类词会把纯语义路由带偏。</div>`);
+    finish("route", e.elapsed_ms);
+  }
+
+  if (ev === "recall") {
+    stage("recall", { idx: INDEX.recall[0], name: INDEX.recall[1] });
+    const dense = e.dense || [], sparse = e.sparse || [];
+    const dset = new Set(dense.map((d) => d.node_id)), sset = new Set(sparse.map((d) => d.node_id));
+    const maxD = Math.max(0.0001, ...dense.map((d) => d.score));
+    const maxS = Math.max(0.0001, ...sparse.map((d) => d.score));
+    const list = (items, max, other, hot) => items.map((d) => {
+      const both = other.has(d.node_id);
+      return `<tr><td class="doc">${esc(shortDoc(d.doc_id))}${both ? ` <span class="badge ok">两路</span>` : ""}</td>
+        <td class="num">${d.score.toFixed(4)}</td><td style="width:36%">${bar(d.score, max, hot)}</td></tr>`;
+    }).join("") || `<tr><td colspan="3" class="empty-note">无候选</td></tr>`;
+    body("recall", `
+      <div class="kv"><span class="chip">模式 ${esc(e.mode)}</span><span class="chip">候选 ${e.candidates}</span>
+        <span class="chip">稠密 ${dense.length}</span><span class="chip">稀疏 ${sparse.length}</span></div>
+      <div class="cols" style="margin-top:8px">
+        <div><div class="sub">稠密（向量相似度）</div><table class="grid"><tbody>${list(dense, maxD, sset, false)}</tbody></table></div>
+        <div><div class="sub">稀疏（BM25 词面分）</div><table class="grid"><tbody>${list(sparse, maxS, dset, true)}</tbody></table></div>
+      </div>
+      <div class="k" style="margin-top:6px">两路各自取 ${e.candidates} 个候选；标「两路」的表示同时被两路召回。</div>`);
+    finish("recall", e.elapsed_ms);
+  }
+
+  if (ev === "fuse") {
+    stage("fuse", { idx: INDEX.fuse[0], name: INDEX.fuse[1] });
+    const rows = (e.fused || []).slice(0, 15).map((f, i) => `<tr>
+      <td class="num">${i + 1}</td><td class="doc">${esc(shortDoc(f.doc_id))}</td>
+      <td class="num">${f.dense_rank ?? "—"}</td><td class="num">${f.sparse_rank ?? "—"}</td>
+      <td class="num">${f.rrf.toFixed(5)}</td></tr>`).join("");
+    body("fuse", `<table class="grid"><thead><tr><th>#</th><th>文档</th><th>稠密名次</th><th>稀疏名次</th><th>RRF 分</th></tr></thead><tbody>${rows || `<tr><td colspan="5" class="empty-note">融合后无候选</td></tr>`}</tbody></table>
+      <div class="k" style="margin-top:6px">RRF 只吃名次不吃分值：<code>Σ 1/(60+rank)</code>，避免某一路的分数尺度压过另一路。</div>`);
+    finish("fuse", null);
+  }
+
+  if (ev === "gate") {
+    stage("gate", { idx: INDEX.gate[0], name: INDEX.gate[1] });
+    const ok = e.passed;
+    body("gate", `<div class="kv">
+        <span class="chip ${ok ? "ok" : "miss"}">${ok ? "通过：有依据" : "拦截：视为无依据"}</span>
+        <span class="chip">稠密下限 ${e.dense_min_similarity ?? "—"}</span>
+        <span class="chip">稀疏下限 ${e.sparse_min_score ?? "—"}</span>
+      </div><div class="k" style="margin-top:6px">${esc(e.reason || "")}</div>
+      <div class="k" style="margin-top:4px">闸门的作用：宁可回答「没有依据」，也不把不相关片段塞给模型。</div>`);
+    finish("gate", null);
+  }
+
+  if (ev === "filter" || ev === "fallback") {
+    if (e.filter) {
+      stage("filter", { idx: INDEX.filter[0], name: INDEX.filter[1] });
+      const f = e.filter;
+      const applied = f.applied || {};
+      const chip = (label, values) => `<span class="chip ${values && values.length ? "hit" : ""}">${label}：${values && values.length ? esc(values.join(", ")) : "不限"}</span>`;
+      const dropped = (f.dropped || []).map((d) => `<tr>
+        <td class="doc">${esc(shortDoc(d.doc_id))}</td>
+        <td><span class="chip warn">${esc(REASON[d.reason] || d.reason)}</span></td>
+        <td class="k">${esc(d.journey || "shared")} / ${esc(d.doc_type || "")} / ${esc(d.appliance || "—")}</td></tr>`).join("");
+      body("filter", `
+        <div class="kv">${chip("链路", applied.journeys)}${chip("品类", applied.appliances)}${chip("型号", applied.product_ids)}${chip("类型", applied.doc_types)}</div>
+        <div class="kv" style="margin-top:6px"><span class="chip">全库 ${f.total_docs}</span><span class="chip">可见 ${f.visible_docs}</span>
+          <span class="chip">本轮候选 ${f.focus_docs}</span><span class="chip">被过滤候选 ${f.dropped_candidates ?? 0}</span></div>
+        ${dropped ? `<details open><summary>被丢弃的候选（含原因）</summary><table class="grid" style="margin-top:6px"><thead><tr><th>文档</th><th>原因</th><th>归属</th></tr></thead><tbody>${dropped}</tbody></table></details>` : `<div class="k" style="margin-top:6px">本轮没有被过滤掉的候选。</div>`}`);
+      finish("filter", null);
+    }
+    if (ev === "fallback") {
+      stage("fallback", { idx: "!", name: "路由回退" });
+      body("fallback", `<div class="kv"><span class="chip warn">${esc(e.reason)}</span>
+        <span class="chip">原链路 ${esc(e.journey)}</span><span class="chip">回退后命中 ${e.recovered}</span></div>
+        <div class="k" style="margin-top:6px">这条路径说明「按链路收窄」可能过紧；面板不隐藏它，因为隐藏了就看不到路由失手。</div>`);
+      finish("fallback", null);
+    }
+  }
+
+  if (ev === "rerank") {
+    stage("rerank", { idx: INDEX.rerank[0], name: INDEX.rerank[1] });
+    const before = (e.before || []).map((x) => `<td class="doc">${esc(shortDoc(x.doc_id))}</td>`).join("");
+    const after = (e.after || []).slice(0, 6).map((x, i) => `<tr><td class="num">${i + 1}</td>
+      <td class="doc">${esc(shortDoc(x.doc_id))}</td><td class="num">${Number(x.score).toFixed(4)}</td></tr>`).join("");
+    body("rerank", `${e.degraded ? `<div class="chip warn">精排降级：${esc(e.detail || "")}</div>` : ""}
+      <table class="grid"><thead><tr><th>#</th><th>重排后</th><th>cross-encoder 分</th></tr></thead><tbody>${after}</tbody></table>`);
+    finish("rerank", null);
+  }
+
+  if (ev === "context") {
+    stage("context", { idx: INDEX.context[0], name: INDEX.context[1] });
+    const cards = (e.chunks || []).map((c) => {
+      const badges = [
+        `<span class="badge">[${c.index}]</span>`,
+        c.verified === true ? `<span class="badge ok">已核对</span>` : c.verified === false ? `<span class="badge warn">未核对</span>` : `<span class="badge">未标注</span>`,
+        c.source_page ? `<span class="badge">p${c.source_page}</span>` : "",
+        c.appliance ? `<span class="badge">${esc(c.appliance)}</span>` : "",
+      ].join("");
+      return `<div class="chunk"><div class="head">${badges}<span class="doc">${esc(c.doc_id)}</span></div>
+        ${c.origin ? `<div class="k" style="margin-top:4px">原文：<span class="mono">${esc(c.origin)}</span></div>` : ""}
+        <div class="text">${esc(c.text)}</div></div>`;
+    }).join("") || `<div class="empty-note">没有片段进入上下文（闸门拦截或检索为空）。</div>`;
+    body("context", `<div class="kv"><span class="chip">片段 ${e.included_chunks ?? (e.chunks || []).length}/${(e.chunks || []).length}</span>
+        <span class="chip">压缩前 ${e.raw_context_chars ?? e.context_chars} 字 → 正文 ${e.context_chars} 字</span><span class="chip">上限 ${6000} 字</span></div>
+      ${cards}
+      <details><summary>查看送进模型的消息原文</summary><pre class="raw">${esc((e.messages || []).map((m) => `[${m.role}]\n${m.content}`).join("\n\n"))}</pre></details>`);
+    finish("context", e.elapsed_ms);
+  }
+
+  if (ev === "token") {
+    if (!state.stages.llm) {
+      stage("llm", { idx: INDEX.llm[0], name: INDEX.llm[1] });
+      body("llm", `<div class="answer" id="answer"></div>`);
+    }
+    const el = $("answer");
+    if (el) {
+      el.dataset.raw = (el.dataset.raw || "") + e.text;
+      el.innerHTML = esc(el.dataset.raw).replace(/\[(\d{1,2})\]/g, `<span class="cite">[$1]</span>`);
+      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }
+
+  if (ev === "llm") {
+    stage("llm", { idx: INDEX.llm[0], name: INDEX.llm[1] });
+    if (e.skipped === "no_evidence") body("llm", `<div class="chip miss">未调用模型：没有可用依据</div>`);
+    else if (e.skipped === "retrieval_only") body("llm", `<div class="chip">未调用模型：本次只跑检索链路</div>`);
+    finish("llm", e.elapsed_ms);
+  }
+
+  if (ev === "error") {
+    if (ev === "error" && e.stage === "llm" && !state.stages.llm) {
+      stage("llm", { idx: INDEX.llm[0], name: INDEX.llm[1] });
+      body("llm", `<div class="err">模型未就绪：${esc(e.message)}</div>`);
+      finish("llm", null);
+    } else {
+      stage("error", { idx: "!", name: "错误" });
+      body("error", `<div class="err">${esc(e.stage)}：${esc(e.message)}</div>`);
+      finish("error", null);
+    }
+  }
+
+  if (ev === "check") {
+    stage("check", { idx: INDEX.check[0], name: INDEX.check[1] });
+    const ac = e.answer_check;
+    const cited = (e.sources || []).map((s) => `<tr><td class="num">[${s.index}]</td><td class="doc">${esc(s.doc_id)}</td>
+      <td class="k">${s.source_page ? "p" + s.source_page : "—"}</td>
+      <td>${s.verified === false ? `<span class="chip warn">未核对</span>` : s.verified === true ? `<span class="chip ok">已核对</span>` : `<span class="chip">未标注</span>`}</td></tr>`).join("");
+    body("check", `
+      <div class="kv">
+        <span class="chip ${(e.cited || []).length ? "ok" : "warn"}">引用编号 ${(e.cited || []).join(", ") || "无"}</span>
+        ${(e.invalid_citations || []).length ? `<span class="chip miss">越界引用 ${e.invalid_citations.join(", ")}</span>` : ""}
+        ${(e.unverified_used || []).length ? `<span class="chip warn">含未核对片段 ${e.unverified_used.join(", ")}</span>` : ""}
+      </div>
+      ${cited ? `<table class="grid" style="margin-top:8px"><thead><tr><th>#</th><th>来源</th><th>页码</th><th>依据</th></tr></thead><tbody>${cited}</tbody></table>` : ""}
+      ${ac ? `<div style="margin-top:10px" class="kv"><span class="chip ${ac.passed ? "ok" : "miss"}">评测题 ${esc(ac.id)}：${ac.passed ? "通过" : "未通过"}</span>
+          ${(ac.must_include || []).map((t) => `<span class="chip ${ac.missing.includes(t) ? "miss" : "ok"}">必答 ${esc(t)}${ac.missing.includes(t) ? "（缺）" : "（有）"}</span>`).join("")}
+          ${(ac.forbidden_hit || []).map((t) => `<span class="chip miss">禁止出现：${esc(t)}</span>`).join("")}</div>
+        <details><summary>参考答案与依据</summary><pre class="raw">${esc(ac.reference || "")}\n\n依据：${esc(ac.basis || "")}</pre></details>` : `<div class="k" style="margin-top:8px">该问题不在评测集中，跳过必答项校验（引用校验仍然执行）。</div>`}
+      ${(e.warnings || []).map((w) => `<div class="err" style="margin-top:6px">⚠ ${esc(w)}</div>`).join("")}`);
+    finish("check", null);
+  }
+
+  if (ev === "done") {
+    const t = e.timings_ms || {};
+    stage("done", { idx: "✓", name: "本次耗时" });
+    body("done", `<div class="totals">
+        <span>实体 <b>${fmtMs(t.understand)}</b></span>
+        <span>路由 <b>${fmtMs(t.route)}</b></span>
+        <span>检索 <b>${fmtMs(t.retrieve)}</b></span>
+        <span>上下文 <b>${fmtMs(t.context)}</b></span>
+        <span>生成 <b>${fmtMs(t.llm)}</b></span>
+        <span>合计 <b>${fmtMs(t.total)}</b></span>
+      </div>${e.fallback ? `<div class="k" style="margin-top:6px">发生了路由回退：${esc(e.fallback.reason)}</div>` : ""}`);
+    finish("done", null);
+  }
+}
+
+async function ask() {
+  if (state.running) return;
+  const query = $("query").value.trim();
+  if (!query) { $("query").focus(); return; }
+
+  state.running = true;
+  $("send").disabled = true;
+  $("send").textContent = "处理中…";
+  resetFlow();
+
+  const options = {
+    mode: $("mode").value,
+    top_k: Number($("topk").value),
+    use_journey: $("useJourney").checked,
+    use_llm: $("useLlm").checked,
+    journey: $("journey").value || null,
+    appliance: $("appliance").value || null,
+    product_id: $("product").value || null,
+  };
+
+  try {
+    const resp = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, options }),
+    });
+    if (!resp.ok) {
+      const text = await resp.text();
+      stage("error", { idx: "!", name: "请求失败" });
+      body("error", `<div class="err">HTTP ${resp.status}：${esc(text)}</div>`);
+      return;
+    }
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      let idx;
+      while ((idx = buffer.indexOf("\n")) >= 0) {
+        const line = buffer.slice(0, idx).trim();
+        buffer = buffer.slice(idx + 1);
+        if (!line) continue;
+        try { render(JSON.parse(line)); } catch (err) { console.error("bad event", line, err); }
+      }
+    }
+  } catch (err) {
+    stage("error", { idx: "!", name: "连接中断" });
+    body("error", `<div class="err">${esc(err)}</div>`);
+  } finally {
+    state.running = false;
+    $("send").disabled = false;
+    $("send").textContent = "发送（⌘/Ctrl + Enter）";
+  }
+}
+
+$("send").addEventListener("click", ask);
+$("clear").addEventListener("click", () => {
+  $("query").value = "";
+  resetFlow();
+  $("flow").innerHTML = `<div class="empty"><h2>已清空</h2><div>输入问题后点击发送。</div></div>`;
+  $("query").focus();
+});
+$("query").addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "Enter") ask();
+});
+
+loadMeta().catch((err) => {
+  $("stat-pack").innerHTML = `<span class="pill bad">加载元信息失败：${esc(err)}</span>`;
+});
+</script>
+</body>
+</html>

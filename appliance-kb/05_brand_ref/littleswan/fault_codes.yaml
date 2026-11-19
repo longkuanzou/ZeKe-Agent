@@ -1,0 +1,259 @@
+# 小天鹅洗衣机故障代码表
+#
+# 小天鹅的麻烦在于**并存三套代码体系**，用户报的"E1"和面板上的"630"不是一回事：
+#   ① 3 位数字码（630 / 613 …）—— 滚筒 TG 系列，本批说明书能确认
+#   ② E 开头代码（E1/E10/E21 …）—— 波轮 TB 系列为主，本批资料未覆盖，只有网络来源
+#   ③ 字母提示（Ub 等）—— 衣物不平衡类保护提示
+# 所以每条都带 system 字段。跨体系对照是猜，禁止。
+policy_id: brand.littleswan.fault_codes
+brand: littleswan
+brand_cn: 小天鹅
+applies_to: {appliance: [washer]}
+updated: 2026-10-23
+
+verified: false
+has_official_table: false        # 本批 5 份资料都没有完整代码表
+has_codes: true
+usable_scope: partial            # partial：滚筒数字码可对外；E 码只做内部分诊
+
+code_systems:
+  - id: digital_3
+    cn: 3 位数字码
+    platform: 滚筒（TG 前缀机型）
+    evidence: 本批 TG10K60「常见问题」页
+    verified: true
+  - id: e_code
+    cn: E 开头代码
+    platform: 波轮（TB 前缀机型）为主，部分滚筒也有
+    evidence: 网络维修资料，本批资料未覆盖
+    verified: false
+  - id: letter
+    cn: 字母保护提示
+    platform: 全平台
+    evidence: 本批 TG10K60 使用说明页（Ub）
+    verified: true
+
+# ── 有本机资料依据的（可直接对外）─────────────────────
+codes_confirmed:
+  - code: "630"
+    system: digital_3
+    cn: 门未合上
+    severity: attention
+    user_action: 确认衣物没有被门压住，重新关门后按启动键继续
+    source: "03_product/washer/littleswan/TG10K60/faults.yaml（ocr#常见问题.jpg，数字已与原图核对）"
+    verified: true
+  - code: "613"
+    system: digital_3
+    cn: 料盒未关闭到位
+    severity: attention
+    user_action: 关机后重新开机启动，并把料盒关到位
+    note: 带自动投放的机型才有；用户常误以为机器坏了
+    source: "03_product/washer/littleswan/TG10K60/faults.yaml（ocr#常见问题.jpg，数字已与原图核对）"
+    verified: true
+  - code: "Ub"
+    system: letter
+    cn: 衣物不平衡保护提示
+    severity: normal
+    user_action: 取出抖散或拧掉部分水分后重新放入，按启动/暂停键继续
+    note: 这是保护提示不是硬件故障，直接按 normal 处理，不建单
+    source: "03_product/washer/littleswan/TG10K60/faults.yaml#ub_prompt"
+    verified: true
+
+# ── 有含义但代码数字不可靠（OCR 粘连，只留含义）───────
+codes_meaning_only:
+  - cn: 洗涤进水超时
+    user_action: 确认水龙头已开、水压正常；进水管不弯折；清洁进水阀过滤网
+    verified: true
+    note: 代码数字在 OCR 中与相邻字符粘连（"1888""16818"），需对照原图补数字
+  - cn: 漂洗进水超时
+    user_action: 确认机身后排水管管夹未拆下；排水管不要插入下水道过深；确认管内无积水
+    verified: true
+  - cn: 排水超时
+    user_action: 清理排水泵杂物；排水管最高处不超过 100cm
+    verified: true
+  - cn: 衣物不平衡
+    user_action: 同 Ub 处置
+    verified: true
+  - cn: 洗衣机溢水
+    user_action: 关机后重新开机；检查排水管是否插入过深或堵塞
+    verified: true
+  - cn: 其他（未分类提示）
+    user_action: 再次出现相同提示则报修
+    verified: true
+
+# ── 网络来源 E 码（只做内部分诊，不对外念部件名）──────
+codes_web:
+  source_kind: web
+  source: "维修站公开代码表，多站交叉（2025-04 整理），未经小天鹅售后确认"
+  verified: false
+  codes:
+    - code: E1
+      cn: 进水超时（未进到设定水位）
+      severity: attention
+      user_action: 查水龙头/水压/进水管/进水阀滤网
+    - code: E10
+      cn: 进水超时（与 E1 同类，部分平台写法）
+      severity: attention
+    - code: E11
+      cn: 内桶残水（排水不彻底）
+      severity: attention
+      user_action: 清理排水泵过滤网；查排水管高度与弯折
+    - code: E12
+      cn: 溢水保护
+      severity: stop_and_call
+      user_action: 停机，查进水阀是否关不死、排水管是否堵塞
+    - code: E2
+      cn: 排水超时
+      severity: attention
+    - code: E21
+      cn: 排水超时（与 E2 同类，部分平台写法）
+      severity: attention
+    - code: E20
+      cn: 排水泵无反馈信号
+      severity: stop_and_call
+    - code: E3
+      cn: 门锁锁不上
+      severity: stop_and_call
+    - code: E30
+      cn: 门锁锁不上（与 E3 同类）
+      severity: stop_and_call
+    - code: E31
+      cn: 门锁解锁失败
+      severity: stop_and_call
+    - code: E32
+      cn: 门未关（与数字码 630 同类）
+      severity: attention
+    - code: E33
+      cn: 水位传感器故障
+      severity: stop_and_call
+    - code: E34
+      cn: 水温传感器故障
+      severity: stop_and_call
+    - code: E35
+      cn: 水温传感器故障（与 E34 同类）
+      severity: stop_and_call
+    - code: E4
+      cn: 衣物不平衡（与 Ub 同类，但报 E 码时多为多次检测仍不平衡）
+      severity: attention
+    - code: UF
+      cn: 衣物不平衡
+      severity: attention
+    - code: U3
+      cn: 衣物不平衡 / 偏心保护
+      severity: attention
+    - code: E40
+      cn: EEPROM 读写异常
+      severity: stop_and_call
+    - code: E41
+      cn: EEPROM 参数异常
+      severity: stop_and_call
+    - code: E50
+      cn: 高压保护（电压过高）
+      severity: attention
+      user_action: 确认家里电压，恢复后自动复位
+    - code: E60
+      cn: 电机启动失败
+      severity: stop_and_call
+    - code: E61
+      cn: 电机测速信号异常
+      severity: stop_and_call
+    - code: E62
+      cn: 电机测速信号异常（与 E61 同类）
+      severity: stop_and_call
+
+# ── 说明书明确"属正常"的（拦假工单用）─────────────────
+normal_phenomena:
+  - id: spin_delay_low_load
+    symptom: 衣物较少时脱水延时或不脱水
+    explain: 偏心保护先低速检测并重新分布衣物；加几件衣物均匀分布后按启动键继续
+  - id: foam_extra_time
+    symptom: 洗涤中程序时间变长、迟迟不脱水
+    explain: 检测到泡沫过多会静置或缓慢转动、进水除泡，属正常
+  - id: door_locked_running
+    symptom: 运行中机门打不开
+    explain: 安全保护设计，运行中门锁不放行；关机后等待安全时间再开
+  - id: power_off_resume
+    symptom: 停电后来电没有继续运行
+    explain: 断电记忆会在来电后继续；若断电期间按过电源键，则需重新开始
+  - id: program_memory
+    symptom: 开机后不是默认程序，而是上次用的
+    explain: 程序记忆默认开启；可在美的美居 App 或关机长按面板键 3 秒关闭
+
+handling_rule:
+  when_user_reports_code:
+    - 先问"代码是几位、纯数字还是带字母"——决定查哪套体系
+    - 滚筒数字码 → 查 codes_confirmed / codes_meaning_only，可对外给含义
+    - E 码 → 查 codes_web，只对外给类别与处置，不说部件名
+    - Ub / UF / U3 类 → 按 normal 解释，不建单
+    - 报溢水、门锁、水位/温度传感器、电机类 → 按 stop_and_call 停机
+    - 未命中 → 不猜，建单并标注"代码未收录 + 代码原文"
+  forbid:
+    - 把 E 码含义当成滚桶机型的答复（两套体系不通用）
+    - 跨品牌套用（小天鹅 E1 与美的 E1、西门子 E16 都毫无关系）
+    - 对 Ub 类保护提示建单
+
+escalate_hotline: "400-8228-228"
+
+todo:
+  - 向小天鹅售后索取官方代码表（滚筒 + 波轮两套），核对 codes_web 后把 has_official_table 置 true
+  - 补齐 codes_meaning_only 里 6 条的代码数字（对照 OCR 原图）
+
+# ══════════════════════════════════════════════════════════════
+# 业务方速查表交叉核对（2026-10-23 新增）
+#
+# 业务方给了一份《常见错误代码及含义速查表》。逐条与本文件比对后：
+#   一致的 → 只提升可信度，不改含义
+#   冲突的 → **不覆盖**。现有条目来自说明书或已建表，速查表没有说明机型平台，
+#            直接替换会把已核对的值得冲掉。冲突项两边都留，对外话术退到"类别+处置"。
+biz_crosscheck:
+  source_kind: biz_provided
+  source: "业务方提供的常见错误代码速查表（2026-10-23）"
+  verdict: library_prevails          # partial_match（原描述，见下方 ruling）
+  ruling_policy: >
+    2026-10-23 业务方裁定：**凡与现有条目冲突的，一律以现有表为准**（速查表对应条目不采纳）。
+    理由：速查表未标机型平台，现有表至少能追到说明书或可对照的官方代码族。
+    本条裁定不改变 usable_scope——"采用哪一套"和"这套本身是否经售后核实"是两件事。
+  ruling_date: 2026-10-23
+  ruling_by: 业务方
+
+  matched:                        # 一致，可据此在答复中直接给含义
+    - code: E1
+      cn: 进水超时
+      note: 与 codes_web#E1 一致
+    - code: E2
+      cn: 排水超时
+      note: 与 codes_web#E2 一致
+
+  conflict:                       # 含义不同，禁止覆盖，只做内部对照
+    - code: E4
+      ours: 衣物不平衡（codes_web#E4）
+      biz: 门未关好
+      severity_agree: attention   # 严重度一致，只是归类不同
+      reply: 对外只说"门没关好或衣物不平衡这类问题，先确认门是否关严、衣物抖散再试"
+      forbid: 不得只按一种说法回答，也不得说"这是部件故障"
+    - code: E8
+      ours: 未收录
+      biz: 水位传感器异常
+      severity_agree: stop_and_call
+      reply: 建单，工单里写"代码原文 E8"，不解释部件
+
+  uncovered_by_biz:               # 业务方表里没有，但本文件有依据的，继续用本文件
+    - {code: "630", note: 门未合上，说明书确认值，优先于任何速查表}
+    - {code: "613", note: 料盒未关闭到位，说明书确认值}
+    - {code: Ub, note: 不平衡保护提示，不建单}
+
+  note: >
+    小天鹅并存三套代码体系（3 位数字码 / E 码 / 字母提示），
+    业务方速查表没有区分机型平台，所以冲突集中在 E 码区间。
+    真正定版要等小天鹅售后出书面代码表，见 todo。
+
+  # ── 裁定结果（2026-10-23）──────────────────────────────
+  adopt:
+    - {code: E1, cn: 进水超时, note: 与现有表一致，可直接用}
+    - {code: E2, cn: 排水超时, note: 与现有表一致，可直接用}
+  not_adopt:
+    - {code: E4, ours: 衣物不平衡, biz: 门未关好, action: 按现有表分诊}
+    - {code: E8, ours: 未收录, biz: 水位传感器异常, action: 按"代码未收录"处理：建单 + 记录代码原文}
+  note: >
+    E4 的两种说法在处置上差别不大（都先让用户查门和衣物），但对内归类要统一按"衣物不平衡"，
+    否则 symptoms 映射会对不上 ws_vibration。

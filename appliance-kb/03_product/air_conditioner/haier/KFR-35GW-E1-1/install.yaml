@@ -1,0 +1,52 @@
+# 安装条件（来源：海尔使用安装说明书 p9 安全警示 / p20 安装要求 / p26 管路）
+# 海尔在安装项上比美的多给出"线径≥最大电流1.5倍""上电间隔3分钟""距可燃面1.5米"等硬指标
+product_id: haier-kfr-35gw-e1-1
+updated: 2026-10-21
+
+electrical:
+  supply: {value: "220V~/50Hz", source: p35}
+  dedicated_circuit: {value: true, source: p9, text: 必须为专用分支电路，不得与其他电器共用}
+  wire_capacity: {source: p9, text: 线径容量应大于空调器最大电流的 1.5 倍}
+  breaker_rule: {source: p9,
+    text: "最大工作电流>16A 时，须用足够容量的漏电保护器或空气开关，且须同时具备短路保护与过载保护；不可仅用保险丝保护该支路"}
+  grounding: {value: true, source: p9,
+    text: "室内机与室外机均须可靠接地；必须使用独立专用插座并配有地线；接地线不得接煤气管/自来水管"}
+  socket: {source: p9, text: 独立专用插座，严禁使用移动插座或与其他电器并联}
+  restart_interval: {value: 3, unit: min, source: p9, text: 断电后至少间隔 3 分钟再上电，防压缩机损坏}
+  leakage_test: {source: p9, text: 安装后须通电做漏电检测}
+
+space:
+  min_room_area_m2: {value: 4, source: p9, text: 安装/运行/存放的房间面积应大于 4㎡}
+  combustible_clearance_m: {value: 1.5, source: p10, text: 与可燃表面最小间隙 1.5 米}
+  street_side_height_m: {value: 2.5, source: p26, text: 临街安装室外机不得低于 2.5 米}
+  lamp_clearance_m: {value: 1, source: p9, text: 距室内机 1 米内不要安装日光灯，避免遥控信号干扰}
+  remote_range_m: {value: 7, source: p24, text: 遥控发射与接收窗之间一般 7 米以内且无遮挡}
+
+bracket:
+  expansion_bolts: {count_min: 4, diameter_min_mm: 10, source: p26,
+    text: "固定支架的膨胀螺栓规格一致，数量≥4 个，直径≥10mm"}
+  strength: {source: p10, text: 支架须能承受机组重量并防强风，室外机须用防倒零件固定}
+
+piping:
+  标配长度_m: null
+  max_length_m: {value: 10, source: p26}
+  max_height_diff_m: {value: 5, source: p26}
+  extra_refrigerant: {value: "20g/m（总长>5m 后每米）", source: p17}
+  refrigerant: {value: "R32", source: p17}
+  drain: {value: true, source: p20, text: 排水软管须在下、连接线在上，排水管须做保温缠绕}
+
+pre_visit_checklist:
+  - 安装墙面是否承重、是否可打孔
+  - 是否有独立专用插座（带地线）
+  - 室外机位置是否可用、临街安装高度是否≥2.5 米
+  - 与燃气灶/暖气等可燃表面的距离是否≥1.5 米
+  - 连接管走线长度（>5 米需补冷媒，>10 米不可装）
+  - 室内外机高度差是否≤5 米
+  - 楼层与电梯情况（影响上楼费）
+
+chargeable_items: [高空作业, 加长连接管, 支架, 打孔, 拆装防盗网, 远程上门]
+
+missing:
+  - 标配连接管长度
+  - 室内机进/出风最小间距的数值（说明书为图示）
+  - 室外机与对面墙/百叶的最小距离

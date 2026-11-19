@@ -1,0 +1,52 @@
+# 功能清单：售前「有没有」「支不支持」类问题的唯一依据
+# supported: true 有 / false 明确没有 / null 说明书未提及（按不确定处理，不得推定）
+product_id: littleswan-tg10ve40
+updated: 2026-10-22
+
+features:
+  dry: {supported: false, note: 单洗机型，说明书无烘干程序与干衣容量}
+  steam: {supported: true, source: "ocr#产品介绍.jpg", note: 本机除菌除螨测试程序为「蒸汽消毒洗」程序；另有同名独立程序，持续高温消毒洗涤}
+  self_clean: {supported: true, source: "ocr#使用说明-程序介绍.jpg", note: 筒自洁程序}
+  wifi: {supported: true, source: "ocr#联网指引.jpg", note: 美的美居 App}
+  child_lock: {supported: true, source: "ocr#使用说明-控制面板介绍.jpg", note: 童锁}
+  auto_dosing: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", note: 自动投放洗衣液/柔顺剂}
+  auto_weight: {supported: null}
+  micro_bubble: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", note: 超微净泡}
+  water_cube: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", note: 水魔方}
+  power_off_memory: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", note: 断电记忆}
+  foam_sensor: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", note: 泡沫感知检测}
+  drum_light: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", note: 筒灯}
+  forget_take_reminder: {supported: true, source: "ocr#使用说明-特色功能介绍.jpg", note: 忘取无忧}
+  special_stain: {supported: true, source: "ocr#使用说明-程序介绍.jpg", note: 特渍洗，经第三方按 QMY-J070.0012 检测符合特渍洗 A 等级；更多污渍类别需在美的美居 App 选择}
+
+# 说明书程序表逐项列出的程序（可在面板直接选）
+builtin_programs:
+  - 混合
+  - 特渍洗
+  - 冷水洗
+  - 棉麻
+  - 羽绒服
+  - 速洗30
+  - 快洗15
+  - 漂＋脱
+  - 单脱水
+  - 大件
+  - 春秋洗
+  - 夏日洗
+  - 冬季洗
+  - 婴儿服
+  - 冲锋衣
+  - 户外服
+  - 蒸汽消毒洗
+
+# 需下载安装后在「美的美居」App 内使用，面板上选不到，回答时必须说清这一点
+app_only_programs:
+  - 新衣洗
+  - 牛仔
+  - 衬衫
+  - 运动服
+
+cannot_claim:
+  - 烘干 / 洗烘一体（本机无烘干）
+  - 除菌率 / 除螨率的具体百分比（说明书未给检测数据）
+  - 具体耗水量（说明书未给）

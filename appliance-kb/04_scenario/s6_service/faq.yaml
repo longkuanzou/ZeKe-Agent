@@ -1,0 +1,117 @@
+# s6 报修建单标准问答
+scenario: s6_service
+updated: 2026-10-21
+
+faq:
+  - id: faq-s6.001
+    question: 我要报修
+    intent: service.create_ticket
+    scope: {appliance: air_conditioner}
+    answer: |
+      好的，我帮您登记，麻烦确认五项：
+      1. 机器型号（机身侧面标签上的）
+      2. 具体什么情况
+      3. 上门地址、几楼、有没有电梯
+      4. 联系人和电话
+      5. 什么时间方便
+    tool: 工单系统
+    source: 04_scenario/s6_service/ticket_fields.yaml
+    verified: true
+
+  - id: faq-s6.002
+    question: 师傅什么时候能来
+    intent: service.track
+    scope: {appliance: air_conditioner}
+    answer: 登记后师傅会在 24 小时内联系您约具体时间。具体几点到要看师傅当天的排期，他联系您的时候会跟您确认，我这边不好替您定死时间。
+    tool: 工单系统
+    verified: true
+    note: 只承诺联系窗口，不承诺上门时刻
+
+  - id: faq-s6.003
+    question: 上门要收费吗
+    intent: service.create_ticket
+    scope: {appliance: air_conditioner}
+    answer: 分两种情况：还在保修期内的性能故障，上门维修不收费；超过保修期或者属于人为损坏的，按有偿维修收人工费、零部件费和超距离交通费。您这台大概是哪年装的？我先帮您看下在不在保。
+    source: 05_brand_ref/*/warranty.yaml
+    verified: true
+
+  - id: faq-s6.004
+    question: 工单进度查询
+    intent: service.track
+    scope: {appliance: air_conditioner}
+    answer: 麻烦发下工单号或者下单手机号，我帮您查下现在到哪一步了。状态一般是：已受理、已派单、工程师已联系、已上门、维修中、已完成。
+    tool: 工单系统
+    verified: true
+
+  - id: faq-s6.005
+    question: 备件要等多久
+    intent: service.parts
+    scope: {appliance: air_conditioner}
+    answer: 要看具体是哪个部件、当地仓有没有货。常见件一般几天内能到，需要调货的会久一些。我查到库存后给您一个明确时间，现在先不跟您猜。
+    source: 05_brand_ref/{brand}/parts_catalog.yaml
+    tool: 备件/库存系统
+    verified: false
+    handoff: {needed: true, reason: parts_unknown}
+
+  - id: faq-s6.006
+    question: 能不能指定师傅上门时间
+    intent: service.create_ticket
+    scope: {appliance: air_conditioner}
+    answer: 可以备注期望时间，比如工作日上午或者周末，我登记时会一起带进去。最终时间还是要师傅跟您对，因为他要看当天路线。
+    verified: true
+
+  - id: faq-s6.007
+    question: 我已经报过一次了，还没人联系
+    intent: service.track
+    scope: {appliance: air_conditioner}
+    answer: 我先帮您查下有没有重复的工单，避免两个师傅都联系您。查到之后我给您催一下，您不用重复报。
+    tool: 工单系统
+    source: ticket_fields.yaml#dedup
+    verified: true
+
+  - id: faq-s6.008
+    question: 修不好能换新吗
+    intent: service.create_ticket
+    scope: {appliance: air_conditioner}
+    answer: 这个要看具体情况：同一性能故障修两次仍不能正常使用，按三包是可以申请换机的，但需要师傅的维修记录作为依据。所以每次上门维修记录一定要留好，这个对您是有利的。
+    source: 05_brand_ref/*/warranty.yaml
+    verified: false
+    handoff: {needed: true, reason: policy_uncertain}
+
+  # ── 2026-10-23 新增：小家电与洗衣机 ────────────────
+  - id: faq-s6.009
+    question: 电饭煲是师傅上门还是我自己送修
+    intent: service.create_ticket
+    scope: {appliance: rice_cooker}
+    answer: 小家电多数是送到特约服务商或者寄修，不是师傅上门。我先帮您查一下您所在的城市有没有服务网点：有的话您带机器和购买凭证过去就行；没有的话走寄修，来回运费保内由品牌承担、保外您自己出。您方便说下城市吗？
+    source: 05_brand_ref/{brand}/warranty.yaml + fee_schedule.yaml#home_visit
+    verified: true
+    tool: 工单系统
+    note: 不承诺"师傅马上上门"，这是小家电最常翻车的一句话
+
+  - id: faq-s6.010
+    question: 洗衣机报修要准备什么
+    intent: service.create_ticket
+    scope: {appliance: washer}
+    answer: 麻烦确认四项：① 型号（机身侧面或背后的铭牌）；② 面板有没有显示代码，几位、纯数字还是带字母；③ 现在能不能正常进水排水；④ 购买时间或安装时间。前三项我登记时一起带给师傅，他上门能少问两轮。
+    source: 04_scenario/s6_service/ticket_fields.yaml
+    verified: true
+    tool: 工单系统
+
+  - id: faq-s6.011
+    question: 内胆/密封圈这些配件能单独买吗
+    intent: service.parts
+    scope: {appliance: rice_cooker}
+    answer: 可以，内胆、上盖密封圈、蒸汽阀、量杯这些都能补件，价格按型号定——不同内胆差得挺多（普通涂层胆和纯钛、球釜不在一个价位）。您把型号告诉我，我查一下这个型号的件和价格，能寄的就不用整机送修了。
+    source: 05_brand_ref/{brand}/parts_catalog.yaml
+    verified: true
+    tool: 备件/库存系统
+
+  - id: faq-s6.012
+    question: 维修要多久
+    intent: service.create_ticket
+    scope: {appliance: [washer, rice_cooker]}
+    answer: 要看是哪个件。常见件当地仓有货，几天内能好；需要调货的会久一些，主板、内胆这类大件尤其。我查到库存后给您一个明确时间，现在先不跟您猜。
+    source: 05_brand_ref/{brand}/parts_catalog.yaml
+    verified: true
+    tool: 备件/库存系统

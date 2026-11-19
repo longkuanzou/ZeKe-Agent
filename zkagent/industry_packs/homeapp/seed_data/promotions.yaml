@@ -1,0 +1,60 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+promotions:
+- promo_id: PM2601
+  sku: MD-KFR35-Q2
+  category: aircon
+  kind: discount
+  amount_cents: 20000
+  threshold_cents: 0
+  gift: ''
+  start_at: '@now-3d'
+  end_at: '@now+4d'
+  stackable: 0
+  note: 限时直降 200 元（价保场景的依据）
+- promo_id: PM2602
+  sku: null
+  category: washer
+  kind: threshold
+  amount_cents: 15000
+  threshold_cents: 250000
+  gift: ''
+  start_at: '@now-5d'
+  end_at: '@now+2d'
+  stackable: 0
+  note: 洗衣机满 2500 减 150
+- promo_id: PM2603
+  sku: LS-TG100V618
+  category: washer
+  kind: gift
+  amount_cents: 0
+  threshold_cents: 0
+  gift: 洗衣液套装 + 延保 1 年
+  start_at: '@now-10d'
+  end_at: '@now+10d'
+  stackable: 1
+  note: 赠品与延保同时给
+- promo_id: PM2604
+  sku: null
+  category: rice_cooker
+  kind: trade_in
+  amount_cents: 5000
+  threshold_cents: 0
+  gift: ''
+  start_at: '@now-15d'
+  end_at: '@now+15d'
+  stackable: 0
+  note: 电饭煲以旧换新补贴 50 元
+- promo_id: PM2605
+  sku: SI-WN54A1X42
+  category: washer
+  kind: installment
+  amount_cents: 0
+  threshold_cents: 0
+  gift: ''
+  start_at: '@now-20d'
+  end_at: '@now+20d'
+  stackable: 0
+  note: 12 期免息

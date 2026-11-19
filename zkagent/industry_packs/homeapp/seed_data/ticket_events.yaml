@@ -1,0 +1,69 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+ticket_events:
+- ticket_id: T2601
+  happened_at: '@now-6d'
+  kind: created
+  note: 用户预约安装
+- ticket_id: T2601
+  happened_at: '@now-6d'
+  kind: scheduled
+  note: 约定次日上门
+- ticket_id: T2601
+  happened_at: '@now-6d'
+  kind: repaired
+  note: 安装完成，试机正常
+- ticket_id: T2601
+  happened_at: '@now-6d'
+  kind: closed
+  note: 工单关闭
+- ticket_id: T2602
+  happened_at: '@now-1h'
+  kind: created
+  note: 待用户确认上门时间
+- ticket_id: T2603
+  happened_at: '@now-1d'
+  kind: created
+  note: 下单后预约安装
+- ticket_id: T2603
+  happened_at: '@now-20h'
+  kind: scheduled
+  note: 已约 2 天后上午
+- ticket_id: T2604
+  happened_at: '@now-3d'
+  kind: created
+  note: 保外，需先报价
+- ticket_id: T2604
+  happened_at: '@now-2d'
+  kind: assigned
+  note: 已派单给杭州网点
+- ticket_id: T2605
+  happened_at: '@now-6d'
+  kind: created
+  note: 二次报修：仍不加热
+- ticket_id: T2605
+  happened_at: '@now-5d'
+  kind: assigned
+  note: 已派单
+- ticket_id: T2605
+  happened_at: '@now-4d'
+  kind: part_wait
+  note: 加热盘缺货，预计 5 天后到货
+- ticket_id: T2606
+  happened_at: '@now-20d'
+  kind: created
+  note: 首次报修
+- ticket_id: T2606
+  happened_at: '@now-19d'
+  kind: repaired
+  note: 更换温控器，恢复正常
+- ticket_id: T2606
+  happened_at: '@now-19d'
+  kind: closed
+  note: 工单关闭
+- ticket_id: T2607
+  happened_at: '@now-1d'
+  kind: created
+  note: 同一故障第三次报修

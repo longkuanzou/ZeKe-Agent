@@ -1,0 +1,32 @@
+product_id: haier-kfr-35gw-e1-1
+status: ready
+appliance: air_conditioner
+appliance_cn: 空调
+brand: haier
+brand_cn: 海尔
+model: KFR-35GW/E1-1
+model_slug: KFR-35GW-E1-1
+indoor_model: null
+outdoor_model: null
+product_type: 分体挂壁式（家用直流变频）
+product_type_tags: [挂机, 壁挂, 变频, 冷暖, 电辅热, 自清洁]
+colloquial: 1.5匹
+energy_grade: null
+launch_year: null
+updated: 2026-10-21
+
+source_docs:
+  - file: 说明书.pdf
+    pages: 37
+    note: 有文本层；含"疑问解答"章节（现象-处理表），是 s4 的高价值来源
+    edition: 2026年第2版
+
+notes:
+  - 说明书正文为"使用安装说明书"，同时覆盖使用与安装
+  - 参数页注明"参数更改后以产品铭牌参数为准"
+  - 说明书按"是否带语音功能"分别描述，本机是否带语音未在参数表体现 → 语音能力按不确定处理
+  - 说明书未公布 APF/能效等级 → 能效类问题转品牌侧或铭牌
+
+related:
+  compare_group: s1_1.5p_wall
+  sibling_models: [KFR-35GW-E1-1Plus]

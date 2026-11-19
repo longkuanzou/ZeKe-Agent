@@ -1,0 +1,40 @@
+# 功能清单：售前"有没有""支不支持"类问题的唯一依据
+# supported: true 有 / false 明确没有（可用于否定回答）/ null 说明书未提及（按"不确定"处理，不得推定）
+product_id: midea-kfr-35gw-q2
+updated: 2026-10-21
+
+features:
+  cooling:    {supported: true,  source: p9,  phrase: 制冷}
+  heating:    {supported: true,  source: p9,  phrase: 制热}
+  dry:        {supported: true,  source: p9,  phrase: 抽湿}
+  fan_only:   {supported: true,  source: p9,  phrase: 送风}
+  auto_mode:  {supported: true,  source: p9,  phrase: 自动}
+  auxiliary_heat: {supported: true, source: p20, phrase: 电辅热，850W}
+  timer:      {supported: true,  source: p16, phrase: 定时开关机}
+  sleep:      {supported: null,  source: null, note: 说明书未单列睡眠模式，按不确定处理}
+  anti_direct_blow: {supported: true, source: p14, phrase: 防直吹}
+  self_clean: {supported: false, source: p20,
+               note: "无自清洁功能。说明书仅有导风板待机清洁；售前不得承诺自清洁/自动清洗"}
+  wifi:       {supported: true,  source: p28, phrase: 美的美居 App，仅 2.4GHz}
+  voice:      {supported: null,  source: null, note: 说明书未提及语音控制}
+  fresh_air:  {supported: false, source: null, note: 说明书无新风相关内容}
+  humidity_sensor: {supported: null, source: null}
+
+# 销售侧可讲的差异化点（需与实际参数一致，不得夸大）
+selling_points:
+  - key: efficiency_apf
+    text: APF 5.32、1 级能效（GB 21455-2019）
+    support: specs.efficiency_apf
+  - key: low_temp_heating
+    text: 低温制热量 4920W，低温制热功率 1835W，北方冬季可用
+    support: specs.low_temp_heating_capacity_w
+  - key: anti_direct_blow
+    text: 支持防直吹
+    support: features.anti_direct_blow
+
+# 明确不能说的（防止幻觉，也防投诉）
+cannot_claim:
+  - 自清洁 / 自动清洗
+  - 新风 / 换气
+  - 具体适用面积（说明书仅给最小房间面积 4㎡）
+  - 静音档以外的噪音承诺

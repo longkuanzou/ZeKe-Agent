@@ -1,0 +1,123 @@
+# s4 故障 · 槽位与追问顺序（三品类）
+#
+# ── 2026-10-23 改版 ────────────────────────────────────
+# 旧版的 classify 只有空调现象词。洗衣机、电饭煲用户无论说什么都会被映射成空调现象，
+# 或者干脆映射不上。现在按 appliance 分开归类，映射到 symptoms.yaml 里对应品类自己的 id。
+# symptoms.yaml 已按 appliance 标注，共 48 条：通用 3 条（触电/焦味/代码）+ 空调 16 + 洗衣机 13 + 电饭煲 12。
+version: 2
+scenario: s4_troubleshoot
+updated: 2026-10-23
+
+common:
+  required:
+    - product_model
+    - symptom_text
+  optional:
+    - error_code
+    - symptom_duration
+    - self_check_done
+    - symptom_context          # 环境线索：刚开机/刚搬家/刚清洗过/天气极热
+
+ask_order:
+  - product_model
+  - symptom_text
+  - error_code
+  - symptom_duration
+
+prompts:
+  product_model: 机器是什么型号？型号在机身侧面标签上，我按您的型号给排查步骤，不同型号不一样。
+  symptom_text:
+    air_conditioner: 具体是什么情况？比如不制冷、漏水、还是有异响？
+    washer: 具体是什么情况？不进水、不脱水、漏水、还是震动大？
+    rice_cooker: 具体是什么情况？不加热、饭不熟、溢锅、还是糊锅？
+  error_code: 面板上显示的是什么字母加数字？看不清就拍照，别自己猜。
+  symptom_duration: 这个情况多久了？是一直这样，还是时好时坏？
+  symptom_context:
+    air_conditioner: 最近有没有移机、清洗、或者刚装好？
+    washer: 最近有没有搬动过、拆过运输螺栓、或者换了洗涤剂？
+    rice_cooker: 最近有没有换米种、淘米方式变了、或者内胆摔过？
+
+# 现象归类：口语 → symptoms.yaml 的 id
+# 用模糊匹配 + 同义词（同义词表在 08_index/synonyms.yaml），命中多个时取 severity 最高的
+#
+# 三品类共用的三条（severity 最高，优先命中）
+classify_common:
+  electric_shock: [麻手, 触电, 漏电, 摸上去发麻]
+  burning_smell: [焦味, 糊味, 冒烟, 有烧焦]
+  code_display: [显示代码, 面板闪, 出现E, 出现F, 出现P, 报错]
+
+classify:
+  air_conditioner:
+    not_cooling: [不制冷, 不凉, 吹热风, 没冷气, 不够冷]
+    not_heating: [不制热, 吹冷风, 不热, 不暖]
+    weak_effect: [效果差, 不如以前, 风小, 要很久才凉]
+    water_leak_indoor: [室内机漏水, 滴水到地上, 地上有水]
+    outlet_drip: [出风口滴水, 风口有水珠]
+    noise_water_flow: [流水声, 咕嘟, 哗哗]
+    noise_crack: [噼啪, 咔哒]
+    noise_outdoor_loud: [外机吵, 嗡嗡, 外机声音大]
+    bad_smell: [吹风有异味, 臭味, 霉味]
+    no_power: [开不了机, 没反应, 不亮]
+    tripping_breaker: [跳闸, 空开跳, 漏保跳]
+    auto_switch_fan: [自己变送风]
+    no_restart_3min: [关机再开没反应]
+    outdoor_steam: [外机冒烟, 冒白气]
+    indoor_mist: [喷白雾]
+    wifi_offline: [掉线, 离线, 连不上]
+
+  washer:
+    ws_vibration: [震动大, 机器移位, 撞桶, 脱水时乱跳, 咣当]
+    ws_no_spin: [不脱水, 脱水无力, 脱水延时, 甩不干]
+    ws_no_fill: [不进水, 进水慢, 一直进水不停, 进水超时]
+    ws_no_drain: [不排水, 排水慢, 排不干净, 排水超时]
+    ws_leak: [洗衣机漏水, 机身下面有水, 底下渗水]
+    ws_door_stuck: [门打不开, 打不开门, 门锁卡住]
+    ws_bad_smell: [洗衣机有异味, 发霉, 霉味, 臭味]
+    ws_poor_wash: [洗不干净, 洗出来还有味, 衣服不干净]
+    ws_foam_extra_time: [时间变长, 迟迟不结束, 一直漂洗]
+    ws_no_power: [不通电, 显示不亮, 按了没反应]
+    ws_water_in_base: [底座积水, 底部有水报警, 漏水保护]
+    ws_pump_noise: [排水时嘎嘎响, 排水有异响]
+    ws_dry_not_dry: [烘不干, 烘干效果差, 洗完还是湿的]
+
+  rice_cooker:
+    rc_no_heat: [不加热, 灯不亮, 按了没反应, 不热]
+    rc_not_cooked: [饭不熟, 夹生, 生芯, 米硬, 煮不熟]
+    rc_overflow: [溢锅, 米汤溢出, 冒得到处都是]
+    rc_burn: [糊锅, 焦饭, 锅底发黑, 有焦味]
+    rc_keep_warm_fail: [不保温, 保温不热, 保温后变味, 饭凉了]
+    rc_steam_leak: [盖边冒汽, 漏汽, 蒸汽从边上出来]
+    rc_lid_stuck: [盖子打不开, 盖不上, 扣不上]
+    rc_coating_peel: [涂层掉了, 内胆刮花, 内胆掉漆]
+    rc_low_sugar_ineffective: [低糖饭没效果, 低糖不降糖]
+    rc_relay_click: [咔嗒声, 通断声, 滴答响]
+    rc_steam_normal: [蒸汽阀冒白汽, 上盖冒汽]
+    rc_rice_crust: [锅底有锅巴, 一层薄锅巴]
+
+# 高频"以为是故障、其实是设置/环境"的过滤规则（先过滤，再进排查）
+normal_first:
+  air_conditioner: [outlet_drip, noise_water_flow, noise_crack, auto_switch_fan, no_restart_3min, outdoor_steam, indoor_mist]
+  washer: [ws_foam_extra_time, ws_pump_noise]
+  rice_cooker: [rc_relay_click, rc_steam_normal, rc_rice_crust]
+
+# 输出约束
+output:
+  max_causes: 2            # 最多给两个可能原因
+  max_self_steps: 3
+  must_state_next: true    # 必须给"下一步"（继续观察 / 建单 / 转人工）
+  forbid:
+    - 确定性故障判断
+    - 跨品牌代码套用（海尔 E1 ≠ 美的 E1）
+    - 跨品类代码套用（美的空调 E1 是通信，美的电饭煲 E1 是底部传感器）
+    - 引导拆机
+    - 把洗衣机现象套到电饭煲上回答
+
+# 升级条件（与 _shared/handoff_rules.yaml 对齐）
+escalate:
+  on_severity: [stop_and_call]
+  on_rounds: 2             # 两轮自查无效
+  on_unknown_code: true
+  on_missing_model_data: true
+  appliance_specific:
+    washer: 涉及拆机、拆门锁、动电源板 → 一律建单，不引导用户自己拆
+    rice_cooker: 涉及内胆涂层脱落 → 拍照存证后转售后，不引导继续使用

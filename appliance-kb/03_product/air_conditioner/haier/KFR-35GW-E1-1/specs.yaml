@@ -1,0 +1,62 @@
+# 参数来源：海尔 KFR-35GW/E1-1 使用安装说明书 p35「技术数据」
+# 注意：海尔尺寸标注顺序为"宽*深*高"，与美的"宽×高×深"不同，已按各自标注拆分
+product_id: haier-kfr-35gw-e1-1
+updated: 2026-10-21
+
+specs:
+  cooling_capacity_w:   {value: 3510, min: 150, max: 5350, unit: W, source: p35}
+  heating_capacity_w:   {value: 5110, min: 150, max: 7000, unit: W, source: p35}
+  cooling_power_w:      {value: 840,  min: 80,  max: 1780, unit: W, source: p35}
+  heating_power_w:      {value: 1260, min: 80,  max: 2150, unit: W, source: p35}
+  auxiliary_heat_w:     {value: 1050, unit: W, source: p35, note: PTC 电热 1050W/4.8A}
+  mid_cooling_capacity_w: {value: 1700, unit: W, source: p35}
+  mid_heating_capacity_w: {value: 2510, unit: W, source: p35}
+  low_temp_heating_capacity_w: {value: 5072, unit: W, source: p35}
+  low_temp_heating_power_w:    {value: 1837, unit: W, source: p35}
+  standby_power_w:      {value: 3, unit: W, source: p35}
+  max_input_power_w:    null
+
+  efficiency_apf:       null      # 说明书参数表未列
+  efficiency_seer:      null
+  efficiency_hspf:      null
+  energy_grade:         null      # 说明书未公布能效等级
+
+  power_supply:         {value: "220V~/50Hz", source: p35}
+  current_cooling_a:    {value: 3.9, unit: A, source: p35}
+  current_heating_a:    {value: 5.8, unit: A, source: p35}
+  max_input_current_a:  null
+  power_cord_spec:      null
+  connection_wire_spec: null
+  fuse_spec:            null
+
+  noise_indoor_db:      {min: 16, standard: 35, max: 41, unit: dB(A), source: p35,
+                         note: 超静16/高风35/超强41}
+  noise_outdoor_db:     {value: 51, unit: dB(A), source: p35}
+  airflow_m3h:          {value: 800, unit: m³/h, source: p35}
+
+  size_indoor_mm:       {w: 910, h: 316, d: 210, unit: mm, source: p35,
+                         note: "原文 910*210*316，标注顺序为 宽*深*高"}
+  size_outdoor_mm:      {w: 820, h: 550, d: 325, unit: mm, source: p35,
+                         note: "原文 820*325*550，标注顺序为 宽*深*高"}
+  weight_indoor_kg:     null
+  weight_outdoor_kg:    null
+
+  pipe_max_length_m:    {value: 10, unit: m, source: p26, note: 原文"连接管的最大长度10米"}
+  pipe_max_height_diff_m: {value: 5, unit: m, source: p26, note: 内外机最大高度差5米；临街安装外机不得低于2.5米}
+  refrigerant_type:     {value: "R32", source: p17}
+  refrigerant_charge_g: null
+  refrigerant_extra_per_m: {value: 20, unit: g/m, source: p17,
+                            note: "总长≤5m 不追加；超 5m 后每加长 1m 追加 20g；最大总长≤10m"}
+  min_room_area_m2:     {value: 4, unit: m², source: p9, note: 原文"房间面积应大于4m²"}
+  drain_required:       {value: true, source: p20}
+
+missing:
+  - energy_grade / APF         # 说明书未公布，售前"几级能效"必须转人工或查铭牌
+  - max_input_power_w / max_input_current_a
+  - 电源线与连接线规格
+  - 室内外机质量（说明书标"见铭牌"）
+  - 适用面积（仅给最小面积 4㎡）
+
+derived:
+  colloquial_hp: "1.5匹"
+  note: 本机与同系列 E1-1Plus 参数高度接近，对比时须逐项核对，不可互套

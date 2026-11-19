@@ -1,0 +1,105 @@
+# 家电客服（知识问答 + 业务办理）的声明式规则。
+#
+# 与提示词的分工：提示词管「怎么说」，本文件管「能不能做」。
+# 规则的判定由 PolicyEngine 完成（`zkagent/core/policy`），不依赖模型自觉。
+version: 1
+
+settings:
+  four_eyes: true
+  approval_ttl_hours: 24
+
+rules:
+  # ---------------------------------------------------------------- 安全与范围
+  - id: safety.stop_and_handoff
+    description: 出现冒烟/焦糊味/漏电/异常发烫/制冷剂泄漏迹象，必须先停机并转人工
+    priority: 5
+    match:
+      action: [knowledge_search]
+      query_contains_any: [冒烟, 焦糊, 漏电, 异常发烫, 制冷剂泄漏, 烧焦]
+    effect: deny
+    suggested_action: escalate_to_human
+
+  - id: scope.out_of_scope
+    description: 本包只覆盖空调/洗衣机/电饭煲；未收录品类不做检索（避免串用相邻品类答案）
+    priority: 6
+    match:
+      action: [knowledge_search]
+      query_contains_any: [冰箱, 扫地机, 扫地机器人, 微波炉, 洗碗机, 烤箱]
+    effect: deny
+    suggested_action: escalate_to_human
+
+  # ---------------------------------------------------------------- 身份门禁
+  - id: order.read_requires_verified
+    description: 订单/物流/退款/工单/发票属个人信息，查询前必须完成身份核验
+    priority: 10
+    match:
+      action:
+        [get_order, list_orders, get_logistics, get_refund_ticket, get_invoice, get_service_ticket]
+      verified: false
+    effect: deny
+    suggested_action: verify_user
+
+  - id: refund.write_requires_verified
+    description: 退款与取消会改动资金/订单状态，必须先核验身份
+    priority: 11
+    match:
+      action: [create_refund_ticket, cancel_order]
+      verified: false
+    effect: deny
+    suggested_action: verify_user
+
+  - id: service.write_requires_verified
+    description: 创建或改约工单涉及上门与住址信息，必须先核验身份
+    priority: 12
+    match:
+      action: [create_service_ticket, schedule_service]
+      verified: false
+    effect: deny
+    suggested_action: verify_user
+
+  # ---------------------------------------------------------------- 退款/取消
+  - id: refund.block_unshipped_order
+    description: 未发货订单只能取消，不能创建退货退款
+    priority: 20
+    match:
+      action: [create_refund_ticket]
+      order_status: [created, paid]
+    effect: deny
+    suggested_action: cancel_order
+
+  - id: refund.auto_within_policy
+    description: 已签收 7 天内且金额不超过 1000 元，可自动创建退货退款
+    priority: 30
+    match:
+      action: [create_refund_ticket]
+      order_status: [delivered]
+      days_since_delivered: {lte: 7}
+      amount_cents: {lte: 100000}
+    effect: allow
+
+  - id: refund.escalate_high_value_or_overdue
+    description: 金额超过 1000 元或超过 7 天，转人工审批
+    priority: 40
+    match:
+      action: [create_refund_ticket]
+      any_of:
+        - amount_cents: {gt: 100000}
+        - days_since_delivered: {gt: 7}
+    effect: escalate
+
+  - id: cancel.requires_confirmation
+    description: 取消订单属高风险操作，需人工确认后执行
+    priority: 50
+    match:
+      action: [cancel_order]
+      order_status: [paid, shipped]
+    effect: require_confirmation
+
+  # ---------------------------------------------------------------- 工单升级
+  - id: service.part_wait_handoff
+    description: 工单处于备件等待时转人工跟进（用户已经等过一轮，不应继续自助查询）
+    priority: 25
+    match:
+      action: [get_service_ticket]
+      ticket_event_present: part_wait
+    effect: escalate

@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zkagent"
+version = "0.1.0"
+description = "ZeKe-Agent（知客 agent）—— 通用客服 / 业务办理 Agent：行业可替换、业务后端可替换、模型与检索可替换"
+readme = "README.md"
+requires-python = ">=3.12"
+
+# 版本约束策略（见 docs/DESIGN.md §6.5）：
+# - 三个易变框架带上界锁大版本（langgraph / langchain / llama-index）
+# - 其余用 ~=（兼容版本）
+# - 版本号基于 2026-10-14 在 conda env `zeke` 中的实测安装结果
+dependencies = [
+    # 契约与配置
+    "pydantic>=2.14,<3",
+    "pydantic-settings>=2.15,<3",
+    # HTTP 交付层（P7 才实现路由，此处先装依赖）
+    "fastapi>=0.143,<1",
+    "uvicorn>=0.54,<1",
+    "httpx>=0.28,<1",
+    # 编排（P2）—— 版本线由 ADR 001 锁定
+    "langgraph>=1.2,<2",
+    "langgraph-checkpoint-sqlite>=3.1,<4",
+    # 模型与工具抽象（P2）
+    "langchain>=1.4,<2",
+    # DeepSeek 官方集成（P2 起用 init_chat_model 调用；DeepSeek 与 OpenAI 协议兼容）
+    "langchain-deepseek>=1.1,<2",
+    # OpenAI 兼容协议（通义 / 智谱 / Moonshot / 本地 vLLM / 自建网关都走它）
+    "langchain-openai>=1.7,<2",
+    # Anthropic Messages 协议（可选供应商；不配置密钥即不启用）
+    "langchain-anthropic>=1.7,<2",
+    # 知识侧（P3）—— 仅用于文档解析与混合检索，不启用其 Agent
+    "llama-index>=0.14,<0.15",
+    # 检索与向量化（P3）—— 本地模型，不依赖 API Key
+    "rank_bm25~=0.2.2",
+    "sentence-transformers>=6.1,<7",
+    # 行业包 YAML 解析
+    "pyyaml~=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1,<10",
+    "pytest-asyncio>=1.4,<2",
+]
+
+[project.scripts]
+zkagent = "apps.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["zkagent*", "apps*"]
+
+[tool.setuptools.package-data]
+zkagent = [
+    "industry_packs/**/*.yaml",
+    "industry_packs/**/*.yml",
+    "industry_packs/**/*.md",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

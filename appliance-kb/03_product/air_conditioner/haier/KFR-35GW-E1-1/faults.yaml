@@ -1,0 +1,67 @@
+# 型号差异型故障信息（现象主库在 04_scenario/s4_troubleshoot/symptoms.yaml）
+product_id: haier-kfr-35gw-e1-1
+updated: 2026-10-21
+
+codes:
+  has_code_display: null
+  code_prefixes: []
+  rule: null
+  confidence: 说明书未提供故障代码表
+  note: >
+    海尔该型号说明书全篇无故障代码释义与代码处置流程。用户在电话/在线报出代码时，
+    不得猜测含义，按 s4 playbook 的"代码未知"分支处理：收集代码→查
+    05_brand_ref/haier/fault_codes.yaml→无记录则直接建单。
+  impact: 这是本库当前最大的知识缺口之一，见 10_ops/backlog.md
+
+protection:
+  cooling: {outdoor_max_c: 62, outdoor_min_c: -35, indoor_min_c: 21, source: p36}
+  heating: {outdoor_max_c: 24, outdoor_min_c: -35, indoor_max_c: 27, source: p36}
+  dry: {indoor_min_c: 18, source: p36}
+  behavior: 保护装置可能动作导致停止运转，属正常保护
+
+# 说明书明确"属正常"的现象（与美的的同类条目阈值不同，不可互套）
+normal_phenomena:
+  - id: water_flow_sound
+    symptom: 听到水流声/哗哗声/咕嘟声
+    explain: 制冷剂流动声，不是故障
+    source: p29
+  - id: cracking_sound
+    symptom: 发出"噼啪"响声
+    explain: 塑料热胀冷缩引起
+    source: p29
+  - id: mist_from_indoor
+    symptom: 运转中室内机冒水雾
+    explain: 骤冷的室内空气吹出产生冷凝水雾
+    source: p29
+  - id: auto_switch_to_fan
+    symptom: 制冷时自动转送风
+    explain: 防换热器积霜，片刻后自动恢复制冷
+    source: p29
+  - id: no_immediate_restart
+    symptom: 关机后再开机不能立即启动
+    explain: 自我保护，停机后约 3 分钟才能重启
+    source: p29
+  - id: outdoor_steam
+    symptom: 制热时室外机冒蒸汽
+    explain: 除霜运转产生
+    source: p30
+  - id: indoor_fan_keeps_running
+    symptom: 制热关机后室内风扇仍转
+    explain: 去除余热
+    source: p30
+  - id: negative_ion_blackening
+    symptom: 出风口附近熏黑并伴"嘶嘶"声
+    explain: 负离子集尘，断电擦拭即可（仅带负离子机型）
+    source: p29
+
+escalate_immediately:
+  source: p30
+  note: 说明书明确"若经上述检查仍有以下情况，请立即停止空调运转并联系特约维修点"
+  items:
+    - 保险丝或断路器经常断路
+    - 制冷或除湿运转中有水漏出
+    - 运转不正常或听到不正常的声音
+
+model_specific_notes:
+  - 滤网清洗周期说明书给出"两周左右"，可直接引用（美的同档位说明书未给周期）
+  - 带负离子机型的"熏黑"现象不适用于无负离子机型

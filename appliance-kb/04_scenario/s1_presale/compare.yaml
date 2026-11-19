@@ -1,0 +1,460 @@
+# s1 对比组与对比表（三品类）
+#
+# ── 2026-10-23 改版 ────────────────────────────────────
+# 旧版只有空调两个对比组，洗衣机与电饭煲虽然各有 10 / 8 个型号，
+# 但用户问"这两台差在哪"时无表可查。现在按 appliance 分开组织。
+#
+# 规则没变：只在同组内对比；缺值显示"未标注"，不填空、不用同系列替代。
+# 数值来自 03_product/{appliance}/*/specs.yaml 与 features.yaml（2026-10-23 快照）。
+# 改型号参数后，跑 `python tools/dump_compare.py` 打印当前值对照本表——不要凭记忆改。
+version: 2
+updated: 2026-10-23
+
+# 表内取值口径（cells 的标注规则）：
+#   不标注            = 说明书原文值（confidence: confirmed）
+#   标（推断）        = 说明书缺项、按同系列/铭牌反推，回答时必须同步说"这个是推断"
+#   标（网络值）      = 来自官网/电商详情页，非说明书；用户要凭证时说明来源
+#   未标注（文字）    = 说明书里确实没有这项，禁止用同系列其他机型代填
+# 不要把"未标注"写成"无"：查不到 ≠ 没有。
+
+# 三品类的"可比"边界完全不同，先写清楚，避免跨品类凑对比
+comparability:
+  air_conditioner: 按制冷量档位（1.5 匹 / 3 匹）+ 形式（挂机 / 柜机）分组
+  washer:         按容量（10kg）+ 结构（滚筒 / 波轮）分组；洗烘一体与纯干衣机单独成组
+  rice_cooker:    按容量（4L / 5L）分组；IH 与底盘加热可在同组比，但要说明这是加热方式差异不是优劣
+
+appliances:
+
+  # ══════════════════════════════════════════════════ 空调
+  air_conditioner:
+    groups:
+      s1_1.5p_wall:
+        cn: 1.5 匹挂机
+        members: [haier-kfr-35gw-e1-1, midea-kfr-35gw-q2]
+        selection_rule: 制冷量 3500W 档、分体挂壁式
+      s1_3p_floor:
+        cn: 3 匹柜机
+        members: [haier-kfr-72lw-e1-1, midea-kfr-72lw-n8ks1-1p]
+        selection_rule: 制冷量 7200W 档、落地式柜机
+        # 2026-10-23 解除 pending；同一天业务方出了两处**核定结论**，两台的取值来源因此不同：
+        #   海尔 尺寸 → 核定 424×1830×364（官方知识库 + 苏宁自营规格页一致），说明书 p35 的
+        #              364×1830×424 判为表格列序问题，已在 specs 里降为 cross_check_alt
+        #   美的 风量 → 核定 1760m³/h（本机是新款「酷省电Ultra」，说明书沿用的 1600 是旧款
+        #              「舒适星」数据），已在 specs 里降为 cross_check_alt
+        # 所以本表的「说明书值」这一层口径已被打破：这两行的值是核定值，不是说明书原文。
+        # 走查时看 cells 来源，别默认「表里没标注 = 说明书值」。
+        dimensions_extra:
+          - {key: size_indoor_mm, cn: 室内机尺寸(宽×深×高), unit: mm, priority: 1}
+          - {key: airflow_m3h, cn: 循环风量, unit: m³/h, priority: 1}
+
+    dimensions:
+      - {key: cooling_capacity_w, cn: 制冷量, unit: W, priority: 1}
+      - {key: heating_capacity_w, cn: 制热量, unit: W, priority: 1}
+      - {key: energy_grade, cn: 能效等级, unit: 级, priority: 1}
+      - {key: cooling_power_w, cn: 制冷功率, unit: W, priority: 2}
+      - {key: noise_indoor_db, cn: 室内噪音(静音档), unit: dB(A), priority: 2}
+      - {key: min_room_area_m2, cn: 最小房间面积, unit: m², priority: 2}
+      - {key: max_input_current_a, cn: 最大输入电流, unit: A, priority: 3}
+      - {key: pipe_max_length_m, cn: 最大管长, unit: m, priority: 3}
+      - {key: refrigerant_extra_per_m, cn: 加长补冷媒, unit: g/m, priority: 3}
+      - {key: feature_self_clean, cn: 自清洁, priority: 2}
+      - {key: feature_wifi, cn: WiFi, priority: 3}
+
+    tables:
+      s1_1.5p_wall:
+        haier-kfr-35gw-e1-1:
+          cooling_capacity_w: "3510（150~5350）"
+          heating_capacity_w: "5110（150~7000）"
+          energy_grade: "未标注"
+          cooling_power_w: "840（80~1780）"
+          noise_indoor_db: "16"
+          min_room_area_m2: ">4"
+          max_input_current_a: "未标注"
+          pipe_max_length_m: "10"
+          refrigerant_extra_per_m: "20（超 5m 后）"
+          feature_self_clean: "有（除菌自清洁）"
+          feature_wifi: "有（智家 App）"
+        midea-kfr-35gw-q2:
+          cooling_capacity_w: "3510（150~5250）"
+          heating_capacity_w: "5010（150~6790）"
+          energy_grade: "1 级"
+          cooling_power_w: "845（70~2050）"
+          noise_indoor_db: "18"
+          min_room_area_m2: "≥4"
+          max_input_current_a: "15.0"
+          pipe_max_length_m: "15"
+          refrigerant_extra_per_m: "18（每米）"
+          feature_self_clean: "无"
+          feature_wifi: "有（美居 App）"
+      s1_3p_floor:
+        haier-kfr-72lw-e1-1:
+          cooling_capacity_w: "7330（850~9270）"
+          heating_capacity_w: "9820（850~12420）"
+          energy_grade: "未标注"
+          cooling_power_w: "2070（250~3550）"
+          noise_indoor_db: "20（最高 47）"
+          min_room_area_m2: "未标注"
+          max_input_current_a: "未标注"
+          pipe_max_length_m: "15"
+          refrigerant_extra_per_m: "未标注"
+          feature_self_clean: "有（除菌自清洁）"
+          feature_wifi: "有（智家 App）"
+          size_indoor_mm: "424×364×1830"
+          airflow_m3h: "1600"
+        midea-kfr-72lw-n8ks1-1p:
+          cooling_capacity_w: "7320（900~9260）"
+          heating_capacity_w: "9760（900~12380）"
+          energy_grade: "1 级"
+          cooling_power_w: "2080（推断）"
+          noise_indoor_db: "22（最高 47）"
+          min_room_area_m2: "26"
+          max_input_current_a: "未标注"
+          pipe_max_length_m: "20"
+          refrigerant_extra_per_m: "未标注"
+          feature_self_clean: "未标注"
+          feature_wifi: "有（美居 App）"
+          size_indoor_mm: "380×392×1802"
+          airflow_m3h: "1760（核定）"
+
+    conclusions:
+      - when: 用户在意能效/电费
+        say: 美的 Q2 明确标了 1 级能效、APF 5.32；海尔这台说明书没标能效等级，要确认只能看机身能效标识。只看纸面的话，Q2 这块更清楚。
+      - when: 用户在意安装位置受限（外机位远）
+        say: 管路这块差别比较大：Q2 最长可加长到 15 米、每米补 18g 冷媒；海尔最长 10 米、超 5 米每米补 20g。外机位离得远的话 Q2 选择余地更大。
+      - when: 用户在意安静
+        say: 静音档海尔是 16dB(A)，美的 18dB(A)，都在很低的水平，体感差别不大，不建议只凭这 2dB 做决定。
+      - when: 用户要自清洁
+        say: 只有海尔这台有自清洁；美的 Q2 没有，需要自己拆洗滤尘网。
+      - when: 用户纠结两台 3 匹柜机怎么选（KFR-72LW/E1-1 vs KFR-72LW/N8KS1-1P）
+        say: 制冷制热能力几乎一样（7330/9820 对 7320/9760），能效都是 1 级。真正的差别两条：一是电费口径，海尔说明书没标 APF，美的标了 4.6；二是管路——美的最长 20 米，海尔 15 米，外机位远的话美的更宽松。
+      - when: 用户问 3 匹柜机能不能放进预留位
+        say: 两台室内机都不小：海尔 424×364×1830、美的 380×392×1802（宽×深×高）。宽都在 38~43cm、深 36~40cm，最容易卡在门套和柜体上，先量好再定，别只看制冷量。散热和接管还要另留 5cm 以上。
+      - when: 用户问两台 3 匹柜机风量差多少
+        say: 海尔 E1-1 是 1600m³/h，美的 N8KS1-1P 是 1760m³/h，美的这台大约高 10%。风量影响的是送风距离和整个厅的循环速度，大横厅、柜机离人远的话这 160 有感知；小厅差别不明显。
+      - when: 用户问 3 匹柜机要多大房间
+        say: 美的说明书明确写了使用房间最小面积 26㎡（低于此不建议）、制冷推荐 32~48㎡；海尔的说明书既没写最小面积也没写推荐面积，不要替它编一个数字，只能说"3 匹柜机一般对应 30㎡ 以上的厅"这类常识话，并说明这是经验不是说明书值。
+
+  # ══════════════════════════════════════════════════ 洗衣机
+  washer:
+    groups:
+      ws_10kg_drum_ls:
+        cn: 小天鹅 10kg 滚筒
+        members: [littleswan-tg100v618plus, littleswan-tg10k60, littleswan-tg10v628plus, littleswan-tg10ve40]
+        selection_rule: 10kg 洗涤容量、前开式滚筒、单洗
+      ws_10kg_drum_siemens:
+        cn: 西门子 10kg 滚筒
+        members: [siemens-wg52a108aw, siemens-wg54h2v00w, siemens-wm12p2602w]
+        selection_rule: 10kg 洗涤容量、前开式滚筒、单洗（WN54A1X42W 为洗烘一体，不并入本组）
+      ws_washer_dryer:
+        cn: 西门子洗烘一体
+        members: [siemens-wn54a1x42w]
+        status: single         # 只有一个型号，无法成组对比，只能讲"洗 10kg / 烘 7kg"这个差异点
+      ws_dryer:
+        cn: 西门子纯干衣机
+        members: [siemens-wq53e2d01w-wq53e2d11w]
+        status: single
+      ws_10kg_pulsator:
+        cn: 小天鹅 10kg 波轮
+        members: [littleswan-tb100v26dt]
+        status: single         # 全库唯一波轮，跨结构不对比（滚筒 vs 波轮是结构选择，不是参数优劣）
+
+    dimensions:
+      - {key: loading_type, cn: 结构, priority: 1}
+      - {key: capacity_kg, cn: 洗涤容量, unit: kg, priority: 1}
+      - {key: dry_capacity_kg, cn: 烘干容量, unit: kg, priority: 1}
+      - {key: spin_speed_rpm, cn: 脱水转速, unit: r/min, priority: 1}
+      - {key: energy_grade, cn: 能效等级, unit: 级, priority: 1}
+      - {key: noise_wash_db, cn: 洗涤噪音, unit: dB(A), priority: 2}
+      - {key: noise_spin_db, cn: 脱水噪音, unit: dB(A), priority: 2}
+      - {key: drain_type, cn: 排水方式, priority: 1}
+      - {key: size_mm, cn: 尺寸(宽×深×高), unit: mm, priority: 2}
+      - {key: weight_kg, cn: 整机重量, unit: kg, priority: 3}
+      - {key: feature_self_clean, cn: 筒自洁, priority: 2}
+      - {key: feature_auto_dosing, cn: 自动投放, priority: 2}
+      - {key: feature_wifi, cn: WiFi, priority: 3}
+
+    tables:
+      ws_10kg_drum_ls:
+        littleswan-tg100v618plus:
+          loading_type: 滚筒（前开式）
+          capacity_kg: "10"
+          dry_capacity_kg: 无（单洗）
+          spin_speed_rpm: "1200"
+          energy_grade: "1 级"
+          noise_wash_db: "48"
+          noise_spin_db: "69"
+          drain_type: 上排水
+          size_mm: "595×560×850"
+          weight_kg: "64"
+          feature_self_clean: "有"
+          feature_auto_dosing: "有"
+          feature_wifi: "有"
+        littleswan-tg10k60:
+          loading_type: 滚筒
+          capacity_kg: "10"
+          dry_capacity_kg: 无（单洗）
+          spin_speed_rpm: "1200"
+          energy_grade: "1 级"
+          noise_wash_db: "46"
+          noise_spin_db: "68"
+          drain_type: 上排水
+          size_mm: "595×560×850"
+          weight_kg: "69"
+          feature_self_clean: "有"
+          feature_auto_dosing: "有"
+          feature_wifi: "有"
+        littleswan-tg10v628plus:
+          loading_type: 滚筒（前开式）
+          capacity_kg: "10"
+          dry_capacity_kg: 无（单洗）
+          spin_speed_rpm: "1200"
+          energy_grade: "1 级"
+          noise_wash_db: "48"
+          noise_spin_db: "69"
+          drain_type: 上排水
+          size_mm: "595×585×850"
+          weight_kg: "63"
+          feature_self_clean: "有"
+          feature_auto_dosing: "有"
+          feature_wifi: "有"
+        littleswan-tg10ve40:
+          loading_type: 滚筒（前开式）
+          capacity_kg: "10"
+          dry_capacity_kg: 无（单洗）
+          spin_speed_rpm: "1200"
+          energy_grade: "1 级"
+          noise_wash_db: "46"
+          noise_spin_db: "68"
+          drain_type: 上排水
+          size_mm: "595×565×850"
+          weight_kg: "68"
+          feature_self_clean: "有"
+          feature_auto_dosing: "有"
+          feature_wifi: "有"
+      ws_10kg_drum_siemens:
+        siemens-wg52a108aw:
+          loading_type: 滚筒（前开式）
+          capacity_kg: "10"
+          dry_capacity_kg: 无（单洗）
+          spin_speed_rpm: "1200"
+          energy_grade: "1 级"
+          noise_wash_db: "52"
+          noise_spin_db: "72"
+          drain_type: 上排水
+          size_mm: "598×590×848"
+          weight_kg: "70.1"
+          feature_self_clean: "未标注"
+          feature_auto_dosing: "未标注"
+          feature_wifi: "未标注"
+        siemens-wg54h2v00w:
+          loading_type: 滚筒（前开式）
+          capacity_kg: "10"
+          dry_capacity_kg: 无（单洗）
+          spin_speed_rpm: "未标注"
+          energy_grade: "1 级"
+          noise_wash_db: "46"
+          noise_spin_db: "69"
+          drain_type: 上排水
+          size_mm: "598×590×848"
+          weight_kg: "78.4"
+          feature_self_clean: "未标注"
+          feature_auto_dosing: "未标注"
+          feature_wifi: "未标注"
+        siemens-wm12p2602w:
+          loading_type: 滚筒（前开式）
+          capacity_kg: "10（推断）"
+          dry_capacity_kg: 无（单洗）
+          spin_speed_rpm: "未标注"
+          energy_grade: "未标注"
+          noise_wash_db: "未标注"
+          noise_spin_db: "未标注"
+          drain_type: 上排水
+          size_mm: "598×590×848"
+          weight_kg: "79"
+          feature_self_clean: "未标注"
+          feature_auto_dosing: "未标注"
+          feature_wifi: "未标注"
+
+    conclusions:
+      - when: 用户纠结小天鹅 4 台怎么选
+        say: 这 4 台的洗涤容量、脱水转速、能效、排水方式全一样，差别在功能和尺寸：TG10V628PLUS 机身最薄但最深（585mm 深）、重量最轻 63kg；TG10K60 的洗涤程序最全（含空气洗类特色功能最多）；TG100V618PLUS 带羊毛认证；TG10VE40 有特殊污渍程序。真正要选，先看家里放得下哪个深度。
+      - when: 用户纠结西门子 3 台怎么选
+        say: 三台机身尺寸完全一致（598×590×848），洗涤容量都是 10kg。区别是：WG54H2V00W 脱水噪音最低（69dB）、WG52A108AW 噪音略高（72dB）、WM12P2602W 的说明书没有给能效和噪音数据。功率上 WM12P2602W 是 2100W，另两台 1900W。数据不全的那台我不替它补。
+      - when: 用户问"滚筒还是波轮"
+        say: 这是结构选择不是优劣：滚筒省水、对衣物磨损小、能嵌入柜体，但要弯腰、机身重（63~79kg）；波轮取放方便、价格低、程序简单，但费水、磨损大，机身也高（930mm）。您家里是谁洗衣服、放哪儿，比参数更决定选哪个。
+      - when: 用户问洗烘一体和分开买
+        say: 洗烘一体的烘干容量小于洗涤容量（西门子这台洗 10kg、烘 7kg），一次洗满就得分成两次烘；分开买干衣机烘干容量能到 10kg，但要多占一台的位置和一路电。阳台空间够、常烘的建议分开。
+      - when: 用户问"深度 560 和 590 差别大吗"
+        say: 差 3cm 在标准 60cm 柜体里就是能不能嵌进去的差别，而且还要留进出水和散热间隙。量柜子时按机身深度加 3~5cm 余量算，别按机身尺寸刚好塞。
+
+  # ══════════════════════════════════════════════════ 电饭煲
+  rice_cooker:
+    groups:
+      rc_4l:
+        cn: 4L 电饭煲
+        members: [midea-mb-40hb9t, midea-mb-afb4041rl, supor-f40h8093s, supor-f40h9083s, supor-sf40fc871]
+        selection_rule: 额定容量 4.0L
+      rc_5l:
+        cn: 5L 电饭煲
+        members: [midea-mb-re576s, supor-f50x96, supor-sf50fc733]
+        selection_rule: 额定容量 5.0L
+
+    dimensions:
+      - {key: capacity_l, cn: 额定容量, unit: L, priority: 1}
+      - {key: capacity_cups, cn: 煮米杯数, unit: 杯, priority: 1}
+      - {key: heating_type, cn: 加热方式, priority: 1}
+      - {key: power_w, cn: 额定功率, unit: W, priority: 2}
+      - {key: inner_pot_material, cn: 内胆材质, priority: 1}
+      - {key: inner_pot_thickness_mm, cn: 内胆厚度, unit: mm, priority: 3}
+      - {key: energy_grade, cn: 能效等级, unit: 级, priority: 2}
+      - {key: size_mm, cn: 尺寸(宽×深×高), unit: mm, priority: 2}
+      - {key: weight_kg, cn: 净重, unit: kg, priority: 3}
+      - {key: keep_warm_advice_h, cn: 建议保温时长, unit: h, priority: 3}
+      - {key: timer_max_h, cn: 预约上限, unit: h, priority: 3}
+      - {key: feature_ih_heating, cn: IH 加热, priority: 1}
+      - {key: feature_micro_pressure, cn: 微压, priority: 2}
+      - {key: feature_low_sugar, cn: 低糖饭, priority: 2}
+
+    tables:
+      rc_4l:
+        midea-mb-40hb9t:
+          capacity_l: "4.0"
+          capacity_cups: "未标注"
+          heating_type: IH 电磁加热（推断）
+          power_w: "1300"
+          inner_pot_material: "未标注"
+          inner_pot_thickness_mm: "未标注"
+          energy_grade: "1 级"
+          size_mm: "338×270×235"
+          weight_kg: "5.9（网络值）"
+          keep_warm_advice_h: "5（最长 24）"
+          timer_max_h: "12"
+          feature_ih_heating: "有"
+          feature_micro_pressure: "无"
+          feature_low_sugar: "无"
+        midea-mb-afb4041rl:
+          capacity_l: "4.0（推断）"
+          capacity_cups: "未标注"
+          heating_type: 底盘加热
+          power_w: "760"
+          inner_pot_material: "铝合金 + 特氟龙涂层（网络值）"
+          inner_pot_thickness_mm: "1.7（网络值）"
+          energy_grade: "未标注"
+          size_mm: "323×262×222"
+          weight_kg: "3.3（网络值）"
+          keep_warm_advice_h: "5"
+          timer_max_h: "12"
+          feature_ih_heating: "无"
+          feature_micro_pressure: "无"
+          feature_low_sugar: "无"
+        supor-f40h8093s:
+          capacity_l: "4.0（推断）"
+          capacity_cups: "未标注"
+          heating_type: 底盘加热 + 顶部远红外
+          power_w: "1600"
+          inner_pot_material: "纯钛（基材内层）"
+          inner_pot_thickness_mm: "未标注"
+          energy_grade: "未标注"
+          size_mm: "326×270×235"
+          weight_kg: "4.9（推断）"
+          keep_warm_advice_h: "未标注"
+          timer_max_h: "未标注"
+          feature_ih_heating: "无"
+          feature_micro_pressure: "有"
+          feature_low_sugar: "无"
+        supor-f40h9083s:
+          capacity_l: "4.0（推断）"
+          capacity_cups: "未标注"
+          heating_type: 底盘加热 + 顶部远红外
+          power_w: "1600"
+          inner_pot_material: "纯钛（基材内层）"
+          inner_pot_thickness_mm: "未标注"
+          energy_grade: "未标注"
+          size_mm: "326×270×235"
+          weight_kg: "5.1（推断）"
+          keep_warm_advice_h: "未标注"
+          timer_max_h: "未标注"
+          feature_ih_heating: "无"
+          feature_micro_pressure: "有"
+          feature_low_sugar: "有（需配套低糖甑）"
+        supor-sf40fc871:
+          capacity_l: "4.0"
+          capacity_cups: "2~8"
+          heating_type: 底盘加热
+          power_w: "750"
+          inner_pot_material: "蓝钻不粘厚釜"
+          inner_pot_thickness_mm: "未标注"
+          energy_grade: "2 级"
+          size_mm: "318×263×224"
+          weight_kg: "3.0（网络值）"
+          keep_warm_advice_h: "6"
+          timer_max_h: "未标注"
+          feature_ih_heating: "无"
+          feature_micro_pressure: "无"
+          feature_low_sugar: "无"
+      rc_5l:
+        midea-mb-re576s:
+          capacity_l: "5.0（网络值）"
+          capacity_cups: "未标注"
+          heating_type: 底盘加热
+          power_w: "760"
+          inner_pot_material: "316L 不锈钢（零涂层）（网络值）"
+          inner_pot_thickness_mm: "1.2（网络值）"
+          energy_grade: "未标注"
+          size_mm: "323×262×252"
+          weight_kg: "4.1（网络值）"
+          keep_warm_advice_h: "5"
+          timer_max_h: "12"
+          feature_ih_heating: "无"
+          feature_micro_pressure: "无"
+          feature_low_sugar: "无"
+        supor-f50x96:
+          capacity_l: "5.0"
+          capacity_cups: "2~10"
+          heating_type: 底盘加热 + 顶部远红外
+          power_w: "750"
+          inner_pot_material: "未标注（说明书未指定，属系列通用本）"
+          inner_pot_thickness_mm: "未标注"
+          energy_grade: "2 级"
+          size_mm: "未标注"
+          weight_kg: "4.0（推断）"
+          keep_warm_advice_h: "未标注"
+          timer_max_h: "未标注"
+          feature_ih_heating: "无"
+          feature_micro_pressure: "有"
+          feature_low_sugar: "无"
+        supor-sf50fc733:
+          capacity_l: "5.0"
+          capacity_cups: "2~10"
+          heating_type: 底盘加热
+          power_w: "750"
+          inner_pot_material: "球形厚釜（铝合金 1.5mm）+ 陶瓷涂层（网络值）"
+          inner_pot_thickness_mm: "1.5（网络值）"
+          energy_grade: "未标注"
+          size_mm: "384×285×257"
+          weight_kg: "4.1（网络值）"
+          keep_warm_advice_h: "未标注"
+          timer_max_h: "24"
+          feature_ih_heating: "无"
+          feature_micro_pressure: "无"
+          feature_low_sugar: "无"
+
+    conclusions:
+      - when: 用户问"4L 这几台差在哪"
+        say: 先分加热方式：MB-40HB9T 是 IH（1300W），其余是底盘加热（750~760W），苏泊尔两台底盘加热但顶部加了远红外（1600W）。口感差别主要在受热均匀度，不是"哪个牌子更好"。再分内胆：想不粘选涂层胆（AFB4041RL 特氟龙、SF40FC871 蓝钻），不想有涂层顾虑选纯钛（苏泊尔两台）。尺寸差最多 2cm，橱柜要按大的那台算。
+      - when: 用户问 5L 三台怎么选
+        say: 三台都是底盘加热 750~760W，差别在内胆和功能：MB-RE576S 是 316L 不锈钢零涂层（可以用钢丝球）；SF50FC733 是 1.5mm 球釜+陶瓷涂层、预约能到 24 小时；F50X96 带蒸汽水杯和微压，但内胆材质说明书没指定、尺寸也查不到，放橱柜前必须实测。
+      - when: 用户问 IH 值不值得加钱
+        say: IH 功率高（1300W vs 760W），升温快、受热均匀，但真实口感差别跟米和水比是次要的。预算有限优先选水位刻度清楚的机型，比追 IH 更影响每天的结果。
+      - when: 用户问"能不能用钢丝球"
+        say: 按机型分：316L 不锈钢零涂层（MB-RE576S）可以；涂层内胆（AFB4041RL、SF40FC871、SF50FC733）不行，会刮花。纯钛（苏泊尔两台）也不建议用钢丝球。
+      - when: 内胆材质在说明书里查不到
+        say: 这台说明书没标内胆材质，我不替它补。您可以看内锅上的丝印或包装说明，或者我按型号问一下配件口径再回您。
+
+# 通用禁令（三品类都适用）
+forbidden:
+  - 用"综合性能更强""性价比更高"作结论
+  - 跨 compare_group 对比（如 1.5 匹挂机 vs 3 匹柜机比参数、4L vs 5L 比容量）
+  - 跨品类对比（空调 vs 洗衣机 vs 电饭煲之间没有任何可比维度）
+  - 对 status: pending / single 的组出对比表
+  - 用"未标注"的值参与结论（缺数据时只能说"这项没写"，不能反推优劣）

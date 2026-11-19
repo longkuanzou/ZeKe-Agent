@@ -1,0 +1,119 @@
+# 参数来源：说明书参数表（页码见每项 source），2026-10-22 人工核对回填
+# confidence: inferred = 参数表文本错位，按位置推断，待人工复核（见 10_ops/confirm_queue.md）
+product_id: haier-kfr-72lw-e1-1plus
+updated: 2026-10-22
+
+specs:
+  cooling_capacity_w:
+    value: 7330
+    min: 650
+    max: 9500
+    unit: W
+    source: p36
+  heating_capacity_w:
+    value: 10100
+    min: 850
+    max: 12500
+    unit: W
+    source: p36
+  cooling_power_w:
+    value: 1900
+    min: 300
+    max: 3500
+    unit: W
+    source: p36
+  heating_power_w:
+    value: 2900
+    min: 260
+    max: 4150
+    unit: W
+    source: p36
+  auxiliary_heat_w:
+    value: 2500
+    unit: W
+    source: p36
+    note: PTC 2500W/12.0A
+  current_cooling_a:
+    value: 8.8
+    unit: A
+    source: p36
+  current_heating_a:
+    value: 13.5
+    unit: A
+    source: p36
+  mid_cooling_capacity_w:
+    value: 3600
+    unit: W
+    source: p36
+    confidence: inferred
+  mid_heating_capacity_w:
+    value: 4950
+    unit: W
+    source: p36
+    confidence: inferred
+  low_temp_heating_capacity_w:
+    value: 9058
+    unit: W
+    source: p36
+    confidence: inferred
+  low_temp_heating_power_w:
+    value: 3547
+    unit: W
+    source: p36
+    confidence: inferred
+  standby_power_w:
+    value: 3
+    unit: W
+    source: p36
+  efficiency_apf:
+    value: 5.2
+    unit: APF
+    source: p36
+  power_supply:
+    value: 220V~/50Hz
+    source: p36
+  noise_indoor_db:
+    min: 20
+    standard: 42
+    max: 52
+    unit: dB(A)
+    source: p36
+    note: 超静20/高风42；超强47/澎湃风52，取最大 52
+  noise_outdoor_db:
+    value: 56
+    unit: dB(A)
+    source: p36
+    confidence: inferred
+  airflow_m3h:
+    value: 1750
+    unit: m³/h
+    source: p36
+    confidence: inferred
+  size_indoor_mm:
+    w: 364
+    h: 1830
+    d: 424
+    unit: mm
+    source: p36
+    note: 原文标注顺序 宽X高X深
+    confidence: inferred
+  size_outdoor_mm:
+    w: 960
+    h: 703
+    d: 400
+    unit: mm
+    source: p36
+    note: 原文标注顺序 宽X高X深
+    confidence: inferred
+  pipe_max_length_m:
+    value: 15
+    unit: m
+    source: p26
+  pipe_max_height_diff_m:
+    value: 10
+    unit: m
+    source: p26
+  min_room_area_m2: null
+
+missing:
+  - min_room_area_m2

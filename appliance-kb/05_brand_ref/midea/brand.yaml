@@ -1,0 +1,26 @@
+# 美的品牌级信息
+policy_id: brand.midea.profile
+brand: midea
+brand_cn: 美的
+appliance_scope: [air_conditioner]
+verified: true
+source: 说明书 p32
+updated: 2026-10-21
+
+service:
+  hotline: "400-8899-315"
+  hotline_hours: 24小时（免长途费）
+  app: 美的美居
+  app_service_entry: 我的-服务/安装维修
+  fee_entry: "美的官方公众号 / www.midea.com.cn 收费标准"
+  source: 说明书 p32 / p36
+
+standard:
+  source: p30 / p33
+  items:
+    - GB/T 7725《房间空气调节器》
+    - GB 21455-2019 能效标准
+
+notes:
+  - 说明书明确"请核查确认为美的派遣空调服务人员"，回答上门类问题时可用于提醒用户核验身份
+  - 部分机型（如 KFR-35GW/A11）说明书标注为"LittleSwan 小天鹅"品牌，同属美的系，回答时按用户实际下单品牌称呼

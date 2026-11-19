@@ -1,0 +1,108 @@
+# 小天鹅洗衣机保修政策
+#
+# ── 来源沿革 ──────────────────────────────────────────
+# 2026-10-23 前：本批 5 份小天鹅资料（TB100V26DT / TG10K60 / TG100V618PLUS / TG10V628PLUS / TG10VE40）
+#               **没有任何一份写了包修年限**，duration 为 null。
+# 2026-10-23 后：业务方补入口径（见 source）。缺口从"没有年限"变成"年限分两档、要按机型判"。
+#
+# 注意这不是说明书原文，是业务方口径，且原文用了"通常"这类限定词。
+# 所以下面 answer_rules 的第一条是"先分档，再报年限"，不是"直接报 3 年"。
+policy_id: brand.littleswan.warranty
+brand: littleswan
+brand_cn: 小天鹅
+applies_to: {appliance: [washer]}
+verified: true
+source_kind: biz_provided
+source: "业务方提供的售后口径（2026-10-23），非说明书原文"
+source_note: >
+  说明书未记载包修期限与三包条款；年限来自业务方口径，措辞为"通常/一般"，
+  说明它不是对所有机型都成立的硬条款。
+confidence: biz_provided
+updated: 2026-10-23
+
+# ── 两档并存，必须按机型/购机时间分流 ──────────────────
+duration:
+  new_models:
+    cn: 主推新款
+    whole_machine: 3 年
+    motor: 10 年
+    motor_note: 核心电机 10 年包修
+    evidence: 业务方口径
+  legacy_models:
+    cn: 老款机型 / 特定购机时间
+    whole_machine: 1 年
+    main_parts: 3 年
+    main_parts_note: 主要零部件（电机、主板等）3 年
+    evidence: 业务方口径
+  note: >
+    两档的**分界依据是按型号上市年份**（业务方 2026-10-23 确认的判断口径）：
+    上市年份落在新档的按 3 年 / 电机 10 年，落在老档的按 1 年 / 主要部件 3 年。
+  boundary_rule: 按型号上市年份
+  boundary_year: null          # ← 分界年份仍未给：只给了 5 台的上市年份，没给"哪一年是新老分界"
+
+  # ── 本库 5 台的上市年份（业务方 2026-10-23 核定）────────
+  # 有上市年份之后，判断只差一个"分界年份"。这一层先落下来，避免每次回答都重新问型号。
+  model_launch_years:
+    littleswan-tg100v618plus: {model_cn: TG100V618PLUS, series: 水魔方2.0, launch: 2024-01}
+    littleswan-tb100v26dt:    {model_cn: TB100V26DT,    series: 纯净波轮,   launch: 2024-08}
+    littleswan-tg10ve40:      {model_cn: TG10VE40,      series: 小乌梅3.0, launch: 2025-03}
+    littleswan-tg10v628plus:  {model_cn: TG10V628PLUS,  series: 水魔方2.0, launch: 2025-08}
+    littleswan-tg10k60:       {model_cn: TG10K60,       series: 小乌梅5.0, launch: 2026-01}
+  launch_year_range: {earliest: 2024-01, latest: 2026-01}
+
+  # 分界年份未知时的可用推论：只在两个极端下才能给出确定档位
+  tier_rule_until_boundary_known: >
+    5 台上市年份全部落在 2024-01 ~ 2026-01 之间，因此：
+    ① 若分界年份 ≤ 2024 → 5 台**全部按新档**（整机 3 年 / 电机 10 年）；
+    ② 若分界年份 ≥ 2026 → 5 台**全部按老档**（整机 1 年 / 主要部件 3 年）；
+    ③ 分界落在 2024~2026 之间 → 只能逐台按年份判，此时**必须转人工或让用户看保修卡**。
+    回答时不许自己挑一个分界年份，也不许用"最新上市"倒推"属于新款档"。
+
+  tier_by_model:               # 档位待分界年份确认；上市年份已有，不必再问
+    littleswan-tb100v26dt:    {launch_year: 2024-08, tier: pending_boundary}
+    littleswan-tg10k60:       {launch_year: 2026-01, tier: pending_boundary}
+    littleswan-tg100v618plus: {launch_year: 2024-01, tier: pending_boundary}
+    littleswan-tg10v628plus:  {launch_year: 2025-08, tier: pending_boundary}
+    littleswan-tg10ve40:      {launch_year: 2025-03, tier: pending_boundary}
+
+  unresolved: |
+    分界年份缺失。现状：5 台型号 → 上市年份已齐（2024-01 ~ 2026-01），只差"哪一年是新老分界"。
+    回答口径：先问/查型号 → 报出该型号上市年份 → 再说明"分界年份这边还没定，最准是看保修卡"。
+    不要因为某个型号上市晚就直接判为新档。
+
+  # ── 一个必须写下来的反例 ───────────────────────────────
+  # 同系列 ≠ 同档位：TG100V618PLUS（水魔方2.0，2024-01）与 TG10V628PLUS（水魔方2.0，2025-08）
+  # 同为水魔方2.0，上市差 19 个月。任何"按系列分档"的做法都会把这两台判成同一档，是错的。
+  # 判断依据只能是上市年份，不是系列名。
+
+start_from: null               # 业务方未提供，说明书也没有；按订单签收/购机日期口头确认
+start_fallback: null
+require_documents: null
+
+answer_rules:
+  - 用户问"洗衣机保修几年" → **先分档，再报年限**：
+    "主推的新款是整机 3 年、电机 10 年；老款或者买得早的是整机 1 年、主要部件 3 年。
+     您这台算哪一档，我按型号和购机时间帮您确认一下。"
+  - 不得直接说"小天鹅洗衣机保修 3 年"——那会把老款用户引到错误的预期上，
+    一旦与保修卡不符就是投诉来源
+  - 不得把"电机 10 年"说成"整机 10 年"，这是最常见的误传
+  - 用户报了型号且在本库 5 台之内 → **直接报出该型号的上市年份**（2026-10-23 已核定），
+    不要再说"我需要查一下上市时间"。然后补一句"新老款的分界年份这边还没最终定，
+    最准还是看保修卡"，不要自己判档
+  - 不得按系列名判档：TG100V618PLUS 与 TG10V628PLUS **同属水魔方2.0**，
+    但上市差了 19 个月（2024-01 / 2025-08）。系列名相同的机型可能分属两档
+  - 不得因为"这台上市最晚"就推定为新档——上市晚是新，但"新"不等于"落在新档线之后"
+  - 用户说"我在保修卡上看到是 1 年" → 以保修卡为准，并把档位记到工单
+  - 用户说"售后说我过保了" → 不反驳，先确认机型档位与购机日期，再转保修专员
+  - 不要引用美的空调的 6 年口径（同集团不同品类，政策不同）
+  - 边界规则未定前，遇到争议一律转人工，不要现场裁决
+
+handoff:
+  hotline: "400-8228-228"
+  reason: warranty_tier_boundary_unknown
+
+todo:
+  - 拿"新款 / 老款"的分界依据（按型号上市年份，还是按购机时间，还是按渠道）
+  - 若小天鹅有书面三包条款，用它替换本文件的业务方口径，并把 verified 从"业务方"升为"官方文件"
+  - 补电脑板/主板是否在"主要零部件 3 年"范围内
+  - 补 06_platform_policy 里是否有小天鹅专用的退换口径

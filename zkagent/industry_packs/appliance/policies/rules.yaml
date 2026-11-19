@@ -1,0 +1,68 @@
+# 声明式业务规则 —— 由 PolicyEngine 判定（Core 代码不含任何行业阈值）。
+#
+# 字段：
+#   id / description / priority（数值小者优先；同优先级 deny > escalate > require_confirmation > allow）
+#   match.action            工具名
+#   match.order_status      订单状态
+#   match.amount_cents      {lte, gt} 整数分
+#   match.days_since_delivered {lte, gt}
+#   match.prior_tool_missing  本轮尚未调用过该工具才命中（用于「先查单再退款」）
+#   match.any_of            子条件析取
+#   effect                  allow | deny | require_confirmation | escalate
+#   preconditions           verified / owner_match / status_in / amount_lte（不满足即 deny）
+#   suggested_action        Poka-yoke 引导的替代动作
+#
+# 说明：appliance 是订单/退款演示包，**不启用身份门禁**（它的演示脚本与既有用例
+# 直接以 U1 查单）。身份门禁的完整形态在 homeapp 的规则里。
+version: 1
+
+settings:
+  four_eyes: true
+  approval_ttl_hours: 24
+
+rules:
+  - id: refund.requires_order_lookup
+    description: 退款/取消前必须先查订单，否则无从判断状态与归属
+    priority: 10
+    match:
+      action: [create_refund_ticket, cancel_order, approve_refund]
+      prior_tool_missing: get_order
+    effect: deny
+    suggested_action: get_order
+
+  - id: refund.block_unshipped_order
+    description: 未发货订单不存在「退货」语义，只能取消订单
+    priority: 20
+    match:
+      action: [create_refund_ticket]
+      order_status: [created, paid]
+    effect: deny
+    suggested_action: cancel_order
+
+  - id: refund.auto_within_policy
+    description: 已签收 7 天内且金额不超过 1000 元，可自动创建退货退款
+    priority: 30
+    match:
+      action: [create_refund_ticket]
+      order_status: [delivered]
+      days_since_delivered: {lte: 7}
+      amount_cents: {lte: 100000}
+    effect: allow
+
+  - id: refund.escalate_high_value_or_overdue
+    description: 金额超过 1000 元或超过 7 天，转人工审批
+    priority: 40
+    match:
+      action: [create_refund_ticket]
+      any_of:
+        - amount_cents: {gt: 100000}
+        - days_since_delivered: {gt: 7}
+    effect: escalate
+
+  - id: cancel.requires_confirmation
+    description: 取消订单属高风险操作，需人工确认后执行
+    priority: 50
+    match:
+      action: [cancel_order]
+      order_status: [paid, shipped]
+    effect: require_confirmation

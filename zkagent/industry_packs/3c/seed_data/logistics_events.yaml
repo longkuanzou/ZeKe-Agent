@@ -1,0 +1,13 @@
+logistics_events:
+  - order_id: B2001
+    happened_at: "@now-6d"
+    node: 揽收
+    description: 顺丰已揽收
+  - order_id: B2001
+    happened_at: "@now-5d"
+    node: 已签收
+    description: 本人签收
+  - order_id: B2003
+    happened_at: "@now-12d"
+    node: 已签收
+    description: 门卫代收

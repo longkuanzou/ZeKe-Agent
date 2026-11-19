@@ -1,0 +1,44 @@
+# 拆封与二次销售判定
+# 这是"七天无理由"能不能成立的实际门槛，也是纠纷最多的地方
+policy_id: platform.opened_box
+applies_to: {channel: [平台, 自营], appliance: [air_conditioner, washer, refrigerator, rice_cooker, microwave]}
+verified: false
+legal_basis: 《消费者权益保护法》第二十五条（商品完好）
+updated: 2026-10-21
+
+states:                     # 机器状态分级：判断的起点，必须问清
+  - id: unopened
+    cn: 未拆封
+    judgement: 完好
+    returnable: true
+  - id: opened_only
+    cn: 仅拆封查验，未安装未接电
+    judgement: 一般视为不影响二次销售（需包装附件齐全）
+    returnable: true
+    caveat: 个别品类/商家拆封后需验证无使用痕迹
+  - id: installed_not_used
+    cn: 已安装但未长期使用
+    judgement: 已打孔/已接管，通常认定影响二次销售
+    returnable: false
+    next: 转人工评估，或按性能故障走三包
+  - id: installed_used
+    cn: 已安装并使用
+    judgement: 不支持无理由退货
+    returnable: false
+    next: 仅质量问题走三包
+
+checks:                     # 判定"影响二次销售"的具体项
+  - 外包装是否完整、有无破损涂写
+  - 附件/说明书/保修卡/赠品是否齐全
+  - 机身是否有安装痕迹（打孔、螺丝印、管路接口）
+  - 是否有使用痕迹（滤网积灰、接水盘水渍、机身划痕）
+  - 是否已激活联网/绑定 App（可作为已使用的证据）
+  - 是否已加装辅材（支架、加长管）
+
+answer_rules:
+  - 先问状态（拆封/安装/使用），再给判断，不许跳步
+  - 「拆封了」必须澄清是「只开箱看了」还是「装上了」
+  - 判定权在平台审核，客服只列条件与状态分类
+
+todo:
+  - 确认各品类是否单独约定（如冰箱通电后是否影响二次销售）

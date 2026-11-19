@@ -1,0 +1,115 @@
+# 参数来源：说明书参数表（页码见每项 source），2026-10-22 人工核对回填
+# confidence: inferred = 参数表文本错位，按位置推断，待人工复核（见 10_ops/confirm_queue.md）
+product_id: midea-kfr-35gw-a11
+updated: 2026-10-22
+
+specs:
+  cooling_capacity_w:
+    value: 3510
+    min: 150
+    max: 5250
+    unit: W
+    source: p34
+  heating_capacity_w:
+    value: 5010
+    min: 150
+    max: 6790
+    unit: W
+    source: p34
+  cooling_power_w:
+    value: 845
+    min: 70
+    max: 2100
+    unit: W
+    source: p34
+  heating_power_w:
+    value: 1240
+    min: 70
+    max: 2150
+    unit: W
+    source: p34
+  auxiliary_heat_w:
+    value: 850
+    unit: W
+    source: p34
+    note: PTC
+  mid_cooling_capacity_w:
+    value: 1660
+    unit: W
+    source: p34
+  mid_heating_capacity_w:
+    value: 2440
+    unit: W
+    source: p34
+  max_input_power_w:
+    value: 3150
+    unit: W
+    source: p34
+  standby_power_w:
+    value: 3
+    unit: W
+    source: p34
+  efficiency_apf:
+    value: 5.3
+    unit: APF
+    source: p34
+    note: 双列参数表（26机/35机），按 35 机列取值
+    confidence: inferred
+  efficiency_seer:
+    value: 6.35
+    unit: SEER
+    source: p34
+  energy_grade:
+    value: 1
+    unit: 级
+    source: p34
+  power_supply:
+    value: 220V~/50Hz
+    source: p34
+  current_cooling_a:
+    value: 4.0
+    min: 0.4
+    max: 9.8
+    unit: A
+    source: p34
+  current_heating_a:
+    value: 5.8
+    min: 0.4
+    max: 10.0
+    unit: A
+    source: p34
+  max_input_current_a:
+    value: 15.0
+    unit: A
+    source: p34
+  noise_indoor_db:
+    min: 18
+    standard: 35
+    max: 41
+    unit: dB(A)
+    source: p34
+  noise_outdoor_db:
+    min: 38
+    max: 51
+    unit: dB(A)
+    source: p34
+  pipe_max_length_m:
+    value: 10
+    unit: m
+    source: p8
+  pipe_max_height_diff_m:
+    value: 5
+    unit: m
+    source: p8
+  min_room_area_m2: null
+  recommended_area_cooling_m2:
+    value: 15-23
+    unit: m²
+    source: p3
+  recommended_area_heating_m2:
+    value: 17-23
+    unit: m²
+    source: p3
+
+missing:
+  - min_room_area_m2

@@ -1,0 +1,241 @@
+# 洗衣机参数标准字典 v1
+# 与空调最大的差别：洗衣机的"能不能装"核心不是外机位，而是水、电、排水、门宽四件事。
+# 用户问"买回来能不能放进卫生间"，答案全在 size_mm + door_width_min_mm 这两个键上。
+appliance: washer
+appliance_cn: 洗衣机
+version: 1
+updated: 2026-10-22
+
+keys:
+  # 能力
+  capacity_kg:
+    cn: 额定洗涤容量
+    unit: kg
+    aliases: [洗涤容量, 容量, 公斤数, 几公斤]
+    used_in: [s1, s2]
+    note: 用户口语"10公斤"即此值；干衣容量另见 dry_capacity_kg
+  dry_capacity_kg:
+    cn: 干衣容量
+    unit: kg
+    aliases: [烘干容量]
+    used_in: [s1]
+    note: 洗干一体机的干衣容量通常小于洗涤容量，必须分开说
+  spin_speed_rpm:
+    cn: 最高脱水转速
+    unit: r/min
+    aliases: [脱水转速, 转速]
+    used_in: [s1]
+
+  # 能效与耗材
+  energy_grade:
+    cn: 能效等级
+    unit: 级
+    aliases: [能效等级, 几级能效]
+    used_in: [s1]
+  water_consumption_l:
+    cn: 单次耗水量
+    unit: L
+    aliases: [耗水量, 用水量]
+    used_in: [s1]
+  power_w:
+    cn: 额定功率
+    unit: W
+    aliases: [功率, 输入功率]
+    used_in: [s2]
+  dry_power_w:
+    cn: 额定烘干功率
+    unit: W
+    aliases: [烘干功率, 干衣功率]
+    used_in: [s2]
+    note: 洗干一体机/干衣机单列；烘干是大电流工况，选线按这个值不按洗涤功率
+  power_supply:
+    cn: 额定电源
+    unit: null
+    aliases: [额定电压, 电源]
+    used_in: [s2]
+  rated_current_a:
+    cn: 额定电流
+    unit: A
+    aliases: [额定电流, 电流]
+    used_in: [s2]
+    note: 说明书「通用参数」里常直接写 10A；选线与插座规格按此值，不按功率反推
+
+  # 结构与安装（重点）
+  size_mm:
+    cn: 外形尺寸
+    unit: mm
+    aliases: [外形尺寸, 机身尺寸]
+    used_in: [s1, s2]
+    note: 必须拆 w/h/d；洗衣机通常标"宽×深×高"，与空调的"宽×高×深"不同
+  size_max_mm:
+    cn: 最大外形尺寸
+    unit: mm
+    aliases: [最大外形尺寸]
+    used_in: [s2]
+    note: 含门把手/凸出件的深度，搬运与嵌入柜体按这个算，不是 size_mm
+  door_open_depth_mm:
+    cn: 门打开时深度
+    unit: mm
+    aliases: [开门深度, 门打开尺寸]
+    used_in: [s2]
+    note: 西门子等欧系说明书单列此值。它是**门开之后的整机深度**，过道宽度与门洞转弯要按这个算；只看 size_mm 会得出"能进门"的错误结论
+  weight_kg:
+    cn: 整机质量
+    unit: kg
+    aliases: [毛重, 净重, 重量]
+    used_in: [s2]
+  door_width_min_mm:
+    cn: 入户门最小宽度
+    unit: mm
+    aliases: [门宽, 进门尺寸]
+    used_in: [s2]
+    note: 「买回来进不了门」是洗衣机最高频的安装事故，说明书常写「请确认门宽/楼道宽度」
+  loading_type:
+    cn: 装载方式
+    unit: null
+    aliases: [前开式, 滚筒, 顶开式, 波轮]
+    used_in: [s1]
+    note: 滚筒=前开，波轮=顶开；用户口语"波轮/滚筒"必须能对上
+
+  # 安装条件
+  needs_water_inlet:
+    cn: 是否需进水
+    unit: null
+    aliases: [进水, 水龙头, 进水管]
+    used_in: [s2]
+  needs_drain:
+    cn: 是否需排水
+    unit: null
+    aliases: [排水, 地漏, 排水管]
+    used_in: [s2]
+    note: 上排水/下排水决定能否用地漏，必须区分
+  drain_type:
+    cn: 排水方式
+    unit: null
+    aliases: [上排水, 下排水]
+    used_in: [s2]
+  water_pressure_mpa:
+    cn: 进水水压范围
+    unit: MPa
+    aliases: [水压, 自来水压力]
+    used_in: [s2]
+  needs_level_ground:
+    cn: 是否需水平地面
+    unit: null
+    aliases: [地面平整, 调平]
+    used_in: [s2]
+
+  # 管线长度（随机附带的长度，不是可加长的长度）
+  # 用户"插座离得远/水龙头够不着"的问题全靠这三个值判断，缺一个就得派人上门量
+  hose_inlet_cm:
+    cn: 进水管长度
+    unit: cm
+    aliases: [进水管多长, 上水管长度]
+    used_in: [s2]
+    note: 随机附件长度；超出需加长管（收费项），不能承诺免费延长
+  hose_drain_cm:
+    cn: 排水管长度
+    unit: cm
+    aliases: [排水管多长, 下水管长度]
+    used_in: [s2]
+    note: 与 max_hose_height_mm 一起看：长度够不够 + 末端高度超不超 100cm
+  power_cord_cm:
+    cn: 电源线长度
+    unit: cm
+    aliases: [电源线多长, 线长]
+    used_in: [s2]
+    note: 插座必须落在此范围内；欧系机型线较短（1.45m 级），常见"够不着插座"投诉
+
+  # 声学
+  noise_wash_db:
+    cn: 洗涤噪声
+    unit: dB(A)
+    aliases: [洗涤噪音]
+    used_in: [s1]
+  noise_spin_db:
+    cn: 脱水噪声
+    unit: dB(A)
+    aliases: [脱水噪音]
+    used_in: [s1, s4]
+    note: 脱水噪音是"噪音大"投诉的主要来源，与安装水平度强相关
+
+  # 功能（布尔）
+  feature_dry:
+    cn: 烘干功能
+    unit: null
+    aliases: [烘干, 洗烘一体]
+    used_in: [s1]
+  feature_steam:
+    cn: 蒸汽/除菌
+    unit: null
+    aliases: [蒸汽洗, 除菌, 消毒]
+    used_in: [s1]
+  feature_self_clean:
+    cn: 筒自洁
+    unit: null
+    aliases: [自清洁, 筒清洁]
+    used_in: [s1, s3]
+  feature_wifi:
+    cn: WiFi/APP
+    unit: null
+    aliases: [联网, 手机控制]
+    used_in: [s1, s3]
+  feature_child_lock:
+    cn: 童锁
+    unit: null
+    aliases: [儿童锁]
+    used_in: [s3]
+
+# 功能键的中文名（features.yaml 用英文键存，检索要用中文词）
+# 不加这张表，用户搜"烘干"匹配不到 feature key `dry`，召回直接丢一半。
+feature_names:
+  dry: 烘干
+  steam: 蒸汽除菌
+  self_clean: 筒自洁
+  wifi: WiFi 联网 / APP
+  child_lock: 童锁
+  auto_dosing: 自动投放
+  auto_weight: 自动称重
+  auto_water_level: 自动水位
+  foam_sensor: 泡沫检测（消泡）
+  unbalance_sensor: 脱水不平衡检测
+  power_off_memory: 断电记忆
+  program_memory: 程序记忆
+  drum_light: 筒灯
+  delay_start: 预约
+  forget_take_reminder: 忘取提醒
+  micro_bubble: 超微净泡
+  water_cube: 水魔方
+  hot_wash: 加热洗 / 温度可调
+  air_wash: 空气洗
+  program_mixed: 混合洗
+  program_cotton: 棉麻
+  program_quick: 快洗
+  program_wool: 羊毛
+  program_down: 羽绒服
+  program_sport: 冲锋衣
+  program_rinse_spin: 漂洗+脱水
+  program_spin_only: 单脱水
+  program_self_clean: 筒自洁程序
+
+# 说明书原文写法 → 标准键
+raw_aliases:
+  额定洗涤容量: capacity_kg
+  洗涤容量(kg): capacity_kg
+  脱水转速: spin_speed_rpm
+  外形尺寸(宽×深×高): size_mm
+  外形尺寸（mm）: size_mm
+  净重: weight_kg
+  毛重: weight_kg
+  额定功率: power_w
+  进水压力: water_pressure_mpa
+  能效等级: energy_grade
+  电器高度: size_mm
+  电器宽度: size_mm
+  电器深度: size_mm
+  门打开深度: door_open_depth_mm
+  最小接线保险: rated_current_a
+
+ambiguous:
+  _ambiguous_size: 洗衣机普遍标"宽×深×高"，但个别品牌标"高×宽×深"，必须拆 w/h/d 后核对
+  _ambiguous_weight: 毛重/净重混用，安装承重看净重，物流看毛重

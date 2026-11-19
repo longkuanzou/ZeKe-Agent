@@ -1,0 +1,113 @@
+# s5 售后政策 · 槽位与追问顺序
+#
+# ── 2026-10-23 修订 ────────────────────────────────────
+# 原版 over_7d_malfunction 直接写"整机 6 年"，那是海尔/美的**空调**的口径，
+# 套到电饭煲（苏泊尔 1 年）、洗衣机（小天鹅分两档 / 西门子 1 年）上就是错答。
+# 现在保修年限一律不写死在规则里，改为按 brand + appliance 查 warranty.yaml。
+version: 2
+scenario: s5_aftersale
+updated: 2026-10-23
+
+common:
+  required:
+    - order_channel            # 决定适用哪套规则，必须最先确认
+    - receipt_date             # 决定 7 天/15 天/保修期
+  optional:
+    - installed                # 无理由退货的核心判定
+    - opened
+    - packaging_kept
+    - product_model            # 决定 brand + appliance → 决定保修口径
+    - fault_type               # 不满意 / 性能故障 / 人为损坏
+    - has_invoice              # 影响保修起点推算
+
+ask_order:
+  - order_channel
+  - receipt_date
+  - installed
+  - fault_type
+
+prompts:
+  order_channel: 您是在哪个渠道下的单？平台自营、第三方店铺，还是线下门店？规则不太一样。
+  receipt_date: 大概什么时候签收的？我帮您算下时间。
+  installed: 机器已经安装使用了吗？这个会影响能不能走无理由退货。
+  fault_type: 是觉得不合适想退，还是机器本身有问题？
+  has_invoice: 购机发票或保修卡还在吗？影响保修期怎么算。
+  product_model: 具体是哪个型号？保修年限是按品牌和品类定的，我得对着查。
+
+# ── 保修口径速查（同品牌不同品类完全不同，禁止串用）──────────
+# 详解见 05_brand_ref/{brand}/warranty.yaml；这里只放"回答时能直接说"的档位
+warranty_lookup:
+  haier:air_conditioner:
+    whole_machine: 6 年
+    start_from: 安装完成之日
+    fallback: 无凭证按生产时间延后 3 个月
+    verified: true
+  midea:air_conditioner:
+    whole_machine: 6 年
+    start_from: 安装日期
+    fallback: 无凭证按出厂日期 +180 天
+    verified: true
+  supor:rice_cooker:
+    whole_machine: 1 年
+    commercial_use: 6 个月
+    start_from: 消费者收到产品之日
+    fallback: 无法提供收货时间凭证的，按订单支付时间顺延 2 天
+    service_mode: 送特约服务商修，不默认上门
+    verified: true
+  littleswan:washer:
+    whole_machine: 3 年（主推新款）/ 1 年（老款）
+    motor: 10 年（主推新款核心电机）
+    main_parts: 3 年（老款主要零部件）
+    boundary_unknown: true            # 新款/老款的分界规则未定，必须先问型号与购机时间
+    answer: 主推新款整机 3 年、电机 10 年；老款整机 1 年、主要部件 3 年。您这台算哪档我帮您核
+    verified: true
+    confidence: biz_provided
+  siemens:washer:
+    whole_machine: 1 年
+    main_parts: 3 年
+    motor_special: 10 年（仅部分搭载 iQdrive 电机的机型）
+    answer: 按国家三包是整机 1 年、主要零部件 3 年，具体以保修卡为准
+    caveat: 电机 10 年是例外项，不确定型号是否 iQdrive 时不得承诺
+    verified: true
+    confidence: biz_provided
+  default:
+    whole_machine: null
+    answer: 这个品牌+品类的保修年限我这边没有可靠资料，不报数字，转人工
+    forbid: 用空调的 6 年口径代替
+
+# 判定逻辑（按顺序，命中即返回）
+rules:
+  - id: within_7d_not_installed
+    when: {order_channel: 平台, days_since_receipt: "<=7", installed: false}
+    result: 可申请无理由退货
+    caveat: 需商品完好、不影响二次销售；运费通常消费者承担
+    verified: false
+    appliance_note:
+      air_conditioner: 未安装是能退的前提，装了就基本走不了无理由
+      washer: 拆了运输螺栓或已通水通电试机，通常认定已使用
+      rice_cooker: 未拆封/未使用是关键；煮过饭即影响二次销售
+  - id: within_7d_installed
+    when: {days_since_receipt: "<=7", installed: true}
+    result: 通常不满足无理由退货的"商品完好"条件
+    next: 若为性能故障 → 按三包走退换修；非故障 → 转人工评估
+  - id: over_7d_malfunction
+    when: {days_since_receipt: ">7", fault_type: 性能故障}
+    result: 走品牌保修
+    lookup: warranty_lookup[brand:appliance]     # 年限按品类查，不要写死
+  - id: over_7d_no_fault
+    when: {days_since_receipt: ">7", fault_type: 不满意}
+    result: 不支持无理由退货，转人工（可能涉协商）
+  - id: no_invoice
+    when: {has_invoice: false}
+    result: 不直接拒绝；按品牌规则推算（海尔+3 个月 / 美的+180 天 / 苏泊尔按订单支付时间顺延 2 天）
+    note: 小天鹅、西门子无凭证时不给推算结论，转保修专员
+
+# 输出约束
+output:
+  must_include: [适用规则, 前提条件, 下一步路径]
+  must_not:
+    - 肯定能退
+    - 肯定免费
+    - 替平台做审核结论
+    - 跨品类借用保修年限（把空调 6 年说成电饭煲的）
+  add_disclaimer_when_verified_false: 具体以订单页面和平台规则为准

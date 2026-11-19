@@ -1,0 +1,38 @@
+# 参数来源：西门子 WQ53E2D01W+WQ53E2D11W「技术数据」页（PDF 原生文本层）
+# 键名受 00_schema/spec_dictionary/washer.yaml 约束
+product_id: siemens-wq53e2d01w-wq53e2d11w
+updated: 2026-10-23
+
+specs:
+  capacity_kg:          null            # 干衣机，无洗涤容量
+  dry_capacity_kg:      {value: 10.0, unit: kg, source: p19}
+  spin_speed_rpm:       null            # 技术数据页未给脱水转速
+  energy_grade:         null            # 技术数据页未给能效等级
+  water_consumption_l:  null
+  power_w:              {value: 600, unit: W, source: p19}
+  power_supply:         {value: 220V，50Hz, source: p19}
+  rated_current_a:      {value: 10, unit: A, source: p19, note: 原文「最小接线保险」}
+  size_mm:              {w: 598, h: 842, d: 613, unit: mm, source: p19,
+                         note: 原文「电器高度 84.2cm / 电器宽度 59.8cm / 电器深度 61.3cm」，已换算成 mm 并按 w/h/d 存放}
+  door_open_depth_mm:   {value: 1096, unit: mm, source: p19,
+                         note: 门打开时的整机深度，过道/门口转弯要按这个算，不是机身深度}
+  weight_kg:            {value: 50.1, unit: kg, source: p19}
+  door_width_min_mm:    null
+  loading_type:         {value: 滚筒干衣机（前开式）, source: p19}
+  needs_water_inlet:    {value: false, source: null,
+                         note: 热泵干衣机不需要进水管；冷凝水可存水箱或接软管直排}
+  needs_drain:          {value: false, source: null,
+                         note: 不强制接排水；接直排软管可免去倒水箱}
+  drain_type:           null            # 干衣机无上下排水概念
+  water_pressure_mpa:   null            # 干衣机不需要进水
+  needs_level_ground:   {value: true, source: p19, note: 必须调平，否则震动与噪音明显增大}
+  noise_wash_db:        null            # 技术数据页未给洗涤噪声
+  noise_spin_db:        {value: 61, unit: dB(A), source: p19, note: 烘干噪声，GB/T 19606}
+  power_cord_cm:        {value: 145, unit: cm, source: p19}
+
+missing:
+  - spin_speed_rpm（技术数据页未给，面板可调）
+  - energy_grade（技术数据页未给能效等级）
+  - noise_wash_db（技术数据页未给洗涤噪声）
+  - door_width_min_mm（说明书未给搬运最小门宽，只给机身与开门深度）
+  - water_consumption_l（说明书未给单次耗水量）

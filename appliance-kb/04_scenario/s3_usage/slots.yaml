@@ -1,0 +1,63 @@
+# s3 使用 · 槽位与追问顺序（三品类）
+#
+# ── 2026-10-23 改版 ────────────────────────────────────
+# 旧版的 classify 全是空调动作词（风速、风向、自清洁），洗衣机用户说"筒自洁怎么开"
+# 会被归到 usage.operation 但拿不到洗衣机步骤。现在按 appliance 分开归类词。
+version: 2
+scenario: s3_usage
+updated: 2026-10-23
+
+common:
+  required: [product_model]
+  optional: [usage_task, connected_app]
+
+# 用户往往不说是哪个动作，先归类再给步骤
+# 归类要在"已经确定品类"之后做——同一句话在不同品类下落到不同动作
+classify:
+
+  air_conditioner:
+    usage.first_time: [第一次, 刚装好, 新机, 怎么开始用, 遥控器怎么按]
+    usage.operation: [怎么开, 怎么调, 怎么设, 定时, 自清洁, 风速, 风向, 模式, 睡眠, 除湿]
+    usage.maintenance: [清洗, 滤网, 保养, 有味道, 拆洗, 长时间不用, 换季]
+    usage.connect: [WiFi, 联网, APP, 手机, 连不上, 智家, 美居]
+
+  washer:
+    usage.first_time: [第一次用, 刚装好, 新机, 运输螺栓, 要先跑一遍吗]
+    usage.operation: [怎么选程序, 哪个程序, 脱水转速, 温度怎么调, 洗涤剂放多少, 柔顺剂, 凝珠, 自动投放, 预约, 中途加衣]
+    usage.maintenance: [筒自洁, 清洗, 过滤器, 料盒, 门封, 排水泵, 进水阀过滤网, 有味道, 发霉, 长时间不用]
+    usage.connect: [WiFi, 联网, APP, 手机, 连不上, 智家, 美居, Home Connect]
+
+  rice_cooker:
+    usage.first_time: [第一次用, 新锅, 要开锅吗, 先煮一锅水吗]
+    usage.operation: [怎么煮饭, 水位线, 米种, 刻度, 功能怎么选, 稀饭, 煮粥, 煲汤, 蒸, 预约, 保温, 取消, 口感]
+    usage.maintenance: [洗内胆, 钢丝球, 洗碗机, 上盖怎么拆, 蒸汽阀, 微压阀, 密封圈, 加热盘, 有味道, 长时间不用]
+    usage.connect: [WiFi, 联网, APP, 手机]      # 本库电饭煲多无联网功能，命中后先核实
+
+prompts:
+  product_model: 您用的是哪个型号？同品牌不同型号的按键位置和名称都不太一样，我按您的说。
+  usage_task: 您具体想做哪一步？比如要煮饭、要清洗、还是要设预约？
+
+# 品类相关的安全前置步骤（不同品类"断电"的含义不同）
+safety_prelude:
+  air_conditioner: 涉及拆滤网、擦导风板时先关机并拔掉插头（或断开空气开关）
+  washer: 涉及过滤器、排水、门锁时先拔电源插头，并等筒内水冷却（避免高温水烫伤）
+  rice_cooker: 涉及洗内胆、清加热盘、拆上盖时先断电并等彻底冷却；严禁整机浸水
+
+# 步骤输出的硬约束
+step_output:
+  max_steps: 5
+  must_keep: [安全前置步骤（断电/关机）]
+  numbering: 阿拉伯数字，逐行
+  forbid: [合并步骤, 省略"断电", 加入说明书没有的步骤, 跨品类借用步骤]
+
+# 周期类问题的口径
+period_rule:
+  has_manual_period: 直接引用说明书数值（如海尔滤网"两周左右"）
+  no_manual_period: 给行业建议并标注"建议，非说明书条款"
+  forbid: 把建议说成厂家要求
+
+# 各品类"说明书没写周期"的高频项（回答时统一按 no_manual_period 处理）
+missing_period:
+  washer: [过滤器清理周期（说明书只写"定期"）, 内筒深度清洁方法]
+  rice_cooker: [密封圈更换周期, 内胆寿命]
+  air_conditioner: [整机清洗周期]

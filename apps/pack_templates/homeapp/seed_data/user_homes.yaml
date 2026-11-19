@@ -1,0 +1,57 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+user_homes:
+- home_id: HM1
+  user_id: H1
+  city: 杭州
+  district: 西湖区
+  floor: 6
+  has_elevator: 0
+  door_width_cm: 68
+  water_inlet: 1
+  drain: 1
+  outdoor_slot: 有
+  power_spec: 16A 独立回路
+  is_default: 1
+  updated_at: '@now-30d'
+- home_id: HM2
+  user_id: H2
+  city: 上海
+  district: 浦东新区
+  floor: 18
+  has_elevator: 1
+  door_width_cm: 75
+  water_inlet: 1
+  drain: 1
+  outdoor_slot: 无（需物业协调）
+  power_spec: 10A
+  is_default: 1
+  updated_at: '@now-20d'
+- home_id: HM3
+  user_id: H3
+  city: 南京
+  district: 鼓楼区
+  floor: 3
+  has_elevator: 0
+  door_width_cm: 60
+  water_inlet: 0
+  drain: 0
+  outdoor_slot: 无
+  power_spec: 10A
+  is_default: 1
+  updated_at: '@now-3d'
+- home_id: HM4
+  user_id: H4
+  city: 成都
+  district: 武侯区
+  floor: 3
+  has_elevator: 0
+  door_width_cm: 72
+  water_inlet: 1
+  drain: 1
+  outdoor_slot: 有
+  power_spec: 10A
+  is_default: 1
+  updated_at: '@now-45d'

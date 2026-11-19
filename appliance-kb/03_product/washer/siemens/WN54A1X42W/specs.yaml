@@ -1,0 +1,37 @@
+# 参数来源：西门子 WN54A1X42W「技术数据」页（OCR，原 PDF 文本层损坏）
+# 键名受 00_schema/spec_dictionary/washer.yaml 约束
+product_id: siemens-wn54a1x42w
+updated: 2026-10-23
+
+specs:
+  capacity_kg:          {value: 10.0, unit: kg, source: 'ocr#p44'}
+  dry_capacity_kg:      {value: 7.0, unit: kg, source: 'ocr#p44'}
+  spin_speed_rpm:       null            # 技术数据页未给脱水转速
+  energy_grade:         null            # 技术数据页未给能效等级
+  water_consumption_l:  null
+  power_w:              {value: 1900, unit: W, source: 'ocr#p44'}
+  dry_power_w:          {value: 1650, unit: W, source: 'ocr#p44', note: 额定烘干功率}
+  power_supply:         {value: 220V，50Hz, source: 'ocr#p44'}
+  rated_current_a:      {value: 10, unit: A, source: 'ocr#p44', note: 原文「最小接线保险」}
+  size_mm:              {w: 598, h: 848, d: 590, unit: mm, source: 'ocr#p44',
+                         note: 原文「a=59.8cm b=59.0cm c=84.8cm」，按 a=宽 b=深 c=高 换算，已按 w/h/d 存放}
+  door_open_depth_mm:   null            # 技术规格页未给门打开深度
+  weight_kg:            {value: 78, unit: kg, source: 'ocr#p44'}
+  door_width_min_mm:    null
+  loading_type:         {value: 滚筒（前开式）, source: 'ocr#p44'}
+  needs_water_inlet:    {value: true, source: 'ocr#p44'}
+  needs_drain:          {value: true, source: 'ocr#p44'}
+  drain_type:           {value: 上排水, source: 'ocr#p44', note: 排水泵排水，排水管末端 0~100cm 高度}
+  water_pressure_mpa:   {min: 0.1, max: 1.0, unit: MPa, source: 'ocr#p44',
+                         note: 原文 0.1~1 MPa（1~10 bar）；低于下限需增压，高于上限需装减压阀}
+  needs_level_ground:   {value: true, source: 'ocr#p44', note: 必须调平，否则震动与噪音明显增大}
+  noise_wash_db:        null            # 技术数据页未给洗涤噪声
+  noise_spin_db:        null            # 技术数据页未给脱水噪声
+
+missing:
+  - spin_speed_rpm（技术数据页未给，面板可调）
+  - energy_grade（技术数据页未给能效等级）
+  - noise_wash_db（技术数据页未给洗涤噪声）
+  - noise_spin_db（技术数据页未给脱水/烘干噪声）
+  - door_width_min_mm（说明书未给搬运最小门宽，只给机身与开门深度）
+  - water_consumption_l（说明书未给单次耗水量）

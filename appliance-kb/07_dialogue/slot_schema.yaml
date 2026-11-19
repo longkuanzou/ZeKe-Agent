@@ -1,0 +1,138 @@
+# 槽位字典：跨场景共用
+# 设计要点：槽位按"品类"打标签（applies），新增洗衣机/冰箱时只加槽位、不改流程。
+# 每个场景的 slots.yaml 只声明"本场景要哪些槽"，不重复定义类型与校验。
+version: 1
+updated: 2026-10-21
+
+slots:
+  # ── 通用 ──
+  appliance:
+    type: enum
+    values_from: 01_source 一级目录
+    applies: all
+    ask: 您说的是哪一类电器？
+  product_model:
+    type: ref
+    ref: 03_product/{appliance}/{brand}/{model}/product.yaml
+    applies: all
+    priority: must_first          # 型号是所有参数类回答的前置
+    resolve_from: [订单信息, 机身铭牌照片, 用户口述型号, 商品链接]
+    ask: 麻烦发一下机身上的型号标签照片，或者告诉我完整型号（如 KFR-35GW/Q2）
+    note: 只说到"空调"不算拿到型号；型号决定参数、代码规则、收费项
+  brand:
+    type: enum
+    values: [haier, midea]
+    applies: all
+    infer_from: product_model
+
+  # ── 售前 / 安装 ──
+  room_area_m2:
+    type: number
+    unit: m²
+    applies: [air_conditioner, refrigerator, washer]
+    ask: 房间大概多少平米？
+    used_for: [presale.fit, install.feasibility 的最小面积校验]
+  install_power_ready:
+    type: bool
+    applies: [air_conditioner, washer, microwave]
+    ask: 安装位置有专用插座吗？空调需要一路单独的电源。
+  install_outdoor_space:
+    type: enum
+    values: [有预留机位, 需外挂支架, 只有阳台, 不确定]
+    applies: [air_conditioner]
+    ask: 室外机打算放哪？有预留机位还是需要打支架挂墙？
+  install_wall_type:
+    type: enum
+    values: [实心砖墙, 混凝土, 轻质隔墙, 幕墙玻璃, 不确定]
+    applies: [air_conditioner]
+    used_for: 支架与打孔可行性、是否需要特殊辅材
+  install_pipe_length_m:
+    type: number
+    unit: m
+    applies: [air_conditioner]
+    used_for: 判断是否超长、是否需补冷媒、加长管费用
+  install_floor:
+    type: number
+    applies: [air_conditioner, refrigerator, washer]
+    used_for: 高空作业费、上楼费
+  install_has_elevator:
+    type: bool
+    applies: [air_conditioner, refrigerator, washer]
+    used_for: 上楼费
+  # 洗衣机/冰箱 预留槽位（当前品类不启用，新增品类时直接可用）
+  install_water_inlet:
+    type: bool
+    applies: [washer]
+    ask: 安装位置有没有进水和地漏？
+  install_door_width_mm:
+    type: number
+    unit: mm
+    applies: [refrigerator, washer]
+    ask: 门口和楼道最窄的地方大概多宽？
+    note: 冰箱/洗衣机最高频的"买回来进不了门"问题
+
+  # ── 故障 ──
+  symptom_text:
+    type: text
+    applies: all
+    ask: 具体是什么表现？比如不制冷、漏水、还是有异响？
+  error_code:
+    type: string
+    pattern: "^[A-Za-z]{1,2}\\d{1,2}$"
+    applies: all
+    ask: 面板上显示的是什么字母加数字？
+  symptom_duration:
+    type: enum
+    values: [刚开始, 几天了, 一直这样, 时好时坏]
+    applies: all
+  self_check_done:
+    type: list
+    applies: all
+    used_for: 避免重复引导用户做已经做过的事
+
+  # ── 售后政策 ──
+  order_channel:
+    type: enum
+    values: [平台自营, 第三方店铺, 线下门店]
+    applies: all
+    priority: must_first
+    note: 渠道决定适用哪套退换规则，答错就是纠纷
+  receipt_date:
+    type: date
+    applies: all
+    used_for: 计算是否在 7 天/15 天/保修期内
+  installed:
+    type: bool
+    applies: all
+    ask: 机器已经安装使用了吗？
+    used_for: 无理由退货的前置条件
+  opened:
+    type: bool
+    applies: all
+    used_for: 拆封判定与二次销售判定
+  packaging_kept:
+    type: bool
+    applies: all
+
+  # ── 报修 ──
+  contact:
+    type: phone
+    applies: all
+    mask_in_reply: true
+  address:
+    type: object
+    fields: [province, city, district, detail, floor, has_elevator]
+    applies: all
+  preferred_time:
+    type: enum
+    values: [工作日上午, 工作日下午, 周末, 尽快]
+    applies: all
+  ticket_id:
+    type: string
+    applies: all
+    resolve_from: 工单系统
+  warranty_status:
+    type: enum
+    values: [保修内, 已过保, 不确定]
+    applies: all
+    derived_from: [product_model, receipt_date]

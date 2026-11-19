@@ -1,0 +1,31 @@
+# 参数：售前（s1）与安装/放置（s2）的唯一依据
+# 说明书没印的参数一律 null 并进 missing —— 宁可说「查不到」，不能拿同品牌同容积机型代填
+product_id: midea-mb-40hb9t
+updated: 2026-10-23
+
+specs:
+  capacity_l:           {value: 4.0, unit: L, source: 'ocr#img:产品简介.png', note: 原文「额定容量 4.0L」}
+  capacity_cups:        null            # 说明书未给额定煮饭量
+  alias_model:          null
+  power_w:              {value: 1300, unit: W, source: 'ocr#img:产品简介.png', note: IH 机型额定输入功率，同容积下明显高于底盘加热（4L 底盘加热约 760W）}
+  voltage:              {value: 220V~，50Hz, source: 'ocr#img:产品简介.png'}
+  heating_type:         {value: IH 电磁加热, source: 'ocr#img:产品简介.png', confidence: inferred, note: '说明书未直写「IH」，但故障章写「线圈盘」、额定功率 1300W（4L 底盘加热典型值 760W）、热效率 90% 一级能效，三点指向 IH；对外话术按 IH 说，若用户质疑以铭牌为准'}
+  inner_pot_material:   null            # 说明书只写「内锅/内胆」，未标材质；清洁章写「请勿用钢丝球清洗内锅，以免刮伤内锅表面」，说明有涂层但涂层种类未标注
+  inner_pot_thickness_mm: null          # 说明书未给内胆厚度
+  size_mm:              {w: 338, h: 235, d: 270, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 原文按「长×宽×高」标 338×270×235mm，已换算为 宽×高×深；同页标净重 5.9kg。属网络核对值}
+  weight_kg:            {value: 5.9, unit: kg, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  energy_grade:         {value: 1, unit: 级, source: 'ocr#img:产品简介.png', note: 能效表口径}
+  thermal_efficiency_pct: {value: 90, unit: '%', source: 'ocr#img:产品简介.png'}
+  standby_power_w:      {value: 1.6, unit: W, source: 'ocr#img:产品简介.png'}
+  keep_warm_energy_wh:  {value: 34, unit: W·h, source: 'ocr#img:产品简介.png'}
+  keep_warm_max_h:      {value: 24, unit: h, source: 'ocr#img:产品简介.png', note: 原文「产品可以实现 24 小时保温，但是建议保温不超过 5 小时，以免米饭食物颜色变黄，变味」}
+  keep_warm_advice_h:   {value: 5, unit: h, source: 'ocr#img:产品简介.png', note: 原文「产品可以实现 24 小时保温，但是建议保温不超过 5 小时，以免米饭食物颜色变黄，变味」}
+  timer_max_h:          {value: 12, unit: h, source: 'ocr#img:产品简介.png', note: 原文「预约时间建议不要超过 12 小时，否则米饭会出现异味」；短按「预约」+10 分钟、长按 +1 小时}
+
+missing:
+  - capacity_cups（说明书只给水位线刻度，未给额定煮饭量）
+  - inner_pot_material（说明书未标内胆材质）
+
+pending_verify:
+  - size_mm —— 网络值（web），核对包装标贴或实测后转 confirmed
+  - weight_kg —— 网络值，需实测或查铭牌

@@ -1,0 +1,15 @@
+version: 1
+examples:
+  - user: "我的手机保修几年？"
+    assistant_action: knowledge_search
+    assistant_arguments:
+      query: "手机保修年限"
+      journey: after_sales
+    note: 政策类问题走知识库，并收窄到售后政策链路。
+
+  - user: "有没有 256G 的手机？"
+    assistant_action: search_products
+    assistant_arguments:
+      category: phone
+      keyword: 256G
+    note: 硬参数走商品工具，不从知识库猜。

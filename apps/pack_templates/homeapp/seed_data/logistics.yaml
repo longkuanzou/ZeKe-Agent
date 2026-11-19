@@ -1,0 +1,45 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+logistics:
+- order_id: H2609
+  carrier: 德邦快递
+  tracking_no: DB2601000
+  status: 运输中
+  updated_at: '@now-12h'
+- order_id: H2610
+  carrier: 德邦快递
+  tracking_no: DB2601001
+  status: 运输中
+  updated_at: '@now-11h'
+- order_id: H2611
+  carrier: 德邦快递
+  tracking_no: DB2601002
+  status: 运输中
+  updated_at: '@now-5d'
+- order_id: H2612
+  carrier: 京东物流
+  tracking_no: JD2601003
+  status: 运输中
+  updated_at: '@now-9h'
+- order_id: H2613
+  carrier: 顺丰速运
+  tracking_no: SF2601004
+  status: 运输中
+  updated_at: '@now-8h'
+- order_id: H2614
+  carrier: 京东物流
+  tracking_no: JD2601005
+  status: 运输中
+  updated_at: '@now-7h'
+- order_id: H2615
+  carrier: 德邦快递
+  tracking_no: DB2601006
+  status: 运输中
+  updated_at: '@now-6h'
+- order_id: H2616
+  carrier: 顺丰速运
+  tracking_no: SF2601007
+  status: 已签收
+  updated_at: '@now-2d'

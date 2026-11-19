@@ -1,0 +1,57 @@
+# 安装条件：安装咨询（s2）与上门前确认的唯一依据
+# 洗衣机看的是 电/水/排水/门，不是空调的 电/位/管
+product_id: littleswan-tg100v618plus
+updated: 2026-10-22
+
+electrical:
+  supply: {value: "220V~/50Hz", source: "ocr#产品介绍.jpg"}
+  rated_power_w: {value: 1800, source: "ocr#产品介绍.jpg"}
+  rated_current_a: {value: 10, source: "ocr#产品介绍.jpg"}
+  dedicated_circuit: {value: null, source: null,
+    note: 说明书未强制要求专用回路；带加热洗的机型功率大，建议独立回路加漏电保护（建议口径，非厂家强制）}
+  grounding: {value: true, source: null,
+    note: 说明书未单列接地章节，按 I 类电器通用要求必须可靠接地}
+
+water:
+  inlet_required: {value: true, source: "ocr#产品介绍.jpg"}
+  pressure_mpa: {min: 0.03, max: 1.0, source: "ocr#产品介绍.jpg",
+    text: 使用水压 0.03~1.0MPa；低于下限表现为进水超时，高于上限需加装减压阀}
+  inlet_filter: {source: "ocr#清洁保养.jpg",
+    text: 进水阀处有过滤网，进水变慢时清洗；清洗前先关进水龙头}
+
+drain:
+  type: {value: 上排水, source: "ocr#产品介绍.jpg"}
+  sink_required: {value: false, source: "ocr#产品介绍.jpg",
+    text: 上排水机型不需要地漏，可排入水槽或专用排水接口；不能按「必须留地漏」回答}
+  max_hose_height_mm: {value: 1000, source: "ocr#常见问题.jpg",
+    text: 排水管最高处请勿超过 100cm，超了排水泵顶不上去，会报排水超时}
+
+space:
+  front_clearance_mm: {value: 900, source: "ocr#产品介绍.jpg",
+    text: 机器正面需预留 900mm 以上使用空间（开门、取放衣物），不是搬运通过尺寸}
+  embed_gap: {source: "ocr#产品介绍.jpg",
+    text: 嵌入式安装时左右后上最小间隙，见说明书图示；只用于散热与维护，不含开门空间}
+  level_ground: {value: true, source: "ocr#常见问题.jpg",
+    text: 必须放在坚固水平地面并调平；不平会直接表现为脱水震动大、噪音大、机器移位}
+
+transport:
+  transport_bolts: {value: 4, source: "ocr#常见问题.jpg",
+    text: 机身背面 4 颗运输螺栓，安装后必须拆除；不拆就脱水会剧烈震动甚至损坏}
+  max_size_mm: {w: 595, h: 850, d: 632, source: "ocr#产品介绍.jpg",
+    text: 搬运/过门按最大外形尺寸（含凸出件）计算}
+  net_weight_kg: {value: 64, source: "ocr#产品介绍.jpg"}
+
+pre_visit_checklist:
+  - 放置位置是否有进水龙头（普通 3/4 螺纹）
+  - 是否有地漏（上排水机型不是必须，但用户常误以为必须）
+  - 插座位置与是否带地线，会不会被机身挡住
+  - 是否需要叠放/嵌入柜体（决定预留间隙）
+  - 从楼下到房间最窄门口宽度、楼梯转角
+  - 楼层与是否有电梯（影响上楼费）
+
+chargeable_items: [上楼费, 远程上门, 加长进水管, 拆门/扩门洞, 加装水龙头]
+not_applicable: [高空作业费, 加长冷媒管, 支架费]      # 洗衣机不产生这些费用
+
+missing:
+  - door_width_min_mm（说明书未给搬运最小门宽，只有 900mm 使用空间）
+  - 是否强制专用回路（说明书未写，按建议口径回答）

@@ -1,0 +1,27 @@
+product_id: siemens-wg52a108aw
+status: ready
+appliance: washer
+appliance_cn: 洗衣机
+brand: siemens
+brand_cn: 西门子
+model: WG52A108AW
+model_slug: WG52A108AW
+indoor_model: null
+outdoor_model: null
+product_type: 滚筒洗衣机（前开式，单洗）
+product_type_source: 型号编码 + 技术数据页
+colloquial: 10公斤滚筒
+energy_grade: 1
+launch_year: null
+updated: 2026-10-23
+
+source_docs:
+  - file: 说明书.pdf
+
+material_status:
+  text_extracted: true
+  text_source: pdf
+  ocr_needed: false
+  ocr_done: false
+
+notes:

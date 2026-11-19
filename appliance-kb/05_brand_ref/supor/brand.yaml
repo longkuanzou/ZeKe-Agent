@@ -1,0 +1,31 @@
+# 苏泊尔品牌级信息
+policy_id: brand.supor.profile
+brand: supor
+brand_cn: 苏泊尔
+appliance_scope: [rice_cooker]
+verified: true
+source: "02_ingest/rice_cooker/supor/F50X96/ocr.md（售后服务章节）；03_product/rice_cooker/supor/*/product.yaml"
+updated: 2026-10-23
+
+service:
+  hotline: "400-8899-717"
+  hotline_source: "F50X96 系列通用本售后服务页原文「请拨打全国服务热线：400-8899-717」"
+  hotline_hours: null
+  wechat: 官方微信公众号
+  wechat_source: "同上，「或者关注官方微信公众号」"
+  app: null
+  app_note: 说明书未提到独立 App；部分带微压/WiFi 的机型另有配网说明，不要凭空说"苏泊尔 App"
+
+standard:
+  source: null
+  note: 本批资料未列执行标准号，不得引用 GB 4706.19 之类通用标准号充当依据
+
+notes:
+  - 苏泊尔电饭煲的内胆材质在系列通用本里是多项并列（不锈钢/铝合金+涂层/陶瓷/搪瓷），
+    未指定到型号前不得回答"什么内胆"——这是本库已记录的确定性缺口
+  - 苏泊尔一条资料常覆盖 20 多个型号（F50X96 那份），回答必须限定到用户的实际型号
+  - 微压阀、低糖甑这类"配件决定功能"的设计是苏泊尔的主要差异点，见各型号 usage.yaml
+
+todo:
+  - 补官方 App/小程序服务入口
+  - 补执行标准号（需从包装或铭牌取证）

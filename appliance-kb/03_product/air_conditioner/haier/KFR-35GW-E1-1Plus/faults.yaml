@@ -1,0 +1,15 @@
+# 型号差异型故障信息（现象主库在 04_scenario/s4_troubleshoot/symptoms.yaml）
+product_id: haier-kfr-35gw-e1-1plus
+updated: 2026-10-22
+
+codes:
+  has_code_display: null
+  code_prefixes: []
+  rule: null
+  confidence: 该型号说明书未提供故障代码表
+
+normal_phenomena_ref: 04_scenario/s4_troubleshoot/symptoms.yaml
+model_specific_notes:
+  - 有自清洁/除菌自清洁；用户问“怎么清洗”可给自清洁步骤
+missing:
+  - 逐条故障代码含义（说明书未提供）

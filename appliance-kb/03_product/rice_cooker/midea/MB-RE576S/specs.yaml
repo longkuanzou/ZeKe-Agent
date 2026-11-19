@@ -1,0 +1,34 @@
+# 参数：售前（s1）与安装/放置（s2）的唯一依据
+# 说明书没印的参数一律 null 并进 missing —— 宁可说「查不到」，不能拿同品牌同容积机型代填
+product_id: midea-mb-re576s
+updated: 2026-10-23
+
+specs:
+  capacity_l:           {value: 5.0, unit: L, source: 'ocr#img:产品简介.jpg + 业务方核铭牌（2026-10-23）', confidence: confirmed, note: 说明书未印额定容积；水位线最大 10 杯推断 5L 级、官网产品页 5.0L，2026-10-23 业务方核机身铭牌确认 5.0L。三条证据一致，已转 confirmed}
+  capacity_cups:        null            # 说明书未给额定煮饭量
+  alias_model:          null
+  power_w:              {value: 760, unit: W, source: 'ocr#img:产品简介.jpg', note: 额定输入功率；5L 与 4L 底盘加热机型常见值同为 750~760W，功率不能用来区分容量}
+  voltage:              {value: 220V~，50Hz, source: 'ocr#img:产品简介.jpg'}
+  heating_type:         {value: 底盘加热, source: 'ocr#img:产品简介.jpg', confidence: confirmed, note: 故障章写「电热盘上有异物」，属底盘加热表述}
+  inner_pot_material:   {value: 316L 不锈钢内胆（零涂层）, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 说明书只写「内锅」，未标材质。品牌官方产品页标「316L 不锈钢、1.2mm、零涂层」——这条解释了此前的矛盾：清洁保养页 OCR 出现「可以用钢丝球擦洗」并不是误识，零涂层不锈钢确实耐刮；同品牌另三款是可刮伤的涂层胆才写禁用钢丝球。答复口径改为按机型区分，不再统一说「不可用钢丝球」}
+  inner_pot_thickness_mm: {value: 1.2, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  size_mm:              {w: 323, h: 252, d: 262, unit: mm, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web, note: 原文按「长×宽×高」标 323×262×252mm，已换算为 宽×高×深；属网络核对值}
+  weight_kg:            {value: 4.1, unit: kg, source: 'web:品牌官方产品页/电商详情页（2025-04 抓取）', confidence: web}
+  energy_grade:         null            # 说明书未印能效表
+  thermal_efficiency_pct: null
+  standby_power_w:      null
+  keep_warm_energy_wh:  null
+  keep_warm_max_h:      null            # 说明书未声明最长保温时长
+  keep_warm_advice_h:   {value: 5, unit: h, source: 'ocr#img:产品简介.jpg', note: 原文「建议在保温在 5 小时内为佳」，未声明最长保温时长}
+  timer_max_h:          {value: 12, unit: h, source: 'ocr#img:产品简介.jpg', note: 原文「预约时间建议不要超过 12 小时」；「热饭」「保温」「黄焖鸡」「排骨汤」「原汁蚝」不能预约}
+
+missing:
+  - capacity_cups（说明书只给水位线刻度，未给额定煮饭量）
+  - energy_grade / thermal_efficiency_pct / standby_power_w / keep_warm_energy_wh（说明书未印能效表）
+  - keep_warm_max_h（说明书未声明最长保温时长）
+
+pending_verify:
+  - size_mm —— 网络值（web），核对包装标贴或实测后转 confirmed
+  - weight_kg —— 网络值，需实测或查铭牌
+  - inner_pot_material / inner_pot_thickness_mm —— 网络值，核对说明书食品接触材料页后转 confirmed
+  - capacity_l —— 网络值确认，仍建议核铭牌

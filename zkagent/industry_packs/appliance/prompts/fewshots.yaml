@@ -1,0 +1,40 @@
+# 少样本示例（P2 起被编排层消费）
+#
+# 参数名必须与工具真实 schema 一致（`knowledge_search` 的参数是 query / doc_types / journey，
+# 没有 `filters` 这一层）。示例的作用是教会两件事：
+#   1. **硬参数**（型号/容量/能效/尺寸/价格/是否支持某功能）→ search_products / get_product；
+#   2. **软知识**（政策/流程/步骤/注意事项）→ knowledge_search，并用 journey 收窄链路。
+version: 1
+examples:
+  - user: "我的空调保修几年？"
+    assistant_action: knowledge_search
+    assistant_arguments:
+      query: "空调保修年限"
+      journey: after_sales
+    note: 政策类问题走知识库，并用 journey 收窄到「售后政策」链路；回答中给出引用来源。
+
+  - user: "有没有支持烘干的洗衣机？"
+    assistant_action: search_products
+    assistant_arguments:
+      category: washer
+      feature: 烘干
+    note: 「是否支持烘干」是**功能配置**，属于商品参数，必须查商品目录，不要用退货/安装文档推断。
+
+  - user: "洗衣机显示 E1 不进水怎么办？"
+    assistant_action: knowledge_search
+    assistant_arguments:
+      query: "洗衣机 E1 不进水 排查"
+      journey: troubleshoot
+    note: 故障码属于「故障排查」链路；拿到步骤后按步骤引导，不要直接承诺「一定能修好」。
+
+  - user: "帮我看下订单 A1001 到哪了"
+    assistant_action: get_logistics
+    assistant_arguments:
+      order_id: A1001
+    note: 物流查询属读操作，可直接执行。
+
+  - user: "我要退掉这个订单"
+    assistant_action: get_order
+    assistant_arguments:
+      order_id: "<待用户确认的订单号>"
+    note: 写操作前必须先查询订单，确认归属与业务状态。

@@ -1,0 +1,656 @@
+# 故障现象主库（跨型号、跨品类）
+# 为什么放这里而不是型号目录：不制冷/漏水/噪音这些问题，十个型号的排查路径几乎一样。
+# 型号目录只放差异（代码规则、保护温度、特殊现象），避免同一套步骤抄十遍。
+#
+# ── 2026-10-23 改版说明 ────────────────────────────────
+# 以前这份文件只有空调现象，导致洗衣机和电饭煲的故障场景是空的：客服只能靠
+# 空调的"滤网/室外温度/遥控器"那套话术硬套，问洗衣机"不脱水"时无从下手。
+# 现在每条都带 appliance，新增 ws_*（洗衣机 15 条）与 rc_*（电饭煲 14 条）。
+#
+# 命名约定：
+#   ac_ / 无前缀  空调（沿用旧 id，因为 faq.yaml 有引用，不重命名）
+#   ws_           洗衣机
+#   rc_           电饭煲
+#   共享条目       appliance 写多个品类（如触电、焦味、报代码）
+#
+# severity 定义：
+#   normal        正常现象，解释即可，不建单
+#   attention     需要用户配合排查，可自助
+#   stop_and_call 立即停机 + 报修，禁止继续自检（见 _shared/safety_redlines.md）
+#
+# 字段：appliance 为适用品类列表（必填）；triage 为判定链，按顺序执行，命中即停；
+#       self_help 为可引导的自查步骤；escalate_when 为升级报修条件；source 标注依据
+version: 2
+updated: 2026-10-23
+
+symptoms:
+  # ══════════════════════════════════════════════ 共享（三品类）
+  - id: electric_shock
+    appliance: [air_conditioner, washer, rice_cooker]
+    cn: 摸机身有麻手感 / 触电 / 漏电
+    user_phrases: [麻手, 触电感, 漏电, 摸着有电, 一碰就麻]
+    severity: stop_and_call
+    self_help: []
+    escalate_when: [立即]
+    source: _shared/safety_redlines.md（安全红线，任何品类都适用）
+    note: 第一句必须是"先断开电源开关，不要再碰、不要再用"，不要先问原因、不要先解释
+
+  - id: burning_smell
+    appliance: [air_conditioner, washer, rice_cooker]
+    cn: 焦味 / 糊味 / 冒烟
+    user_phrases: [有焦味, 烧焦味, 冒烟了, 糊味, 插座发热]
+    severity: stop_and_call
+    self_help: []
+    escalate_when: [立即]
+    source: _shared/safety_redlines.md
+    note: 制热时外机冒"白汽"是化霜，不是冒烟，要区分；但只要有焦味一律按停机处理
+
+  - id: code_display
+    appliance: [air_conditioner, washer, rice_cooker]
+    cn: 面板显示故障代码
+    user_phrases: [显示E1, 出现代码, 面板闪字母, 报错, 显示Ub, 显示630]
+    severity: attention
+    route: s4 的"代码分支"，见 playbook.md#代码分支
+    note: >
+      代码含义必须查 05_brand_ref/{brand}/fault_codes.yaml，查不到不猜。
+      三个品类的代码体系互不相通，连同一品牌的空调与电饭煲也不相通（美的 E1 是通信、美的电饭煲 E1 是底部传感器）。
+
+  # ══════════════════════════════════════════════ 空调
+  - id: not_cooling
+    appliance: [air_conditioner]
+    cn: 不制冷 / 不凉 / 吹热风
+    user_phrases: [不制冷, 不凉, 吹热风, 感觉不到冷, 没冷气, 制冷没效果]
+    severity: attention
+    triage:
+      - check: 模式是否在送风/除湿
+        if_hit: 送风模式不制冷，切到制冷模式
+      - check: 设定温度是否低于室温
+        if_hit: 把设定温度调低 2~3℃ 再看
+      - check: 室外温度是否超过 43℃（或低于 18℃）
+        if_hit: 超出工作范围，属保护性运转，效果下降正常
+      - check: 滤网是否脏堵
+        if_hit: 按 s3 滤网清洗步骤清洗
+      - check: 门窗是否敞开、是否有热源/西晒
+        if_hit: 关门窗、拉窗帘
+    self_help: [切换模式, 调低设定温度, 清洗滤网, 关门窗]
+    escalate_when: [以上全排除仍不制冷, 出风口吹出的风与环境温度无差别, 外机不转]
+    source: 海尔 p29；美的 p31
+
+  - id: not_heating
+    appliance: [air_conditioner]
+    cn: 不制热 / 吹冷风
+    user_phrases: [不制热, 吹冷风, 冬天不热, 开了半天不暖]
+    severity: attention
+    triage:
+      - check: 是否刚开机（制热有防冷风保护，前几分钟不出热风）
+        if_hit: 等 3~5 分钟，属正常预热
+      - check: 设定温度是否高于室温
+        if_hit: 调高设定温度
+      - check: 室外温度是否低于 -7℃
+        if_hit: 低于工作范围，制热量会明显衰减，可开电辅热
+      - check: 是否在除霜（外机冒蒸汽、内机暂停出风）
+        if_hit: 除霜属正常，几分钟后恢复
+      - check: 导风板是否朝上
+        if_hit: 制热时导风板应朝下
+    self_help: [等待预热, 调高温度, 开电辅热, 导风板朝下]
+    escalate_when: [预热 10 分钟后仍吹冷风, 外机结霜不化, 频繁启停]
+    source: 海尔 p29-30；美的 p31
+
+  - id: weak_effect
+    appliance: [air_conditioner]
+    cn: 效果变差 / 不如以前
+    user_phrases: [没以前凉, 效果差了, 要开很久才凉, 风变小了]
+    severity: attention
+    triage:
+      - check: 滤网/蒸发器是否积灰
+        if_hit: 清洗滤网；蒸发器脏需上门清洗（收费项目）
+      - check: 是否缺冷媒（管路结霜、外机细管结霜）
+        if_hit: 转报修，禁止自行加注
+      - check: 房间是否新增热源/人员变多/门窗密封变差
+        if_hit: 属环境因素，解释即可
+      - check: 是否季节变化（夏季极端高温）
+        if_hit: 属工况衰减，正常
+    self_help: [清洗滤网, 检查门窗密封]
+    escalate_when: [清洗后无改善, 管路结霜, 怀疑缺冷媒]
+    source: 海尔 p30
+
+  - id: water_leak_indoor
+    appliance: [air_conditioner]
+    cn: 室内机漏水 / 滴水到地上
+    user_phrases: [漏水, 滴水, 地上有水, 内机流水]
+    severity: stop_and_call
+    triage:
+      - check: 是否为高湿环境下出风口凝露滴水（相对湿度>80%）
+        if_hit: 属正常物理现象，关门窗降湿即可（仅限"出风口滴水"，不是机身漏水）
+      - check: 内机是否倾斜、排水管是否打折/堵塞
+        if_hit: 需上门处理，不引导用户自行拆机
+    self_help: []
+    escalate_when: [立即]
+    source: 海尔 p30（明确"制冷或除湿运转中有水漏出→立即停机联系维修"）
+
+  - id: outlet_drip
+    appliance: [air_conditioner]
+    cn: 出风口滴水（高湿）
+    user_phrases: [出风口滴水, 风口有水珠, 冒水]
+    severity: normal
+    explain: 室内湿度高于 80%、长时间制冷时，冷风遇到湿热空气会在出风口凝露，属正常物理现象。关门窗、降低湿度可缓解。
+    source: 美的 p31；海尔 p29
+
+  - id: noise_water_flow
+    appliance: [air_conditioner]
+    cn: 流水声 / 咕嘟声
+    user_phrases: [流水声, 咕噜声, 哗哗响, 里面有水声]
+    severity: normal
+    explain: 制冷剂在管路中流动、压缩机启停时产生的声音，不是故障。
+    source: 海尔 p29
+
+  - id: noise_crack
+    appliance: [air_conditioner]
+    cn: 噼啪声 / 咔哒声
+    user_phrases: [噼啪响, 咔一声, 塑料响, 热胀冷缩]
+    severity: normal
+    explain: 塑料件热胀冷缩引起，开关机、模式切换时明显，属正常。
+    source: 海尔 p29
+
+  - id: noise_outdoor_loud
+    appliance: [air_conditioner]
+    cn: 外机噪音大
+    user_phrases: [外机吵, 嗡嗡响, 声音比以前大, 邻居投诉]
+    severity: attention
+    triage:
+      - check: 外机是否安装不水平、支架松动、外壳共振
+        if_hit: 需上门紧固/调整（属安装问题，可申请返修）
+      - check: 外机周围是否有遮挡物导致回风不畅
+        if_hit: 清理遮挡
+      - check: 是否刚开机/化霜时（噪音短时升高）
+        if_hit: 正常
+    self_help: [清理外机周围遮挡]
+    escalate_when: [持续异响, 金属撞击声, 支架松动]
+    source: 行业通用（说明书未单列）；金属撞击声按 safety_redlines 处理
+
+  - id: bad_smell
+    appliance: [air_conditioner]
+    cn: 出风有异味
+    user_phrases: [异味, 臭味, 霉味, 吹出来有味]
+    severity: attention
+    triage:
+      - check: 滤网/蒸发器是否积灰发霉
+        if_hit: 清洗滤网；异味持续需上门深度清洗
+      - check: 是否室内其他气味被吸入（新家具、油漆、香烟）
+        if_hit: 属环境气味，通风即可
+    self_help: [清洗滤网, 开窗通风]
+    escalate_when: [清洗后仍有霉味, 怀疑内部发霉]
+    source: 海尔 p29
+
+  - id: no_power
+    appliance: [air_conditioner]
+    cn: 通电后不开机 / 无显示
+    user_phrases: [开不了机, 没反应, 屏幕不亮, 插上电没动静]
+    severity: attention
+    triage:
+      - check: 插座是否有电（用其他电器试）
+        if_hit: 检查回路/空开
+      - check: 是否跳闸或漏保动作
+        if_hit: 复位；反复跳闸按 stop_and_call 处理
+      - check: 遥控器是否没电
+        if_hit: 换电池
+      - check: 是否刚断电（压缩机保护 3 分钟）
+        if_hit: 等 3 分钟再开
+    self_help: [换插座测试, 检查空开, 换遥控器电池, 等 3 分钟]
+    escalate_when: [插座有电仍不开机, 反复跳闸]
+    source: 海尔 p29；美的 p24
+
+  - id: tripping_breaker
+    appliance: [air_conditioner]
+    cn: 空开/漏保频繁跳闸
+    user_phrases: [跳闸, 空开跳了, 漏保跳, 一开就跳]
+    severity: stop_and_call
+    explain: 说明书把"保险丝或断路器经常断路"列为必须立即停机并联系维修的情况，多为线路或压缩机绝缘问题。
+    source: 海尔 p30
+    self_help: []
+
+  - id: auto_switch_fan
+    appliance: [air_conditioner]
+    cn: 制冷时自动转送风
+    user_phrases: [自己变送风, 自动跳模式, 一会儿不凉]
+    severity: normal
+    explain: 为防止换热器积霜，机器会自动短暂转送风，之后回到制冷。
+    source: 海尔 p29
+
+  - id: no_restart_3min
+    appliance: [air_conditioner]
+    cn: 关机后再开不能立即启动
+    user_phrases: [关机再开没反应, 要等一会才能开, 按了没反应]
+    severity: normal
+    explain: 压缩机自我保护，停机后约 3 分钟才能重启。
+    source: 海尔 p29
+
+  - id: outdoor_steam
+    appliance: [air_conditioner]
+    cn: 制热时外机冒蒸汽
+    user_phrases: [外机冒烟, 外机出白气, 冒蒸汽]
+    severity: normal
+    explain: 化霜时产生的蒸汽，不是冒烟。若伴随焦味按 stop_and_call 处理。
+    source: 海尔 p30
+
+  - id: indoor_mist
+    appliance: [air_conditioner]
+    cn: 室内机冒水雾
+    user_phrases: [喷白雾, 冒雾气, 出白烟]
+    severity: normal
+    explain: 骤冷的室内空气吹出形成冷凝水雾，属正常。
+    source: 海尔 p29
+
+  - id: wifi_offline
+    appliance: [air_conditioner]
+    cn: APP 频繁离线
+    user_phrases: [老掉线, APP 显示离线, 连不上网]
+    severity: attention
+    triage:
+      - check: 是否连的 5GHz
+        if_hit: 只支持 2.4GHz，重新配网
+      - check: 路由器是否长期未重启、双频合一
+        if_hit: 重启路由器、关闭多频合一
+      - check: 同一路由器下设备是否过多（>10）
+        if_hit: 减少设备或换路由
+      - check: Wi-Fi 名是否含中文/特殊字符
+        if_hit: 改名后重新配网
+    self_help: [确认 2.4GHz, 重启路由器, 手机靠近空调, 重新配网]
+    escalate_when: [换路由仍掉线, 语音机问天气正常但 APP 离线]
+    source: 海尔 p31
+
+  # ══════════════════════════════════════════════ 洗衣机
+  - id: ws_vibration
+    appliance: [washer]
+    cn: 震动大 / 机器移位 / 脱水时"撞桶"
+    user_phrases: [震动大, 抖得厉害, 跳舞, 移位了, 咣咣响, 撞桶]
+    severity: attention
+    triage:
+      - check: 背面运输固定螺栓是否已拆除（4 颗、13 号扳手）
+        if_hit: 必须拆除并装入孔塞；不拆就脱水会剧烈震动，属安装遗漏，可申请返修
+      - check: 机身是否水平、四个底脚是否锁紧
+        if_hit: 对角线按压顶盖看是否晃动，调平后锁紧防松螺母
+      - check: 地面是否坚固（木地板/软地面会放大震动）
+        if_hit: 换位置或加垫板
+      - check: 是否单件大件（毛毯/羽绒服）或衣物过少
+        if_hit: 大小件混装，避免单件偏心
+    self_help: [检查并拆除运输螺栓, 调平锁紧底脚, 大小件混装]
+    escalate_when: [拆除螺栓且调平后仍剧烈震动, 伴随金属撞击声]
+    source: 西门子 p30；小天鹅 TG10K60 常见问题（"运输螺栓未拆除 / 未安装在坚固水平地面"）
+    note: 首装就报振动，九成是运输螺栓没拆——这条是洗衣机安装里最高频的上门返工原因
+
+  - id: ws_no_spin
+    appliance: [washer]
+    cn: 不脱水 / 脱水无力 / 脱水延时
+    user_phrases: [不脱水, 脱不干, 还在滴水, 脱水一直等, 转速慢]
+    severity: attention
+    triage:
+      - check: 是否衣物太少或单件大件（偏心保护会先低速检测再重分布）
+        if_hit: 加几件衣物均匀分布后按启动键继续；属正常保护，不是故障
+      - check: 排水是否已完成（内筒有水时不进入脱水）
+        if_hit: 先解决排水（见 ws_no_drain）
+      - check: 面板是否显示泡沫相关提示或程序时间变长
+        if_hit: 检测到泡沫过多会静置/进水除泡，等程序自行完成
+      - check: 脱水转速设定是否偏低
+        if_hit: 下次选高转速程序
+      - check: 门是否已锁（未锁不脱水）
+        if_hit: 关好门听到锁合声
+    self_help: [调整衣物数量与分布, 提高脱水转速, 关好门]
+    escalate_when: [空桶单独脱水也不转, 报电机/测速类代码]
+    source: 西门子 p30；小天鹅 TG10K60（偏心检测约 100r/min，多次仍不平衡提示 Ub）
+
+  - id: ws_no_fill
+    appliance: [washer]
+    cn: 不进水 / 进水慢 / 一直进水不停
+    user_phrases: [不进水, 水进不来, 进水太慢, 一直进水, 水满了还在进]
+    severity: attention
+    triage:
+      - check: 水龙头是否打开、是否停水
+        if_hit: 打开水龙头
+      - check: 水压是否够（低于 0.1MPa / 流量不足 8L/min 会报进水故障）
+        if_hit: 先解决水压再报修，否则上门也无法判定
+      - check: 进水管是否弯折、被压、进水阀过滤网是否堵
+        if_hit: 理顺管路、清洗过滤网
+      - check: 是否一直进水不停（水位传感器或进水阀关不死）
+        if_hit: 断电停机并报修，属故障不是设置问题
+    self_help: [打开水龙头, 理顺进水管, 清洗进水阀过滤网]
+    escalate_when: [水压正常仍在报进水故障, 一直进水不停]
+    source: 西门子 p30 + p8（水压 0.1~1MPa，流量≥8L/min）；小天鹅 常见问题（洗涤/漂洗进水超时）
+
+  - id: ws_no_drain
+    appliance: [washer]
+    cn: 不排水 / 排水慢 / 排不干净
+    user_phrases: [不排水, 水排不出去, 排得慢, 内筒有水, 报排水故障]
+    severity: attention
+    triage:
+      - check: 排水管末端高度是否超过 100cm
+        if_hit: 降到 0~100cm 区间内；过高排水泵顶不上去
+      - check: 排水管是否弯折、被压、插入下水道过深
+        if_hit: 理顺并留出空隙；插入过深会形成虹吸/反压
+      - check: 排水管末端是否浸在排出的水里
+        if_hit: 抬高末端，会回流
+      - check: 排水泵滤网/泵腔是否有异物（毛发、硬币、扣子）
+        if_hit: 清理滤网与泵腔
+      - check: 机身后排水管管夹是否被拆掉（部分机型）
+        if_hit: 装回管夹
+    self_help: [调整排水管高度与走向, 清理排水泵滤网]
+    escalate_when: [管路与滤网都正常仍不排水, 排水泵无动作]
+    source: 西门子 p30 + p8；小天鹅 TG10K60 常见问题
+    note: 上排水机型先查"高度"和"是否浸入水中"，不要一上来让用户找地漏——两项都不是地漏问题
+
+  - id: ws_leak
+    appliance: [washer]
+    cn: 机器漏水 / 机身下面有水
+    user_phrases: [漏水, 地上有水, 机器底下有水, 滴水]
+    severity: stop_and_call
+    triage:
+      - check: 进水管螺纹接头是否拧紧（只能手拧，用工具会拧裂）
+        if_hit: 手拧紧固；已拧裂的必须换管
+      - check: 排水软管是否松脱/破损
+        if_hit: 重新固定或更换
+      - check: 是否在用 AquaStop 类安全进水管的机型，且面板报底座积水代码
+        if_hit: 关水龙头 + 断电，按安全停机处理，不能再开机试
+    self_help: []
+    escalate_when: [立即]
+    source: 西门子 p30（漏水）、p23（AquaStop/E23 类底座积水）
+    note: 漏水一律先停机（安全红线）；但"进水管接头没拧紧"这类用户自己能处理的，可以在停机后引导手拧
+
+  - id: ws_door_stuck
+    appliance: [washer]
+    cn: 门打不开
+    user_phrases: [门打不开, 打不开门, 门锁住了, 洗完门不开]
+    severity: attention
+    triage:
+      - check: 是否还在运行中（运行中门锁不放行）
+        if_hit: 属安全保护，等程序结束；西门子约 2 分钟后自动解锁
+      - check: 内筒是否还有水或温度过高
+        if_hit: 先完成排水/降温，再开门
+      - check: 是否停电/断电后未复位
+        if_hit: 通电后等解锁；仍不开则报修，禁止撬门
+    self_help: [等程序结束, 完成排水, 断电重启后等待解锁]
+    escalate_when: [程序结束 5 分钟后仍打不开, 听到门锁反复动作声]
+    source: 西门子 p30；小天鹅 TG10K60 常见问题
+    note: 绝对不引导撬门或拆门锁——机械强开会损坏门锁并可能夹手
+
+  - id: ws_bad_smell
+    appliance: [washer]
+    cn: 洗衣机有异味 / 发霉
+    user_phrases: [有味道, 霉味, 臭, 发霉, 洗完衣服有味]
+    severity: attention
+    triage:
+      - check: 门封圈褶皱处是否积水积毛絮
+        if_hit: 擦干并清理褶皱；每次洗后把门留一条缝
+      - check: 洗涤剂料盒是否残留结块
+        if_hit: 抽出清洗擦干
+      - check: 排水泵滤网是否积存脏物
+        if_hit: 清理滤网
+      - check: 是否长期只用低温快洗、从未做过筒清洁
+        if_hit: 跑一次高温筒自洁程序（有该功能的机型）
+    self_help: [擦干门封圈, 清洗料盒, 清理滤网, 跑筒自洁]
+    escalate_when: [以上都做过仍有异味, 怀疑内筒夹层积垢]
+    source: 说明书清洁保养章节 + 行业通用
+
+  - id: ws_poor_wash
+    appliance: [washer]
+    cn: 洗不干净
+    user_phrases: [洗不干净, 还是脏, 有印子, 领口没洗掉]
+    severity: attention
+    triage:
+      - check: 装载是否过量（超过最大负载）
+        if_hit: 减少装载，衣物需要翻滚空间
+      - check: 是否选了低温快洗而衣物较脏
+        if_hit: 提高水温或选长程序
+      - check: 洗涤剂是否不足/过量（过量反而残留）
+        if_hit: 按水质硬度与脏污程度调整用量
+      - check: 是否把不能机洗的衣物放进去了
+        if_hit: 看洗标，属使用问题
+    self_help: [减少装载, 提高水温, 调整洗涤剂用量]
+    escalate_when: [标准程序+正常装载仍洗不净]
+    source: 西门子 p30；小天鹅 常见问题（衣物太脏/洗涤剂剂量不足）
+
+  - id: ws_foam_extra_time
+    appliance: [washer]
+    cn: 洗涤时间变长 / 迟迟不结束
+    user_phrases: [时间变长了, 一直不结束, 洗了好久, 又加水了]
+    severity: normal
+    explain: 机器检测到泡沫过多会追加漂洗或静置消泡，程序时间会自动延长，属正常保护行为。下次减少洗涤剂用量或改用低泡型。
+    source: 西门子 p30；小天鹅 TG10K60 使用说明
+
+  - id: ws_no_power
+    appliance: [washer]
+    cn: 不通电 / 显示不亮
+    user_phrases: [不通电, 屏不亮, 按了没反应, 开不了机]
+    severity: attention
+    triage:
+      - check: 插座是否有电、插头是否插到位
+        if_hit: 换插座测试
+      - check: 是否跳闸（洗衣机+烘干同时用容易超载）
+        if_hit: 复位；反复跳闸按 stop_and_call
+      - check: 是否开启了童锁（面板无响应但灯亮）
+        if_hit: 长按带钥匙符号的按键约 3 秒解除
+    self_help: [换插座测试, 检查空开, 解除童锁]
+    escalate_when: [插座有电且未上锁仍不亮]
+    source: 小天鹅 TG10K60 常见问题；西门子 p30（儿童锁）
+
+  - id: ws_water_in_base
+    appliance: [washer]
+    cn: 底座积水报警 / 机器内部漏水保护触发
+    user_phrases: [报漏水保护, 底座有水, E23, F23]
+    severity: stop_and_call
+    self_help: []
+    escalate_when: [立即]
+    source: 西门子 fault_codes.yaml#E23（AquaStop 底座积水）
+    note: 这是真漏水信号，不是误报。先关水龙头再断电，不要复位后继续用
+
+  - id: ws_pump_noise
+    appliance: [washer]
+    cn: 排水时"嘎嘎"声
+    user_phrases: [排水有声音, 嘎嘎响, 泵响]
+    severity: normal
+    explain: 排水泵工作时的正常声音。若持续异响或伴随排水变慢，先清理排水泵滤网检查异物。
+    source: 西门子 p30
+
+  - id: ws_dry_not_dry
+    appliance: [washer]
+    cn: 洗烘一体/干衣机烘不干
+    user_phrases: [烘不干, 还是湿的, 烘干没效果]
+    severity: attention
+    triage:
+      - check: 机型是否带烘干（单洗机型不存在"烘干坏了"）
+        if_hit: 先纠正前提，别按故障排查
+      - check: 烘干负载是否过量（烘干容量通常小于洗涤容量）
+        if_hit: 减到烘干额定容量以内
+      - check: 干衣机冷凝器/绒毛滤网是否堵塞
+        if_hit: 清理滤网，堵塞会让烘干效率骤降
+      - check: 是否选了"熨烫/防皱"结束程序（故意保留微湿）
+        if_hit: 换"即穿"档
+    self_help: [确认机型带烘干, 减少负载, 清理绒毛滤网]
+    escalate_when: [负载正常、滤网已清仍完全不加热]
+    source: 03_product/washer/siemens/*/features.yaml#dry；说明书烘干章节
+
+  # ══════════════════════════════════════════════ 电饭煲
+  - id: rc_no_heat
+    appliance: [rice_cooker]
+    cn: 通电不加热 / 指示灯不亮
+    user_phrases: [不加热, 不热, 灯不亮, 按了没反应, 插上电没动静]
+    severity: attention
+    triage:
+      - check: 插座是否有电、电源线是否插到底
+        if_hit: 换插座测试，检查电源线有无破损
+      - check: 是否忘了放内锅，或内锅没放平
+        if_hit: 放好内锅并转动使其贴合（检锅保护，不是故障）
+      - check: 上盖是否完全合到位（部分机型盖未合不加热）
+        if_hit: 重新合盖听到卡合声
+      - check: 面板是否显示代码
+        if_hit: 走代码分支，查 05_brand_ref/{brand}/fault_codes.yaml
+      - check: 灯亮但不加热（硬件问题）
+        if_hit: 送修，不要引导反复通电
+    self_help: [换插座测试, 确认内锅放到位, 确认上盖合好]
+    escalate_when: [灯亮但不加热, 报传感器类代码]
+    source: 苏泊尔 F40H8093S 说明书 p6；美的电饭煲故障章；苏泊尔 fault_codes.yaml#E5（检不到锅）
+
+  - id: rc_not_cooked
+    appliance: [rice_cooker]
+    cn: 饭不熟 / 夹生 / 生芯
+    user_phrases: [饭不熟, 夹生, 硬, 有生米, 上面熟了下面没熟]
+    severity: attention
+    triage:
+      - check: 米水比例是否按内锅水位线加（不是按经验）
+        if_hit: 按对应米种水位线重新加水
+      - check: 功能是否选对（东北米/丝苗米/糙米的水量不同）
+        if_hit: 选对应米种或功能键
+      - check: 内锅底与加热盘之间是否有异物、水渍
+        if_hit: 擦干、清掉异物（可用 320# 砂纸清加热盘，说明书原话）
+      - check: 内锅是否变形（变形后贴合不良、受热不均）
+        if_hit: 内锅变形必须更换，继续用会导致持续夹生
+      - check: 蒸汽阀/微压阀是否装到位（漏汽会导致上层夹生）
+        if_hit: 装到位并听到卡合声
+      - check: 是否在高原（说明书标 0-2000 米）
+        if_hit: 超过 2000 米属超范围使用，需说明而不是报修
+      - check: 是否顶部远红外机型，且只有上层夹生
+        if_hit: 可能是远红外发热管开路，需送修
+    self_help: [按水位线加水, 选对功能, 擦干内锅底, 装好蒸汽阀]
+    escalate_when: [以上全排除仍夹生, 内锅变形, 只有上层夹生且是远红外机型]
+    source: 苏泊尔 F40H8093S p6；美的电饭煲故障章（米水比/功能/异物/蒸汽阀/内锅变形五条）
+    note: 说明书把"饭不好吃"全归到使用问题，一条都没指向电路——所以先按使用排查，别一上来就派修
+
+  - id: rc_overflow
+    appliance: [rice_cooker]
+    cn: 溢锅 / 米汤溢出
+    user_phrases: [溢锅, 汤溢出来, 冒出来, 弄得到处都是]
+    severity: attention
+    triage:
+      - check: 水是否超过对应刻度（粥类尤其容易超）
+        if_hit: 按粥的水位线加水，不要按饭的刻度
+      - check: 是否用了"煮饭"功能煮粥
+        if_hit: 换煮粥/稀饭功能，火力曲线不同
+      - check: 防溢电极/上盖密封处是否有水垢油污
+        if_hit: 清洁后重试
+      - check: 蒸汽阀是否堵塞（堵了会从盖边溢出）
+        if_hit: 拆下清洗
+    self_help: [按刻度加水, 换粥类功能, 清洁防溢电极, 清洗蒸汽阀]
+    escalate_when: [水量正确、功能正确仍大量溢出, 报防溢探头代码]
+    source: 苏泊尔说明书（煮粥大量溢出的故障条目）；美的电饭煲故障章
+
+  - id: rc_burn
+    appliance: [rice_cooker]
+    cn: 糊锅 / 焦饭 / 锅底发黑
+    user_phrases: [糊了, 焦了, 锅底黑, 有糊味]
+    severity: attention
+    triage:
+      - check: 水是否偏少、米是否过量
+        if_hit: 按刻度调整
+      - check: 内胆涂层是否脱落（脱落处局部过热会焦）
+        if_hit: 涂层脱落必须换内胆，不能继续用
+      - check: 加热盘上是否有异物或结垢
+        if_hit: 清理加热盘（320# 砂纸，说明书原话）
+      - check: 是否选了"煲仔饭/锅巴"类程序（本来就有锅巴）
+        if_hit: 属程序设定，不是故障
+    self_help: [按刻度调水量, 清理加热盘]
+    escalate_when: [涂层脱落, 水量正常仍焦, 控制板疑似异常]
+    source: 苏泊尔说明书；美的电饭煲（rice_crust 属正常，厚到发黑才异常）
+
+  - id: rc_keep_warm_fail
+    appliance: [rice_cooker]
+    cn: 不保温 / 保温不热 / 保温后饭变味
+    user_phrases: [不保温, 凉了, 保温没反应, 保温一会儿就凉]
+    severity: attention
+    triage:
+      - check: 是否按了"保温"键进入保温状态
+        if_hit: 手动进入保温
+      - check: 是否超过建议保温时长（多数建议 5~6 小时内）
+        if_hit: 属正常品质衰减，不是故障；建议缩短保温
+      - check: 部分机型保温有时限，超时自动断电
+        if_hit: 说明产品设定，不是坏了
+      - check: 保温时仍有异味/变色
+        if_hit: 密封圈夹异物或漏气，需清理或换密封圈
+    self_help: [手动进入保温, 缩短保温时间, 清理上盖边沿]
+    escalate_when: [刚煮好立即不保温, 报传感器类代码]
+    source: 美的电饭煲（24 小时保温但建议 5 小时内）；苏泊尔 SF40FC871（建议 6 小时内）
+
+  - id: rc_steam_leak
+    appliance: [rice_cooker]
+    cn: 蒸汽从盖边冒 / 漏汽
+    user_phrases: [边上冒汽, 漏气, 盖子漏汽, 噗噗冒气]
+    severity: attention
+    triage:
+      - check: 上盖密封圈是否错位、老化、夹了饭粒
+        if_hit: 取下清洗装回；老化开裂则换密封圈
+      - check: 蒸汽阀/微压阀是否装到位（微压机型要"顺时针闭合 + 凸点对位"）
+        if_hit: 按说明书方向重装，听到卡合声
+      - check: 内锅是否放平（倾斜会漏汽）
+        if_hit: 转动内锅使其贴合
+    self_help: [清洗装回密封圈, 重装蒸汽阀, 放平内锅]
+    escalate_when: [密封圈完好、阀已到位仍持续漏汽]
+    source: 苏泊尔微压机型说明书（微压阀逆时针开锁/顺时针闭合并对位凸点）；美的电饭煲
+
+  - id: rc_lid_stuck
+    appliance: [rice_cooker]
+    cn: 盖子打不开
+    user_phrases: [打不开盖, 盖子卡住, 开不了]
+    severity: attention
+    triage:
+      - check: 是否微压/压力机型且锅内仍有压力
+        if_hit: 等压力自然泄放（听到泄压声停止）再开，禁止强行撬
+      - check: 开盖扣是否被异物卡住
+        if_hit: 清理扣位周边
+    self_help: [等待泄压, 清理开盖扣]
+    escalate_when: [无压力仍打不开, 开盖机构损坏]
+    source: 苏泊尔微压机型说明书
+    note: 带压强开是烫伤事故来源，第一句必须是"等它自己泄压"
+
+  - id: rc_coating_peel
+    appliance: [rice_cooker]
+    cn: 内胆涂层脱落 / 内胆刮花
+    user_phrases: [涂层掉了, 内胆花了, 黑色掉下来, 粘锅]
+    severity: attention
+    triage:
+      - check: 内胆是不是零涂层不锈钢（如 316L 机型）
+        if_hit: 不存在"涂层脱落"，属误判，先纠正
+      - check: 是否用过钢丝球、金属铲、强碱清洁剂
+        if_hit: 涂层胆禁止钢丝球；已脱落只能换内胆
+      - check: 是否放进洗碗机洗过
+        if_hit: 碱性洗涤剂会破坏涂层，说明书明确禁止
+    self_help: [改用海绵/软布清洗, 改用木铲/硅胶铲]
+    escalate_when: [涂层已脱落, 需更换内胆]
+    source: 美的/苏泊尔清洁保养章节（禁用钢丝球、禁入洗碗机）
+    note: 这一条的答复必须按机型分流——不锈钢零涂层机型可以用钢丝球，涂层机型不行
+
+  - id: rc_low_sugar_ineffective
+    appliance: [rice_cooker]
+    cn: 低糖饭没效果
+    user_phrases: [低糖饭没用, 血糖还是高, 低糖怎么做的]
+    severity: attention
+    triage:
+      - check: 是否放了配套低糖甑
+        if_hit: 不放甑就是普通煮饭，必须用甑才走低糖流程
+      - check: 是否选了"低糖饭"功能（不是普通煮饭）
+        if_hit: 切换功能
+    self_help: [放入低糖甑, 选低糖饭功能]
+    escalate_when: []
+    source: 苏泊尔 F40H9083S 说明书
+    note: 说明书没有降糖比例与检测报告，禁止回答具体降糖百分比；用户有血糖相关诉求时建议咨询医生
+
+  - id: rc_relay_click
+    appliance: [rice_cooker]
+    cn: 工作中有"咔嗒"通断声
+    user_phrases: [咔嗒响, 哒哒声, 有响声]
+    severity: normal
+    explain: 继电器/温控器通断的正常声音，不是故障。
+    source: 美的电饭煲故障章
+
+  - id: rc_steam_normal
+    appliance: [rice_cooker]
+    cn: 上盖蒸汽阀冒白汽
+    user_phrases: [冒白汽, 出汽, 冒气]
+    severity: normal
+    explain: 微压/排气设计的正常排气，靠蒸汽阀控压，不要堵住出汽口。
+    source: 美的电饭煲故障章
+
+  - id: rc_rice_crust
+    appliance: [rice_cooker]
+    cn: 锅底有一层薄锅巴
+    user_phrases: [锅巴, 底下焦一层]
+    severity: normal
+    explain: 底盘加热在最后焖饭阶段升温收水，薄锅巴属正常；厚到发黑才是异常。
+    source: 美的电饭煲故障章

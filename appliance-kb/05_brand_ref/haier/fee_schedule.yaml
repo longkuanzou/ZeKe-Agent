@@ -1,0 +1,150 @@
+# 海尔空调收费标准
+#
+# 说明书的边界没有变：p32 只列"哪些项可能收费"和"可去海尔智家 App-服务-收费标准自查"，**没给金额**。
+# 2026-10-23 按用户要求补入行业参考区间，但性质必须说清：
+#   price_basis 说明这些数字是市场公开报价区间，不是海尔官方标准价。
+#   所以 price_verified 保持 false，答复时只能说区间，不能说"海尔的收费标准是 100 元"。
+policy_id: brand.haier.fee_schedule
+brand: haier
+brand_cn: 海尔
+applies_to: {appliance: [air_conditioner]}
+source: "说明书 p32（项目清单与计费方式）；金额为行业参考，见 price_basis"
+verified: true                  # 项目清单与计费口径有说明书依据
+price_verified: false           # 金额未经品牌核实
+price_basis: >
+  2025 年主流电商平台与本地服务商公开报价区间（含材料，不含税），
+  一线城市取上沿、三四线下沿；仅用于给用户一个心理预期，不构成报价。
+price_source_url: "海尔智家 App - 服务 - 收费标准（用户自查入口，说明书 p32）"
+updated: 2026-10-23
+
+principle: >
+  安装基础服务通常含在售价内；因用户安装环境、个性需求产生的辅加材料或特殊服务项目需另付。
+  所有收费项须在动工前告知并经用户同意。
+
+items:
+  - key: extra_pipe
+    cn: 加长连接管（含保温棉、信号线）
+    unit: 米
+    price_min: 80
+    price_max: 120
+    verified: false
+    note: 各型号最大长度不同（E1-1 为 10m），超 5m 需按型号追加冷媒（20g/m）
+  - key: add_refrigerant
+    cn: 补充冷媒
+    unit: 公斤
+    price_min: 80
+    price_max: 150
+    verified: false
+    note: 只在加长管超限或检修缺冷媒时产生；不得按"每年加一次"推销
+  - key: high_altitude
+    cn: 高空作业（4 楼及以上墙外施工）
+    unit: 台
+    price_min: 100
+    price_max: 200
+    verified: false
+    threshold: 4 楼及以上 + 墙外施工
+    note: 需吊绳/吊篮/吊板作业的单独议价，常见 300~600 元
+  - key: bracket
+    cn: 安装支架
+    unit: 副
+    price_min: 40
+    price_max: 180
+    verified: false
+    note: 普通角钢 40~80；不锈钢 80~120；柜机落地架 100~180
+  - key: drilling
+    cn: 打孔
+    unit: 个
+    price_min: 50
+    price_max: 150
+    verified: false
+    note: 砖墙 50~80；钢筋混凝土/水钻 80~150；玻璃开孔另议
+  - key: dismantle_old
+    cn: 拆旧机
+    unit: 台
+    price_min: 80
+    price_max: 250
+    verified: false
+    note: 挂机 80~150，柜机 150~250；含回收另议
+  - key: relocation
+    cn: 移机（拆 + 装）
+    unit: 台
+    price_min: 200
+    price_max: 500
+    verified: false
+    note: 挂机 200~350，柜机 300~500；不含加长管与高空费，会叠加
+  - key: remote_travel
+    cn: 远程交通费（超出服务半径）
+    unit: 次
+    price_min: 50
+    price_max: 200
+    verified: false
+    threshold: 通常 20 公里以外起收
+    note: 也有按 1.5~2 元/公里计的口径，以当地服务商公示为准
+  - key: upstairs
+    cn: 上楼费（无电梯）
+    unit: 层/台
+    price_min: 10
+    price_max: 20
+    verified: false
+    note: 一般从 2 层起计；有电梯不收
+  - key: cleaning
+    cn: 深度清洗（蒸发器/风轮/接水盘）
+    unit: 台
+    price_min: 100
+    price_max: 260
+    verified: false
+    note: 挂机 100~180，柜机 150~260；属超保或非保修项目
+  - key: repair_labor
+    cn: 保外维修人工费（上门检测）
+    unit: 台
+    price_min: 50
+    price_max: 200
+    verified: false
+    note: 上门检测费 30~50（多数可抵扣维修费）；维修人工 100~200，不含配件
+
+answer_rules:
+  - 先讲"项目 + 计费方式 + 会提前告知并经您同意"，再给区间
+  - 给区间时必须带定性："这是行业常见范围，具体以师傅上门实测后出具的标准为准"
+  - 用户追问"到底多少钱" → 引导"海尔智家 App-服务-收费标准"自查，或转人工报价
+  - 用户报"被多收了" → 引用说明书 p32：未按标准收费可拨 4006 999 999 投诉，转人工
+  - 严禁说的话：'海尔规定加长管 100 元一米'（金额无官方依据）
+
+todo:
+  - 补官方收费标准（金额表），补后可把 price_verified 置 true 并把 price_min/price_max 收敛为 price
+  - 高空作业与吊装的分档口径（楼层分档还是作业方式分档）需按当地实际
+
+# ══════════════════════════════════════════════════════════════
+# 保外维修分级人工费（2026-10-23 新增）
+#
+# 与上面的 items 是两套口径，别混：
+#   items            = 安装/移机/清洗这类"按项目"的辅加收费
+#   repair_grade_labor = 保外**修**的分级人工费（上门检测 / 简修 / 小修 / 中修大修）
+# 金额来自业务方提供的参考表，价格性质仍是"参考"：不含配件、不含远程费，以当地网点报价为准。
+repair_grade_labor:
+  source_kind: biz_reference
+  source: "业务方提供的空调/洗衣机保外维修收费标准参考（2026-10-23）"
+  price_verified: false
+  scope_note: 基础人工费，不含配件费与远程费；具体以当地官方售后网点实际报价为准
+  grades:
+    - appliance: 挂机空调
+      trip_inspection: {price_min: 50, price_max: 50}
+      minor_adjust: {price_min: 90, price_max: 90}
+      small_repair: {price_min: 150, price_max: 150}
+      medium_major: {price_min: 240, price_max: 240, core_part_extra: 300}
+      core_part_note: 中修/大修涉及核心部件时按 300 元档计
+    - appliance: 柜机空调
+      trip_inspection: {price_min: 50, price_max: 50}
+      minor_adjust: {price_min: 90, price_max: 90}
+      small_repair: {price_min: 200, price_max: 200}
+      medium_major: {price_min: 350, price_max: 350, core_part_extra: 480}
+      core_part_note: 中修/大修涉及核心部件时按 480 元档计
+  note: >
+    挂机与柜机的人工费差在小修之后（150 vs 200、240 vs 350），简修与上门检测同价。
+    这符合柜机拆装工作量更大的常识，内部一致性没问题。
+
+repair_grade_answer_rules:
+  - 保外报修先讲"上门检测费 + 可能的人工等级"，不要一上来说"修好大概要几百"
+  - 用户问"修一下多少钱" → 答："要看是简修还是小修，简修 90 左右，小修挂机 150、柜机 200；
+    具体等级师傅现场判断后报给您，配件另算"
+  - 用户问"为什么这么贵" → 拆成"上门检测费 + 人工等级 + 配件"三项说，不合并成一句总价
+  - 严禁把中修/大修的 240/350 说成"封顶价"——它不含配件和核心件加价

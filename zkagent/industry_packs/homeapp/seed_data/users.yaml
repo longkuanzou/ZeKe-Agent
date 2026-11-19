@@ -1,0 +1,25 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+users:
+- user_id: H1
+  name: 王芳
+  phone_masked: 138****2046
+  level: gold
+  created_at: '@now-210d'
+- user_id: H2
+  name: 陈磊
+  phone_masked: 139****7712
+  level: silver
+  created_at: '@now-120d'
+- user_id: H3
+  name: 周敏
+  phone_masked: 137****3388
+  level: standard
+  created_at: '@now-3d'
+- user_id: H4
+  name: 李强
+  phone_masked: 136****9051
+  level: gold
+  created_at: '@now-400d'

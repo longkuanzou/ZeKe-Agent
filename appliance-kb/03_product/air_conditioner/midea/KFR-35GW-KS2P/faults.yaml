@@ -1,0 +1,16 @@
+# 型号差异型故障信息（现象主库在 04_scenario/s4_troubleshoot/symptoms.yaml）
+product_id: midea-kfr-35gw-ks2p
+updated: 2026-10-22
+
+codes:
+  has_code_display: true
+  code_prefixes: [E, F, P, EH, EL, EC, PH, PL, PC]
+  rule: [关机并关闭电源, 等待 10 分钟, 上电开机, 仍显示则报修]
+  meaning_table: null    # 说明书只给类别不给逐码释义
+  source: p30
+
+normal_phenomena_ref: 04_scenario/s4_troubleshoot/symptoms.yaml
+model_specific_notes:
+  - 自清洁能力未确认，用户问到时按“确认后回复”处理
+missing:
+  - 逐条故障代码含义（说明书未提供）

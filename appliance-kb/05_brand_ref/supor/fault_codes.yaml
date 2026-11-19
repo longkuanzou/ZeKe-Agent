@@ -1,0 +1,146 @@
+# 苏泊尔电饭煲故障代码表
+#
+# 苏泊尔这条线是本库唯一"代码表有说明书原文依据"的品类，所以 verified: true。
+# 但要注意两点，都写进了 model_scope：
+#   ① 同一份资料覆盖 20 多个型号，代码表是系列通用本，个别型号不一定全都适用
+#   ② E 码含义与美的电饭煲**完全不同**（苏泊尔 E0=顶部传感器，美的 E0=过零故障），
+#      这是"同品类同字母不同含义"的最好例子，串了就答错
+policy_id: brand.supor.fault_codes
+brand: supor
+brand_cn: 苏泊尔
+applies_to: {appliance: [rice_cooker]}
+updated: 2026-10-23
+
+verified: true
+source_kind: manual
+source: "03_product/rice_cooker/supor/*/faults.yaml（各型号说明书故障码章节）"
+has_official_table: true
+has_codes: true
+usable_scope: full
+
+codes:
+  - code: E0
+    cn: 顶部（上盖）传感器开路或短路
+    severity: stop_and_call
+    user_action: 送指定维修点维修
+    applies_to: [F40H8093S, F40H9083S, F50X96, SF40FC871, SF50FC733]
+    source: "F40H8093S 说明书 p6；F50X96 说明书3 p8"
+    verified: true
+  - code: E1
+    cn: 底部传感器开路或短路
+    severity: stop_and_call
+    user_action: 送指定维修点维修
+    applies_to: [F40H8093S, F40H9083S, F50X96, SF40FC871, SF50FC733]
+    source: "F40H8093S 说明书 p6；F50X96 说明书3 p8"
+    verified: true
+  - code: E5
+    cn: 检不到锅（内锅未放入或未放到位）
+    severity: attention
+    user_action: 先确认是否放入内锅、内锅底是否擦干、是否放平；重新通电仍报错则送修
+    applies_to: [F40H8093S, F40H9083S, F50X96]
+    note: 这条九成是放置问题，直接答"送修"会造成无谓往返
+    source: "F40H8093S 说明书 p6"
+    verified: true
+  - code: E6
+    cn: 无蒸汽水杯（未放入蒸汽水杯）
+    severity: attention
+    user_action: 先确认蒸汽水杯是否放入后重新通电；仍报错则送修
+    applies_to: [F50X96]
+    note: 只有带蒸汽水杯的高配机型有此码，别和其它 5L 型号混用
+    source: "F50X96 说明书3 p8"
+    verified: true
+  - code: E7
+    cn: 防溢探头开路
+    severity: stop_and_call
+    user_action: 送指定维修点维修
+    applies_to: [F40H8093S, F40H9083S, F50X96]
+    source: "F40H8093S 说明书 p6；F50X96 说明书3 p8"
+    verified: true
+
+code_sets_by_model:      # 每个型号实际会报的码集不同，回答时按型号收窄
+  F40H8093S: [E0, E1, E5, E7]
+  F40H9083S: [E0, E1, E5, E7]
+  F50X96: [E0, E1, E5, E6, E7]
+  SF40FC871: [E0, E1]
+  SF50FC733: [E0, E1]
+
+# 说明书写明"不是故障码而是行为"的（拦假工单）
+non_code_protection:
+  - id: no_pot
+    cn: 未放内锅不加热
+    explain: 检锅保护，未放内锅或未放水时不加热，属设计行为
+  - id: overheat_fuse
+    cn: 热熔断器动作后不再工作
+    explain: 一次性保护，动作后必须送修，不可自行短接
+
+handling_rule:
+  when_user_reports_code:
+    - 先确认型号（苏泊尔的 E6 只有部分机型有）
+    - E5 / E6 → 先按放置问题引导（内锅、蒸汽水杯），能自助解决不建单
+    - E0 / E1 / E7 → 传感器类，直接送修，不引导反复通电
+    - 用户报的码不在本表 → 不猜，建单并标注"代码未收录 + 代码原文"
+  forbid:
+    - 把美的电饭煲的 E 码含义套过来（E0/E1 在两家含义完全不同）
+    - 对 E5/E6 直接答"要送修"而不先问内锅/蒸汽水杯
+    - 引导用户自行拆上盖查传感器
+
+escalate_hotline: "400-8899-717"
+
+# ══════════════════════════════════════════════════════════════
+# 业务方速查表交叉核对（2026-10-23 新增）
+#
+# 这份文件是全库唯一 `verified: true`、`usable_scope: full` 的代码表——因为它有说明书原文。
+# 所以业务方速查表在这里的角色只能是"补充"，不能是"替换"：
+#   一致的 → 记录，无动作
+#   说明书没列的 → 收为 biz_extra，标注"本批 5 个型号不适用/未列"
+#   冲突的 → 保留说明书值，冲突项写明
+biz_crosscheck:
+  source_kind: biz_provided
+  source: "业务方提供的常见错误代码速查表（2026-10-23）"
+  verdict: library_prevails          # manual_prevails（原描述，见下方 ruling）
+  ruling_policy: >
+    2026-10-23 业务方裁定：**凡与现有条目冲突的，一律以现有表为准**（速查表对应条目不采纳）。
+    理由：速查表未标机型平台，现有表至少能追到说明书或可对照的官方代码族。
+    本条裁定不改变 usable_scope——"采用哪一套"和"这套本身是否经售后核实"是两件事。
+  ruling_date: 2026-10-23
+  ruling_by: 业务方
+
+  matched:
+    - {code: E0, ours: 顶部（上盖）传感器开路或短路, biz: 顶部传感器异常, note: 一致}
+    - {code: E1, ours: 底部传感器开路或短路, biz: 底部传感器异常（无内锅）, note: 一致，biz 多了"无内锅"这个场景}
+
+  conflict:
+    - code: E7
+      ours: 防溢探头开路（说明书原文，F40H8093S p6 / F50X96 p8）
+      biz: 顶部 / 底部传感器开路或短路
+      severity_agree: stop_and_call
+      ruling: 以说明书为准。防溢探头是独立于上下传感器的第三个检测件，不应合并
+      reply: 送指定维修点，不报"哪个传感器"
+
+  biz_extra:                    # 速查表有，本批 5 个型号的说明书未列
+    - {code: E2, cn: 空锅干烧超温报警, severity: stop_and_call, applies: 未知, status: 未核实}
+    - {code: E3, cn: 超温保护, severity: stop_and_call, applies: 未知, status: 未核实}
+    - {code: E4, cn: 顶部 / 底部传感器开路或短路, severity: stop_and_call, applies: 未知, status: 未核实}
+  biz_extra_note: >
+      code_sets_by_model 显示本批型号只报 E0/E1/E5/E6/E7。
+      E2/E3/E4 若出现在用户面板上，说明该机型属苏泊尔其他系列（说明书是系列通用本），
+      此时按"超温/传感器类 → 停机送修"处理即可，不要用本文件的型号码集去否认它。
+
+  biz_wording_note: >
+    biz 把 E1 描述成"底部传感器异常（无内锅）"——"无内锅"更接近本文件的 E5（检不到锅）。
+    实操上先问"内锅放了没有、底部擦干了没有"再谈传感器，两种描述都能覆盖。
+
+  # ── 裁定结果（2026-10-23）──────────────────────────────
+  adopt:
+    - {code: E0, cn: 顶部（上盖）传感器开路或短路, note: 两边一致}
+    - {code: E1, cn: 底部传感器开路或短路, note: 两边一致}
+    - {code: E5, cn: 检不到锅, note: 速查表未覆盖；"无内锅"场景实际对应此码}
+    - {code: E6, cn: 无蒸汽水杯, note: 仅 F50X96 有此码}
+  not_adopt:
+    - {code: E7, ours: 防溢探头开路（说明书原文）, biz: 顶部/底部传感器开路或短路, action: 以说明书为准}
+    - {code: E2, ours: 未收录, biz: 空锅干烧超温报警, action: 按"代码未收录"处理}
+    - {code: E3, ours: 未收录, biz: 超温保护, action: 按"代码未收录"处理}
+    - {code: E4, ours: 未收录, biz: 顶部/底部传感器开路或短路, action: 按"代码未收录"处理}
+  note: >
+    这份表的裁定本来就没有悬念——说明书原文 > 任何速查表。
+    E2/E3/E4 若真出现在用户面板上，也只能按"超温或传感器类，停机送修"处理，不能反推部件。

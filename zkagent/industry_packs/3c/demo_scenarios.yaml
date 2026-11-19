@@ -1,0 +1,24 @@
+# 仅用于 Fake 模型的无密钥离线演示；真实模型不读此文件。
+version: 1
+scenarios:
+  - id: order_lookup
+    task: "查订单 B2001"
+    script:
+      - tool_calls:
+          - name: get_order
+            args: {order_id: B2001}
+      - content_from_tool: "订单查询完成。"
+  - id: logistics_lookup
+    task: "查物流 B2001"
+    script:
+      - tool_calls:
+          - name: get_logistics
+            args: {order_id: B2001}
+      - content_from_tool: "物流查询完成。"
+  - id: product_lookup
+    task: "查商品 手机"
+    script:
+      - tool_calls:
+          - name: search_products
+            args: {category: phone}
+      - content_from_tool: "商品查询完成。"

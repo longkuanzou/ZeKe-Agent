@@ -1,0 +1,186 @@
+# s1 售前 · 槽位与追问顺序（三品类）
+#
+# ── 2026-10-23 改版 ────────────────────────────────────
+# 旧版整份只有空调口径（必问 room_area_m2），洗衣机用户被问"房间多少平"、
+# 电饭煲用户被问"房间多少平"，都属于答非所问。三个品类的售前决策链没有交集：
+#   空调：房间面积 → 制冷量档位 → 管长/外机位
+#   洗衣机：放置位尺寸 → 容量 → 排水方式 → 要不要烘干
+#   电饭煲：吃饭人数 → 容量(L) → 加热方式/内胆
+# 所以按 appliance 分块，各写各的槽位、追问顺序与判定。
+#
+# 品类未定时：先按 _shared/intent_map.yaml#appliance_routing 定品类，
+# 不允许按空调默认（宁可多问一句，也不要按空调答洗衣机）。
+version: 2
+scenario: s1_presale
+updated: 2026-10-23
+
+# 三品类唯一共用的槽位就这三个
+common:
+  required:
+    - product_model            # 一切参数/功能/对比问题的前置
+  optional:
+    - brand                    # 用户有品牌偏好时收窄候选
+    - compare_model            # 对比类问题必需
+    - budget                   # 只在用户主动提价格时收，不主动问
+
+# ══════════════════════════════════════════════════════ 空调
+appliances:
+
+  air_conditioner:
+    required: [product_model]
+    optional:
+      - room_area_m2           # presale.fit 必需
+      - install_position       # 挂机/柜机/嵌入式，决定候选集合
+      - sun_exposure           # 西晒、顶楼、落地窗 → 面积要往大算
+      - floor_count            # 只影响安装费（s2），不影响选购
+
+    ask_order:
+      presale.spec: [product_model]
+      presale.feature: [product_model]
+      presale.fit: [product_model, room_area_m2, sun_exposure]
+      presale.compare: [product_model, compare_model]
+
+    prompts:
+      product_model: 您说的是哪个型号？型号标签在机身侧面，拍一张我就能给您准确参数。
+      room_area_m2: 房间大概多少平？我帮您看这台够不够。
+      install_position: 是装在卧室这种单间，还是客厅？客厅一般得看柜机。
+      sun_exposure: 房间是西晒或者顶楼吗？这两种情况面积得往大算一档。
+
+    inference:
+      fit_by_capacity:
+        rule: 制冷量(W) ÷ 150~200 = 估算适用面积(㎡)
+        label: 按经验估算
+        forbid: 不得表述为"官方适用面积"
+      sun_exposure_adjust:
+        rule: 西晒/顶楼/大面积玻璃，按算出面积上浮一档选（如 18㎡ 按 20~22㎡ 选）
+        label: 按经验估算
+    hard_gate:
+      rule: 房间面积 < specs.yaml#min_room_area_m2 → 明确不可装（R32 安全要求）
+      action: 不给"应该也行"这类模糊答复，直接说不满足，并给面积达标的机型
+
+  # ══════════════════════════════════════════════════════ 洗衣机
+  washer:
+    required: [product_model]
+    optional:
+      - household_size         # 决定容量档（8kg/10kg），比问面积有用
+      - laundry_space_cm       # 放置位净宽×净深（不是机身尺寸，是净空）
+      - door_width_cm          # 门洞/卫生间门宽，滚筒抬不进去是常见退货原因
+      - drain_type_available   # 上排水（墙排/机位高）还是只能下排水（地漏）
+      - need_dry               # 是否需要烘干 → 决定单洗 / 洗烘一体 / 单独干衣机
+      - load_type_pref         # 滚筒 / 波轮，用户有明确偏好时不再劝说
+      - has_inlet              # 有无专用进水龙头
+
+    ask_order:
+      presale.spec: [product_model]
+      presale.feature: [product_model]
+      presale.fit: [product_model, laundry_space_cm]
+      presale.compare: [product_model, compare_model]
+
+    prompts:
+      product_model: 哪一台？型号在机门内侧或机身背面铭牌上，我按型号给您准确参数。
+      household_size: 家里几口人？1~2 人 8kg 够用，3 人以上建议 10kg。
+      laundry_space_cm: 准备放哪儿？那个位置的净宽和净深大概多少厘米，我帮您算放不放得下。
+      door_width_cm: 卫生间门（或者过道）有多宽？滚筒机身 60cm 左右，门太窄抬不进去。
+      drain_type_available: 那个位置有地漏吗？还是要往墙上排水？
+      need_dry: 需要烘干吗？要烘就得分洗烘一体和单独买干衣机两种。
+
+    inference:
+      capacity_by_household:
+        rule: 1~2 人 → 8kg；3~4 人 → 10kg；5 人以上或常洗床品 → 10kg 起
+        label: 按行业经验估算
+        forbid: 不得表述为"厂家推荐容量"
+      fit_by_space:
+        rule: 滚筒机身宽 595~598mm，安装位净宽 ≥600mm；深度按机身深度 +3~5cm 留进出水与散热
+        source: 03_product/washer/*/specs.yaml#size_mm
+        note: 本库滚筒进深 560 / 565 / 585 / 590 四档都有，差 3cm 就决定能不能嵌进 60cm 柜体
+      dry_capacity:
+        rule: 洗烘一体的烘干容量小于洗涤容量（如洗 10kg / 烘 7kg），一次洗满要分两次烘
+        source: 03_product/washer/siemens/WN54A1X42W/specs.yaml#dry_capacity_kg
+    hard_gate:
+      - rule: 放置位净宽 < 600mm 或净深 < 机身深度 + 3cm → 明确说放不下，改推窄机身或换位置
+        forbid: 不得说"挤一挤能进"
+      - rule: 放置位既无地漏、也不能墙排 → 上排水机型装不了，先说要改排水
+      - rule: 只有下排水条件 + 用户选的是上排水机型 → 说明加装/整改后再装，不承诺"师傅能解决"
+      - rule: 波轮机身高度普遍 900mm 以上 → 嵌入式/台下位置直接排除波轮
+
+  # ══════════════════════════════════════════════════════ 电饭煲
+  rice_cooker:
+    required: [product_model]
+    optional:
+      - household_size         # 决定 4L / 5L
+      - cabinet_space_cm       # 摆放位净宽（含开盖余量）
+      - rice_type              # 东北米 / 丝苗米 / 五常米，刻度不同
+      - need_ih                # 是否指定 IH
+      - need_low_sugar         # 低糖饭（要有配套低糖甑）
+      - voltage_env            # 高原/海拔，超 2000m 属超范围使用
+
+    ask_order:
+      presale.spec: [product_model]
+      presale.feature: [product_model]
+      presale.fit: [product_model, household_size]
+      presale.compare: [product_model, compare_model]
+
+    prompts:
+      product_model: 哪一款？型号在内锅边缘或机身底部铭牌上。
+      household_size: 家里几个人吃？4L 大概 2~8 杯米，5L 是 2~10 杯。
+      cabinet_space_cm: 打算放厨房台面还是柜子里？那个位置的宽度大概多少，我帮您对一下机身宽度。
+      rice_type: 平时主要煮哪种米？东北米和丝苗米的水位刻度不一样，这个影响很大。
+      voltage_env: 是在高原地区用吗？有型号明确写了正常工作海拔 0~2000 米。
+
+    inference:
+      capacity_by_household:
+        rule: 1~3 人 → 4L；4 人以上或常煲汤/蒸菜 → 5L
+        label: 按行业经验估算
+        note: 4L=2~8 杯、5L=2~10 杯是说明书确认值（capacity_cups），人数换算是经验值，两者要分开说
+      mouth_count_by_cup:
+        rule: 1 杯米约出 2 碗饭
+        label: 按经验估算
+    hard_gate:
+      - rule: 摆放位净宽 < 机身宽度 + 开盖/蒸汽空间 → 说明放不开或开盖受阻，建议换位置
+      - rule: 用户报海拔 > 2000m → 引用说明书限值，说明煮不熟/溢锅属超范围使用，不承诺效果
+        source: 03_product/rice_cooker/supor/SF50FC733/usage.yaml#model_notes
+
+# ══════════════════════════════════════════════════════ 通用追问约束
+# 一次只问一个；先问"决定能不能用"的，再问"决定选哪台"的
+global_ask_rules:
+  - 一次只问一个槽位，不要连环问（用户可以烦，但不能被审问）
+  - 槽位缺失但能答的，先给区间/档位答案，再补问一个槽位（不要为了收槽位拒答）
+  - 用户已经说了的信息不重复问（说了"10 平卧室"就不要再问房间面积）
+  - 品类未定时先定品类，禁止用空调槽位去问洗衣机用户
+
+# 各意图缺槽时的兜底话术（按品类分开，禁止跨品类套用）
+fallback_prompts:
+  presale.spec:
+    air_conditioner: 您说的是哪个型号？型号标签在机身侧面，拍一张我就能给您准确参数。
+    washer: 哪一台？型号在机门内侧或机身背面铭牌上。
+    rice_cooker: 哪一款？型号在内锅边缘或机身底部铭牌上。
+  presale.feature:
+    air_conditioner: 您看的是哪个型号？同是 1.5 匹，功能差别还挺大的。
+    washer: 哪一台？同是 10kg，筒自洁、自动投放、WiFi 这几项各家不一样。
+    rice_cooker: 哪一款？同是 4L，IH 和底盘加热、内胆材质差别都不小。
+  presale.fit:
+    missing_product_model: 您打算看哪一台？我按那台的参数给您算。
+    missing_room_area_m2: 房间大概多少平？我帮您看这台够不够。
+    missing_laundry_space_cm: 准备放哪儿？那个位置的净宽和净深大概多少厘米？
+    missing_household_size: 家里几口人？我按人数给您看容量够不够。
+  presale.compare:
+    missing_compare_model: 您想和哪一台比？我按参数给您列一下差在哪。
+
+# ══════════════════════════════════════════════════════ 本库未接入的品类
+out_of_scope:
+  appliances: [refrigerator, microwave, water_heater, range_hood]
+  action: 明确告知"这个品类我这边暂时没有资料"，给官方客服/转人工，不拿相邻品类的经验套
+  forbid:
+    - 用空调/洗衣机的参数口径回答冰箱问题
+    - 说"都差不多"来收尾
+
+# ══════════════════════════════════════════════════════ 输出硬约束
+output:
+  must_include:
+    - 结论所依据的那个参数（如"因为制冷量 3510W"）
+    - 数据来源等级（说明书值 / 推断 / 网络值）
+  must_not:
+    - 跨品类套用槽位与结论（空调的"面积"不能用于洗衣机）
+    - 把"未标注"说成"没有"
+    - 用"综合性能更强""性价比更高"作结论
+  when_value_inferred: 回答里必须带"这个是推断/网络值，最终以机身铭牌为准"

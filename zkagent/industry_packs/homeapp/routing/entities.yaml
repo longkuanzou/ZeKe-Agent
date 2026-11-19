@@ -1,0 +1,363 @@
+appliances:
+- key: air_conditioner
+  label: 空调
+  words:
+  - 空调
+  models: 10
+- key: rice_cooker
+  label: 电饭煲
+  words:
+  - 电饭煲
+  models: 8
+- key: washer
+  label: 洗衣机
+  words:
+  - 洗衣机
+  models: 10
+models:
+- product_id: haier-kfr-35gw-01kmc81u1
+  appliance: air_conditioner
+  brand: haier
+  brand_cn: 海尔
+  model: KFR-35GW/01KMC81U1
+  label: 海尔 KFR-35GW/01KMC81U1
+  colloquial: 1.5匹
+  product_type: 分体挂壁式（家用直流变频）
+  status: ready
+  aliases:
+  - haier-kfr-35gw-01kmc81u1
+  - KFR-35GW/01KMC81U1
+  - KFR-35GW-01KMC81U1
+- product_id: haier-kfr-35gw-e1-1
+  appliance: air_conditioner
+  brand: haier
+  brand_cn: 海尔
+  model: KFR-35GW/E1-1
+  label: 海尔 KFR-35GW/E1-1
+  colloquial: 1.5匹
+  product_type: 分体挂壁式（家用直流变频）
+  status: ready
+  aliases:
+  - haier-kfr-35gw-e1-1
+  - KFR-35GW/E1-1
+  - KFR-35GW-E1-1
+- product_id: haier-kfr-35gw-e1-1plus
+  appliance: air_conditioner
+  brand: haier
+  brand_cn: 海尔
+  model: KFR-35GW/E1-1Plus
+  label: 海尔 KFR-35GW/E1-1Plus
+  colloquial: 1.5匹
+  product_type: 分体挂壁式（家用直流变频）
+  status: ready
+  aliases:
+  - haier-kfr-35gw-e1-1plus
+  - KFR-35GW/E1-1Plus
+  - KFR-35GW-E1-1Plus
+- product_id: haier-kfr-72lw-e1-1
+  appliance: air_conditioner
+  brand: haier
+  brand_cn: 海尔
+  model: KFR-72LW/E1-1
+  label: 海尔 KFR-72LW/E1-1
+  colloquial: 3匹
+  product_type: 分体落地式（柜机，家用直流变频）
+  status: ready
+  aliases:
+  - haier-kfr-72lw-e1-1
+  - KFR-72LW/E1-1
+  - KFR-72LW-E1-1
+- product_id: haier-kfr-72lw-e1-1plus
+  appliance: air_conditioner
+  brand: haier
+  brand_cn: 海尔
+  model: KFR-72LW/E1-1Plus
+  label: 海尔 KFR-72LW/E1-1Plus
+  colloquial: 3匹
+  product_type: 分体落地式（柜机，家用直流变频）
+  status: ready
+  aliases:
+  - haier-kfr-72lw-e1-1plus
+  - KFR-72LW/E1-1Plus
+  - KFR-72LW-E1-1Plus
+- product_id: midea-kfr-35gw-a11
+  appliance: air_conditioner
+  brand: midea
+  brand_cn: 美的
+  model: KFR-35GW/A11
+  label: 美的 KFR-35GW/A11
+  colloquial: 1.5匹
+  product_type: 分体挂壁式（变频）
+  status: ready
+  aliases:
+  - midea-kfr-35gw-a11
+  - KFR-35GW/A11
+  - KFR-35GW-A11
+- product_id: midea-kfr-35gw-ks2p
+  appliance: air_conditioner
+  brand: midea
+  brand_cn: 美的
+  model: KFR-35GW/KS2P
+  label: 美的 KFR-35GW/KS2P
+  colloquial: 1.5匹
+  product_type: 分体挂壁式（变频）
+  status: ready
+  aliases:
+  - midea-kfr-35gw-ks2p
+  - KFR-35GW/KS2P
+  - KFR-35GW-KS2P
+- product_id: midea-kfr-35gw-n8ks1-1p
+  appliance: air_conditioner
+  brand: midea
+  brand_cn: 美的
+  model: KFR-35GW/N8KS1-1P
+  label: 美的 KFR-35GW/N8KS1-1P
+  colloquial: 1.5匹
+  product_type: 分体挂壁式（变频）
+  status: ready
+  aliases:
+  - midea-kfr-35gw-n8ks1-1p
+  - KFR-35GW/N8KS1-1P
+  - KFR-35GW-N8KS1-1P
+- product_id: midea-kfr-35gw-q2
+  appliance: air_conditioner
+  brand: midea
+  brand_cn: 美的
+  model: KFR-35GW/Q2
+  label: 美的 KFR-35GW/Q2
+  colloquial: 1.5匹
+  product_type: 分体挂壁式（变频）
+  status: ready
+  aliases:
+  - midea-kfr-35gw-q2
+  - KFR-35GW/Q2
+  - KFR-35GW-Q2
+- product_id: midea-kfr-72lw-n8ks1-1p
+  appliance: air_conditioner
+  brand: midea
+  brand_cn: 美的
+  model: KFR-72LW/N8KS1-1P
+  label: 美的 KFR-72LW/N8KS1-1P
+  colloquial: 3匹
+  product_type: 分体落地式（柜机，变频）
+  status: ready
+  aliases:
+  - midea-kfr-72lw-n8ks1-1p
+  - KFR-72LW/N8KS1-1P
+  - KFR-72LW-N8KS1-1P
+- product_id: midea-mb-40hb9t
+  appliance: rice_cooker
+  brand: midea
+  brand_cn: 美的
+  model: MB-40HB9T
+  label: 美的 MB-40HB9T
+  colloquial: 4升IH电饭煲
+  product_type: 电饭煲（IH 电磁加热，4L）
+  status: ready
+  aliases:
+  - midea-mb-40hb9t
+  - MB-40HB9T
+- product_id: midea-mb-afb4041rl
+  appliance: rice_cooker
+  brand: midea
+  brand_cn: 美的
+  model: MB-AFB4041RL
+  label: 美的 MB-AFB4041RL
+  colloquial: 4升电饭煲
+  product_type: 电饭煲（底盘加热，4L）
+  status: ready
+  aliases:
+  - midea-mb-afb4041rl
+  - MB-AFB4041RL
+- product_id: midea-mb-re576s
+  appliance: rice_cooker
+  brand: midea
+  brand_cn: 美的
+  model: MB-RE576S
+  label: 美的 MB-RE576S
+  colloquial: 5升电饭煲
+  product_type: 电饭煲（底盘加热，5L）
+  status: ready
+  aliases:
+  - midea-mb-re576s
+  - MB-RE576S
+- product_id: supor-f40h8093s
+  appliance: rice_cooker
+  brand: supor
+  brand_cn: 苏泊尔
+  model: F40H8093S
+  label: 苏泊尔 F40H8093S
+  colloquial: 4升微压钛釜电饭煲
+  product_type: 电饭煲（微压，纯钛内胆，4L）
+  status: ready
+  aliases:
+  - supor-f40h8093s
+  - F40H8093S
+- product_id: supor-f40h9083s
+  appliance: rice_cooker
+  brand: supor
+  brand_cn: 苏泊尔
+  model: F40H9083S
+  label: 苏泊尔 F40H9083S
+  colloquial: 4升低糖微压钛釜电饭煲
+  product_type: 电饭煲（微压+低糖，纯钛内胆，4L）
+  status: ready
+  aliases:
+  - supor-f40h9083s
+  - F40H9083S
+- product_id: supor-f50x96
+  appliance: rice_cooker
+  brand: supor
+  brand_cn: 苏泊尔
+  model: F50X96
+  label: 苏泊尔 F50X96
+  colloquial: 5升电饭煲
+  product_type: 电饭煲（底盘加热，5L）
+  status: ready
+  aliases:
+  - supor-f50x96
+  - F50X96
+- product_id: supor-sf40fc871
+  appliance: rice_cooker
+  brand: supor
+  brand_cn: 苏泊尔
+  model: SF40FC871
+  label: 苏泊尔 SF40FC871
+  colloquial: 4升电饭煲
+  product_type: 电饭煲（底盘加热，4L）
+  status: ready
+  aliases:
+  - supor-sf40fc871
+  - SF40FC871
+- product_id: supor-sf50fc733
+  appliance: rice_cooker
+  brand: supor
+  brand_cn: 苏泊尔
+  model: SF50FC733
+  label: 苏泊尔 SF50FC733
+  colloquial: 5升电饭煲
+  product_type: 电饭煲（底盘加热，5L）
+  status: ready
+  aliases:
+  - supor-sf50fc733
+  - SF50FC733
+- product_id: littleswan-tb100v26dt
+  appliance: washer
+  brand: littleswan
+  brand_cn: 小天鹅
+  model: TB100V26DT
+  label: 小天鹅 TB100V26DT
+  colloquial: 10公斤波轮
+  product_type: 波轮机（顶开式，单洗）
+  status: ready
+  aliases:
+  - littleswan-tb100v26dt
+  - TB100V26DT
+- product_id: littleswan-tg100v618plus
+  appliance: washer
+  brand: littleswan
+  brand_cn: 小天鹅
+  model: TG100V618PLUS
+  label: 小天鹅 TG100V618PLUS
+  colloquial: 10公斤滚筒
+  product_type: 滚筒洗衣机（前开式，单洗）
+  status: ready
+  aliases:
+  - littleswan-tg100v618plus
+  - TG100V618PLUS
+- product_id: littleswan-tg10k60
+  appliance: washer
+  brand: littleswan
+  brand_cn: 小天鹅
+  model: TG10K60
+  label: 小天鹅 TG10K60
+  colloquial: 10公斤滚筒
+  product_type: 滚筒洗衣机（前开式，单洗）
+  status: ready
+  aliases:
+  - littleswan-tg10k60
+  - TG10K60
+- product_id: littleswan-tg10v628plus
+  appliance: washer
+  brand: littleswan
+  brand_cn: 小天鹅
+  model: TG10V628PLUS
+  label: 小天鹅 TG10V628PLUS
+  colloquial: 10公斤滚筒
+  product_type: 滚筒洗衣机（前开式，单洗）
+  status: ready
+  aliases:
+  - littleswan-tg10v628plus
+  - TG10V628PLUS
+- product_id: littleswan-tg10ve40
+  appliance: washer
+  brand: littleswan
+  brand_cn: 小天鹅
+  model: TG10VE40
+  label: 小天鹅 TG10VE40
+  colloquial: 10公斤滚筒
+  product_type: 滚筒洗衣机（前开式，单洗）
+  status: ready
+  aliases:
+  - littleswan-tg10ve40
+  - TG10VE40
+- product_id: siemens-wg52a108aw
+  appliance: washer
+  brand: siemens
+  brand_cn: 西门子
+  model: WG52A108AW
+  label: 西门子 WG52A108AW
+  colloquial: 10公斤滚筒
+  product_type: 滚筒洗衣机（前开式，单洗）
+  status: ready
+  aliases:
+  - siemens-wg52a108aw
+  - WG52A108AW
+- product_id: siemens-wg54h2v00w
+  appliance: washer
+  brand: siemens
+  brand_cn: 西门子
+  model: WG54H2V00W
+  label: 西门子 WG54H2V00W
+  colloquial: 10公斤滚筒
+  product_type: 滚筒洗衣机（前开式，单洗）
+  status: ready
+  aliases:
+  - siemens-wg54h2v00w
+  - WG54H2V00W
+- product_id: siemens-wm12p2602w
+  appliance: washer
+  brand: siemens
+  brand_cn: 西门子
+  model: WM12P2602W
+  label: 西门子 WM12P2602W
+  colloquial: 10公斤滚筒
+  product_type: 滚筒洗衣机（前开式，单洗）
+  status: ready
+  aliases:
+  - siemens-wm12p2602w
+  - WM12P2602W
+- product_id: siemens-wn54a1x42w
+  appliance: washer
+  brand: siemens
+  brand_cn: 西门子
+  model: WN54A1X42W
+  label: 西门子 WN54A1X42W
+  colloquial: 10公斤洗烘一体
+  product_type: 洗干一体机（滚筒，前开式）
+  status: ready
+  aliases:
+  - siemens-wn54a1x42w
+  - WN54A1X42W
+- product_id: siemens-wq53e2d01w-wq53e2d11w
+  appliance: washer
+  brand: siemens
+  brand_cn: 西门子
+  model: WQ53E2D01W+WQ53E2D11W
+  label: 西门子 WQ53E2D01W+WQ53E2D11W
+  colloquial: 热泵干衣机
+  product_type: 热泵干衣机（滚筒，两台套装）
+  status: ready
+  aliases:
+  - siemens-wq53e2d01w-wq53e2d11w
+  - WQ53E2D01W+WQ53E2D11W

@@ -1,0 +1,28 @@
+orders:
+  - order_id: B2001
+    user_id: U9
+    product: 手机
+    sku: PHN-4999-X
+    amount_cents: 499900
+    status: delivered
+    created_at: "@now-6d"
+    delivered_at: "@now-5d"
+    address_masked: "上海市浦东新区****"
+  - order_id: B2002
+    user_id: U9
+    product: 平板
+    sku: PAD-3299-A
+    amount_cents: 329900
+    status: created
+    created_at: "@now-1d"
+    delivered_at: null
+    address_masked: "上海市浦东新区****"
+  - order_id: B2003
+    user_id: U10
+    product: 手机
+    sku: PHN-4999-X
+    amount_cents: 499900
+    status: delivered
+    created_at: "@now-13d"
+    delivered_at: "@now-12d"
+    address_masked: "杭州市西湖区****"

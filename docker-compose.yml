@@ -1,0 +1,59 @@
+services:
+  legacy:
+    build:
+      context: .
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
+    command: ["uvicorn", "apps.legacy_api:app", "--host", "0.0.0.0", "--port", "8100"]
+    environment:
+      LEGACY_DB_PATH: /app/data/legacy-business.db
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8100:8100"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/health', timeout=2)",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  api:
+    build:
+      context: .
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
+    depends_on:
+      legacy:
+        condition: service_healthy
+    environment:
+      ZKAGENT_INDUSTRY: appliance
+      ZKAGENT_BACKEND: http
+      ZKAGENT_HTTP_BACKEND_URL: http://legacy:8100
+      ZKAGENT_PROVIDER: fake
+      ZKAGENT_DB_PATH: /app/data/business-api.db
+      ZKAGENT_CHECKPOINTS_DB: /app/data/checkpoints-api.db
+      ZKAGENT_TRACE_DIR: /app/data/traces
+      ZKAGENT_INDEX_DIR: /app/data/indexes
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s

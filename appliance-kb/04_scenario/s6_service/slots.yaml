@@ -1,0 +1,98 @@
+# s6 报修 · 槽位与追问顺序
+#
+# ── 2026-10-23 修订 ────────────────────────────────────
+# 原版把"上门"当唯一服务方式。电饭煲实际是送修（苏泊尔：带包修证明送到特约服务商），
+# 承诺上门就是错答。现在按 appliance 区分服务方式与建单必填项。
+version: 2
+scenario: s6_service
+updated: 2026-10-23
+
+common:
+  required:
+    - product_model
+    - symptom_text
+  optional:
+    - error_code
+    - self_check_done
+    - warranty_status
+    - ticket_id
+
+# 建单时一次问全（用户烦的是被反复问，不是一次问五个）
+batch_collect: true
+
+appliances:
+
+  air_conditioner:
+    service_mode: 上门
+    required: [product_model, symptom_text, contact, address, preferred_time]
+    optional: [error_code, self_check_done, warranty_status, install_floor, has_elevator, ticket_id]
+    ask_order: [product_model, symptom_text, address, contact, preferred_time]
+    prompts:
+      batch: |
+        我帮您登记一下，需要确认几项：
+        1. 机器型号（机身侧面标签上的）
+        2. 具体什么情况
+        3. 上门地址、几楼、有没有电梯
+        4. 联系人和电话
+        5. 什么时间方便
+    must_tell:
+      - 师傅 24 小时内联系（不说具体时间）
+      - 是否可能收费（保修内/过保，不确定说"师傅上门确认"）
+
+  washer:
+    service_mode: 上门
+    required: [product_model, symptom_text, contact, address, preferred_time]
+    optional: [error_code, self_check_done, warranty_status, install_floor, has_elevator, ticket_id]
+    ask_order: [product_model, symptom_text, address, contact, preferred_time]
+    prompts:
+      batch: |
+        我帮您登记一下，需要确认几项：
+        1. 型号（机门内侧或机身背面铭牌上）
+        2. 具体什么情况（不进水/不脱水/漏水/震动大）
+        3. 地址、几楼、有没有电梯（机器五六十公斤，搬运要提前说）
+        4. 联系人和电话
+        5. 什么时间方便
+    extra_collect:
+      - 运输螺栓是否已拆（"新机就抖"要先排除这条，能远程解决就不派单）
+      - 是否已做过筒自洁/清理过滤器（自查记录能减少无效上门）
+    must_tell:
+      - 师傅 24 小时内联系
+      - 拆机类维修一定由师傅操作，不要用户自己拆
+
+  rice_cooker:
+    service_mode: 送修为主（以品牌口径为准，苏泊尔为送特约服务商）
+    required: [product_model, symptom_text, contact]
+    optional: [error_code, self_check_done, warranty_status, ticket_id, address]
+    ask_order: [product_model, symptom_text, contact, ticket_id]
+    prompts:
+      batch: |
+        我帮您登记一下，需要确认几项：
+        1. 型号（内锅边缘或机身底部铭牌上）
+        2. 具体什么情况（不加热/饭不熟/溢锅/糊锅）
+        3. 联系人和电话
+        4. 有没有发票或电子保修卡
+    must_tell:
+      - 电饭煲一般走送修，不是上门；就近特约服务商地址可以帮您查
+      - 不承诺"师傅马上上门"
+      - 用户坚持要上门时，说明可能产生上门/检测费，且是否派人以服务商判断为准
+    handoff: 涉及内胆涂层脱落必须先拍照存证，再送修
+
+preconditions:
+  - check: 型号是否确认
+    fail: 先走 07_dialogue/disambiguation.yaml，不给"仅品类"建单
+  - check: 是否已有未完结工单
+    fail: 追加备注并告知"已帮您催单"
+  - check: 是否命中安全红线
+    hit: priority=urgent + 停机建议
+  - check: 品类是否已知
+    fail: 先定品类（空调/洗衣机/电饭煲），否则无法确定是上门还是送修
+
+output:
+  must_tell:
+    - 已登记的期待动作（上门类：24 小时内联系；送修类：就近网点 + 需带凭证）
+    - 是否会收费（保修内/过保，不确定则说"师傅上门确认"）
+  must_not:
+    - 具体上门时间
+    - 维修结果承诺
+    - 备件到货时间的估计（未查库存时）
+    - 对电饭煲承诺上门

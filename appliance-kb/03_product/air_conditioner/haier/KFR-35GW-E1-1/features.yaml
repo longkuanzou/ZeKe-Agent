@@ -1,0 +1,36 @@
+# 功能清单。supported: null 表示说明书未明确，一律按"不确定"回答，不得推定
+product_id: haier-kfr-35gw-e1-1
+updated: 2026-10-21
+
+features:
+  cooling:    {supported: true, source: p13, phrase: 制冷}
+  heating:    {supported: true, source: p13, phrase: 制热}
+  dry:        {supported: true, source: p14, phrase: 除湿}
+  fan_only:   {supported: true, source: p14, phrase: 送风}
+  auto_mode:  {supported: true, source: p13, phrase: PMV/自控温}
+  auxiliary_heat: {supported: true, source: p16, phrase: 辅热，PTC 1050W}
+  timer:      {supported: true, source: p18, phrase: 定时开关机}
+  sleep:      {supported: true, source: p18, phrase: 睡眠曲线（智家App）}
+  anti_direct_blow: {supported: true, source: p15, phrase: 防直吹}
+  self_clean: {supported: true, source: p21, phrase: 除菌自清洁，按【自清洁】键进入，面板显示符号与进度条，完成后回响两声自动退出}
+  wifi:       {supported: true, source: p27, phrase: 海尔智家 App，仅 2.4GHz}
+  voice:      {supported: null, source: p29,
+               note: "说明书按'带语音功能的空调'与'非语音空调'分别说明；本机是否带语音需按机身/型号确认，不得直接答'支持语音'"}
+  fresh_air:  {supported: false, source: null, note: 说明书无新风内容}
+
+selling_points:
+  - key: noise
+    text: 室内机超静档 16dB(A)
+    support: specs.noise_indoor_db
+  - key: self_clean
+    text: 除菌自清洁，一键进入
+    support: features.self_clean
+  - key: capacity_range
+    text: 制冷量 3510W（150~5350W），制热量 5110W（150~7000W）
+    support: specs.cooling_capacity_w
+
+cannot_claim:
+  - 具体能效等级 / APF        # 说明书未公布
+  - 语音控制                  # 本机是否带语音不确定
+  - 新风
+  - 具体适用面积

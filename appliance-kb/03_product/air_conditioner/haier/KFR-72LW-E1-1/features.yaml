@@ -1,0 +1,15 @@
+product_id: haier-kfr-72lw-e1-1
+updated: 2026-10-22
+
+features:
+  cooling: {supported: true, source: p13, phrase: 制冷}
+  heating: {supported: true, source: p13, phrase: 制热}
+  dry: {supported: true, source: p14, phrase: 除湿}
+  fan_only: {supported: true, source: p14, phrase: 送风}
+  auxiliary_heat: {supported: true, source: p16, phrase: 辅热键}
+  anti_direct_blow: {supported: true, source: p15, phrase: 防直吹键}
+  self_clean: {supported: true, source: p20, phrase: 自清洁运转显示}
+  wifi: {supported: true, source: p28, phrase: 智家App，仅 2.4GHz}
+  voice: {supported: null, phrase: 说明书全文未提语音}
+  fresh_air: {supported: false, phrase: 说明书无新风内容}
+  sleep: {supported: true, source: p18, phrase: 静眠}

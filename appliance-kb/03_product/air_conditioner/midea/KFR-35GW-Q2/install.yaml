@@ -1,0 +1,61 @@
+# 安装条件：安装咨询（s2）与上门前确认的唯一依据
+# 每条都要能回答"我家能不能装"，不能只堆参数
+product_id: midea-kfr-35gw-q2
+updated: 2026-10-21
+
+# ── 电气（安装前必查，涉及安全，答错代价最高）──
+electrical:
+  supply: {value: "220V~/50Hz", source: p30}
+  dedicated_circuit: {value: true, source: p24,
+    text: 必须使用专用电源分支线路供电，不得与其他大功率电器共用}
+  breaker_rule: {source: p24,
+    text: "最大电流≥16A 时，须配带≥3mm 触点开距的全极断开空气开关/漏电保护开关；<16A 时配插头",
+    applies: "本机最大输入电流 15.0A，按规则配插头接入专用回路"}
+  grounding: {value: true, source: p24,
+    text: "I 类电器，必须可靠接地；接地电阻<4Ω，接地端子与可触及金属外壳<0.1Ω"}
+  cord: {value: "3×1.5mm² RVV300/500V", source: p30}
+  connection_wire: {value: "4×1.0mm² YZW300/500V，线长≤5m", source: p30}
+  max_current_a: {value: 15.0, source: p30}
+
+# ── 空间（房间面积是安全项：R32 可燃制冷剂）──
+space:
+  min_room_area_m2: {value: 4, source: p30,
+    text: 安装/运行/存放的房间面积须≥4㎡，不达标应拒绝安装并说明}
+  indoor_clearance: {source: p9, values: null,
+    text: "室内机上方/两侧留出进出风空间，具体数值见说明书安装简图（图示，需按图核对）",
+    verified: false}
+  outdoor_location: {source: p24,
+    text: "不得占用过道、楼梯、出口、消防通道；尽量远离邻居门窗与绿化；避开儿童易触及处"}
+  height_work: {source: p24, text: "离坠落基准面 2m 以上作业须佩戴安全带并系牢室外机"}
+
+# ── 支架与承重 ──
+bracket:
+  strength: {text: "安装架及承载面强度≥机组重量 4 倍，且不低于 200kg", source: p24}
+  fastening: {text: "室外机安装架必须用金属膨胀螺栓固定，并加防倒零件", source: p24}
+
+# ── 管路 ──
+piping:
+  标配长度_m: null            # 说明书未给标准配置长度，以随机附件为准
+  max_length_m: {value: 15, source: p26}
+  extra_refrigerant: {value: "18g/m", source: p26}
+  height_diff_m: null
+  refrigerant: {value: "R32/680g", source: p30}
+  drain: {value: true, source: p18, text: "需接排水，冷凝水不得滴漏至楼下或影响他人"}
+
+# ── 上门前用户需准备/确认 ──
+pre_visit_checklist:
+  - 安装位置（室内机墙面是否承重、是否有插座）
+  - 专用电源回路是否已布好
+  - 室外机位置是否可用（物业是否允许外挂、是否有预留机位）
+  - 墙体材质（砖墙/混凝土/轻质隔墙/幕墙玻璃，影响支架与打孔）
+  - 是否需要加长管、加长距离
+  - 楼层与是否有电梯（影响上楼费）
+  - 打孔是否需穿梁、是否需物业报备
+
+# ── 需额外收费的项（金额见 05_brand_ref 收费标准，此处只列"是否可能产生"）──
+chargeable_items: [高空作业, 加长连接管, 支架, 打孔, 拆装防盗网, 远程上门]
+
+missing:
+  - indoor_clearance 具体数值（说明书为图示，需 OCR 或人工读图补录）
+  - 标配连接管长度
+  - 室内外机最大高度差

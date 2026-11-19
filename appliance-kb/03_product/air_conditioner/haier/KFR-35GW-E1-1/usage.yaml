@@ -1,0 +1,55 @@
+# 使用与保养（来源：海尔使用安装说明书 p12~p24 使用说明章节）
+product_id: haier-kfr-35gw-e1-1
+updated: 2026-10-21
+
+first_use:
+  source: p13
+  steps:
+    - 由专业人员完成安装、检漏、试机并做漏电检测
+    - 装入遥控器电池（若按开关键无显示，重新装一次电池）
+    - 通电开机，选择模式
+    - 设定温度与风速，调整导风板
+
+modes:
+  cooling: {source: p13}
+  heating: {source: p13}
+  dry:     {source: p14, note: 除湿时室温接近设定温度会以低风速间歇运转，遥控器调风速无效}
+  fan:     {source: p14, note: 送风模式不制冷不制热，不能设定温度}
+  pmv_auto: {source: p13, note: 自控温/PMV 模式下遥控器设定温度不显示（默认26℃）}
+
+operations:
+  self_clean:
+    steps:
+      - 按【自清洁】键进入除菌自清洁
+      - 面板显示自清洁符号与进度条（灯带为雾白色），遥控器同步显示
+      - 完成后回响两声自动退出，恢复原状态
+    source: p21
+    notes: 自清洁运行期间不要断电、不要强行关机
+  timer: {steps: [按定时键, 选择开/关, 设定时间, 确认], source: p18}
+  auxiliary_heat: {steps: [按辅热键, 遥控器显示"辅热", 内机显示屏出现电加热符号], source: p16}
+  sleep: {steps: [智家App-空调详情页-睡眠曲线], source: p29}
+  wifi_bind:
+    steps:
+      - 手机安装「海尔智家」App
+      - 配网绑定空调（仅 2.4GHz）
+      - 绑定后可在 App 内控制、查看能耗、设置场景
+    source: p27
+  reset_filter_reminder:
+    steps: [智家App-空调详情页-滤网清洗-点击"我刚清洗了滤网"]
+    source: p31
+    note: 已清洗但仍反复提醒时使用此重置
+
+maintenance:
+  过滤网:
+    frequency: 两周左右清洗一次
+    source: p29
+  机身与导风板: {source: p22, text: 断电后用湿布擦拭，禁用腐蚀性清洁剂}
+  长时不使用: {source: p23, text: 断电、清洁滤网、取出遥控器电池}
+
+limits:
+  working_env: {cooling: "室外 18~43℃", heating: "室外 -7~24℃", source: p36}
+  protection_ranges: {source: p36,
+    cooling: "室外 >62℃ 或 <-35℃、室内 <21℃ 可能停机保护",
+    heating: "室外 >24℃ 或 <-35℃、室内 >27℃ 可能停机保护",
+    dry: "室内 <18℃ 可能停机保护"}
+  note: 保护性停机属正常现象，与美的同档位的阈值不同（美的制冷室外上限 65℃），对比时不可混用

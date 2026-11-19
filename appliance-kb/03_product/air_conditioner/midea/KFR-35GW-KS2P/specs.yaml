@@ -1,0 +1,30 @@
+# 参数来源：说明书参数表（页码见每项 source），2026-10-22 人工核对回填
+# confidence: inferred = 参数表文本错位，按位置推断，待人工复核（见 10_ops/confirm_queue.md）
+product_id: midea-kfr-35gw-ks2p
+updated: 2026-10-22
+
+specs:
+  pipe_max_length_m:
+    value: 10
+    unit: m
+    source: p8
+  pipe_max_height_diff_m:
+    value: 5
+    unit: m
+    source: p8
+  recommended_area_cooling_m2:
+    value: 15-23
+    unit: m²
+    source: p3
+  recommended_area_heating_m2:
+    value: 17-23
+    unit: m²
+    source: p3
+  min_room_area_m2: null
+  refrigerant_type:
+    value: R32
+    source: p4
+    note: A2L 低可燃
+
+missing:
+  - min_room_area_m2

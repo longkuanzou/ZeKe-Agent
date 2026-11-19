@@ -1,0 +1,3898 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "e-s1_presale-001",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台制冷量多少？",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "3510"
+      ],
+      "must_not_include": [
+        "5000"
+      ],
+      "handoff": false,
+      "reference_answer": "制冷量 3510W（范围 150~5250W）。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-q2@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-002",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台制冷量多少？",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "3510"
+      ],
+      "must_not_include": [
+        "本机是 3500"
+      ],
+      "handoff": false,
+      "reference_answer": "制冷量 3510W（150~5350W）。同品牌的 01KMC81U1 是 3500W，不要混。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/haier-kfr-35gw-e1-1@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-003",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台制热量多少？",
+      "product_id": "haier-kfr-35gw-e1-1plus",
+      "model": "KFR-35GW/E1-1Plus",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "5420"
+      ],
+      "must_not_include": [
+        "是 5110"
+      ],
+      "handoff": false,
+      "reference_answer": "制热量 5420W。Plus 版比 E1-1（5110W）高 310W，是这两台最实在的差别。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/haier-kfr-35gw-e1-1plus@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-004",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "3 匹柜机制冷量多少？",
+      "product_id": "haier-kfr-72lw-e1-1",
+      "model": "KFR-72LW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "7330"
+      ],
+      "must_not_include": [
+        "本机是 7320"
+      ],
+      "handoff": false,
+      "reference_answer": "制冷量 7330W（850~9270W）。美的 N8KS1-1P 是 7320W，两台几乎一样。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/haier-kfr-72lw-e1-1@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-005",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "3 匹柜机制冷量多少？",
+      "product_id": "midea-kfr-72lw-n8ks1-1p",
+      "model": "KFR-72LW/N8KS1-1P",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "7320"
+      ],
+      "must_not_include": [
+        "7330"
+      ],
+      "handoff": false,
+      "reference_answer": "制冷量 7320W（900~9260W）。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-006",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "循环风量多少？",
+      "product_id": "midea-kfr-72lw-n8ks1-1p",
+      "model": "KFR-72LW/N8KS1-1P",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "1760"
+      ],
+      "must_not_include": [
+        "本机是 1600"
+      ],
+      "handoff": false,
+      "reference_answer": "1760m³/h。这是 2026-10-23 核定后的值——本机是「酷省电Ultra」，官方标定 1760m³/h；本批说明书参数表里的 1600 沿用的是旧款「舒适星」的数据，已作废。",
+      "basis": "业务方口径",
+      "gold": [
+        "presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-007",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "循环风量多少？",
+      "product_id": "haier-kfr-72lw-e1-1",
+      "model": "KFR-72LW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "1600"
+      ],
+      "must_not_include": [
+        "本机是 1750"
+      ],
+      "handoff": false,
+      "reference_answer": "1600m³/h。同系列 Plus 版（E1-1Plus）是 1750m³/h，是推断值，别当说明书值报。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/haier-kfr-72lw-e1-1@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-008",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台室内机多大？能放进预留位吗",
+      "product_id": "midea-kfr-72lw-n8ks1-1p",
+      "model": "KFR-72LW/N8KS1-1P",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "380",
+        "1802"
+      ],
+      "must_not_include": [
+        "395",
+        "1856"
+      ],
+      "handoff": false,
+      "reference_answer": "室内机 380×1802×392mm（宽×高×深）。这是说明书参数表里 51LW 与 72LW 共用的立柜机身尺寸；回答预留位要提醒以铭牌/实测为准。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-009",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台室内机多大？",
+      "product_id": "haier-kfr-72lw-e1-1",
+      "model": "KFR-72LW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "424",
+        "1830",
+        "364"
+      ],
+      "must_not_include": [
+        "本机是 364×1830×424"
+      ],
+      "handoff": false,
+      "reference_answer": "室内机 424×1830×364mm（宽×高×深）。说明书 p35 印的是 364×1830×424（宽深互换），2026-10-23 经海尔官方知识库 + 苏宁自营规格页交叉核定，确认实机是 424 宽 / 364 深，说明书那张表是列序问题。装柜留 5cm 以上间隙。",
+      "basis": "业务方口径",
+      "gold": [
+        "presale/fact/haier-kfr-72lw-e1-1@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-010",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台是几级能效？",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "1"
+      ],
+      "must_not_include": [
+        "3"
+      ],
+      "handoff": false,
+      "reference_answer": "1 级能效。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-q2@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-011",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台是几级能效？",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "能效标识"
+      ],
+      "must_not_include": [
+        "是 1 级",
+        "三级"
+      ],
+      "handoff": true,
+      "reference_answer": "这台说明书里没有能效等级这一项，我不敢按经验给。要看机身能效标识或购机凭证上的能效等级。",
+      "basis": "库内缺失",
+      "gold": []
+    },
+    {
+      "id": "e-s1_presale-012",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台用多少冷媒？",
+      "product_id": "midea-kfr-72lw-n8ks1-1p",
+      "model": "KFR-72LW/N8KS1-1P",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "R32",
+        "1170"
+      ],
+      "must_not_include": [
+        "本机是 1120"
+      ],
+      "handoff": false,
+      "reference_answer": "R32，充注量 1170g（51LW 那台是 1120g，别串）。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-72lw-n8ks1-1p@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-013",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台排水方式是上排水还是下排水？",
+      "product_id": "littleswan-tb100v26dt",
+      "model": "TB100V26DT",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "下排水",
+        "地漏"
+      ],
+      "must_not_include": [
+        "是上排水"
+      ],
+      "handoff": false,
+      "reference_answer": "下排水。安装位置必须有地漏才能排，不能套「上排水不需要地漏」那条规则。",
+      "basis": "业务方口径",
+      "gold": [
+        "presale/fact/littleswan-tb100v26dt@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-014",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台排水方式是上排水还是下排水？",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "上排水"
+      ],
+      "must_not_include": [
+        "下排水"
+      ],
+      "handoff": false,
+      "reference_answer": "上排水（滚筒机默认），排水管挂高 60~90cm 排到地漏或水槽，不需要地面地漏。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/littleswan-tg10k60@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-015",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台洗涤容量多大？",
+      "product_id": "siemens-wn54a1x42w",
+      "model": "WN54A1X42W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "10"
+      ],
+      "must_not_include": [
+        "7kg 洗"
+      ],
+      "handoff": false,
+      "reference_answer": "洗涤 10kg、烘干 7kg。洗烘一体的烘干容量一定小于洗涤容量，一次洗满就得分成两次烘。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/siemens-wn54a1x42w@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-016",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台烘干容量多少？",
+      "product_id": "siemens-wq53e2d01w-wq53e2d11w",
+      "model": "WQ53E2D01W+WQ53E2D11W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "10"
+      ],
+      "must_not_include": [
+        "7"
+      ],
+      "handoff": false,
+      "reference_answer": "纯干衣机，烘干容量 10kg（无洗涤功能）。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/siemens-wq53e2d01w-wq53e2d11w@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-017",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台脱水转速多少？",
+      "product_id": "littleswan-tg100v618plus",
+      "model": "TG100V618PLUS",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "1200"
+      ],
+      "must_not_include": [
+        "1400"
+      ],
+      "handoff": false,
+      "reference_answer": "最高脱水转速 1200r/min。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/littleswan-tg100v618plus@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-018",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台机身多深？柜子能嵌进去吗",
+      "product_id": "littleswan-tg10v628plus",
+      "model": "TG10V628PLUS",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "585",
+        "595"
+      ],
+      "must_not_include": [
+        "本机是 560"
+      ],
+      "handoff": false,
+      "reference_answer": "595×850×585mm（宽×高×深），是同组里最深的一台；TG100V618PLUS 是 560mm 深。标准 60cm 柜体要留进出水和散热间隙，量柜子按机身深度加 3~5cm。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/littleswan-tg10v628plus@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-019",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台多重？",
+      "product_id": "siemens-wm12p2602w",
+      "model": "WM12P2602W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "79"
+      ],
+      "must_not_include": [
+        "70"
+      ],
+      "handoff": false,
+      "reference_answer": "整机约 79kg。滚筒机很重，搬运和上楼要先说清楚。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/siemens-wm12p2602w@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-020",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台几升的？",
+      "product_id": "midea-mb-re576s",
+      "model": "MB-RE576S",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "5"
+      ],
+      "must_not_include": [
+        "4"
+      ],
+      "handoff": false,
+      "reference_answer": "5.0L。说明书没印额定容积，是按水位线最大刻度 10 杯 + 官网产品页 + 业务方核机身铭牌三条一致确认的。",
+      "basis": "业务方口径",
+      "gold": [
+        "presale/fact/midea-mb-re576s@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-021",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台几升的？",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "5"
+      ],
+      "must_not_include": [
+        "4"
+      ],
+      "handoff": false,
+      "reference_answer": "5.0L。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/supor-f50x96@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-022",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "内胆是什么材质？",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "0氟有钛土陶球釜"
+      ],
+      "must_not_include": [
+        "特氟龙"
+      ],
+      "handoff": false,
+      "reference_answer": "0氟有钛土陶球釜（有钛小快球釜），0 涂层设计，耐磨抗刮，可以用钢丝球刷洗。这是本库里唯一允许说能用钢丝球的机型，同品牌其他涂层机型一律禁用钢丝球。",
+      "basis": "业务方口径",
+      "gold": [
+        "presale/fact/supor-f50x96@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-023",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "内胆是什么材质？",
+      "product_id": "supor-sf40fc871",
+      "model": "SF40FC871",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "蓝钻"
+      ],
+      "must_not_include": [
+        "0 涂层"
+      ],
+      "handoff": false,
+      "reference_answer": "蓝钻不粘厚釜（能效表「内锅材质」列填的是「金属」）。有涂层，不能用钢丝球。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/supor-sf40fc871@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-024",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台功率多大？",
+      "product_id": "midea-mb-40hb9t",
+      "model": "MB-40HB9T",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "1300"
+      ],
+      "must_not_include": [
+        "本机是 760"
+      ],
+      "handoff": false,
+      "reference_answer": "1300W，是 IH 加热；同容量底盘加热的 MB-AFB4041RL 是 760W。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-mb-40hb9t@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-025",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台是 IH 还是底盘加热？",
+      "product_id": "midea-mb-afb4041rl",
+      "model": "MB-AFB4041RL",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "底盘"
+      ],
+      "must_not_include": [
+        "IH 加热"
+      ],
+      "handoff": false,
+      "reference_answer": "底盘加热，不是 IH。同品牌 MB-40HB9T 才是 IH。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-mb-afb4041rl@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-026",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台机身尺寸多少？",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "380",
+        "255",
+        "280"
+      ],
+      "must_not_include": [
+        "381"
+      ],
+      "handoff": false,
+      "reference_answer": "380×255×280mm，但这是按同品牌 5L 机型（SF50FC733 384×285×257）推算的，官方没公开精确尺寸，误差可能 ±15mm，只能用于估算，不能当安装/嵌入依据。",
+      "basis": "推断",
+      "gold": [
+        "presale/fact/supor-f50x96@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-027",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "支持自清洁吗？",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "没有"
+      ],
+      "must_not_include": [
+        "支持自清洁",
+        "按自清洁键"
+      ],
+      "handoff": false,
+      "reference_answer": "这台没有自清洁，滤网需要自己拆洗。美的 1.5 匹这几台（A11 / KS2P / N8KS1-1P / Q2）都没有。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-q2@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-028",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "有自清洁功能吗",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "有"
+      ],
+      "must_not_include": [
+        "没有自清洁"
+      ],
+      "handoff": false,
+      "reference_answer": "有（除菌自清洁）。海尔这 5 台全部带自清洁。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/haier-kfr-35gw-e1-1@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-029",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "这台能烘干衣服吗？",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "没有"
+      ],
+      "must_not_include": [
+        "可以烘干",
+        "除湿可以烘干"
+      ],
+      "handoff": false,
+      "reference_answer": "空调不能烘衣服。这台有除湿模式（干衣用的 dry 功能是除湿），但除湿不是烘干，没有加热筒、达不到烘干效果。要烘干得用干衣机或洗烘一体。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-q2@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-030",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "这台是单洗还是洗烘一体？",
+      "product_id": "littleswan-tg10v628plus",
+      "model": "TG10V628PLUS",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "单洗",
+        "没有烘干"
+      ],
+      "must_not_include": [
+        "能烘干",
+        "洗烘一体机"
+      ],
+      "handoff": false,
+      "reference_answer": "单洗机，没有烘干模块（型号后缀官方标的就是「10KG 滚筒单洗」）。说明书里出现的「烘干前」「烘干时间」是洗烘一体版型的通用模板文字，不适用于这台。",
+      "basis": "业务方口径",
+      "gold": [
+        "presale/fact/littleswan-tg10v628plus@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-031",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "能连 WiFi 吗？",
+      "product_id": "siemens-wg52a108aw",
+      "model": "WG52A108AW",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "不带"
+      ],
+      "must_not_include": [
+        "支持 WiFi"
+      ],
+      "handoff": false,
+      "reference_answer": "西门子这 5 台都不带 WiFi，也没有 App 控制。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/siemens-wg52a108aw@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-032",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "带自动投放吗？",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "有"
+      ],
+      "must_not_include": [
+        "没有自动投放"
+      ],
+      "handoff": false,
+      "reference_answer": "有自动投放。小天鹅 5 台里 TG100V618PLUS / TG10K60 / TG10V628PLUS / TG10VE40 都有，波轮 TB100V26DT 没有。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/littleswan-tg10k60@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-033",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "有没有低糖饭功能？",
+      "product_id": "midea-mb-re576s",
+      "model": "MB-RE576S",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "没有"
+      ],
+      "must_not_include": [
+        "有低糖饭程序"
+      ],
+      "handoff": false,
+      "reference_answer": "这台没有低糖饭。本库唯一带低糖饭的是苏泊尔 F40H9083S。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-mb-re576s@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-034",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "有没有低糖饭功能？",
+      "product_id": "supor-f40h9083s",
+      "model": "F40H9083S",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "有"
+      ],
+      "must_not_include": [
+        "没有低糖"
+      ],
+      "handoff": false,
+      "reference_answer": "有低糖饭程序。同系列 F40H8093S 没有，别串。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/supor-f40h9083s@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-035",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "能蒸东西吗？",
+      "product_id": "supor-sf50fc733",
+      "model": "SF50FC733",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "有"
+      ],
+      "must_not_include": [
+        "不能蒸"
+      ],
+      "handoff": false,
+      "reference_answer": "有蒸煮程序，配蒸架可以蒸。苏泊尔这几台基本都带蒸，美的 MB-40HB9T / MB-RE576S 不带蒸。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/supor-sf50fc733@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-036",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.fit",
+      "question": "我家 3 平方的小房间能装吗",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "4"
+      ],
+      "must_not_include": [
+        "可以装"
+      ],
+      "handoff": false,
+      "reference_answer": "不建议。这台说明书标的使用房间最小面积是 4㎡（含）以上，3㎡ 低于下限——房间太小，冷量打不满会频繁启停，房间小还容易过冷。这种情况建议换小一档的机器或先问安装师傅现场判断。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-q2@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-037",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.fit",
+      "question": "20 平的卧室够用吗",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "3510"
+      ],
+      "must_not_include": [
+        "官方适用面积"
+      ],
+      "handoff": false,
+      "reference_answer": "这台制冷量 3510W（1.5 匹），20㎡ 卧室一般够用——但这句是经验估算，不是厂家标称的适用面积。说明书只给了最小面积 4㎡。西晒、顶层、大玻璃的要往上加一档。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-q2@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-038",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.fit",
+      "question": "我家 8 平米厨房放得下洗衣机吗",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "595",
+        "850",
+        "560"
+      ],
+      "must_not_include": [
+        "一定能放"
+      ],
+      "handoff": false,
+      "reference_answer": "机身 595×850×560mm（宽×高×深）。8㎡ 面积通常够，但更关键是门洞和通道宽度能不能过人、深度方向要不要留进出水和散热间隙。运输螺栓要拆、要留 3~5cm 余量。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/littleswan-tg10k60@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-039",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.fit",
+      "question": "3 口人买几升的电饭煲",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "4"
+      ],
+      "must_not_include": [
+        "10L",
+        "10 升"
+      ],
+      "handoff": false,
+      "reference_answer": "3 口人日常 4L 够（4L 一般够 4~5 碗饭）。常留隔夜饭、或常有客人的话上 5L。本库 4L 机型：美的 MB-40HB9T / MB-AFB4041RL、苏泊尔 SF40FC871 / F40H8093S / F40H9083S；5L：美的 MB-RE576S、苏泊尔 F50X96 / SF50FC733。",
+      "basis": "说明书原文",
+      "gold": []
+    },
+    {
+      "id": "e-s1_presale-045",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.price",
+      "question": "多少钱？",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "价格"
+      ],
+      "must_not_include": [
+        "3499",
+        "3999 元"
+      ],
+      "handoff": false,
+      "reference_answer": "价格我这边查不到实时报价，得按型号和当前活动走商品页/下单页。提醒一句：机器价不含安装辅材（加长管、打孔、支架、高空费），这些是另算的。",
+      "basis": "库内缺失",
+      "gold": []
+    },
+    {
+      "id": "e-s1_presale-046",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台制冷量多少？",
+      "product_id": "haier-kfr-35gw-01kmc81u1",
+      "model": "KFR-35GW/01KMC81U1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "3500"
+      ],
+      "must_not_include": [
+        "是 3510"
+      ],
+      "handoff": false,
+      "reference_answer": "制冷量 3500W。比同品牌的 E1-1（3510W）低 10W，两台不是同一台。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/haier-kfr-35gw-01kmc81u1@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-047",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.spec",
+      "question": "这台循环风量多少？",
+      "product_id": "haier-kfr-72lw-e1-1plus",
+      "model": "KFR-72LW/E1-1Plus",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "1750"
+      ],
+      "must_not_include": [
+        "本机是 1600"
+      ],
+      "handoff": false,
+      "reference_answer": "1750m³/h，但这是按同系列推算的推断值，不是说明书参数表里的原值，被追问依据时要说明是推断。同系列 E1-1 是 1600m³/h。",
+      "basis": "推断",
+      "gold": [
+        "presale/fact/haier-kfr-72lw-e1-1plus@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-048",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "支持自清洁吗？",
+      "product_id": "midea-kfr-35gw-a11",
+      "model": "KFR-35GW/A11",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "没有"
+      ],
+      "must_not_include": [
+        "支持自清洁"
+      ],
+      "handoff": false,
+      "reference_answer": "这台没有自清洁。美的 1.5 匹这四台（A11 / KS2P / N8KS1-1P / Q2）都没有，只有海尔有。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-a11@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-049",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "能连 WiFi 吗？",
+      "product_id": "midea-kfr-35gw-ks2p",
+      "model": "KFR-35GW/KS2P",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "有"
+      ],
+      "must_not_include": [
+        "不能连"
+      ],
+      "handoff": false,
+      "reference_answer": "有 WiFi，可以用美居 App。但这台没有自清洁。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-ks2p@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s1_presale-050",
+      "journey": "presale",
+      "scenario": "s1_presale",
+      "intent": "presale.feature",
+      "question": "支持自清洁吗？",
+      "product_id": "midea-kfr-35gw-n8ks1-1p",
+      "model": "KFR-35GW/N8KS1-1P",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "没有"
+      ],
+      "must_not_include": [
+        "支持自清洁"
+      ],
+      "handoff": false,
+      "reference_answer": "没有自清洁。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-n8ks1-1p@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-001",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "安装需要什么条件",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "专用",
+        "4"
+      ],
+      "must_not_include": [
+        "进水管"
+      ],
+      "handoff": false,
+      "reference_answer": "空调不接进水也不接下水，条件看四样：① 电气——必须用专用电源分支回路供电，不得和其他大功率电器共用；这是 I 类电器，必须可靠接地（接地电阻<4Ω）。本机最大输入电流 15A，按规则配插头接入专用回路。② 空间——安装、运行、存放的房间面积都要不小于 4㎡。③ 机位——室外机不得占用过道、楼梯、出口、消防通道，要远离邻居门窗、避开儿童易触及处，支架和承载面强度不低于机组重量 4 倍且不低于 200kg。④ 管路——最长 15m，超出每米补 18g 冷媒；内机要接排水，冷凝水不能滴到楼下或影响他人。室内机上方和两侧要留出进出风空间，但具体数值说明书上是图示，得按安装简图核对。",
+      "basis": "说明书原文",
+      "gold": [
+        "install/fact/midea-kfr-35gw-q2@s2#electrical.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-002",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "空调要预留上下水吗，门宽够不够",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "不需要进水"
+      ],
+      "must_not_include": [
+        "需要进水管",
+        "需要地漏"
+      ],
+      "handoff": false,
+      "reference_answer": "空调不需要进水，也不用预留地漏——它没有水路，冷凝水是内机自己排水管引走的。「要上下水、要量门宽」是洗衣机/冰箱的安装条件，别套到空调上。空调要的是电源和开孔。",
+      "basis": "说明书原文",
+      "gold": []
+    },
+    {
+      "id": "e-s2_install-003",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "洗衣机安装有什么条件",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "进水",
+        "排水",
+        "电源",
+        "地面"
+      ],
+      "must_not_include": [
+        "不需要排水"
+      ],
+      "handoff": false,
+      "reference_answer": "五个条件：① 进水——水龙头 + 进水管（随机带）；② 排水——上排水的排水管要挂高 60~90cm 排到地漏或水槽；③ 电源——接地的三孔插座，不要用插排；④ 位置——机身 595×850×560mm，深度方向留 3~5cm；⑤ 地面要平、能承重（这台约 69kg），调平脚调到机器不晃。",
+      "basis": "说明书原文",
+      "gold": []
+    },
+    {
+      "id": "e-s2_install-004",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "下排水的洗衣机安装要注意什么",
+      "product_id": "littleswan-tb100v26dt",
+      "model": "TB100V26DT",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "地漏"
+      ],
+      "must_not_include": [
+        "不需要地漏",
+        "要挂高"
+      ],
+      "handoff": false,
+      "reference_answer": "这台是下排水，安装位置地面必须有地漏，排水管直接落到地漏里。不能按上排水的办法把管子挂高——下排水的排水泵不扬水，挂高了就排不出去。",
+      "basis": "业务方口径",
+      "gold": []
+    },
+    {
+      "id": "e-s2_install-005",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "电饭煲需要安装吗",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "不需要",
+        "拆箱"
+      ],
+      "must_not_include": [
+        "安排师傅上门安装"
+      ],
+      "handoff": false,
+      "reference_answer": "电饭煲不需要安装，拆箱洗净就能用，也不要约师傅上门——它不属于上门安装品类。",
+      "basis": "政策文件",
+      "gold": []
+    },
+    {
+      "id": "e-s2_install-006",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "洗衣机拆了包装直接插电能用吗",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "运输螺栓"
+      ],
+      "must_not_include": [
+        "直接插电就能用"
+      ],
+      "handoff": false,
+      "reference_answer": "不行，滚筒机背面有 4 颗运输螺栓（固定内筒的），不拆就通电脱水会把机器震坏、也报不了装。必须拆掉，拆下的螺栓和塑料垫片留着，以后搬家或运输要装回去。",
+      "basis": "说明书原文",
+      "gold": []
+    },
+    {
+      "id": "e-s2_install-007",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.fee",
+      "question": "加长管最长能加多少米",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "10"
+      ],
+      "must_not_include": [
+        "15 米"
+      ],
+      "handoff": false,
+      "reference_answer": "这台最长 10m（管道总长），高低差不超过 10m。美的 Q2 是 15m，两个品牌的数不能混用。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/haier-kfr-35gw-e1-1@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-008",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.fee",
+      "question": "加长管最长能加多少米",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "15"
+      ],
+      "must_not_include": [
+        "10 米"
+      ],
+      "handoff": false,
+      "reference_answer": "最长 15m。超出的部分要按米补冷媒（18g/m），不是光接管子就行。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/midea-kfr-35gw-q2@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-009",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.fee",
+      "question": "高空费什么时候收",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "4"
+      ],
+      "must_not_include": [
+        "所有楼层都收"
+      ],
+      "handoff": false,
+      "reference_answer": "美的口径是 4 楼及 4 楼以上 + 需要在墙外施工才收高空作业费（100~200 元/台）；4 楼以下或者人在室内就能装完的不收。这是行业参考区间，具体以师傅出示的收费标准为准。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#brand_midea_fee_schedule.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-010",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.fee",
+      "question": "5 楼没电梯，安装总共要收多少钱？",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "标准"
+      ],
+      "must_not_include": [
+        "一共",
+        "总计",
+        "总共 500"
+      ],
+      "handoff": false,
+      "reference_answer": "不能给您一个总价，因为要按现场实际发生的项目算。可能涉及的每一项：高空作业（4 楼以上墙外施工）100~200 元/台、加长连接管 80~120 元/米、打孔 50~150 元/个、支架、远程交通费（20km 以上）。重点：这些是行业参考区间，而且必须由师傅上门后出示收费标准、和您协商确认才收。免费的部分是市内上门设计和基础安装人工。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#brand_midea_fee_schedule.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-011",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.fee",
+      "question": "打孔要另收费吗",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "协议收费",
+        "协商"
+      ],
+      "must_not_include": [
+        "全免费"
+      ],
+      "handoff": false,
+      "reference_answer": "常规安装含一次打孔，但钢筋混凝土墙、水钻打孔、二次移位打孔这类属协议收费，标准由服务人员出示后与您协商。免费安装只免人工，不免辅材。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#brand_haier_fee_schedule.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-012",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.fee",
+      "question": "洗衣机安装是免费的吗",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "免费",
+        "辅材"
+      ],
+      "must_not_include": [
+        "全部免费",
+        "一分钱不收"
+      ],
+      "handoff": false,
+      "reference_answer": "基础安装（上门、就位、调平、接管试机）是免费的，但「免费安装只免人工、不免辅材」：加长进水管、加长排水管、改地漏、换水龙头、专用底座这些要另收。具体标准小天鹅和西门子不一样，以师傅出示的价目为准。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_install_fee_benchmark.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-013",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.booking",
+      "question": "什么时候能来装",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "24"
+      ],
+      "must_not_include": [
+        "明天上午一定到您家"
+      ],
+      "handoff": false,
+      "reference_answer": "正常情况下 24 小时内会有服务人员联系您预约上门时间。但具体哪天几点要看当地网点的排期和您的时间，我没法替他们承诺「明天上午一定到」。",
+      "basis": "政策文件",
+      "gold": [
+        "install/faq/global@s2#faq-s2.001.md",
+        "install/faq/global@s2#faq-s2.002.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-001",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.first_time",
+      "question": "第一次使用怎么操作",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "电源",
+        "模式"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "四步：插电源、按开关键、选模式（制冷/制热）、调温度和风向（制冷导风板朝上、制热朝下）。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.001.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-002",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "滤网怎么拆下来洗",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "断电",
+        "面板"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "先关机断电 → 抓面板两端下侧扣手位打开约 75 度 → 抬中间凸部往下拉出滤网 → 温水加中性洗涤剂洗、阴凉处晾干别暴晒 → 装回合面板。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/midea-kfr-35gw-q2@s3#maintenance.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-003",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "滤网多久洗一次",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "两周"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "说明书建议两周左右一次；灰大、用得多可以更勤。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/haier-kfr-35gw-e1-1@s3#maintenance.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-004",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "滤网多久洗一次",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "建议"
+      ],
+      "must_not_include": [
+        "厂家要求两周"
+      ],
+      "handoff": false,
+      "reference_answer": "这台说明书没写周期。一般建议换季前和用得多时各清一次——这是使用建议，不是厂家要求。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/midea-kfr-35gw-q2@s3#maintenance.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-005",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "怎么开自清洁",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "自清洁"
+      ],
+      "must_not_include": [
+        "没有自清洁"
+      ],
+      "handoff": false,
+      "reference_answer": "按遥控器的【自清洁】键进入，面板显示符号和进度条（灯带雾白色）。过程中别断电、别强行关机，跑完响两声自动退出。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/haier-kfr-35gw-e1-1@s3#operations.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-006",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "怎么开自清洁",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "没有"
+      ],
+      "must_not_include": [
+        "按自清洁键"
+      ],
+      "handoff": false,
+      "reference_answer": "这台没有自清洁，没有这个键。日常清洁就拆滤尘网洗；导风板可以用「待机清洁」——关机状态下长按遥控器组合键，等外导风板完全打开后断电擦拭。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.006.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-007",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.connect",
+      "question": "怎么连 WiFi / APP 连不上",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "2.4"
+      ],
+      "must_not_include": [
+        "5G 也可以"
+      ],
+      "handoff": false,
+      "reference_answer": "装「智家」或「美居」App → 首页「+」扫机身二维码添加 → 按向导连网，Wi-Fi 一定选 2.4GHz。连不上常见原因：连了 5G（不支持）、Wi-Fi 名带中文、路由器挂的设备太多。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.007.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-008",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.connect",
+      "question": "空调老掉线",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "2.4"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "先确认路由器 2.4GHz 频段的信号强度：距离远、隔墙多、路由器下挂设备太多都会掉。换路由器位置或加个中继再试，仍频繁离线我帮您登记。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym19.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-009",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "长时间不用怎么处理",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "滤网",
+        "电池"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "断电、把滤网清洗晾干装回、遥控器电池取出来分开存放；下次用之前先通电看看运转是否正常。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.008.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-010",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.setting_confusion",
+      "question": "为什么开 26 度还是不凉",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "送风",
+        "滤网"
+      ],
+      "must_not_include": [
+        "机器坏了"
+      ],
+      "handoff": false,
+      "reference_answer": "先排三点：模式是不是在「送风」（送风不制冷）、设定温度是不是比室温低、滤网是不是该洗了。另外室外超 43℃、房间西晒西窗大开，效果都会打折。三点都排除还不凉，走排查流程。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.009.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-011",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "遥控器按了没反应",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "电池"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "先换电池，还不行取出电池等几分钟装回去。遥控距离一般 7 米内、中间别挡东西，室内机 1 米内别装日光灯（会干扰）。都不行就是遥控器或接收头的问题，帮您登记。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.010.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-012",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "电饭煲水位线怎么用，米种刻度是什么意思",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "刻度",
+        "米种"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "内锅上一般有两组刻度，对应不同米种（常见东北米和丝苗米）——先确认您煮的是哪种米，再看对应那条线。水量不要超过最高水位线，超了容易溢锅。面板上的「米种」键要和刻度对上。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.011.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-013",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "电饭煲内胆怎么清洗，能用钢丝球吗",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "涂层",
+        "钢丝球"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "要看机型：涂层内胆只能海绵/软布洗，钢丝球、清洁球、金属铲都会刮花涂层，也不能进洗碗机；不锈钢零涂层或 0 涂层机型的机型（如美的 MB-RE576S 的 316L、苏泊尔 F50X96 的 0氟有钛土陶球釜）本身没涂层，可以用钢丝球。上盖内盖一般能一键拆下来单独洗。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.012.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-014",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "苏泊尔 F50X96 内胆能用钢丝球刷吗",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "可以"
+      ],
+      "must_not_include": [
+        "不能用钢丝球"
+      ],
+      "handoff": false,
+      "reference_answer": "可以。这台是 0氟有钛土陶球釜、0 涂层设计，耐磨抗刮，允许用钢丝球刷洗。但同品牌的 SF40FC871（蓝钻不粘涂层）、SF50FC733（陶瓷纳米晶体涂层）不行。",
+      "basis": "业务方口径",
+      "gold": [
+        "presale/fact/supor-f50x96@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-015",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "苏泊尔 SF40FC871 内胆能用钢丝球吗",
+      "product_id": "supor-sf40fc871",
+      "model": "SF40FC871",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "不能"
+      ],
+      "must_not_include": [
+        "可以用钢丝球"
+      ],
+      "handoff": false,
+      "reference_answer": "不能。这台是蓝钻不粘厚釜，有涂层，钢丝球、清洁球、金属铲都会刮花，只能海绵或软布加中性清洁剂。",
+      "basis": "说明书原文",
+      "gold": [
+        "presale/fact/supor-sf40fc871@s1#params.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-016",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "洗衣机放多少洗涤剂合适",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "washer",
+      "must_include": [
+        "泡沫"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "按洗涤剂包装上的用量来，再参考水质硬度和衣物脏污程度。倒多了机器会检测到泡沫过多、自动加水漂洗并延长程序，衣服反而更容易残留。低泡机洗专用最稳妥。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.013.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-017",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "洗衣机的筒自洁怎么用，多久做一次",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "washer",
+      "must_include": [
+        "不放衣物"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "清空内筒、不放衣物，选筒自洁/高温洗跑一遍，一般一两个月一次，潮湿地区更勤。用完把门留一条缝、料盒抽出来晾干。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.014.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-018",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "洗完衣服洗衣机的门要开着吗",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "washer",
+      "must_include": [
+        "缝"
+      ],
+      "must_not_include": [
+        "必须关严"
+      ],
+      "handoff": false,
+      "reference_answer": "建议开一条缝。刚洗完筒里有水汽、密封圈褶皱处存水，一直关着容易发霉发臭。家里有小孩要注意别让他们爬进去。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.015.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-019",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "电饭煲预约怎么设，能预约多久",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "完成时间"
+      ],
+      "must_not_include": [
+        "调的是开始时间"
+      ],
+      "handoff": false,
+      "reference_answer": "先选功能，再按「预约」调的是**完成时间**（不是开始时间，别搞反），最后按开始。上限各型号不同：有的建议不超过 12 小时（超了饭容易变味），有的写 24 小时。「热饭」「保温」「蛋糕」这类通常不能预约。您是哪款我查具体上限。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.016.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-020",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.first_time",
+      "question": "电饭煲第一次用要做什么",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "纸卡",
+        "擦干"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "取出内锅和所有包装件（包括内锅与加热盘之间那块纸卡）→ 清水洗净内锅、软布擦干（内外都要干，外表面带水放回去会污损加热盘）→ 内锅放回煲体落位、压下面盖听到咔嗒声 → 核对面板丝印与内锅边缘的型号。介意新锅味道可以先煮一次水倒掉。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.017.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-021",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "电饭煲保温能放多久，保温后饭变硬了",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "5~6"
+      ],
+      "must_not_include": [
+        "放多久都行"
+      ],
+      "handoff": false,
+      "reference_answer": "说明书建议保温一般 5~6 小时（不同型号 5 或 6），超过就会干硬、发黄甚至变味。米饭在 60℃ 左右长时间放着容易滋生细菌。要留到下一顿最好盛出来冷藏、吃前再加热。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.018.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-022",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "电饭煲的上盖、蒸汽阀怎么拆下来洗",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "蒸汽阀",
+        "卡"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "先断电等彻底冷却 → 按/上推可拆盖按钮取下内盖，冲洗擦干按卡槽装回听到卡合声 → 蒸汽阀取下清洗后必须卡到位（没到位会漏汽，直接影响煮饭）。带微压阀的要注意方向：逆时针旋到开锁位取下，装回顺时针旋到闭合位，凸点对位。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.019.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-023",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "内胆能不能放进洗碗机洗",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "rice_cooker",
+      "must_include": [
+        "不能"
+      ],
+      "must_not_include": [
+        "可以放洗碗机"
+      ],
+      "handoff": false,
+      "reference_answer": "不能。说明书明确禁止把内锅和可拆盖放洗碗机——碱性洗涤剂会破坏涂层，涂层起泡脱落不可逆。正确做法是冷却后软海绵加中性清洁剂手洗、软布擦干。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.020.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-024",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "稀饭和煮粥有什么区别，该按哪个",
+      "product_id": "supor-sf50fc733",
+      "model": "SF50FC733",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "两个独立"
+      ],
+      "must_not_include": [
+        "一样"
+      ],
+      "handoff": false,
+      "reference_answer": "这台面板上「稀饭」和「煮粥」是两个独立的功能键，不是同一个功能的不同叫法。米水比例按内锅对应功能的刻度线对，不要拿煮饭的水量去煮粥，会溢锅。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/supor-sf50fc733@s3#model_notes.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-025",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "电饭煲在高原能用吗，为什么煮不熟",
+      "product_id": "supor-sf50fc733",
+      "model": "SF50FC733",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "2000"
+      ],
+      "must_not_include": [
+        "属于机器故障"
+      ],
+      "handoff": false,
+      "reference_answer": "说明书明确正常海拔范围是 0~2000 米。超过 2000 米水沸点低、加热曲线对不上，表现就是饭煮不透、夹生或溢锅——这属于超出使用环境要求，不是机器故障，多煮一会儿也解决不了。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/supor-sf50fc733@s3#model_notes.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-026",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.first_time",
+      "question": "洗衣机刚装好第一次怎么用",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "washer",
+      "must_include": [
+        "运输螺栓"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "① 先拆机身背面 4 颗运输螺栓（不拆脱水时会剧烈震动甚至损坏机器）② 调平：对角线按压顶盖、转底脚调到不晃 ③ 先跑一次筒自洁（不放衣物也不放洗涤剂）④ 打开进水龙头检查接口渗漏。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.023.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-027",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "洗衣机该选哪个程序，温度调多少",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "washer",
+      "must_include": [
+        "30"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "先看衣物护理标签，按标签温度上限选。日常棉织物 30~40℃ 够用；60℃ 以上主要除螨和重污，但会加速衣物损伤和串色。羊毛真丝选专用程序、转速最低。拿不准按「棉织物 + 30℃ + 800 转」起步。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/faq/global@s3#faq-s3.024.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-028",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "自动投放怎么用，洗衣凝珠能放料盒吗",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "凝珠"
+      ],
+      "must_not_include": [
+        "凝珠放料盒"
+      ],
+      "handoff": false,
+      "reference_answer": "自动投放盒装满洗衣液和柔顺剂，机器按衣量和脏污自己投。三个坑：凝珠要直接扔进洗涤筒、**不能放料盒**（会堵投放口，用凝珠时要关掉自动投放）；太稠的洗衣液先稀释；运行时别开料盒。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/littleswan-tg10k60@s3#detergent.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-029",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.maintenance",
+      "question": "洗衣机的过滤器（排污口）怎么清理",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "washer",
+      "must_include": [
+        "冷却",
+        "过滤器"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "① 拔电源，轻按过滤器门让它弹开 ② 拉出紧急排水管，**先确认筒内水已冷却**再拔堵头放水（防烫伤） ③ 用钳子夹住过滤阀向左旋下取出毛絮 ④ 装回拧到限位筋、堵头复位。说明书只写「定期」，排水变慢或有异味就该清了。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/littleswan-tg10k60@s3#maintenance.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-030",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "洗烘一体能烘多少衣服，为什么烘不干",
+      "product_id": "siemens-wn54a1x42w",
+      "model": "WN54A1X42W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "7"
+      ],
+      "must_not_include": [
+        "能烘 10kg"
+      ],
+      "handoff": false,
+      "reference_answer": "洗烘一体的烘干容量比洗涤容量小——这台洗 10kg 只能烘 7kg。一次洗满就要分两批烘，塞满了必然烘不干。另外它是「先洗完再烘」，不能边洗边烘；衣物抖散、别塞压、脱水转速高一点。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/siemens-wn54a1x42w@s3#model_notes.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-031",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.setting_confusion",
+      "question": "洗衣机为什么洗得比预计时间长",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "washer",
+      "must_include": [
+        "泡沫"
+      ],
+      "must_not_include": [
+        "机器坏了"
+      ],
+      "handoff": false,
+      "reference_answer": "最常见是泡沫过多：机器检测到泡沫会静置、缓慢转动、再进水除泡，程序时间自动拉长——这是保护行为不是故障。减少洗涤剂用量、用低泡专用洗涤剂。另外衣物吸水多、水温低、排水不畅也会延长。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/littleswan-tg10k60@s3#model_notes.md"
+      ]
+    },
+    {
+      "id": "e-s3_usage-032",
+      "journey": "usage",
+      "scenario": "s3_usage",
+      "intent": "usage.operation",
+      "question": "洗衣机能记住上次的程序吗，停电了怎么办",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "记忆"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "这台有程序记忆、默认开启，会记住上次的程序和参数。洗涤中停电不用管，来电后会接着跑到结束；但断电期间别强行开门。",
+      "basis": "说明书原文",
+      "gold": [
+        "usage/fact/littleswan-tg10k60@s3#model_notes.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-001",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.safety",
+      "question": "洗衣机摸着有点麻手",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "断开电源",
+        "不要"
+      ],
+      "must_not_include": [
+        "再用看看"
+      ],
+      "handoff": true,
+      "reference_answer": "先断开电源，不要再碰、也不要用这台机器，然后马上联系检修。麻手是漏电的典型表现，不要自己拆机排查、也不要再接回去试。",
+      "basis": "政策文件",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym01.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-002",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.safety",
+      "question": "电饭煲闻到有焦味",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "断电",
+        "焦味"
+      ],
+      "must_not_include": [
+        "继续用"
+      ],
+      "handoff": true,
+      "reference_answer": "先断电、拔掉插头，不要再通电使用，我帮您登记检修。有焦味一律按停机处理，不要因为还能加热就接着用。",
+      "basis": "政策文件",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym02.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-004",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.safety",
+      "question": "空调内机往下滴水",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "断电",
+        "上门"
+      ],
+      "must_not_include": [
+        "自己拆机排查"
+      ],
+      "handoff": true,
+      "reference_answer": "先关机断电、别再去开机，地上有水注意防滑和防漏电，我帮您安排上门。内机滴水多数是排水管堵/排水坡度不够/保温棉破损，这些都要拆机才能处理，不要自己拆。",
+      "basis": "政策文件",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym07.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-005",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.noise",
+      "question": "开起来有流水声，是不是坏了",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "正常",
+        "制冷剂"
+      ],
+      "must_not_include": [
+        "需要维修"
+      ],
+      "handoff": false,
+      "reference_answer": "这是正常的，不用修。声音是制冷剂在管路里流动/换向产生的，刚开机和刚停机时最明显。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym09.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-006",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.noise",
+      "question": "空调噼啪响",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "正常",
+        "热胀冷缩"
+      ],
+      "must_not_include": [
+        "需要维修"
+      ],
+      "handoff": false,
+      "reference_answer": "正常。塑料件和换热器随温度变化热胀冷缩会发出噼啪/咔哒声，刚开机升温、刚关机降温时最明显。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym10.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-007",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "制冷的时候自己变成送风了",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "正常"
+      ],
+      "must_not_include": [
+        "机器故障"
+      ],
+      "handoff": false,
+      "reference_answer": "正常现象，不是坏了。一种是室温到设定温度后压缩机停机、只吹风；另一种是防冻结保护（内机盘管温度过低时暂停制冷）。等温度回升会自己恢复。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym15.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-008",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "刚关掉想再开，按了没反应",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "3"
+      ],
+      "must_not_include": [
+        "机器坏了"
+      ],
+      "handoff": false,
+      "reference_answer": "正常，是压缩机延时保护。关机后要等约 3 分钟才能再启动，防止压缩机频繁启停损坏。等一下再开就行。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym16.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-009",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "制热时外机冒白汽，是不是烧了",
+      "product_id": "haier-kfr-72lw-e1-1",
+      "model": "KFR-72LW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "化霜",
+        "正常"
+      ],
+      "must_not_include": [
+        "着火了",
+        "外机冒烟"
+      ],
+      "handoff": false,
+      "reference_answer": "那是化霜产生的水汽，不是冒烟。制热时外机会周期化霜，化霜时会有白汽、也可能听到换向声，都属正常。但如果有**焦味**就不是化霜，要立刻断电停机。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym17.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-010",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "空调出风口滴水",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "高湿",
+        "正常"
+      ],
+      "must_not_include": [
+        "机器漏水要报修"
+      ],
+      "handoff": false,
+      "reference_answer": "高湿天气出风口凝露滴水很常见，属正常物理现象：调高一点送风温度、把导风板调平、降低风速可以减少。如果是内机机身或管路往下滴，就不是凝露，要安排上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym08.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-011",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.noise",
+      "question": "电饭煲工作时有咔嗒声",
+      "product_id": "supor-sf50fc733",
+      "model": "SF50FC733",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "正常",
+        "继电器"
+      ],
+      "must_not_include": [
+        "需要维修"
+      ],
+      "handoff": false,
+      "reference_answer": "正常。那是温控继电器在通断切换，保温阶段会更频繁，属正常工作声。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym42.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-012",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "电饭煲上盖冒白汽",
+      "product_id": "midea-mb-40hb9t",
+      "model": "MB-40HB9T",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "正常"
+      ],
+      "must_not_include": [
+        "漏汽要修"
+      ],
+      "handoff": false,
+      "reference_answer": "正常，蒸汽就是从上盖蒸汽阀排出的。但如果是**从盖边缝里**冒汽（不是蒸汽阀口），那是密封圈没装好或老化，要检查。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym43.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-013",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "锅底有一层锅巴",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "正常"
+      ],
+      "must_not_include": [
+        "锅坏了"
+      ],
+      "handoff": false,
+      "reference_answer": "底部一层薄锅巴属正常，跟水量偏少、保温时间长、用了「快速煮」都有关。按刻度加水、煮好及时断电就能减轻。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym44.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-014",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "空调不制冷",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "送风",
+        "滤网"
+      ],
+      "must_not_include": [
+        "压缩机坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先排三步：模式是不是被切到「送风」、设定温度是不是比室温低、滤网是不是该洗了。这三步都排除还不制冷，我帮您登记上门，不猜是不是压缩机的问题。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym04.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-015",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "空调制热不热，吹冷风",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "预热",
+        "化霜"
+      ],
+      "must_not_include": [
+        "缺冷媒"
+      ],
+      "handoff": false,
+      "reference_answer": "制热刚开机有 3~5 分钟预热期，这期间不吹风或吹温风是正常的；另外化霜期间会暂停制热、内机停风。等 10 分钟仍一直吹冷风，再走排查登记。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym05.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-016",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "空调没以前凉了",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "滤网"
+      ],
+      "must_not_include": [
+        "一定缺冷媒"
+      ],
+      "handoff": true,
+      "reference_answer": "先洗滤网（最常见就是滤网堵了），再看外机周围有没有遮挡、散热好不好。清洗后仍无改善，帮您登记上门测压力。不要一上来就说缺冷媒。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym06.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-017",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "空调出风有异味",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "滤网"
+      ],
+      "must_not_include": [
+        "一定要加氟"
+      ],
+      "handoff": true,
+      "reference_answer": "先洗滤网和内机蒸发器表面，异味多来自积灰发霉。洗完仍有霉味，说明蒸发器/接水盘需要深度清洗，帮您约清洗服务。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym12.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-018",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "外机声音特别大",
+      "product_id": "haier-kfr-72lw-e1-1",
+      "model": "KFR-72LW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "遮挡",
+        "支架"
+      ],
+      "must_not_include": [
+        "正常"
+      ],
+      "handoff": true,
+      "reference_answer": "先看外机周围有没有遮挡、机身有没有贴墙共振、支架螺栓有没有松。清理/紧固后仍持续异响，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym11.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-019",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "空调开不了机，面板不亮",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "插座"
+      ],
+      "must_not_include": [
+        "主板坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先换个插座试试、确认空开没跳、遥控器电池有电。插座有电仍不开机，帮您登记上门，不猜是主板还是电源板。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym13.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-020",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机脱水时震动很大",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "运输螺栓",
+        "调平"
+      ],
+      "must_not_include": [
+        "机器坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先查两件事：① 背面 4 颗运输螺栓拆了没有（没拆必抖，新机九成是这条）② 机身调平了没有。再就是衣物有没有堆在一侧。拆了螺栓、调平后仍剧烈震动，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym20.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-021",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机不脱水",
+      "product_id": "siemens-wg52a108aw",
+      "model": "WG52A108AW",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "衣物",
+        "不平衡"
+      ],
+      "must_not_include": [
+        "电机坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先看是不是衣物太少/太多、或者都堆在一侧（不平衡保护会不脱水）；空桶单独脱水也不转，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym21.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-022",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机不进水",
+      "product_id": "littleswan-tg100v618plus",
+      "model": "TG100V618PLUS",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "水龙头"
+      ],
+      "must_not_include": [
+        "进水阀坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先确认水龙头开了、进水管没打折、进水口滤网没堵、水压正常。水压正常仍报进水故障，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym22.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-023",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机不排水",
+      "product_id": "littleswan-tg10ve40",
+      "model": "TG10VE40",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "过滤器",
+        "排水管"
+      ],
+      "must_not_include": [
+        "排水泵坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先清过滤器毛絮、检查排水管有没有压住或打折；上排水的机器还要看排水管挂高是不是超过 90cm。都正常仍不排水，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym23.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-024",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.safety",
+      "question": "洗衣机底下有水",
+      "product_id": "siemens-wg54h2v00w",
+      "model": "WG54H2V00W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "断电",
+        "上门"
+      ],
+      "must_not_include": [
+        "自己拆机排查"
+      ],
+      "handoff": true,
+      "reference_answer": "先断电、关进水龙头，别再开机，地上水擦干防滑，帮您安排上门。漏水可能是进水管接口、排水管、门封圈或内部管路，都要拆开才能定位，不要自己拆。",
+      "basis": "政策文件",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym24.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-025",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.safety",
+      "question": "洗衣机报漏水保护",
+      "product_id": "siemens-wn54a1x42w",
+      "model": "WN54A1X42W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "断电",
+        "上门"
+      ],
+      "must_not_include": [
+        "还能继续用"
+      ],
+      "handoff": true,
+      "reference_answer": "底座积水报警是机器内部的漏水保护触发了，说明已经有水漏到底部。立刻断电停用、关水龙头，我帮您安排上门，不要再开机试。",
+      "basis": "政策文件",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym30.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-026",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机门打不开",
+      "product_id": "littleswan-tg10v628plus",
+      "model": "TG10V628PLUS",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "等",
+        "程序"
+      ],
+      "must_not_include": [
+        "强行撬开"
+      ],
+      "handoff": true,
+      "reference_answer": "先等程序结束、门锁延时约 2~3 分钟解锁（有防烫保护），别强行撬门。程序结束 5 分钟后仍打不开，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym25.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-027",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机有霉味",
+      "product_id": "littleswan-tg100v618plus",
+      "model": "TG100V618PLUS",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "门封圈",
+        "料盒"
+      ],
+      "must_not_include": [
+        "一定要上门"
+      ],
+      "handoff": true,
+      "reference_answer": "异味基本来自门封圈积水和料盒残留：擦干门封圈褶皱、抽出料盒洗干净晾干、跑一次筒自洁。都做过仍有异味，帮您约深度清洗。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym26.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-028",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机洗不干净",
+      "product_id": "siemens-wm12p2602w",
+      "model": "WM12P2602W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "装载"
+      ],
+      "must_not_include": [
+        "机器坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先减少装载量（塞太满洗不透）、选标准程序、按包装量倒洗涤剂。标准程序 + 正常装载仍洗不净，帮您登记。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym27.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-029",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗衣机不通电",
+      "product_id": "littleswan-tb100v26dt",
+      "model": "TB100V26DT",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "插座"
+      ],
+      "must_not_include": [
+        "主板坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "换个插座试试、确认空开没跳、有没有开童锁。插座有电且未上锁仍不亮，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym29.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-030",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "洗烘一体烘不干",
+      "product_id": "siemens-wn54a1x42w",
+      "model": "WN54A1X42W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "7"
+      ],
+      "must_not_include": [
+        "10kg 全烘干"
+      ],
+      "handoff": true,
+      "reference_answer": "先确认装载不超过烘干容量（这台烘 7kg，不是 10kg）、衣物抖散别塞压、选对烘干档位、脱水转速高一点。负载正常、滤网清过仍完全不加热，帮您登记上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym32.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-031",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "电饭煲通电不加热",
+      "product_id": "supor-f40h8093s",
+      "model": "F40H8093S",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "插座",
+        "送修"
+      ],
+      "must_not_include": [
+        "加热盘坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先换插座确认通电、看内锅有没有完全落位（没落位会不加热）。灯亮但不加热，帮您登记送修。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym33.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-032",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "饭老是夹生",
+      "product_id": "midea-mb-re576s",
+      "model": "MB-RE576S",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "水位"
+      ],
+      "must_not_include": [
+        "一定坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先按水位线加水（米种刻度别对错）、确认内锅落位、别超最大水位。都排除仍夹生，帮您登记送修。另外海拔超 2000 米也会煮不熟，这属于超出使用环境。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym34.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-033",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "电饭煲溢锅了",
+      "product_id": "supor-sf40fc871",
+      "model": "SF40FC871",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "刻度"
+      ],
+      "must_not_include": [
+        "机器故障"
+      ],
+      "handoff": true,
+      "reference_answer": "先按刻度加水、确认没超最高水位线、功能选对（拿煮饭的水量煮粥必溢）。水量正确、功能正确仍大量溢出，帮您登记送修。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym35.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-034",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "电饭煲糊锅",
+      "product_id": "midea-mb-afb4041rl",
+      "model": "MB-AFB4041RL",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "水"
+      ],
+      "must_not_include": [],
+      "handoff": true,
+      "reference_answer": "先按刻度调水量（水太少最容易糊）、别用快速煮做难熟的米。如果内胆涂层已经脱落，会直接影响受热，那种情况要么换内胆要么换机。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym36.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-035",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "电饭煲不保温了",
+      "product_id": "supor-sf50fc733",
+      "model": "SF50FC733",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "保温"
+      ],
+      "must_not_include": [
+        "加热盘坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先手动进一次保温确认功能没被关掉。刚煮好就立刻不保温，帮您登记送修。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym37.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-036",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "电饭煲盖子打不开",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "泄压",
+        "压力"
+      ],
+      "must_not_include": [
+        "强行撬"
+      ],
+      "handoff": true,
+      "reference_answer": "带微压的机型内部有压力时锁着，先等它泄压（断电静置几分钟）。无压力仍打不开，别硬撬，帮您登记送修。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym39.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-037",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "内胆涂层掉了",
+      "product_id": "supor-sf40fc871",
+      "model": "SF40FC871",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "海绵",
+        "软布"
+      ],
+      "must_not_include": [
+        "继续用钢丝球"
+      ],
+      "handoff": true,
+      "reference_answer": "涂层已经脱落就不要再用了，脱落的涂层会混进饭里，受热也不均匀。以后只能海绵/软布加中性清洁剂，不能用钢丝球、金属铲、也不能进洗碗机。换内胆的话按型号配。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym40.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-038",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.symptom",
+      "question": "低糖饭没效果",
+      "product_id": "supor-f40h9083s",
+      "model": "F40H9083S",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "低糖甑"
+      ],
+      "must_not_include": [
+        "功能坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "先确认低糖甑放进去了（不放甑就没有低糖效果）、选的是低糖饭程序、水量按低糖刻度。都做了仍无效果，帮您登记。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/fact/global@s4#sym41.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-039",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.code",
+      "question": "显示 E1 是什么故障",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "10 分钟",
+        "登记"
+      ],
+      "must_not_include": [
+        "E1 是室内外通信故障",
+        "压缩机故障"
+      ],
+      "handoff": true,
+      "reference_answer": "先按官方流程试一次：关机断电源 → 等 10 分钟 → 上电开机。仍显示就不用再试了，我帮您登记，师傅带检测仪上门确认具体是哪个件。代码具体指向哪个部件我不能替您下结论。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/policy/global@policy#brand_midea_fault_codes.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-040",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.code",
+      "question": "面板显示 F2",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "没有",
+        "登记"
+      ],
+      "must_not_include": [
+        "F2 表示"
+      ],
+      "handoff": true,
+      "reference_answer": "这个代码我这边没有厂家的正式说明，不敢凭经验给结论。您先断电 10 分钟再上电看看还报不报，仍显示的话我帮您登记，让师傅带检测仪上门确认。",
+      "basis": "库内缺失",
+      "gold": []
+    },
+    {
+      "id": "e-s4_troubleshoot-041",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.code",
+      "question": "西门子洗衣机显示 E19",
+      "product_id": "siemens-wg52a108aw",
+      "model": "WG52A108AW",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "排水"
+      ],
+      "must_not_include": [
+        "E19 是排水泵坏了"
+      ],
+      "handoff": true,
+      "reference_answer": "这个代码属于排水这一类问题。先清过滤器毛絮、检查排水管有没有打折或压住。处理后还显示就不用再试了，帮您登记，具体是哪个件让师傅上门确认。",
+      "basis": "业务方口径",
+      "gold": [
+        "troubleshoot/policy/global@policy#brand_siemens_fault_codes.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-042",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.code",
+      "question": "小天鹅滚筒显示 630",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "门"
+      ],
+      "must_not_include": [
+        "电机故障"
+      ],
+      "handoff": false,
+      "reference_answer": "630 是门没合上。确认衣物没被门压住，重新关门听到锁合声后按启动键继续即可。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/policy/global@policy#brand_littleswan_fault_codes.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-043",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.code",
+      "question": "苏泊尔电饭煲显示 E0",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "上盖",
+        "传感器"
+      ],
+      "must_not_include": [],
+      "handoff": true,
+      "reference_answer": "E0 是顶部（上盖）传感器开路或短路，需要送指定维修点维修，不能自己处理。送修前把内锅拿出来、擦干，带上购买凭证。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/policy/global@policy#brand_supor_fault_codes.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-044",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.code",
+      "question": "美的电饭煲显示 E1",
+      "product_id": "midea-mb-40hb9t",
+      "model": "MB-40HB9T",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "传感"
+      ],
+      "must_not_include": [
+        "先断电 10 分钟再上电"
+      ],
+      "handoff": true,
+      "reference_answer": "这个代码一般是传感器这一类的问题，需要送修，别反复断电重启——电饭煲不给断电重启流程。我帮您登记，带上购买凭证送指定维修点。",
+      "basis": "说明书原文",
+      "gold": [
+        "troubleshoot/policy/global@policy#brand_midea_fault_codes.md"
+      ]
+    },
+    {
+      "id": "e-s4_troubleshoot-045",
+      "journey": "troubleshoot",
+      "scenario": "s4_troubleshoot",
+      "intent": "troubleshoot.code",
+      "question": "我的美的报 E1 了",
+      "product_id": null,
+      "model": null,
+      "brand": "midea",
+      "appliance": null,
+      "must_include": [
+        "空调",
+        "电饭煲"
+      ],
+      "must_not_include": [
+        "E1 一定是"
+      ],
+      "handoff": false,
+      "reference_answer": "先确认是哪个品类报的——美的空调和美的电饭煲的 E1 不是一回事，处置方式也不同（空调可以先试一次断电 10 分钟；电饭煲直接送修，不给断电重启）。您报的是哪台？",
+      "basis": "政策文件",
+      "gold": [
+        "troubleshoot/policy/global@policy#brand_midea_fault_codes.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-001",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "保修几年",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "6 年"
+      ],
+      "must_not_include": [
+        "3 年整机"
+      ],
+      "handoff": false,
+      "reference_answer": "整机包修 6 年（基站空调是 3 年）。保修期从安装日期起算；没有购机凭证时按条形码出厂日期往后延 180 天。必须由美的指定网点安装、移机、维修，否则可能不保。",
+      "basis": "说明书原文",
+      "gold": [
+        "after_sales/policy/global@policy#brand_midea_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-002",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "保修几年",
+      "product_id": "haier-kfr-72lw-e1-1",
+      "model": "KFR-72LW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "6 年"
+      ],
+      "must_not_include": [
+        "10 年整机"
+      ],
+      "handoff": false,
+      "reference_answer": "整机免费包修 6 年，从安装完成之日起算；无法确认安装时间时以购机发票为准，或按生产时间往后延 3 个月。修理占用和等件的时间要扣除。",
+      "basis": "说明书原文",
+      "gold": [
+        "after_sales/policy/global@policy#brand_haier_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-003",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "洗衣机保修几年",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "3 年",
+        "1 年"
+      ],
+      "must_not_include": [
+        "一律 3 年"
+      ],
+      "handoff": true,
+      "reference_answer": "小天鹅分两档：主推新款整机 3 年 + 核心电机 10 年；老款整机 1 年 + 主要零部件 3 年。**不能一口说「保修 3 年」**。您这台 TG10K60 是 2026 年 1 月上市的，属于本库最新的一台；不过新老款的分界年份这边还没最终定，所以档位我不敢替您拍，最准是看保修卡上的承诺——或者在保修卡上找到包修期限，我按那个给您讲。",
+      "basis": "业务方口径",
+      "gold": [
+        "after_sales/policy/global@policy#brand_littleswan_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-004",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "西门子洗衣机保修几年",
+      "product_id": "siemens-wg52a108aw",
+      "model": "WG52A108AW",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "1 年",
+        "3 年"
+      ],
+      "must_not_include": [
+        "整机 6 年"
+      ],
+      "handoff": false,
+      "reference_answer": "整机 1 年、主要零部件 3 年（国家三包口径）。另外这台是 iQdrive 电机，电机可以给到 10 年——本库这 5 台西门子全部是 iQdrive，所以都能直接答电机 10 年。",
+      "basis": "业务方口径",
+      "gold": [
+        "after_sales/policy/global@policy#brand_siemens_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-005",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "西门子洗衣机电机会不会是 3 年",
+      "product_id": "siemens-wm12p2602w",
+      "model": "WM12P2602W",
+      "brand": "siemens",
+      "appliance": "washer",
+      "must_include": [
+        "10"
+      ],
+      "must_not_include": [
+        "电机 3 年"
+      ],
+      "handoff": false,
+      "reference_answer": "电机是 10 年，不是 3 年。整机 1 年、主要零部件 3 年，但 iQdrive 电机单独给 10 年包修。",
+      "basis": "业务方口径",
+      "gold": [
+        "after_sales/policy/global@policy#brand_siemens_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-006",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "电饭煲保修几年",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "1 年"
+      ],
+      "must_not_include": [
+        "3 年"
+      ],
+      "handoff": false,
+      "reference_answer": "整机包修 1 年，商业用途 6 个月。从收到产品之日起算，要带网购凭证/电子保修卡/发票，把故障产品送到苏泊尔特约售后服务商处免费维修——电饭煲是送修不是上门。",
+      "basis": "说明书原文",
+      "gold": [
+        "after_sales/policy/global@policy#brand_supor_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-007",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "美的电饭煲保修几年",
+      "product_id": "midea-mb-40hb9t",
+      "model": "MB-40HB9T",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "没有",
+        "确认"
+      ],
+      "must_not_include": [
+        "电饭煲整机 6 年",
+        "电饭煲整机 3 年"
+      ],
+      "handoff": true,
+      "reference_answer": "我这边美的的包修政策只有空调的口径（整机 6 年、基站空调 3 年），电饭煲的年限本库没有资料，不敢按空调的数给您套。您看下说明书或保修卡上的包修承诺，或者我帮您转人工确认。",
+      "basis": "库内缺失",
+      "gold": []
+    },
+    {
+      "id": "e-s5_aftersale-008",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "发票丢了还能保修吗",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "3 个月"
+      ],
+      "must_not_include": [
+        "海尔按 180 天"
+      ],
+      "handoff": false,
+      "reference_answer": "海尔是：无法确认安装时间时以购机发票为准，或按机器生产时间往后延 3 个月。美的的口径不一样（按条形码出厂日期往后延 180 天），两家不能混。",
+      "basis": "说明书原文",
+      "gold": [
+        "after_sales/policy/global@policy#brand_haier_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-009",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.warranty",
+      "question": "没有发票怎么算保修起始时间",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "180"
+      ],
+      "must_not_include": [
+        "是 3 个月"
+      ],
+      "handoff": false,
+      "reference_answer": "美的：不能出示购机凭证/保修卡/签收凭证时，安装日期按条形码出厂日期往后延 180 天算；条形码不存在的，不予包修。需要《美的空调保修卡》+ 有效购机发票或购机证明。",
+      "basis": "说明书原文",
+      "gold": [
+        "after_sales/policy/global@policy#brand_midea_warranty.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-010",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "装好了不满意能退吗",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "安装"
+      ],
+      "must_not_include": [
+        "肯定能退",
+        "可以退"
+      ],
+      "handoff": true,
+      "reference_answer": "空调一旦打孔上墙、接管就算已安装，走不了「7 天无理由」，只能按质量问题处理。如果是质量问题，按三包走维修/换机/退货，我帮您转人工核实。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-011",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "拆封了还能七天无理由吗",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "二次销售",
+        "平台规则"
+      ],
+      "must_not_include": [
+        "一定能退"
+      ],
+      "handoff": false,
+      "reference_answer": "要看拆到什么程度：仅拆外箱、未通电，基本可退（要开箱视频、外包装完好）；拆箱通电查验但没安装，通常可退（无安装痕迹、配件齐全）。能不能退最终取决于商品完好、不影响二次销售和平台规则，不是我这边能拍板的。您是哪一步，我按状态帮您对一下。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-012",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "退货谁出运费",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "买家",
+        "质量问题"
+      ],
+      "must_not_include": [
+        "包邮"
+      ],
+      "handoff": false,
+      "reference_answer": "分两种情况：无理由退货的运费由买家承担；质量问题退换货运费由商家承担。大件家电还要上门取件，可能有取件费，具体看平台规则。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-013",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "退钱要多久能到",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "1~3",
+        "7"
+      ],
+      "must_not_include": [
+        "三天内一定到账"
+      ],
+      "handoff": false,
+      "reference_answer": "拆两段说：① 商家/平台审核 1~3 个工作日响应；② 商家收到退回商品后 7 日内退款。大件家电要上门取件/核验，实际周期会更长，我不能承诺几天内到账。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-014",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "退货申请期限是多久",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "7"
+      ],
+      "must_not_include": [
+        "15 天"
+      ],
+      "handoff": false,
+      "reference_answer": "自签收次日起 7 日内提交（第 7 天 24 点前通常有效）。要按**签收日期**算，不是下单日期。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-015",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "要准备什么材料",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "开箱",
+        "订单"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "常规要：订单截图、开箱视频、商品状态照片、未安装证明（或安装痕迹照片）；主张质量问题的还要质量证据（故障现象照片/视频）。谁主张谁举证，材料越全审核越快。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-016",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "洗衣机没通水能退吗",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "倾向可退"
+      ],
+      "must_not_include": [
+        "一定能退"
+      ],
+      "handoff": false,
+      "reference_answer": "洗衣机看两点：有没有通水通电试机、运输螺栓有没有拆。没通水没运行、进水管没接、滚筒干燥的，倾向可退；运输螺栓一旦拆了就会被认定已使用，无理由退货风险高。最终仍以平台审核为准。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-017",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "电饭煲煮过一次饭还能退吗",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "二次销售",
+        "煮过"
+      ],
+      "must_not_include": [
+        "一定能退"
+      ],
+      "handoff": false,
+      "reference_answer": "煮过饭、内锅用过的，会影响二次销售，无理由退货大概率不行；如果是质量问题（比如不加热）则按三包处理。您碰到的是哪种情况？",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-018",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "包装箱扔了还能退吗",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "包装",
+        "影响"
+      ],
+      "must_not_include": [
+        "一定能退"
+      ],
+      "handoff": false,
+      "reference_answer": "外包装不是法定必需条件，但「商品完好、不影响二次销售」是前提——缺包装、配件不全、有划痕会直接影响审核结果。能保留原包装最好，尤其大件家电。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s5_aftersale-019",
+      "journey": "after_sales",
+      "scenario": "s5_aftersale",
+      "intent": "aftersale.return",
+      "question": "已经激活的机器能退吗",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [
+        "激活",
+        "可能不退"
+      ],
+      "must_not_include": [
+        "一定能退"
+      ],
+      "handoff": false,
+      "reference_answer": "已激活/已联网绑定的，属于「影响二次销售」，可能不退。空调的判定线更明确：打孔、上墙、接管就算已安装，直接走不了无理由。",
+      "basis": "政策文件",
+      "gold": [
+        "after_sales/policy/global@policy#platform_return.md"
+      ]
+    },
+    {
+      "id": "e-s6_service-001",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.create_ticket",
+      "question": "帮我报修",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": null,
+      "must_include": [
+        "型号",
+        "地址",
+        "电话"
+      ],
+      "must_not_include": [
+        "已安排"
+      ],
+      "handoff": false,
+      "reference_answer": "好的，麻烦一次给我四项：① 型号（机身铭牌上那串）② 故障现象/代码 ③ 上门地址 ④ 联系电话。齐了我马上帮您建单。",
+      "basis": "政策文件",
+      "gold": []
+    },
+    {
+      "id": "e-s6_service-002",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.track",
+      "question": "师傅什么时候到",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "24"
+      ],
+      "must_not_include": [
+        "明天上午 10 点"
+      ],
+      "handoff": false,
+      "reference_answer": "建单后一般 24 小时内会有服务人员联系您预约上门时间。具体几点要看当地网点排期，我没法看到师傅的实时位置，也不能替他承诺具体时间。",
+      "basis": "政策文件",
+      "gold": [
+        "repair_request/faq/global@s6#faq-s6.001.md",
+        "repair_request/faq/global@s6#faq-s6.002.md"
+      ]
+    },
+    {
+      "id": "e-s6_service-003",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.parts",
+      "question": "换主板要等多久",
+      "product_id": "midea-kfr-35gw-q2",
+      "model": "KFR-35GW/Q2",
+      "brand": "midea",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "库存"
+      ],
+      "must_not_include": [
+        "三天"
+      ],
+      "handoff": true,
+      "reference_answer": "这个要看当地网点有没有备件库存——有货通常能直接换，没货要调件，时间由网点确认。我这边查不到实时库存，帮您转人工或让师傅上门检测后告知。另外包修期内因等件占用的时间要从保修期里扣除。",
+      "basis": "政策文件",
+      "gold": []
+    },
+    {
+      "id": "e-s6_service-004",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.parts",
+      "question": "换压缩机多少钱",
+      "product_id": "haier-kfr-72lw-e1-1",
+      "model": "KFR-72LW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "保外",
+        "标准"
+      ],
+      "must_not_include": [
+        "一共 800",
+        "总计"
+      ],
+      "handoff": false,
+      "reference_answer": "先分清保内保外：包修期内（整机 6 年）非人为损坏免费。保外才收费，由「备件费 + 人工费」两部分组成，柜机的核心件人工更高，必须由师傅上门检测、出示收费标准后与您协商，我不能直接报一个总价。",
+      "basis": "政策文件",
+      "gold": []
+    },
+    {
+      "id": "e-s6_service-005",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.parts",
+      "question": "电饭煲坏了是上门修还是送修",
+      "product_id": "supor-f50x96",
+      "model": "F50X96",
+      "brand": "supor",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "特约售后服务商"
+      ],
+      "must_not_include": [
+        "安排师傅上门"
+      ],
+      "handoff": false,
+      "reference_answer": "电饭煲是送修：带包修证明送到苏泊尔特约售后服务商处免费维修，不安排上门。上门是空调和洗衣机的服务方式。",
+      "basis": "政策文件",
+      "gold": []
+    },
+    {
+      "id": "e-s6_service-006",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.parts",
+      "question": "洗衣机上门前要准备什么",
+      "product_id": "littleswan-tg10k60",
+      "model": "TG10K60",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "凭证",
+        "型号"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "准备好三样：① 购机凭证/保修卡（判断是否在包修期）② 机身型号（铭牌）③ 故障现象能复现的话拍段视频。另外把机器周围清一下，方便师傅拆装。",
+      "basis": "政策文件",
+      "gold": []
+    },
+    {
+      "id": "e-s6_service-007",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.create_ticket",
+      "question": "我现在就要人过来",
+      "product_id": "haier-kfr-35gw-e1-1",
+      "model": "KFR-35GW/E1-1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [
+        "24",
+        "预约"
+      ],
+      "must_not_include": [
+        "现在就派"
+      ],
+      "handoff": false,
+      "reference_answer": "没法立刻派人，流程是先建单、网点 24 小时内联系您预约时间。如果属于漏电、冒烟这类安全问题，请先断电停机、不要再使用，我按紧急件帮您登记。",
+      "basis": "政策文件",
+      "gold": []
+    },
+    {
+      "id": "e-s2_install-014",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "这台安装对电源有什么要求",
+      "product_id": "haier-kfr-35gw-01kmc81u1",
+      "model": "KFR-35GW/01KMC81U1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "KFR-35GW/01KMC81U1 的安装条件 - electrical",
+      "basis": "说明书原文",
+      "gold": [
+        "install/fact/haier-kfr-35gw-01kmc81u1@s2#electrical.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-015",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "安装位置有什么要求",
+      "product_id": "haier-kfr-35gw-01kmc81u1",
+      "model": "KFR-35GW/01KMC81U1",
+      "brand": "haier",
+      "appliance": "air_conditioner",
+      "must_include": [],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "KFR-35GW/01KMC81U1 的安装条件 - space",
+      "basis": "说明书原文",
+      "gold": [
+        "install/fact/haier-kfr-35gw-01kmc81u1@s2#space.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-016",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "这台安装对电源有什么要求",
+      "product_id": "midea-mb-40hb9t",
+      "model": "MB-40HB9T",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "10A"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "MB-40HB9T 的安装条件 - electrical",
+      "basis": "说明书原文",
+      "gold": [
+        "install/fact/midea-mb-40hb9t@s2#electrical.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-017",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "这台安装对电源有什么要求",
+      "product_id": "midea-mb-afb4041rl",
+      "model": "MB-AFB4041RL",
+      "brand": "midea",
+      "appliance": "rice_cooker",
+      "must_include": [
+        "10A"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "MB-AFB4041RL 的安装条件 - electrical",
+      "basis": "说明书原文",
+      "gold": [
+        "install/fact/midea-mb-afb4041rl@s2#electrical.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-018",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "这台安装对电源有什么要求",
+      "product_id": "littleswan-tb100v26dt",
+      "model": "TB100V26DT",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "100V",
+        "220V"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "TB100V26DT 的安装条件 - electrical",
+      "basis": "说明书原文",
+      "gold": [
+        "install/fact/littleswan-tb100v26dt@s2#electrical.md"
+      ]
+    },
+    {
+      "id": "e-s2_install-019",
+      "journey": "install",
+      "scenario": "s2_install",
+      "intent": "install.feasibility",
+      "question": "要不要预留进水",
+      "product_id": "littleswan-tb100v26dt",
+      "model": "TB100V26DT",
+      "brand": "littleswan",
+      "appliance": "washer",
+      "must_include": [
+        "100V"
+      ],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "TB100V26DT 的安装条件 - water",
+      "basis": "说明书原文",
+      "gold": [
+        "install/fact/littleswan-tb100v26dt@s2#water.md"
+      ]
+    },
+    {
+      "id": "e-s6_service-008",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.create_ticket",
+      "question": "我要报修",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "好的，我帮您登记，麻烦确认五项： 1. 机器型号（机身侧面标签上的） 2. 具体什么情况 3. 上门地址、几楼、有没有电梯 4. 联系人和电话 5. 什么时间方便",
+      "basis": "政策文件",
+      "gold": [
+        "repair_request/faq/global@s6#faq-s6.001.md"
+      ]
+    },
+    {
+      "id": "e-s6_service-009",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.track",
+      "question": "师傅什么时候能来",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "登记后师傅会在 24 小时内联系您约具体时间。具体几点到要看师傅当天的排期，他联系您的时候会跟您确认，我这边不好替您定死时间。",
+      "basis": "政策文件",
+      "gold": [
+        "repair_request/faq/global@s6#faq-s6.002.md"
+      ]
+    },
+    {
+      "id": "e-s6_service-010",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.create_ticket",
+      "question": "上门要收费吗",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "分两种情况：还在保修期内的性能故障，上门维修不收费；超过保修期或者属于人为损坏的，按有偿维修收人工费、零部件费和超距离交通费。您这台大概是哪年装的？我先帮您看下在不在保。",
+      "basis": "政策文件",
+      "gold": [
+        "repair_request/faq/global@s6#faq-s6.003.md"
+      ]
+    },
+    {
+      "id": "e-s6_service-011",
+      "journey": "repair_request",
+      "scenario": "s6_service",
+      "intent": "service.track",
+      "question": "工单进度查询",
+      "product_id": null,
+      "model": null,
+      "brand": null,
+      "appliance": "air_conditioner",
+      "must_include": [],
+      "must_not_include": [],
+      "handoff": false,
+      "reference_answer": "麻烦发下工单号或者下单手机号，我帮您查下现在到哪一步了。状态一般是：已受理、已派单、工程师已联系、已上门、维修中、已完成。",
+      "basis": "政策文件",
+      "gold": [
+        "repair_request/faq/global@s6#faq-s6.004.md"
+      ]
+    }
+  ]
+}

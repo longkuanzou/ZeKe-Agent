@@ -1,0 +1,20 @@
+# 功能清单：售前「有没有」「支不支持」类问题的唯一依据
+# supported: true 有 / false 明确没有 / null 说明书未提及（按不确定处理，不得推定）
+product_id: siemens-wg54h2v00w
+updated: 2026-10-23
+
+features:
+  dry: {supported: false, note: 单洗机型，技术数据无干衣容量、无烘干功率}
+  wash: {supported: true}
+  wifi: {supported: null, note: 说明书未单列联网功能，需按面板确认}
+  child_lock: {supported: true, note: 说明书有儿童锁按键说明}
+  delay_start: {supported: null, note: 按面板确认}
+  self_clean: {supported: null, note: 说明书未提筒自洁程序，仅有清洁保养章节}
+  auto_dosing: {supported: null, note: 说明书未见自动投放，按面板确认}
+  steam: {supported: null}
+
+# 明确不能说的（防止幻觉，也防投诉）
+cannot_claim:
+  - 烘干 / 洗烘一体（本机为单洗）
+  - 蒸汽除菌（说明书未声明）
+  - 除菌率 / 除螨率的具体百分比（说明书未给检测数据）

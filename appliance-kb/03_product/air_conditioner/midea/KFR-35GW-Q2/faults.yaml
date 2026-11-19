@@ -1,0 +1,52 @@
+# 型号差异型故障信息
+# 设计原则：故障"现象"跨型号共性极强（不制冷/漏水/噪音），主库放在
+#   04_scenario/s4_troubleshoot/symptoms.yaml
+# 型号目录只放"这个型号特有的东西"：代码规则、保护温度、特殊提示、功能有无导致的差异。
+# 避免 10 个型号各抄一遍同一套排查步骤。
+product_id: midea-kfr-35gw-q2
+updated: 2026-10-21
+
+codes:
+  has_code_display: true
+  # 说明书只给通用规则，不给代码释义表 → 释义在 05_brand_ref/midea/fault_codes.yaml
+  code_prefixes: [E, F, P, EH, EL, EC, PH, PL, PC]
+  rule:
+    - 关机并断开电源
+    - 等待 10 分钟
+    - 上电开机
+    - 若仍显示代码 → 关机断电 → 联系检修（报修）
+    - 若不再显示 → 可继续使用
+  source: p32
+  confidence: 说明书原文
+  note: 说明书明确"代码可能表示相应故障"，未给出逐码含义；客服话术不得自行解释代码含义
+
+protection:
+  cooling: {outdoor_max_c: 65, outdoor_min_c: -18, indoor_min_c: 21, source: p31}
+  heating: {outdoor_max_c: 24, outdoor_min_c: -35, indoor_max_c: 27, source: p31}
+  dry: {indoor_min_c: 18, source: p31}
+  behavior: 保护装置可能动作，出现停止运转，属正常保护，不是故障
+
+normal_phenomena:      # 说明书明确"属正常"的现象，s4 用它挡掉大量假故障工单
+  - id: outlet_drip_humid
+    symptom: 出风口滴水
+    condition: 室内湿度>80% 且长时间制冷/抽湿
+    explain: 空气骤冷产生冷凝水，属正常物理现象；关门窗、降低湿度可缓解
+    source: p31
+  - id: temp_display_diff
+    symptom: 显示温度与温度计不一致
+    condition: 室内各区域温差
+    explain: 机器会自动补偿温度，显示值与实测不同属正常
+    source: p31
+  - id: capacity_drop_extreme
+    symptom: 效果变差
+    condition: 室外极热/极冷
+    explain: 超出工况范围效果下降属正常
+    source: p33
+
+model_specific_notes:
+  - 无自清洁功能：用户问"怎么自清洁"时不要给自清洁步骤，只给滤尘网清洁 + 导风板待机清洁
+  - 仅 2.4GHz Wi-Fi：连不上 5G 是设计限制，不是故障
+
+missing:
+  - 逐条故障代码含义（说明书未提供，需品牌侧资料）
+  - 室内机进/出风最小间距的数值

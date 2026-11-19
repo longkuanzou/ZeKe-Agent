@@ -1,0 +1,16 @@
+# 3C 数码行业包 —— 第二行业包，用于证明「换行业包不改 Core」。
+# 只保留最小但合规的数据：六条用户链路各 2 篇知识，订单/商品/物流可查。
+id: 3c
+name: 3C 数码客服
+products:
+  - 手机
+  - 平板
+knowledge_dir: knowledge/
+policies_file: policies/rules.yaml
+prompts:
+  system: prompts/system.md
+  fewshots: prompts/fewshots.yaml
+tools_file: tools.yaml
+eval_cases: evals/cases.yaml
+seed_data: seed_data/
+demo_scenarios: demo_scenarios.yaml

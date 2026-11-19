@@ -1,0 +1,35 @@
+product_id: midea-mb-afb4041rl
+status: ready
+appliance: rice_cooker
+appliance_cn: 电饭煲
+brand: midea
+brand_cn: 美的
+model: MB-AFB4041RL
+model_slug: MB-AFB4041RL
+indoor_model: null
+outdoor_model: null
+product_type: 电饭煲（底盘加热，4L）
+product_type_source: 说明书参数表 + 型号编码
+colloquial: 4升电饭煲
+energy_grade: null
+launch_year: null
+updated: 2026-10-23
+
+source_docs:
+  - file: 产品简介.jpg
+  - file: 使用技巧.jpg
+  - file: 常见问题.jpg
+  - file: 快速入门.jpg
+  - file: 清洁保养.jpg
+
+material_status:
+  text_extracted: false
+  text_source: ocr
+  ocr_needed: true
+  ocr_done: true
+  ocr_scope: images
+  ocr_note: 资料为 JPG/PNG 图片，无文本层，已全部 OCR
+
+notes:
+  - 容量 4.0L 是推断值（型号编码 + 水位线 8 杯），说明书未印额定容积
+  - 「无水焗」是这类机型的差异功能：用户问「能不能不放水做菜」答能，但要说明按面板无水焗程序走，不是随便什么菜都不加水

@@ -1,0 +1,108 @@
+# 参数来源：说明书参数表（页码见每项 source），2026-10-22 人工核对回填
+# confidence: inferred = 参数表文本错位，按位置推断，待人工复核（见 10_ops/confirm_queue.md）
+product_id: haier-kfr-35gw-e1-1plus
+updated: 2026-10-22
+
+specs:
+  cooling_capacity_w:
+    value: 3500
+    min: 150
+    max: 5750
+    unit: W
+    source: p35
+  heating_capacity_w:
+    value: 5420
+    min: 150
+    max: 7250
+    unit: W
+    source: p35
+  cooling_power_w:
+    value: 700
+    min: 70
+    max: 1900
+    unit: W
+    source: p35
+  heating_power_w:
+    value: 1200
+    min: 70
+    max: 2050
+    unit: W
+    source: p35
+  auxiliary_heat_w:
+    value: 1050
+    unit: W
+    source: p35
+    note: PTC 1050W/4.8A
+  mid_cooling_capacity_w:
+    value: 1650
+    unit: W
+    source: p35
+  mid_heating_capacity_w:
+    value: 2610
+    unit: W
+    source: p35
+  low_temp_heating_capacity_w:
+    value: 5250
+    unit: W
+    source: p35
+  low_temp_heating_power_w:
+    value: 1750
+    unit: W
+    source: p35
+  standby_power_w:
+    value: 3
+    unit: W
+    source: p35
+  power_supply:
+    value: 220V~/50Hz
+    source: p35
+  current_cooling_a:
+    value: 3.2
+    unit: A
+    source: p35
+  current_heating_a:
+    value: 5.6
+    unit: A
+    source: p35
+  noise_indoor_db:
+    min: 16
+    standard: 35
+    max: 41
+    unit: dB(A)
+    source: p35
+  noise_outdoor_db:
+    value: 51
+    unit: dB(A)
+    source: p35
+  airflow_m3h:
+    value: 800
+    unit: m³/h
+    source: p35
+  size_indoor_mm:
+    w: 910
+    h: 316
+    d: 210
+    unit: mm
+    source: p35
+    note: '原文标注顺序 宽*深*高'
+    confidence: high
+  size_outdoor_mm:
+    w: 820
+    h: 550
+    d: 325
+    unit: mm
+    source: p35
+    note: '原文标注顺序 宽*深*高'
+    confidence: high
+  pipe_max_length_m:
+    value: 10
+    unit: m
+    source: p26
+  pipe_max_height_diff_m:
+    value: 5
+    unit: m
+    source: p26
+  min_room_area_m2:
+    value: 4
+    unit: m²
+    source: p9

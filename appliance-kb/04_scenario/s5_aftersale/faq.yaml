@@ -1,0 +1,149 @@
+# 由 tools/normalize_faq.py 归一化：FAQ 只保留「结论一句 + 指针」，事实以被指向的权威文档为准（见 00_schema/single_source.md）
+scenario: s5_aftersale
+updated: 2026-10-21
+faq:
+- id: faq-s5.001
+  question: 保修几年
+  intent: aftersale.warranty
+  scope:
+    appliance: air_conditioner
+    brand:
+    - haier
+    - midea
+  answer: 整机免费包修 6 年。详见 brand.haier.warranty（warranty.yaml）；brand.midea.warranty（warranty.yaml）。
+  source: 05_brand_ref/haier/warranty.yaml / midea/warranty.yaml
+  verified: true
+- id: faq-s5.002
+  question: 七天无理由能退吗
+  intent: aftersale.return
+  scope:
+    appliance:
+    - air_conditioner
+    - washer
+    - rice_cooker
+  answer: 7 天内、商品完好不影响二次销售的可以申请。详见 platform.return（return_policy.yaml）。
+  source: 06_platform_policy/return_policy.yaml
+  verified: false
+  note: 必须带"不能先保证"，且追问使用状态（空调/洗衣机的判断点是"装没装"，电饭煲是"用没用"）
+- id: faq-s5.003
+  question: 拆封了还能退吗
+  intent: aftersale.return
+  scope:
+    appliance:
+    - air_conditioner
+    - washer
+    - rice_cooker
+  answer: 只拆封查验、没安装没通电，一般不算影响二次销售，可以申请无理由退货；但要包装、附件、赠品齐全。详见 platform.opened_box（opened_box.yaml）。
+  source: 06_platform_policy/opened_box.yaml
+  verified: false
+- id: faq-s5.004
+  question: 已经装了不满意能退吗
+  intent: aftersale.return
+  scope:
+    appliance:
+    - air_conditioner
+    - washer
+  answer: 已安装的话，无理由退货通常走不了，因为涉及拆机、二次销售和安装费。如果确实是机器性能问题，那走的是三包退换修这条线，判定标准不一样。您方便说下是哪里不满意吗？我看看有没有别的处理方式。
+  source: s5 slots.yaml#within_7d_installed
+  verified: false
+  handoff:
+    needed: true
+    reason: policy_uncertain
+- id: faq-s5.005
+  question: 退货谁出运费
+  intent: aftersale.shipping
+  scope:
+    appliance:
+    - air_conditioner
+    - washer
+    - rice_cooker
+  answer: 无理由退货的运费一般由买家承担，质量问题导致的由责任方承担。详见 platform.shipping（shipping_policy.yaml）。
+  source: 06_platform_policy/shipping_policy.yaml
+  verified: false
+- id: faq-s5.006
+  question: 过了保修期怎么办
+  intent: aftersale.warranty
+  scope:
+    appliance: air_conditioner
+  answer: 超保可以提供有偿维修，费用是修理人工费 + 零部件费 + 超距离交通费三项。详见 brand.haier.warranty（warranty.yaml）。
+  source: 05_brand_ref/haier/warranty.yaml#out_of_warranty
+  verified: true
+- id: faq-s5.007
+  question: 人为损坏保修吗
+  intent: aftersale.warranty
+  scope:
+    appliance: air_conditioner
+  answer: 人为损坏、使用或维护不当、自行拆修造成的损坏，不属于免费保修范围，可以付费修复。但具体算不算人为，要师傅上门检测后才能定，我不先替您下结论。
+  source: 05_brand_ref/*/warranty.yaml#not_free_service
+  verified: true
+  handoff:
+    needed: true
+    reason: warranty_dispute
+- id: faq-s5.008
+  question: 没有发票还能保修吗
+  intent: aftersale.warranty
+  scope:
+    appliance: air_conditioner
+  answer: 不一定会被拒。海尔按生产时间往后推 3 个月推算安装日期，美的按出厂日期往后推 180 天，只要机器还在推算出的保修期内就可以正常保修。机身条形码要保留好，师傅上门会扫。
+  source: 05_brand_ref/*/warranty.yaml
+  verified: true
+  note: 两家推算规则不同，不可混说
+- id: faq-s5.009
+  question: 为什么收我高空费
+  intent: aftersale.fee_dispute
+  scope:
+    appliance: air_conditioner
+    brand:
+    - midea
+  answer: 按说明书，4 楼及 4 楼以上墙外施工属于协议收费项，其他还有加长管、打孔、移机、20 公里以上远程费、拆防盗网这几类。详见 brand.midea.fee_schedule（fee_schedule.yaml）。
+  source: 05_brand_ref/midea/fee_schedule.yaml
+  verified: true
+- id: faq-s5.010
+  question: 保修期从什么时候算
+  intent: aftersale.warranty
+  scope:
+    appliance: air_conditioner
+  answer: 从安装完成那天算，不是签收日也不是下单日。详见 brand.haier.warranty（warranty.yaml）。
+  source: 05_brand_ref/haier/warranty.yaml#terms
+  verified: true
+- id: faq-s5.011
+  question: 电饭煲保修几年
+  intent: aftersale.warranty
+  scope:
+    appliance: rice_cooker
+    brand:
+    - supor
+  answer: 苏泊尔电饭煲整机包修 1 年，从您收到产品那天算起，不是下单日。详见 brand.supor.warranty（warranty.yaml）。
+  source: 05_brand_ref/supor/warranty.yaml#terms
+  verified: true
+- id: faq-s5.012
+  question: 洗衣机保修几年
+  intent: aftersale.warranty
+  scope:
+    appliance: washer
+  answer: 这个我不能凭印象给您报年限——不同渠道、不同批次的政策不一样，报错了对您没好处。麻烦您看下随机的保修卡，或者把订单号给我，我按您这台机器确认；查不到的我转保修专员给您出书面答复。
+  source: 05_brand_ref/{brand}/warranty.yaml
+  verified: true
+  handoff:
+    needed: true
+    reason: warranty_term_unknown
+  note: 小天鹅与西门子的说明书都没有写包修年限，这是本库已确认的缺口
+- id: faq-s5.013
+  question: 内胆涂层掉了算保修吗
+  intent: aftersale.warranty
+  scope:
+    appliance: rice_cooker
+  answer: 要看原因。详见 brand.supor.warranty（warranty.yaml）。
+  source: 05_brand_ref/supor/warranty.yaml#not_free_service
+  verified: true
+  handoff:
+    needed: true
+    reason: judge_needed
+- id: faq-s5.014
+  question: 洗衣机运输螺栓拆下来要收费吗
+  intent: aftersale.fee_dispute
+  scope:
+    appliance: washer
+  answer: 不收费。拆运输螺栓、调平、接进排水、试机都是标准安装的一部分，含在售价里。如果机器因为螺栓没拆而震得厉害，那是安装环节漏了，属于安装返修，也不该另外收费。
+  source: 03_product/washer/*/install.yaml + 05_brand_ref/{brand}/fee_schedule.yaml#standard_install
+  verified: true

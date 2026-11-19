@@ -1,0 +1,12 @@
+# 种子用户：PII 只存脱敏值（手机号 / 地址一律不落明文）
+users:
+  - user_id: U1
+    name: 张伟
+    phone_masked: "138****1234"
+    level: gold
+    created_at: "2026-03-01T10:00:00"
+  - user_id: U2
+    name: 李娜
+    phone_masked: "139****5678"
+    level: silver
+    created_at: "2026-05-12T09:30:00"

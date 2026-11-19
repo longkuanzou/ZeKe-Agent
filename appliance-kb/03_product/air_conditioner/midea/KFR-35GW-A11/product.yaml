@@ -1,0 +1,25 @@
+product_id: midea-kfr-35gw-a11
+status: ready
+appliance: air_conditioner
+appliance_cn: 空调
+brand: midea
+brand_cn: 美的
+model: KFR-35GW/A11
+model_slug: KFR-35GW-A11
+indoor_model: null
+outdoor_model: null
+product_type: 分体挂壁式（变频）
+product_type_tags: [挂机, 壁挂, 变频, 冷暖, 防直吹]
+colloquial: 1.5匹
+energy_grade: null
+launch_year: null
+updated: 2026-10-22
+
+source_docs:
+  - file: 美的-KFR-35GW-A11-使用说明书.pdf
+
+backfill:
+  method: 人工核对后回填（方案 B）
+  date: 2026-10-22
+notes:
+  - 说明书封面为 LittleSwan（小天鹅），属美的系，同型号参数通用

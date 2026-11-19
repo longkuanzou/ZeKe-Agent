@@ -1,0 +1,34 @@
+# 海尔品牌级信息（与型号无关，一次维护、全型号生效）
+policy_id: brand.haier.profile
+brand: haier
+brand_cn: 海尔
+appliance_scope: [air_conditioner]
+verified: true
+source: 说明书 p32
+updated: 2026-10-21
+
+service:
+  hotline: "4006 999 999"
+  hotline_hours: 24小时                 # 说明书原文"24小时海尔官方服务热线"
+  app: 海尔智家
+  app_service_entry: 服务-预约服务/一键安装/一键维修
+  app_fee_entry: 服务-收费标准            # 用户可自查收费标准，回答费用类问题可引导到这里
+  online_support: 海尔智家App-服务-在线客服
+  program: 「1+5」成套服务
+  program_detail:
+    - 安全测电服务
+    - 讲解指导服务
+    - 一站通检服务
+    - 全程无忧服务（设计/送货/安装/清洗/延保/以旧换新）
+    - 现场清理服务
+  source: 说明书 p32
+
+standard:
+  source: p32 / p36
+  items:
+    - GB/T 7725《房间空气调节器》
+    - GB 21455-2019 能效标准
+
+notes:
+  - 说明书明确"如未按标准收费或服务规范执行不到位"可拨打热线投诉，费用争议类回答可引用此条
+  - 品牌服务承诺（1+5）可在外呼话术中使用，但不得承诺额外赠送

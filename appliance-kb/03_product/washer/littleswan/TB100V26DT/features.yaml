@@ -1,0 +1,34 @@
+# 功能清单：售前「有没有」「支不支持」类问题的唯一依据
+# supported: true 有 / false 明确没有 / null 说明书未提及（按不确定处理，不得推定）
+product_id: littleswan-tb100v26dt
+updated: 2026-10-22
+
+features:
+  dry: {supported: false, note: 波轮机，说明书无烘干相关内容}
+  steam: {supported: null, note: 说明书未提蒸汽/除菌程序；程序表有「除螨」但未说明是否高温}
+  self_clean: {supported: null, note: 波轮说明书无筒自洁程序，仅有内桶清洁保养指引}
+  wifi: {supported: null, note: 说明书未见联网指引}
+  child_lock: {supported: null, note: 说明书未提童锁}
+  auto_dosing: {supported: false, note: 波轮机型为手动投放洗涤剂}
+  auto_weight: {supported: null}
+  water_level_manual: {supported: true, source: "ocr#使用技巧.jpg", note: 水位键可手动设定水位}
+  wash_strength: {supported: true, source: "ocr#使用技巧.jpg", note: 长按强度键调 P1/P2/P3，洗涤强度逐步提高，标准/快洗/速洗可用}
+  delay_start: {supported: true, source: "ocr#使用技巧.jpg", note: 长按 3 秒预约，预约时间到达后开始运行}
+  one_key_smart: {supported: true, source: "ocr#使用技巧.jpg", note: 一键智洗}
+  quick_program: {supported: true, source: "ocr#使用技巧.jpg", note: 快洗 / 速洗}
+  mite_removal: {supported: true, source: "ocr#使用技巧.jpg", note: 除螨程序}
+
+# 说明书程序表逐项列出的程序（可在面板直接选）
+builtin_programs:
+  - 标准
+  - 快洗
+  - 柔洗
+  - 超净洗
+  - 速洗
+  - 单脱
+  - 除螨
+
+cannot_claim:
+  - 烘干 / 洗烘一体（本机无烘干）
+  - 除菌率 / 除螨率的具体百分比（说明书未给检测数据）
+  - 具体耗水量（说明书未给）

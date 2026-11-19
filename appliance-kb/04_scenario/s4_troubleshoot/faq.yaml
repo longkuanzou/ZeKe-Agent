@@ -1,0 +1,267 @@
+# 由 tools/normalize_faq.py 归一化：FAQ 只保留「结论一句 + 指针」，事实以被指向的权威文档为准（见 00_schema/single_source.md）
+scenario: s4_troubleshoot
+updated: 2026-10-21
+faq:
+- id: faq-s4.001
+  question: 空调不制冷
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 先按三步排一下：① 模式是不是在"送风"（送风不制冷）；② 设定温度是不是比室温低；③ 滤网是不是该洗了。详见 症状库 symptoms.yaml#not_cooling。
+  steps:
+  - 切到制冷模式
+  - 调低设定温度
+  - 清洗滤网
+  source: 04_scenario/s4_troubleshoot/symptoms.yaml#not_cooling
+  handoff:
+    needed: true
+    reason: self_check_failed
+  verified: true
+- id: faq-s4.002
+  question: 显示 E1 是什么故障（美的）
+  intent: troubleshoot.code
+  scope:
+    appliance: air_conditioner
+    brand:
+    - midea
+  answer: 说明书里只说明 E/F/P 开头是故障代码，没有给具体每个代码的含义，这个我不跟您猜。详见 midea-kfr-35gw-q2 的 faults.yaml（codes）。
+  steps:
+  - 关机断电
+  - 等待 10 分钟
+  - 上电开机
+  - 仍显示则报修
+  source: 03_product/air_conditioner/midea/KFR-35GW-Q2/faults.yaml#codes
+  handoff:
+    needed: true
+    reason: code_persist
+  verified: true
+- id: faq-s4.003
+  question: 显示 E1 是什么故障（海尔）
+  intent: troubleshoot.code
+  scope:
+    appliance: air_conditioner
+    brand:
+    - haier
+  answer: 海尔这个型号的说明书里没有故障代码表，代码含义我不能凭经验跟您说，说错了会影响判断。详见 haier-kfr-35gw-e1-1 的 faults.yaml（codes）。
+  source: 03_product/air_conditioner/haier/KFR-35GW-E1-1/faults.yaml#codes
+  handoff:
+    needed: true
+    reason: brand_has_no_code_table
+  verified: true
+- id: faq-s4.004
+  question: 空调声音很大
+  intent: troubleshoot.noise
+  scope:
+    appliance: air_conditioner
+  answer: 先分清是哪种声音。详见 症状库 symptoms.yaml#noise_water_flow。
+  source: symptoms.yaml#noise_water_flow / noise_crack / noise_outdoor_loud
+  handoff:
+    needed: true
+    reason: abnormal_noise
+  verified: true
+  note: 先挡正常现象，再分诊
+- id: faq-s4.005
+  question: 室内机漏水
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 先别开机了，把电源断掉。详见 症状库 symptoms.yaml#water_leak_indoor。
+  source: symptoms.yaml#water_leak_indoor
+  handoff:
+    needed: true
+    reason: safety
+  verified: true
+  note: stop_and_call，第一句就是停机
+- id: faq-s4.006
+  question: 出风口滴水
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 如果只是出风口边缘滴水、而且是闷热潮湿天气长时间制冷，这是冷凝水，正常现象。详见 症状库 symptoms.yaml#outlet_drip。
+  source: symptoms.yaml#outlet_drip
+  verified: true
+- id: faq-s4.007
+  question: 吹出来有异味
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 多数是滤网和蒸发器积灰发霉。详见 症状库 symptoms.yaml#bad_smell。
+  source: symptoms.yaml#bad_smell
+  verified: true
+- id: faq-s4.008
+  question: 开机没反应
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 四步：① 换个插座试试有没有电；② 看家里空开跳没跳；③ 遥控器换新电池；④ 如果刚断过电，等 3 分钟再开（压缩机保护）。详见 症状库 symptoms.yaml#no_power。
+  steps:
+  - 换插座测试
+  - 检查空开
+  - 换遥控器电池
+  - 等 3 分钟
+  source: symptoms.yaml#no_power
+  verified: true
+- id: faq-s4.009
+  question: 制热不热
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 刚开机制热会先预热几分钟不出热风，这是防冷风吹人的保护，等一下就好。详见 症状库 symptoms.yaml#not_heating。
+  source: symptoms.yaml#not_heating
+  verified: true
+- id: faq-s4.010
+  question: 效果不如以前了
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 最常见是滤网和蒸发器积灰，先洗滤网。详见 症状库 symptoms.yaml#weak_effect。
+  source: symptoms.yaml#weak_effect
+  handoff:
+    needed: true
+    reason: suspect_refrigerant
+  verified: true
+- id: faq-s4.011
+  question: 一开机就跳闸
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 先别反复开了，这种情况要停机处理。详见 症状库 symptoms.yaml#tripping_breaker。
+  source: symptoms.yaml#tripping_breaker
+  handoff:
+    needed: true
+    reason: safety
+  verified: true
+- id: faq-s4.012
+  question: 外机冒烟了
+  intent: troubleshoot.symptom
+  scope:
+    appliance: air_conditioner
+  answer: 先确认是"白雾"还是"烟"。详见 症状库 symptoms.yaml#outdoor_steam。
+  source: symptoms.yaml#outdoor_steam
+  handoff:
+    needed: true
+    reason: safety_check
+  verified: true
+- id: faq-s4.013
+  question: 洗衣机不脱水 / 脱不干
+  intent: troubleshoot.symptom
+  scope:
+    appliance: washer
+  answer: 先看三种情况：① 衣物太少或只有一件大件，机器怕偏心会先低速转一转再重新抖散，这是保护不是坏；② 筒里还有水，排水没完成就不会进脱水；③ 洗的时候泡沫多，程序会…详见
+    症状库 symptoms.yaml#ws_no_spin。
+  steps:
+  - 调整衣物数量与分布
+  - 确认已排完水
+  - 关好门听到锁合声
+  source: symptoms.yaml#ws_no_spin
+  handoff:
+    needed: true
+    reason: need_diagnose
+  verified: true
+- id: faq-s4.014
+  question: 洗衣机震动特别大 / 会跑位
+  intent: troubleshoot.symptom
+  scope:
+    appliance: washer
+  answer: 新装的机器，第一位要确认背面那 4 颗运输固定螺栓拆了没有——没拆就脱水，机器会剧烈晃动甚至移位，这属于安装遗漏，可以申请返修。详见 症状库 symptoms.yaml#ws_vibration。
+  steps:
+  - 确认运输螺栓已拆除
+  - 对角线按压检查是否水平
+  - 调平并锁紧底脚
+  source: symptoms.yaml#ws_vibration
+  handoff:
+    needed: true
+    reason: install_issue
+  verified: true
+- id: faq-s4.015
+  question: 洗衣机不排水 / 水排不出去
+  intent: troubleshoot.symptom
+  scope:
+    appliance: washer
+  answer: 上排水的机型先查两件事：排水管末端是不是高过 1 米了（高了泵顶不上去），以及末端是不是泡在排出来的水里（会回流）。详见 症状库 symptoms.yaml#ws_no_drain。
+  steps:
+  - 把排水管末端降到 1 米以内
+  - 理顺管路避免弯折
+  - 清理排水泵滤网
+  source: symptoms.yaml#ws_no_drain
+  handoff:
+    needed: true
+    reason: need_diagnose
+  verified: true
+- id: faq-s4.016
+  question: 洗衣机门打不开
+  intent: troubleshoot.symptom
+  scope:
+    appliance: washer
+  answer: 先别硬拉。详见 症状库 symptoms.yaml#ws_door_stuck。
+  steps:
+  - 等程序结束
+  - 完成排水
+  - 断电重启后等待解锁
+  source: symptoms.yaml#ws_door_stuck
+  handoff:
+    needed: true
+    reason: door_lock
+  verified: true
+- id: faq-s4.017
+  question: 电饭煲煮出来的饭夹生 / 不熟
+  intent: troubleshoot.symptom
+  scope:
+    appliance: rice_cooker
+  answer: 这一类九成不是机器坏。详见 症状库 symptoms.yaml#rc_not_cooked。
+  steps:
+  - 按水位线加水
+  - 选对米种功能
+  - 擦干内锅底与加热盘
+  - 装好蒸汽阀
+  source: symptoms.yaml#rc_not_cooked
+  handoff:
+    needed: true
+    reason: need_diagnose
+  verified: true
+- id: faq-s4.018
+  question: 电饭煲溢锅 / 米汤溢出来了
+  intent: troubleshoot.symptom
+  scope:
+    appliance: rice_cooker
+  answer: 最常见是水超了刻度，或者用"煮饭"键去煮粥——煮粥得用粥/稀饭功能，火力和防溢逻辑不一样。详见 症状库 symptoms.yaml#rc_overflow。
+  steps:
+  - 按粥类水位线加水
+  - 换煮粥功能
+  - 清洁防溢电极与蒸汽阀
+  source: symptoms.yaml#rc_overflow
+  handoff:
+    needed: true
+    reason: need_diagnose
+  verified: true
+- id: faq-s4.019
+  question: 电饭煲插上电不加热 / 灯不亮
+  intent: troubleshoot.symptom
+  scope:
+    appliance: rice_cooker
+  answer: 先三步：① 换个插座试，看电源线有没有破损；② 内锅放进去要转一下让它贴合（没放内锅或没放平，机器会检锅保护不加热，这不是故障）；③ 上盖要合到位，有的机型盖没…详见
+    症状库 symptoms.yaml#rc_no_heat。
+  steps:
+  - 换插座测试
+  - 确认内锅放平
+  - 确认上盖合到位
+  source: symptoms.yaml#rc_no_heat
+  handoff:
+    needed: true
+    reason: no_heat
+  verified: true
+- id: faq-s4.020
+  question: 面板显示故障代码怎么办
+  intent: troubleshoot.code
+  scope:
+    appliance:
+    - air_conditioner
+    - washer
+    - rice_cooker
+  answer: 麻烦告诉我三件事：是什么电器、什么品牌、屏幕上几位字符（纯数字还是带字母，闪不闪）。详见 症状库 symptoms.yaml#code_display。
+  steps:
+  - 确认品类与品牌
+  - 记录代码原文
+  - 记录是否闪烁
+  source: symptoms.yaml#code_display
+  verified: true

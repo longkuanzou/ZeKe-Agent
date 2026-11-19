@@ -1,0 +1,195 @@
+# 苏泊尔电饭煲备件/耗材目录
+#
+# 电饭煲的"备件"大半是用户能自己装的配件（内胆、密封圈、微压阀、低糖甑）。
+# 报修前先判断是件坏了还是没装到位——这两类都占了不少工单。
+policy_id: brand.supor.parts_catalog
+brand: supor
+brand_cn: 苏泊尔
+applies_to: {appliance: [rice_cooker]}
+verified: false
+source: "各型号 usage.yaml 清洁保养章节（可拆件范围）"
+updated: 2026-10-23
+
+consumables:
+  - key: inner_pot
+    cn: 内锅/内胆
+    note: 纯钛基材（F40H8093S/F40H9083S）、球釜陶瓷涂层（SF50FC733）、蓝钻不粘厚釜（SF40FC871）
+  - key: seal_ring
+    cn: 上盖密封圈
+    note: 老化漏汽表现为"饭夹生、边上冒汽"
+  - key: micro_pressure_valve
+    cn: 微压阀
+    note: 可拆洗，逆时针开锁/顺时针闭合并对位凸点；装不到位会漏汽
+  - key: steam_water_cup
+    cn: 蒸汽水杯
+    note: 仅 F50X96 这类带蒸汽水杯的机型；未放入会报 E6
+  - key: sugar_reducer
+    cn: 低糖甑
+    note: 仅 F40H9083S；低糖饭必须用它，不用甑就是普通煮饭
+  - key: measuring_cup
+    cn: 量杯
+  - key: spatula
+    cn: 饭勺/汤勺
+  - key: steam_rack
+    cn: 蒸笼
+
+replaceable_parts:
+  - key: heating_plate
+    cn: 电热盘/发热盘
+  - key: ih_coil
+    cn: 线圈盘（IH 机型）
+  - key: far_infrared_tube
+    cn: 顶部远红外发热管
+    note: 坏了的表现是"能煮熟但上面夹生/饭不香"，容易被误判成米水问题
+  - key: top_sensor
+    cn: 顶部（上盖）温度传感器
+  - key: bottom_sensor
+    cn: 底部温度传感器
+  - key: anti_overflow_probe
+    cn: 防溢探头
+  - key: pcb
+    cn: 主控板/电源板
+  - key: lid_latch
+    cn: 开盖扣/盖锁组件
+
+included_accessories:
+  source: "各型号 product.yaml 附件清单"
+  note: 不同型号差异大，按型号查，不得笼统承诺
+  items_by_model:
+    F40H8093S: [汤勺, 量杯, 蒸笼, 饭勺, 说明书+快速入门]
+    F40H9083S: [低糖甑, 微压阀, 量杯, 说明书+快速入门]
+    F50X96: [蒸笼, 量杯, 饭勺, 蒸汽水杯]
+    SF40FC871: [电源线, 说明书（含保修卡）, 量杯, 蒸笼, 饭勺]
+    SF50FC733: [蒸笼, 汤勺, 量杯, 电源线, 饭勺, 说明书（内含保修卡）]
+
+todo:
+  - 补零件号与参考价
+  - 内胆是高频补件，需按型号建立"型号 → 内胆材质 → 可否单独购买"的对照
+
+# ══════════════════════════════════════════════════════════════
+# 备件参考价（2026-10-23 业务方提供《家电备件价格参考表》）
+#
+# 性质：市场参考价（含配件费），不含上门费/人工费/高空作业费；零件号为参考编号，
+#      实际报修以官方售后系统查到的零件号为准。官方原厂件通常是兼容件的 2~3 倍。
+# 所以 price_verified 保持 false —— 能答「换个排水泵大概多少钱」，
+# 不能答「这是我们的标准价」，也不能把配件价当成「修好一共多少钱」。
+price_verified: false
+price_basis: >
+  业务方提供的备件价格参考表（2024~2026 年公开数据整理），
+  区间为市场价含配件费、不含人工与上门费；实际以当地售后网点报价为准。
+price_source: 家电备件价格参考表.xlsx（业务方 2026-10-23 提供）
+parts_price_list:
+  source_sheet: 苏泊尔电饭煲备件
+  items:
+    - key: inner_pot
+      cn: 内锅/内胆
+      part_no: "SP-RC-IP-001"
+      price_min: 50
+      price_max: 260
+      price_unit: 元
+      note: "纯钛基材(F40H8093S)/球釜陶瓷涂层(SF50FC733)/蓝钻不粘(SF40FC871)；球釜内胆原厂180~260元"
+    - key: seal_ring
+      cn: 上盖密封圈
+      part_no: "SP-RC-SR-001"
+      price_min: 10
+      price_max: 50
+      price_unit: 元
+      note: "老化漏汽表现为饭夹生、边上冒汽"
+    - key: micro_pressure_valve
+      cn: 微压阀
+      part_no: "SP-RC-MPV-001"
+      price_min: 10
+      price_max: 40
+      price_unit: 元
+      note: "可拆洗，逆时针开锁/顺时针闭合并对位凸点"
+    - key: steam_water_cup
+      cn: 蒸汽水杯
+      part_no: "SP-RC-SWC-001"
+      price_min: 10
+      price_max: 30
+      price_unit: 元
+      note: "仅F50X96等带蒸汽水杯的机型；未放入会报E6"
+    - key: sugar_reducer
+      cn: 低糖甑
+      part_no: "SP-RC-SR-002"
+      price_min: 20
+      price_max: 60
+      price_unit: 元
+      note: "仅F40H9083S；低糖饭必须用它"
+    - key: measuring_cup
+      cn: 量杯
+      part_no: "SP-RC-MC-001"
+      price_min: 5
+      price_max: 15
+      price_unit: 元
+      note: "耗材"
+    - key: spatula
+      cn: 饭勺/汤勺
+      part_no: "SP-RC-SP-001"
+      price_min: 5
+      price_max: 15
+      price_unit: 元
+      note: "耗材"
+    - key: steam_rack
+      cn: 蒸笼
+      part_no: "SP-RC-SR-003"
+      price_min: 10
+      price_max: 30
+      price_unit: 元
+      note: "耗材"
+    - key: heating_plate
+      cn: 电热盘/发热盘
+      part_no: "SP-RC-HP-001"
+      price_min: 30
+      price_max: 150
+      price_unit: 元
+      note: "加热异常时更换"
+    - key: ih_coil
+      cn: 线圈盘(IH机型)
+      part_no: "SP-RC-IC-001"
+      price_min: 50
+      price_max: 200
+      price_unit: 元
+      note: "IH机型核心加热件"
+    - key: far_infrared_tube
+      cn: 顶部远红外发热管
+      part_no: "SP-RC-FIRT-001"
+      price_min: 30
+      price_max: 120
+      price_unit: 元
+      note: "坏了表现为能煮熟但上面夹生/饭不香"
+    - key: top_sensor
+      cn: 顶部(上盖)温度传感器
+      part_no: "SP-RC-TS-001"
+      price_min: 5
+      price_max: 30
+      price_unit: 元
+      note: "温度异常/E0/E1代码"
+    - key: bottom_sensor
+      cn: 底部温度传感器
+      part_no: "SP-RC-BS-001"
+      price_min: 5
+      price_max: 30
+      price_unit: 元
+      note: "底部测温元件"
+    - key: anti_overflow_probe
+      cn: 防溢探头
+      part_no: "SP-RC-AOP-001"
+      price_min: 10
+      price_max: 40
+      price_unit: 元
+      note: "溢锅检测"
+    - key: pcb
+      cn: 主控板/电源板
+      part_no: "SP-RC-PCB-001"
+      price_min: 50
+      price_max: 500
+      price_unit: 元
+      note: "不启动/显示异常时更换；IH主板523~1423元"
+    - key: lid_latch
+      cn: 开盖扣/盖锁组件
+      part_no: "SP-RC-LL-001"
+      price_min: 10
+      price_max: 50
+      price_unit: 元
+      note: "盖锁故障时更换"

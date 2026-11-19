@@ -1,0 +1,134 @@
+# 参数来源：说明书参数表（页码见每项 source），2026-10-22 人工核对回填
+# confidence: inferred = 参数表文本错位，按位置推断，待人工复核（见 10_ops/confirm_queue.md）
+product_id: midea-kfr-72lw-n8ks1-1p
+updated: 2026-10-22
+
+specs:
+  cooling_capacity_w:
+    value: 7320
+    min: 900
+    max: 9260
+    unit: W
+    source: p11
+  heating_capacity_w:
+    value: 9760
+    min: 900
+    max: 12380
+    unit: W
+    source: p11
+  cooling_power_w:
+    value: 2080
+    min: 300
+    max: 3450
+    unit: W
+    source: p11
+    confidence: inferred
+  heating_power_w:
+    value: 2980
+    min: 260
+    max: 4165
+    unit: W
+    source: p11
+    confidence: inferred
+  efficiency_apf:
+    value: 4.6
+    unit: APF
+    source: p11
+    confidence: inferred
+  efficiency_seer:
+    value: 5.69
+    unit: SEER
+    source: p11
+    confidence: inferred
+  efficiency_hspf:
+    value: 3.42
+    unit: HSPF
+    source: p11
+    confidence: inferred
+  energy_grade:
+    value: 1
+    unit: 级
+    source: p11
+  pipe_max_length_m:
+    value: 20
+    unit: m
+    source: p26
+  pipe_max_height_diff_m:
+    value: 10
+    unit: m
+    source: p26
+  auxiliary_heat_w:
+    value: 2400
+    unit: W
+    source: p11
+    note: PTC 电辅热。参数表右列（72LW）为 2400(PTC)，左列（51LW）为 2200(PTC)
+  noise_indoor_db:
+    min: 22
+    standard: 42
+    max: 47
+    unit: dB(A)
+    source: p11
+    confidence: confirmed
+    note: 参数表「室内机（低-高-超强）」，右列（72LW）为 22-42-47，左列（51LW）为 22-38-42
+  noise_outdoor_db:
+    min: 48
+    max: 56
+    unit: dB(A)
+    source: p11
+    note: 参数表「室外机（低-高）」，右列（72LW）为 48-56，左列（51LW）为 47-54
+  recommended_area_cooling_m2:
+    value: 32-48
+    unit: m²
+    source: p3
+  recommended_area_heating_m2:
+    value: 36-49
+    unit: m²
+    source: p3
+  airflow_m3h:
+    value: 1760
+    unit: m³/h
+    source: 业务方核定（2026-10-23）+ 官方标定
+    confidence: confirmed
+    note: |
+      **2026-10-23 核定：1760 m³/h。**
+      依据：1600 m³/h 是美的旧款「舒适星」系列的风量；本机「KS1」是最新款「酷省电Ultra」，
+      搭载仿生鹰翼柔性百叶与大风量风轮，官方标定循环风量为 1760 m³/h。
+      本批说明书参数表（51LW/72LW 双列，右列 1600）沿用的是旧款「舒适星」数据，已作废。
+      回答时不要再引用说明书注④「送风模式下的最大风量」这个限定——那是旧表的脚注口径。
+    cross_check_alt:
+      value: 1600
+      unit: m³/h
+      source: 说明书 p11 参数表右列（72LW）
+      status: 已被核定推翻（说明书沿用旧款「舒适星」数据），仅作溯源留档
+  size_indoor_mm:
+    w: 380
+    h: 1802
+    d: 392
+    unit: mm
+    source: p11
+    note: 原文标注顺序 宽×高×深。参数表中室内机尺寸**只给了一个值**，51LW 与 72LW 共用同一立柜机身，
+      故本值对两个型号都成立。回答"预留位"时按此值，并提醒以铭牌/实测为准
+    confidence: confirmed
+    cross_check_alt: {w: 395, h: 1856, d: 436, source: '业务方提供的官方规格页（2026-10-23）', status: 未采用}
+  min_room_area_m2:
+    value: 26
+    unit: m²
+    source: p11
+    confidence: confirmed
+    note: 参数表右列（72LW）为 26，左列（51LW）为 18。低于此面积不建议选本机型
+  max_input_power_w:
+    value: 6950
+    unit: W
+    source: p11
+    confidence: inferred
+    note: 双列表格换行错位，6950 与 最大输入电流 24.0/32.0 相邻，按右列对应关系取 6950。仅用于配电参考
+  refrigerant_type:
+    value: R32
+    source: p4
+  refrigerant_charge_g:
+    value: 1170
+    unit: g
+    source: p11
+    note: 参数表右列 R32/1170g，左列（51LW）为 R32/1120g
+
+missing: []

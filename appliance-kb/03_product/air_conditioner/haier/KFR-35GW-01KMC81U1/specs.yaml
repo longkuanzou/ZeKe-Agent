@@ -1,0 +1,111 @@
+# 参数来源：说明书参数表（页码见每项 source），2026-10-22 人工核对回填
+# confidence: inferred = 参数表文本错位，按位置推断，待人工复核（见 10_ops/confirm_queue.md）
+product_id: haier-kfr-35gw-01kmc81u1
+updated: 2026-10-22
+
+specs:
+  cooling_capacity_w:
+    value: 3500
+    min: 200
+    max: 5100
+    unit: W
+    source: p34
+  heating_capacity_w:
+    value: 5000
+    min: 200
+    max: 6700
+    unit: W
+    source: p34
+  cooling_power_w:
+    value: 810
+    min: 80
+    max: 1700
+    unit: W
+    source: p34
+  heating_power_w:
+    value: 1245
+    min: 80
+    max: 2000
+    unit: W
+    source: p34
+  auxiliary_heat_w:
+    value: 1100
+    unit: W
+    source: p34
+    note: PTC 电热 1100W/5.1A
+  mid_cooling_capacity_w:
+    value: 1650
+    unit: W
+    source: p34
+  mid_heating_capacity_w:
+    value: 2400
+    unit: W
+    source: p34
+  low_temp_heating_capacity_w:
+    value: 4855
+    unit: W
+    source: p34
+  low_temp_heating_power_w:
+    value: 1709
+    unit: W
+    source: p34
+  standby_power_w:
+    value: 3
+    unit: W
+    source: p34
+  power_supply:
+    value: 220V~/50Hz
+    source: p34
+  current_cooling_a:
+    value: 3.8
+    unit: A
+    source: p34
+  current_heating_a:
+    value: 5.8
+    unit: A
+    source: p34
+  noise_indoor_db:
+    standard: 37
+    max: 41
+    unit: dB(A)
+    source: p34
+    note: 说明书只列超强41/高风37，未给超静档
+    confidence: partial
+  noise_outdoor_db:
+    value: 51
+    unit: dB(A)
+    source: p34
+  airflow_m3h:
+    value: 700
+    unit: m³/h
+    source: p34
+  size_indoor_mm:
+    w: 865
+    h: 300
+    d: 190
+    unit: mm
+    source: p34
+    note: '原文标注顺序 宽*高*深'
+    confidence: high
+  size_outdoor_mm:
+    w: 820
+    h: 550
+    d: 325
+    unit: mm
+    source: p34
+    note: '原文标注顺序 宽*高*深'
+    confidence: high
+  pipe_max_length_m:
+    value: 10
+    unit: m
+    source: p26
+  pipe_max_height_diff_m:
+    value: 5
+    unit: m
+    source: p26
+    note: 临街安装外机不得低于2.5米
+  min_room_area_m2:
+    value: 4
+    unit: m²
+    source: p9
+    note: 原文为大于 4㎡

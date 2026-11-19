@@ -1,0 +1,41 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+invoices:
+- invoice_id: IV2601
+  order_id: H2616
+  user_id: H1
+  kind: normal
+  title: 个人
+  amount_cents: 279900
+  status: issued
+  issued_at: '@now-3d'
+  updated_at: '@now-3d'
+- invoice_id: IV2602
+  order_id: H2610
+  user_id: H2
+  kind: special
+  title: 上海某某科技有限公司
+  amount_cents: 699900
+  status: pending
+  issued_at: null
+  updated_at: '@now-2d'
+- invoice_id: IV2603
+  order_id: H2618
+  user_id: H1
+  kind: normal
+  title: 个人
+  amount_cents: 699900
+  status: not_requested
+  issued_at: null
+  updated_at: '@now-20d'
+- invoice_id: IV2604
+  order_id: H2622
+  user_id: H4
+  kind: normal
+  title: 个人
+  amount_cents: 529900
+  status: red_flushed
+  issued_at: '@now-20d'
+  updated_at: '@now-2d'

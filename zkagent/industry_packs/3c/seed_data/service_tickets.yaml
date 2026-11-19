@@ -1,0 +1,9 @@
+service_tickets:
+  - ticket_id: T3C001
+    order_id: B2001
+    user_id: U9
+    type: install
+    description: "新机激活指导（已完成）"
+    status: completed
+    scheduled_time: "@now-5d"
+    created_at: "@now-5d"

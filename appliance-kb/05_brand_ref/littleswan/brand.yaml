@@ -1,0 +1,36 @@
+# 小天鹅品牌级信息（与型号无关，一次维护、全型号生效）
+#
+# 小天鹅属美的系，但**品牌政策与美的空调不是一套**，不要互相套用：
+# 空调的"整机包修 6 年""出厂日期 +180 天推算安装日"这些口径洗衣机上没有依据。
+policy_id: brand.littleswan.profile
+brand: littleswan
+brand_cn: 小天鹅
+appliance_scope: [washer]
+verified: true
+source: "02_ingest/washer/littleswan/*/ocr.md（各型号说明书/常见问题页）"
+updated: 2026-10-23
+
+service:
+  hotline: "400-8228-228"
+  hotline_source: "TB100V26DT 常见问题页原文「如排查后仍有异常，请拨打全国服务热线 400-8228-228」"
+  hotline_hours: null                  # 说明书未给服务时间
+  app: 美的美居
+  app_note: >
+    滚筒机型（TG 系列）的说明书里出现「可在美的美居 App 或关机长按面板键 3 秒关闭程序记忆」，
+    说明小天鹅洗衣机接入的是美的美居生态，不是独立 App。
+  app_source: "TG10K60 使用说明-特色功能介绍.jpg"
+  online_support: null
+
+standard:
+  source: null
+  note: 本批 5 份小天鹅资料未列执行标准号，不得引用 GB/T 4288 之类通用标准号充当依据
+
+notes:
+  - 品牌层面说明书**没有**给整机包修年限，答复保修相关问题必须转 warranty.yaml，不得凭经验报"整机 1 年/电机 10 年"
+  - 说明书把大量"用户以为坏了"的现象写进了常见问题页（门打不开、Ub、脱水延时、泡沫延时），
+    这些是该品牌工单量最大的一块，见 fault_codes.yaml 的 normal_phenomena
+  - 小天鹅是美的集团子品牌，但客服入口走的是小天鹅自己的 400-8228-228
+
+todo:
+  - 补服务时间、官方 App 服务入口、收费标准公开页
+  - 补执行标准号（GB 4706.24 / GB/T 4288），需从包装或铭牌取证

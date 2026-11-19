@@ -1,0 +1,60 @@
+# 演示场景（**仅供 Fake 模型的无密钥离线验收**）
+#
+# 这不是意图识别：真实意图识别由模型完成。
+# 本文件把若干演示任务映射为**确定性脚本**，让「编排 + 工具链路」在没有 API Key 时也能被验证。
+#
+# 脚本最后一步统一使用 `content_from_tool`：回答文本由**真实工具结果**渲染，
+# 因此工具失败时不会出现「回答宣称成功」的欺骗性输出（同一个脚本对越权用户也成立）。
+version: 1
+scenarios:
+  - id: order_lookup
+    task: "查订单 A1001"
+    script:
+      - tool_calls:
+          - name: get_order
+            args: {order_id: A1001}
+      - content_from_tool: "订单查询完成。"
+  - id: logistics_lookup
+    task: "查物流 A1001"
+    script:
+      - tool_calls:
+          - name: get_logistics
+            args: {order_id: A1001}
+      - content_from_tool: "物流查询完成。"
+  - id: logistics_missing
+    task: "查物流 A1002"
+    script:
+      - tool_calls:
+          - name: get_logistics
+            args: {order_id: A1002}
+      - content_from_tool: "物流查询完成。"
+  - id: other_user_order
+    task: "查订单 A1004"
+    script:
+      - tool_calls:
+          - name: get_order
+            args: {order_id: A1004}
+      - content_from_tool: "订单查询完成。"
+  # 知识检索（RAG）：验证「检索 → 带来源作答」这条链路，不需要 API Key
+  - id: product_lookup
+    task: "查商品 空调"
+    script:
+      - tool_calls:
+          - name: knowledge_search
+            args: {query: "空调 保修期限 安装 注意事项"}
+      - content_from_tool: "知识库检索完成。"
+  - id: policy_lookup
+    task: "查退货政策"
+    script:
+      - tool_calls:
+          - name: knowledge_search
+            args: {query: "七天无理由退货 条件 退款时限"}
+      - content_from_tool: "知识库检索完成。"
+  # 「无依据」场景：检索不到任何内容，回答必须说明没有依据，而不是编造
+  - id: no_knowledge_basis
+    task: "查商品 红楼梦"
+    script:
+      - tool_calls:
+          - name: knowledge_search
+            args: {query: "红楼梦 金陵十二钗 判词"}
+      - content_from_tool: "知识库检索完成。"

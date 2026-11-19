@@ -1,0 +1,84 @@
+# 型号差异：只放本型号特有的东西
+# 跨型号通用的现象排查在 04_scenario/s4_troubleshoot/symptoms.yaml
+product_id: supor-f40h8093s
+updated: 2026-10-23
+
+codes:
+  has_code_display: true
+  display: 数码屏显示 E 开头故障代码
+  rule: [断电后重新通电, 同一代码再次出现则报修建单]
+  known:
+    - code: E0
+      meaning: 顶部传感器开路或短路
+      action: 送指定维修点维修
+      source: 'ocr#说明书:p6'
+    - code: E1
+      meaning: 底部传感器开路或短路
+      action: 送指定维修点维修
+      source: 'ocr#说明书:p6'
+    - code: E5
+      meaning: 检不到锅
+      action: 先确认是否放入内锅后重新通电；仍报故障送修
+      source: 'ocr#说明书:p6'
+    - code: E7
+      meaning: 防溢探头开路
+      action: 送指定维修点维修
+      source: 'ocr#说明书:p6'
+
+self_check:
+  - symptom: 指示灯不亮、内锅也不热
+    cause: 电路板电源没接通 / 电源板坏 / 电路板连线断开 / 主控板坏
+    action: 先查开关、插头插座、保险丝、电源线是否完好并插到位；仍不亮送修
+    source: 'ocr#说明书:p6'
+    note: 这一条是用户能自己动手的，先让他换插座试，可拦掉一批「不通电」上门
+  - symptom: 指示灯亮但内锅不热
+    cause: 传感器故障 / 线圈盘（或电热盘）元件烧坏 / 电路板连线断开 / 电源板坏
+    action: 全部送指定维修点维修
+    source: 'ocr#说明书:p6'
+    note: 灯亮不加热＝硬件问题，不要引导用户反复重启
+  - symptom: 煮粥大量溢出 / 煮饭煮粥长时间不沸腾
+    cause: 控制板坏 / 传感器异常
+    action: 送指定维修点维修
+    source: 'ocr#说明书:p6'
+  - symptom: 饭不熟或煮饭时间过长
+    cause: 焖饭时间不够 / 内锅偏斜 / 内锅与加热盘之间有异物 / 内锅变形 / 控制板坏 / 传感器异常
+    action: '按要求焖饭；把内锅轻轻转动使恢复正常；用 320# 砂纸清除加热盘异物；内锅变形送修更换'
+    source: 'ocr#说明书:p6'
+    note: '「320# 砂纸清加热盘」是说明书原话，可照说；但内锅本身不能用砂纸'
+  - symptom: 远红外发热管不加热或不亮
+    cause: 远红外发热管开路
+    action: 送指定维修点维修
+    source: 'ocr#说明书:p6'
+
+normal_phenomena:
+  - id: relay_click
+    symptom: 工作过程中有「咔嗒」通断声
+    explain: 继电器/温控器通断的正常声音，不是故障
+    source: 'ocr#说明书:p6'
+  - id: steam_from_valve
+    symptom: 上盖蒸汽阀冒白汽、有水汽
+    explain: 微压/排气设计的正常排气，靠蒸汽阀控压，不要堵住出汽口
+    source: 'ocr#说明书:p6'
+  - id: rice_crust
+    symptom: 锅底有一层薄锅巴
+    explain: 底盘加热在最后焖饭阶段升温收水，薄锅巴属正常；厚到发黑才是异常
+    source: 'ocr#说明书:p6'
+
+protection:
+  no_water_no_heat:
+    value: true
+    source: null
+    text: 未放内锅或未放水时机器不加热（防干烧/检锅），属保护设计，不是故障
+  overheat_cutoff:
+    value: true
+    source: null
+    text: 热熔断器为一次性保护，动作后必须送修，不可自行短接
+
+model_specific_notes:
+  - 报 E5（检不到锅）先让用户把内锅放进去、转动落位后重新通电，多数不是硬件坏
+  - 带微压阀：用户报「煮不熟/溢锅」先确认微压阀是否旋到闭合位、密封圈是否被拉扯变形
+  - 「饭不好吃」类投诉先按米水比、功能选择、加热盘异物、蒸汽阀是否装到位四条排查，四条都排除后才怀疑感温元件
+
+missing:
+  - 各故障对应的具体部件与判废标准（说明书只写「送指定维修点维修」）
+  - 保修年限与包修范围（部分型号说明书有「一年包修」条款，但需与最新三包政策核对）

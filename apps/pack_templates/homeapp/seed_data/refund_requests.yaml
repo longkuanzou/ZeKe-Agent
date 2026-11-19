@@ -1,0 +1,45 @@
+# 由 scripts/gen_homeapp_seed.py 生成，请勿手改。
+# 数据基准时间：灌库时按 @now 时间宏解析（不再写死生成日期）。
+# 价格 / 库存 / 促销为**模拟值**；容量与能效取自 appliance-kb 的真实参数。
+# 场景依赖相对时间，重跑脚本即可刷新（见 KNOWN_ISSUES M16）。
+refund_requests:
+- refund_id: R2601
+  order_id: H2616
+  user_id: H1
+  items_json: '["小天鹅 10 公斤滚筒洗衣机 TG100V618PLUS"]'
+  amount_cents: 279900
+  reason: 七天无理由退货（未拆封）
+  status: pending_confirmation
+  idempotency_key: null
+  created_at: '@now-1d'
+  updated_at: '@now-20h'
+- refund_id: R2602
+  order_id: H2625
+  user_id: H4
+  items_json: '["美的 5L IH 电饭煲 MB-RE576S"]'
+  amount_cents: 89900
+  reason: 超过 7 天，申请无理由退货
+  status: rejected
+  idempotency_key: null
+  created_at: '@now-25d'
+  updated_at: '@now-24d'
+- refund_id: R2603
+  order_id: H2618
+  user_id: H1
+  items_json: '["海尔 3 匹变频柜机 KFR-72LW/E1-1"]'
+  amount_cents: 699900
+  reason: 质量问题：压缩机异响，已出具检测单
+  status: approved
+  idempotency_key: null
+  created_at: '@now-3d'
+  updated_at: '@now-2d'
+- refund_id: R2604
+  order_id: H2624
+  user_id: H2
+  items_json: '["小天鹅 10 公斤滚筒洗衣机 TG100V618PLUS"]'
+  amount_cents: 279900
+  reason: 质量问题：进水阀漏水
+  status: completed
+  idempotency_key: null
+  created_at: '@now-12d'
+  updated_at: '@now-10d'

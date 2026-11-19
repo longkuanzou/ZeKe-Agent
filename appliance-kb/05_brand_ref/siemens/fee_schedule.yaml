@@ -1,0 +1,152 @@
+# 西门子洗衣机/干衣机安装与维修收费标准
+#
+# 说明书没有收费条款，只提到"请只使用原厂备件与附件""保修条款咨询客服热线"。
+# 所以 verified: false（项目清单无品牌书面依据）、price_verified: false（金额为行业参考）。
+#
+# 西门子这条线有两个与国产品牌不同的实情，答复时要带出来：
+#   ① 保外维修的配件价普遍高于国产品牌（主板/滚筒轴承/AquaStop 进水管都是高价件），
+#      只报人工费会让用户以为"修一下很便宜"，容易在报价环节炸锅。
+#   ② 干衣机（WQ/WN 平台）叠放洗衣机需要专用叠放支架，且要看两个机型是否配套。
+policy_id: brand.siemens.fee_schedule
+brand: siemens
+brand_cn: 西门子
+applies_to: {appliance: [washer]}
+source: null
+source_note: 说明书未载收费条款；项目清单按品类通行做法整理
+verified: false
+price_verified: false
+price_basis: >
+  2025 年主流电商平台与本地服务商公开报价区间（含材料，不含税）；
+  外资品牌原厂配件价通常高于国产品牌，配件部分只能给模糊区间。
+price_source_url: "博西家电客服热线 400 889 9999（说明书 p36）"
+updated: 2026-10-23
+
+principle: >
+  标准安装（拆运输螺栓、调平、接进排水、通电试机）通常含在售价内；
+  额外管材、水路改造、特殊搬运需另付，须动工前告知并征得同意。
+
+items:
+  - key: standard_install
+    cn: 标准安装
+    unit: 台
+    price_min: 0
+    price_max: 0
+    verified: false
+    note: 含 4 颗运输螺栓拆除与孔塞安装、调平、接进排水、试机
+  - key: extra_inlet_hose
+    cn: 加长进水管（原厂 G3/4）
+    unit: 米
+    price_min: 15
+    price_max: 35
+    verified: false
+    note: 原厂件高于通用件；螺纹接头只用手拧紧
+  - key: aquastop_inlet
+    cn: AquaStop 进水管组件
+    unit: 套
+    price_min: 150
+    price_max: 400
+    verified: false
+    note: 安全件，只能原厂；触发 E23 底座积水报警时可能涉及
+  - key: add_faucet
+    cn: 加装水龙头 / 专用洗衣机龙头
+    unit: 个
+    price_min: 60
+    price_max: 150
+    verified: false
+  - key: drain_renovation
+    cn: 地漏改造 / 加装下水三通
+    unit: 处
+    price_min: 80
+    price_max: 200
+    verified: false
+    note: 上排水机型不需要地漏，别主动报这项
+  - key: door_widening
+    cn: 拆门 / 扩门洞
+    unit: 次
+    price_min: 80
+    price_max: 200
+    verified: false
+    note: 机身 598×848×590mm，门打开深度 1073mm，过道与转角要按打开深度算
+  - key: upstairs
+    cn: 上楼费（无电梯）
+    unit: 层/台
+    price_min: 10
+    price_max: 30
+    verified: false
+    note: 整机 70kg 级，部分服务商按重量分档
+  - key: remote_travel
+    cn: 远程交通费
+    unit: 次
+    price_min: 50
+    price_max: 200
+    verified: false
+    threshold: 通常 20 公里以外起收
+  - key: relocation
+    cn: 移机（拆 + 装）
+    unit: 台
+    price_min: 150
+    price_max: 350
+    verified: false
+  - key: cleaning
+    cn: 上门深度清洗
+    unit: 台
+    price_min: 120
+    price_max: 300
+    verified: false
+  - key: repair_labor
+    cn: 保外维修人工费
+    unit: 台
+    price_min: 60
+    price_max: 250
+    verified: false
+    note: 外资品牌人工上沿更高；配件另计
+  - key: stacking_kit
+    cn: 叠放支架（干衣机叠放）
+    unit: 套
+    price_min: 200
+    price_max: 500
+    verified: false
+    note: 需按两个机型组合确认是否配套，不得口头承诺
+
+not_applicable: [高空作业费, 加长冷媒管, 支架费]
+
+answer_rules:
+  - 先讲标准安装免费，再讲可能产生的额外项
+  - 保外维修必须说明"人工费 + 原厂配件费"两部分，不能只说人工
+  - 洗衣机没有高空作业费
+  - 上排水机型不需要地漏
+  - 给区间必须带定性："这是行业常见范围，具体以官方报价为准"
+  - 用户追问具体金额 → 引导客服热线 400 889 9999 或转人工报价
+
+todo:
+  - 向博西家电索取书面收费标准与主要配件价格区间（本表项目清单目前无品牌依据）
+
+# ══════════════════════════════════════════════════════════════
+# 保外维修分级人工费（2026-10-23 新增）
+#
+# ⚠ 这一份数据本身可疑，不要直接照念，原因写在 suspect 里：
+#   业务方给的序列是 上门检测 50 / 简修(调整) 70 / 小修 45~60 / 中修大修 65~100（核心件 600+）
+#   小修(45~60) 竟然低于简修(70)，而且中修上限 100 远低于核心件 600+ —— 这在价格逻辑上说不通。
+#   最可能是原表格的列在转录时错位（把配件费/工时数当成了小修价），所以只采纳与其他三家对得上的一项。
+repair_grade_labor:
+  source_kind: biz_reference
+  source: "业务方提供的洗衣机保外维修收费标准参考（2026-10-23）"
+  price_verified: false
+  scope_note: 基础人工费，不含配件费与远程费；具体以当地官方售后网点实际报价为准
+  grades:
+    - appliance: 洗衣机
+      trip_inspection: {price_min: 50, price_max: 50, usable: true}
+      minor_adjust: {price_min: 70, price_max: 70, usable: false}
+      small_repair: {price_min: 45, price_max: 60, usable: false}
+      medium_major: {price_min: 65, price_max: 100, core_part_extra: 600, usable: false}
+  suspect: true
+  suspect_reason: >
+    小修区间(45~60)低于简修(70)，中修上限(100)远低于核心件(600+)，与同品类其他品牌的数量级也不符
+    （小天鹅小修 200~500、中修 500~1000）。判断为原表列错位或把工时/配件费混进了人工档。
+  usable_now: 只有"上门检测费 50 元"这一项可以对外说，其余三项一律不报
+
+repair_grade_answer_rules:
+  - 保外只能答"上门检测费 50 元"，其余人工等级不报数字
+  - 用户问"修一下多少钱" → "要师傅上门检测后按维修等级报价，我这边只能确认上门检测费是 50"
+  - 用户报"售后报了 XX 元" → 不评价金额高低，只讲"可以让师傅出示收费标准并开具发票"
+  - 严禁把错位可疑的小修 45~60 报给用户——一旦与实际报价差十倍，就是价格投诉

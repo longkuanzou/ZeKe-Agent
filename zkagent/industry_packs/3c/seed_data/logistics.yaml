@@ -1,0 +1,11 @@
+logistics:
+  - order_id: B2001
+    carrier: 顺丰速运
+    tracking_no: SF3C20010001
+    status: delivered
+    updated_at: "@now-5d"
+  - order_id: B2003
+    carrier: 京东物流
+    tracking_no: JD3C20030001
+    status: delivered
+    updated_at: "@now-12d"

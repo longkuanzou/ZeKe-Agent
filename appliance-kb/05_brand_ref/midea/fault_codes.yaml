@@ -1,0 +1,369 @@
+# 美的故障代码表（空调 + 电饭煲）
+#
+# 两个品类的可信度不一样，所以拆成 tables.<appliance>，各自带 has_official_table：
+#   空调   —— 本批 5 份说明书只给"代码族 + 处置流程"，没有逐码释义；逐码表来自网络 → 内部参考
+#   电饭煲 —— 美的官方说明书 PDF 里有完整逐码表；本批 3 份图片资料没印，逐码表取自官方 PDF 网络件
+#
+# 硬规矩：代码含义**跨品类不通用**。美的空调 E1 是通信故障，美的电饭煲 E1 是底部传感器开路，
+# 同一个字母在同一个品牌里都不是同一件事，别串。
+policy_id: brand.midea.fault_codes
+brand: midea
+brand_cn: 美的
+applies_to: {appliance: [air_conditioner, rice_cooker]}
+updated: 2026-10-23
+
+verified: false
+source: "说明书 p32「故障核查」（代码族与流程）；逐码表为网络来源，见各 table 的 source"
+escalate_hotline: "400-8899-315"
+
+handling_rule:
+  when_user_reports_code:
+    - 先确认是哪个品类报的码（用户说"我家美的报 E1"时要反问是空调还是电饭煲）
+    - 查对应 table → 命中按条目处置；未命中不猜，走建单并标注"代码未收录"
+    - 必问"现在还能不能正常用"作为分诊依据
+    - 空调类：可以先给一次官方断电流程；电饭煲类：不给断电重启流程，直接按代码处置
+  forbid:
+    - 把空调的代码含义套到电饭煲上（同品牌也不行）
+    - 解释网络表里没有、只有说明书代码族的含义
+    - 让用户反复断电重启
+
+tables:
+  # ══════════════════════════════════════════════════ 空调
+  air_conditioner:
+    source_kind: manual_process + web_codes
+    has_official_table: false        # 逐码释义：说明书里没有
+    has_official_process: true       # 处置流程：说明书里有，可直接引用
+    usable_scope: triage_only
+    codes_source: "美的官方说明书的故障代码章节（网络下载件）+ 维修站公开代码表（2025-04 整理）"
+    codes_verified: false
+
+    official_process:                # ← 这一段有说明书依据，可以直接对用户说
+      source: 03_product/air_conditioner/midea/KFR-35GW-Q2/faults.yaml#codes（说明书 p32）
+      steps:
+        - 关机并关闭电源
+        - 等待 10 分钟
+        - 打开电源并开机
+        - 仍显示代码 → 关机并关闭电源 → 联系检修
+        - 不再显示代码 → 可继续使用
+
+    code_families:                   # 说明书原文列出的代码族，只说明"可能发生了相应故障"
+      - [E(x), E(xx)]
+      - [F(x)]
+      - [P(x)]
+      - [EH(xx), EL(xx), EC(xx)]
+      - [PH(xx), PL(xx), PC(xx)]
+
+    codes:
+      - code: E0
+        cn: 室内机 EEPROM 参数错误
+        class: module
+        severity: stop_and_call
+        verified: false
+      - code: E1
+        cn: 室内外机通信故障
+        class: comm
+        severity: stop_and_call
+        note: 装机后首次上电就报，优先怀疑连线，属安装返修
+        verified: false
+      - code: E3
+        cn: 室内风机失速
+        class: module
+        severity: attention
+        verified: false
+      - code: E5
+        cn: 室外机 EEPROM 参数错误
+        class: module
+        severity: stop_and_call
+        verified: false
+      - code: E7
+        cn: 室外风机失速
+        class: module
+        severity: stop_and_call
+        verified: false
+      - code: E8
+        cn: 室内 EEPROM 参数错误
+        class: module
+        severity: stop_and_call
+        verified: false
+      - code: E9
+        cn: 开关门故障（带开关门面板的机型）
+        class: module
+        severity: attention
+        verified: false
+      - code: EE
+        cn: 快检写入 EEPROM 错误
+        class: module
+        severity: stop_and_call
+        verified: false
+      - code: E52
+        cn: 室外环温传感器故障
+        class: sensor
+        severity: attention
+        verified: false
+      - code: E53
+        cn: 室外管温（冷凝器）传感器故障
+        class: sensor
+        severity: attention
+        verified: false
+      - code: E54
+        cn: 排气温度传感器故障
+        class: sensor
+        severity: attention
+        verified: false
+      - code: E60
+        cn: 室内室温传感器（T1）故障
+        class: sensor
+        severity: attention
+        verified: false
+      - code: E61
+        cn: 室内管温传感器（T2）故障
+        class: sensor
+        severity: attention
+        verified: false
+      - code: F9
+        cn: 新老协议搭配错误（主板与模块板不配套）
+        class: config
+        severity: stop_and_call
+        verified: false
+      - code: P0
+        cn: IPM 模块保护
+        class: module
+        severity: stop_and_call
+        note: 外机散热不良是常见外因，先确认外机出风是否被遮挡
+        verified: false
+      - code: P1
+        cn: 电压保护（过压或欠压）
+        class: protection
+        severity: attention
+        note: 先确认家里电压；电压恢复后通常自动复位，不要按硬件故障建单
+        verified: false
+      - code: P2
+        cn: IPM 模块高温保护
+        class: protection
+        severity: stop_and_call
+        verified: false
+      - code: P4
+        cn: 压缩机位置检测故障
+        class: compressor
+        severity: stop_and_call
+        verified: false
+      - code: P6
+        cn: 排气温度过高保护
+        class: protection
+        severity: stop_and_call
+        verified: false
+      - code: P8
+        cn: 冷凝器温度过高保护
+        class: protection
+        severity: stop_and_call
+        verified: false
+      - code: PL
+        cn: 冷媒泄漏保护
+        class: refrigerant
+        severity: stop_and_call
+        note: 报此码时机器常还能转但不制冷，最容易被拖成过保投诉
+        verified: false
+
+  # ══════════════════════════════════════════════════ 电饭煲
+  rice_cooker:
+    source_kind: official_manual_web   # 官方说明书 PDF，但不在本批入库资料里
+    has_official_table: true
+    usable_scope: full
+    codes_source: "美的电饭煲官方说明书的故障代码章节（网络下载件，2025-04 整理）"
+    codes_verified: false
+    codes_verified_note: >
+      这份表来自美的官方说明书，可信度明显高于第三方维修站，但仍不是本批 3 份图片资料里的原文，
+      所以 codes_verified 保持 false。答复时可以直接给含义（维修点也是照这份表答的），
+      但遇到用户质疑要以机身铭牌/保修卡随附说明书为准。
+
+    codes:
+      - code: E0
+        cn: 过零检测故障
+        class: module
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: E1
+        cn: 底部传感器开路
+        class: sensor
+        severity: stop_and_call
+        user_action: 送修；报此码时机器不加热
+        verified: false
+      - code: E2
+        cn: 底部传感器短路
+        class: sensor
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: E3
+        cn: IGBT 传感器开路
+        class: sensor
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: E4
+        cn: IGBT 传感器短路
+        class: sensor
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: E5
+        cn: 上盖传感器开路
+        class: sensor
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: E6
+        cn: 上盖传感器短路
+        class: sensor
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: EU
+        cn: 通信接收/发送故障
+        class: comm
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: C2
+        cn: IGBT 过热保护
+        class: protection
+        severity: attention
+        user_action: 拔电冷却 30 分钟后再试一次；反复出现则送修
+        note: 常见于连续煮饭、锅底散热空间不足、周围堆放杂物
+        verified: false
+      - code: C4
+        cn: 无锅保护（检不到内锅）
+        class: protection
+        severity: attention
+        user_action: 确认内锅已放到位且底部无水渍/异物，重新通电即可
+        note: 这条是纯放置问题，不需要维修，答"送修"会造成无谓上门
+        verified: false
+      - code: C6
+        cn: 步进电机损坏（带自动开盖/阀门的机型）
+        class: module
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: C7
+        cn: 电磁阀故障
+        class: module
+        severity: stop_and_call
+        user_action: 送修
+        verified: false
+      - code: C8
+        cn: 电极故障（防溢电极）
+        class: module
+        severity: attention
+        user_action: 先清洁防溢电极与上盖密封处的水垢油污；仍报码则送修
+        verified: false
+
+class_cn:
+  sensor: 温度检测异常
+  comm: 通信异常
+  protection: 保护性停机
+  module: 电控板异常
+  compressor: 压缩机运转异常
+  refrigerant: 冷媒循环异常
+  config: 机型配置不匹配
+
+answer_template_attention: >
+  这个代码一般是{class_cn}这一类的问题。{user_action}。如果还出现，我帮您登记。
+answer_template_stop: >
+  这个代码需要停机，先拔掉电源不要再通电试了。我帮您登记送修，
+  麻烦提供一下型号和购买时间，我顺便帮您看下在不在保修期内。
+
+todo:
+  - 美的空调逐码表需向售后核对（当前是网络来源，且不同系列代码有差异）
+  - 美的电饭煲逐码表核对本批 3 份图片资料的故障章后，可把 codes_verified 置 true
+
+# ══════════════════════════════════════════════════════════════
+# 业务方速查表交叉核对（2026-10-23 新增）
+#
+# 业务方给了《常见错误代码及含义速查表》，两个品类的比对结果**完全相反**：
+#   电饭煲：E1/E2 与本文件一致 → 可以直接用
+#   空调  ：E 段几乎全不一致 → 不能覆盖
+# 这正好印证文件开头那句"同品牌不同品类，同一个字母都不是同一件事"。
+biz_crosscheck:
+  source_kind: biz_provided
+  source: "业务方提供的常见错误代码速查表（2026-10-23）"
+  verdict: library_prevails          # rice_cooker_ok_aircon_conflict（原描述，见下方 ruling）
+  ruling_policy: >
+    2026-10-23 业务方裁定：**凡与现有条目冲突的，一律以现有表为准**（速查表对应条目不采纳）。
+    理由：速查表未标机型平台，现有表至少能追到说明书或可对照的官方代码族。
+    本条裁定不改变 usable_scope——"采用哪一套"和"这套本身是否经售后核实"是两件事。
+  ruling_date: 2026-10-23
+  ruling_by: 业务方
+
+  air_conditioner:
+    conflict:
+      - code: E0
+        ours: 室内机 EEPROM 参数错误（module, stop_and_call）
+        biz: 环境温度 / 内机温度传感器故障
+        severity_agree: partial
+        reply: 断电 10 分钟重上电；仍显示则建单，只说"电控或传感器这类问题"
+      - code: E1
+        ours: 室内外机通信故障（comm, stop_and_call）
+        biz: 环境温度 / 内机温度传感器故障
+        severity_agree: no        # 通讯故障 ≠ 传感器故障，处置方向差很远
+        reply: 先按说明书 p32 的断电流程走一遍；仍显示必须建单，不解释部件
+        note: 装机后首次上电就报 E1，无论哪种释义都要优先怀疑连线，属安装返修
+      - code: E5
+        ours: 室外机 EEPROM 参数错误（module, stop_and_call）
+        biz: 室外机通讯故障
+        severity_agree: partial
+      - code: E8
+        ours: 室内 EEPROM 参数错误（module, stop_and_call）
+        biz: 内机控制板通讯故障
+        severity_agree: partial
+      - code: E9
+        ours: 开关门故障（带开关门面板的机型，attention）
+        biz: 内机控制板通讯故障
+        severity_agree: no
+    biz_only:
+      - {code: E4, cn: 室外机通讯故障, severity: stop_and_call, status: 未核实}
+    biz_only_note: >
+        业务方表把 E8 与 E9 写成同一个含义（"内机控制板通讯故障"），这是速查表常见的合并写法，
+        本身就说明它的粒度低于本文件。所以空调段一律不采纳，继续用本文件做内部分诊。
+    our_advantage: >
+      本文件的美的空调代码表与官方说明书的代码族（E(x)/F(x)/P(x)/EH-EE/PH-PL-PC）是自洽的，
+      业务方表里的 E4/E9 与这个族也对不上，进一步说明它不是美的空调的完整表。
+
+  rice_cooker:
+    matched:
+      - {code: E1, cn: 底部传感器开路, note: 与本文件一致}
+      - {code: E2, cn: 底部传感器短路, note: 与本文件一致}
+    conflict:
+      - code: E3
+        ours: IGBT 传感器开路（sensor, stop_and_call）
+        biz: 炉面 / 底部超温保护（有异物或干烧）
+        severity_agree: partial
+        reply: 先确认内锅底部与加热盘有无异物、是否干烧；仍报码则送修
+        note: 两边处置其实可以合并——异物/干烧正是 IGBT 过温的常见成因
+      - code: E6
+        ours: 上盖传感器短路（sensor, stop_and_call）
+        biz: 炉面 / 底部超温保护（有异物或干烧）
+        severity_agree: partial
+        reply: 同上
+    note: >
+      电饭煲的 E1/E2 可以直接对外说"底部传感器问题"；E3/E6 先说"先看内锅底有没有异物、
+      是不是干烧了"，再说送修——这个顺序在两种释义下都成立。
+
+  # ── 裁定结果（2026-10-23）──────────────────────────────
+  adopt:
+    - {table: rice_cooker, code: E1, cn: 底部传感器开路, note: 与现有表一致}
+    - {table: rice_cooker, code: E2, cn: 底部传感器短路, note: 与现有表一致}
+    - {table: air_conditioner, note: "F/P/EH/PH 等代码族速查表完全未覆盖，继续用现有表"}
+  not_adopt:
+    - {table: air_conditioner, code: E0, ours: 室内机 EEPROM 参数错误, biz: 环境温度/内机温度传感器故障}
+    - {table: air_conditioner, code: E1, ours: 室内外机通信故障, biz: 环境温度/内机温度传感器故障}
+    - {table: air_conditioner, code: E5, ours: 室外机 EEPROM 参数错误, biz: 室外机通讯故障}
+    - {table: air_conditioner, code: E8, ours: 室内 EEPROM 参数错误, biz: 内机控制板通讯故障}
+    - {table: air_conditioner, code: E9, ours: 开关门故障, biz: 内机控制板通讯故障}
+    - {table: air_conditioner, code: E4, ours: 未收录, biz: 室外机通讯故障, action: 按"代码未收录"处理}
+    - {table: rice_cooker, code: E3, ours: IGBT 传感器开路, biz: 炉面/底部超温保护}
+    - {table: rice_cooker, code: E6, ours: 上盖传感器短路, biz: 炉面/底部超温保护}
+  note: >
+    电饭煲 E3/E6 虽然词面不同，但处置可以先合并成一句"先看内锅底有没有异物、是不是干烧"，
+    这一步在两种释义下都成立，所以不冲突于话术，只冲突于内部分类。
+    内部仍按 IGBT / 上盖传感器归类，以保证备件与工单字段一致。

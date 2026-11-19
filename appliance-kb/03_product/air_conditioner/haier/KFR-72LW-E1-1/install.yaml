@@ -1,0 +1,23 @@
+# 安装条件：来源说明书安装章节，2026-10-22 回填
+product_id: haier-kfr-72lw-e1-1
+updated: 2026-10-22
+
+electrical:
+  dedicated_circuit:
+    value: true
+    text: 必须使用专用电路/独立插座，须可靠接地
+space:
+  min_room_area_m2: null    # 说明书未给具体数值或原文被截断，见 confirm_queue
+piping:
+  max_length_m: {value: 15, unit: m, source: p26}
+  height_diff_m: {value: 10, unit: m, source: p26}
+  refrigerant: {value: R32, source: p17}
+
+pre_visit_checklist:
+  - 安装墙面是否承重、可否打孔
+  - 是否有专用电源回路与带地线插座
+  - 室外机位置是否可用（物业是否允许外挂/是否有预留机位）
+  - 连接管走线长度与内外机高度差
+  - 楼层与电梯情况（影响上楼费）
+
+chargeable_items: [高空作业, 加长连接管, 支架, 打孔, 拆装防盗网, 远程上门]

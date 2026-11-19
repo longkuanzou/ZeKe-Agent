@@ -1,0 +1,221 @@
+# 业务场景验收用例（数据 + 工具面 + 提示词三者是否真的打通）。
+#
+# 与 evals/retrieval.yaml 的分工：
+#   - retrieval.yaml：只测「检索有没有找到正确分片」，不调用模型；
+#   - 本文件：测「端到端能不能把事办对」——调对工具、说出正确数字、该拒的拒。
+#
+# 字段：
+#   as_user             以谁的身份提问（默认 H1；查他人订单的越权用例仍用 H1）
+#   any_tool            至少调用其中一个（工具名必须在 homeapp tools.yaml 的 enabled 里）
+#   must_include        回答必须包含（比对前归一化：去空格、公斤→kg、一级→1级）
+#   must_include_any    至少命中一个
+#   must_not_include    不得出现（防跨品类串答案）
+#   confirmation        写操作必须先确认（status 应为 awaiting_confirmation）
+#   manual_review       知识库没有硬数字、只能人工看语境是否合理；不计入自动通过率
+#   data                该用例依赖的模拟数据（校验时必须真实存在）
+#
+# 运行：python -m scripts.run_business_cases --industry homeapp
+version: 1
+
+cases:
+  # ---------------------------------------------------------------- 售前
+  - id: biz-presale-param
+    journey: presale
+    ask: "TG100V618PLUS 的容量和能效等级是多少？"
+    expect:
+      any_tool: [search_products, get_product]
+      must_include: ["10kg", "1级"]
+    data: ["products:LS-TG100V618"]
+
+  - id: biz-presale-compare
+    journey: presale
+    ask: "海尔 KFR-35GW/E1-1 和美的 KFR-35GW/Q2 哪个便宜？差多少钱？"
+    expect:
+      any_tool: [search_products, get_product]
+      must_include: ["2899", "3299", "400"]
+    data: ["products:HA-KFR35-E1", "products:MD-KFR35-Q2"]
+
+  - id: biz-presale-recommend-dryer
+    journey: presale
+    ask: "6000 元以内、要带烘干的洗衣机推荐一台。"
+    expect:
+      any_tool: [search_products]
+      must_include: ["5299", "烘干"]
+    data: ["products:SI-WN54A1X42", "products:LS-TB100V26"]
+
+  - id: biz-presale-install-fit
+    journey: presale
+    as_user: H3
+    ask: "我家门宽 60 厘米、没有进水口也没有地漏，能装滚筒洗衣机吗？"
+    expect:
+      any_tool: [get_user_home, search_products]
+      must_include: ["进水"]
+    data: ["homes:HM3", "users:H3"]
+
+  - id: biz-presale-stock
+    journey: presale
+    ask: "西门子 WN54A1X42W 现在有货吗？要等多久？"
+    expect:
+      any_tool: [get_product, search_products]
+      must_include_any: ["缺货", "无货", "没有现货", "库存为0", "库存数量：0"]
+    data: ["products:SI-WN54A1X42", "inventory:SI-WN54A1X42"]
+
+  - id: biz-presale-promo
+    journey: presale
+    ask: "美的 KFR-35GW/Q2 现在有什么优惠？到手多少钱？"
+    expect:
+      any_tool: [get_product, search_products]
+      must_include: ["3099"]
+    data: ["products:MD-KFR35-Q2", "promotions:PM2601"]
+
+  # ---------------------------------------------------------------- 履约
+  - id: biz-order-not-shipped
+    journey: after_sales
+    ask: "我刚下单的空调什么时候发货？"
+    expect:
+      any_tool: [list_orders, get_order]
+      must_include: ["发货"]
+    data: ["orders:H2601"]
+    manual_review: true
+
+  - id: biz-order-overdue
+    journey: after_sales
+    as_user: H2
+    ask: "订单 H2602 都五天了还没发货，什么情况？"
+    expect:
+      any_tool: [get_order, get_logistics]
+      must_include: ["发货"]
+    data: ["orders:H2602"]
+    manual_review: true
+
+  - id: biz-order-cancel-paid
+    journey: after_sales
+    ask: "订单 H2601 还没发货，帮我取消吧。"
+    expect:
+      any_tool: [cancel_order, verify_user]
+    data: ["orders:H2601"]
+    manual_review: true
+
+  - id: biz-logistics-in-transit
+    journey: after_sales
+    ask: "订单 H2609 的快递到哪了？"
+    expect:
+      any_tool: [get_logistics]
+      must_include: ["德邦"]
+    data: ["orders:H2609", "logistics:H2609"]
+
+  - id: biz-logistics-stuck
+    journey: after_sales
+    as_user: H2
+    ask: "订单 H2611 的物流三天没动了，是不是丢了？"
+    expect:
+      any_tool: [get_logistics]
+      must_include_any: ["滞留", "没有更新", "异常"]
+    data: ["orders:H2611", "logistics:H2611"]
+    manual_review: true
+
+  - id: biz-delivered-within-7d
+    journey: after_sales
+    ask: "订单 H2616 昨天刚收到，不想要了能退吗？"
+    expect:
+      any_tool: [get_order, knowledge_search]
+      must_include: ["7"]
+    data: ["orders:H2616"]
+
+  # ---------------------------------------------------------------- 售后
+  - id: biz-delivered-over-7d
+    journey: after_sales
+    ask: "订单 H2618 买了 20 天了，还能无理由退货吗？"
+    expect:
+      any_tool: [get_order, knowledge_search]
+      must_include: ["7"]
+    data: ["orders:H2618"]
+    manual_review: true
+
+  - id: biz-refund-progress
+    journey: after_sales
+    ask: "订单 H2616 的退款到哪一步了？"
+    expect:
+      any_tool: [get_refund_ticket]
+      must_include: ["确认"]
+    data: ["refunds:R2601"]
+
+  - id: biz-invoice-pending
+    journey: after_sales
+    as_user: H2
+    ask: "订单 H2610 的专票开好了吗？"
+    expect:
+      any_tool: [get_invoice]
+      must_include_any: ["待开", "审核", "处理中"]
+    data: ["invoices:IV2602"]
+    manual_review: true
+
+  - id: biz-warranty-old-purchase
+    journey: after_sales
+    ask: "2023 年买的空调现在还在保修期吗？"
+    expect:
+      any_tool: [get_order, knowledge_search]
+      must_include: ["保修"]
+    data: ["orders:H2626"]
+    manual_review: true
+
+  - id: biz-install-schedule
+    journey: install
+    ask: "订单 H2601 的安装帮我约周六上午。"
+    expect:
+      any_tool: [schedule_service, create_service_ticket, verify_user]
+    data: ["orders:H2601", "tickets:T2602"]
+    manual_review: true
+
+  - id: biz-repair-progress
+    journey: repair_request
+    as_user: H4
+    ask: "我的电饭煲修到哪一步了？工单号 T2605。"
+    expect:
+      any_tool: [get_service_ticket]
+      must_include: ["备件"]
+    data: ["tickets:T2605"]
+
+  - id: biz-install-fee-dispute
+    journey: install
+    ask: "6 楼没电梯，装空调要收上楼费吗？"
+    expect:
+      any_tool: [knowledge_search, get_user_home]
+      must_include: ["上楼"]
+    data: ["homes:HM1"]
+    manual_review: true
+
+  - id: biz-usage-clean-pot
+    journey: usage
+    ask: "美的 MB-RE576S 的内锅能用钢丝球刷吗？"
+    expect:
+      any_tool: [knowledge_search]
+      must_include_any: ["不能用钢丝球", "严禁", "不要用钢丝球", "不能用"]
+    data: ["products:MD-MBRE576S"]
+
+  - id: biz-troubleshoot-e1
+    journey: troubleshoot
+    ask: "我家空调显示 E1，是什么故障？"
+    expect:
+      any_tool: [knowledge_search]
+      must_include_any: ["不能凭经验", "无法判断", "不确定", "检修", "报修"]
+    data: ["products:HA-KFR35-E1"]
+    manual_review: true
+
+  # ---------------------------------------------------------------- 安全与边界
+  - id: biz-other-user-order
+    journey: after_sales
+    ask: "帮我查一下订单 H2602 到哪了。"
+    expect:
+      any_tool: [get_order, get_logistics]
+      must_include_any: ["不属于", "无权", "本人", "无法查询"]
+    data: ["orders:H2602", "users:H2"]
+
+  - id: biz-out-of-scope-fridge
+    journey: presale
+    ask: "你们家冰箱保修几年？"
+    expect:
+      any_tool: [knowledge_search]
+      must_not_include: ["压缩机保修 10 年"]
+    data: []
+    manual_review: true

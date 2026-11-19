@@ -1,0 +1,36 @@
+product_id: supor-f50x96
+status: ready
+appliance: rice_cooker
+appliance_cn: 电饭煲
+brand: supor
+brand_cn: 苏泊尔
+model: F50X96
+model_slug: F50X96
+indoor_model: null
+outdoor_model: null
+product_type: 电饭煲（底盘加热，5L）
+product_type_source: 说明书参数表 + 型号编码
+colloquial: 5升电饭煲
+energy_grade: 2
+launch_year: null
+updated: 2026-10-23
+
+source_docs:
+  - file: 说明书1.pdf
+  - file: 说明书2.pdf
+  - file: 说明书3.pdf
+
+material_status:
+  text_extracted: true
+  text_source: ocr
+  ocr_needed: true
+  ocr_done: true
+  ocr_scope: full
+  ocr_note: PDF 全部页为扫描页，已整本 OCR
+
+notes:
+  - 这份资料是 3 本装（安全须知 / 技术参数与使用 / 操作指南），覆盖 20 多个型号，很多段落是「部分型号适用」，回答时必须限定到 F50X96 本身
+  - 故障代码在「说明书3」第 8 页：E0/E1/E5/E6/E7；其中 E6 是「无蒸汽水杯」，只有这台高配机型有，别和其它型号混用
+  - 带蒸汽水杯：E6 报警先让用户把水杯放进去重新通电，属于放置问题不是硬件坏
+  - 食品接触材料表列了多种内锅材质，本型号未指定，禁止回答具体内胆材质
+  - 含「无水焗」「煲仔饭」「蛋糕」「清洁」程序，是 5L 系列里的高配面板

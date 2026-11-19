@@ -1,0 +1,42 @@
+product_id: littleswan-tg10ve40
+status: ready
+appliance: washer
+appliance_cn: 洗衣机
+brand: littleswan
+brand_cn: 小天鹅
+model: TG10VE40
+model_slug: TG10VE40
+indoor_model: null
+outdoor_model: null
+product_type: 滚筒洗衣机（前开式，单洗）
+product_type_source: 型号编码 TG + 说明书「产品介绍」页
+colloquial: 10公斤滚筒
+energy_grade: 1
+launch_year: null
+updated: 2026-10-22
+
+source_docs:
+  - file: 产品介绍.jpg
+  - file: 使用说明-产品认证.jpg
+  - file: 使用说明-显示图标介绍.jpg
+  - file: 使用说明-洗涤投放建议.jpg
+  - file: 使用说明-特色功能介绍.jpg
+  - file: 使用说明-程序介绍.jpg
+  - file: 使用说明-程序功能介绍.jpg
+  - file: 常见问题.jpg
+  - file: 快速入门-图文.jpg
+  - file: 快速入门-洗涤注意事项.jpg
+  - file: 清洁保养.jpg
+  - file: 温馨提示.jpg
+  - file: 联网指引.jpg
+  - note: 资料主体为 JPG 图片，文本由 tools/ocr.py 识别，见 02_ingest/washer/littleswan/TG10VE40/ocr.md
+
+material_status:
+  text_extracted: true
+  text_source: ocr
+  ocr_needed: true
+  ocr_done: true
+  ocr_scope: images
+
+notes:
+  - 参数与功能来自 OCR，数值已对照 OCR 原文；涉及报价/合同前请再核原图

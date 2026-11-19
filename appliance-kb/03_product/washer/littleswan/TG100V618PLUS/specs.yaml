@@ -1,0 +1,35 @@
+# 参数来源：小天鹅 TG100V618PLUS「产品介绍」页「规格及技术参数」表（图片资料 → OCR）
+# 键名受 00_schema/spec_dictionary/washer.yaml 约束
+product_id: littleswan-tg100v618plus
+updated: 2026-10-22
+
+specs:
+  capacity_kg:          {value: 10.0, unit: kg, source: "ocr#产品介绍.jpg"}
+  dry_capacity_kg:      {value: null, unit: kg, source: "ocr#产品介绍.jpg", note: 说明书未给干衣容量}
+  spin_speed_rpm:       {value: 1200, unit: r/min, source: "ocr#产品介绍.jpg", note: 面板最高可调转速}
+  energy_grade:         {value: 1, unit: 级, source: "ocr#产品介绍.jpg"}
+  water_consumption_l:  null            # 说明书未给单次耗水量
+  power_w:              {value: 1800, unit: W, source: "ocr#产品介绍.jpg"}
+  power_supply:         {value: "220V~/50Hz", source: "ocr#产品介绍.jpg"}
+  rated_current_a:      {value: 10, unit: A, source: "ocr#产品介绍.jpg"}
+  size_mm:              {w: 595, h: 850, d: 560, unit: mm, source: "ocr#产品介绍.jpg",
+                         note: 原文「外形尺寸(WXD1XH) 595X560X850」，已按 W/D1/H 拆成 w/d/h；D1 为机身深度}
+  size_max_mm:          {w: 595, h: 850, d: 632, unit: mm, source: "ocr#产品介绍.jpg",
+                         note: 最大外形尺寸，含凸出件；搬运与嵌入柜体按此算}
+  weight_kg:            {value: 64, unit: kg, source: "ocr#产品介绍.jpg", note: 机器净重}
+  door_width_min_mm:    null            # 说明书只给使用预留空间，未给搬运最小门宽
+  loading_type:         {value: 滚筒（前开式）, source: "ocr#产品介绍.jpg"}
+  needs_water_inlet:    {value: true, source: "ocr#产品介绍.jpg"}
+  needs_drain:          {value: true, source: "ocr#产品介绍.jpg"}
+  drain_type:           {value: 上排水, source: "ocr#产品介绍.jpg"}
+  water_pressure_mpa:   {min: 0.03, max: 1.0, unit: MPa, source: "ocr#产品介绍.jpg"}
+  needs_level_ground:   {value: true, source: "ocr#常见问题.jpg",
+                         note: 说明书要求装在坚固水平地面并调平}
+  noise_wash_db:        {value: 48, unit: dB(A), source: "ocr#产品介绍.jpg",
+                         note: 声功率级}
+  noise_spin_db:        {value: 69, unit: dB(A), source: "ocr#产品介绍.jpg",
+                         note: 声功率级}
+
+missing:
+  - water_consumption_l
+  - door_width_min_mm

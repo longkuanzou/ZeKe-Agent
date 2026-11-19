@@ -1,0 +1,50 @@
+# 安装条件：安装咨询（s2）与上门前确认的唯一依据
+# 洗衣机看 电/水/排水/门；干衣机只看 电/空间/排水（可无）
+product_id: siemens-wq53e2d01w-wq53e2d11w
+updated: 2026-10-23
+
+electrical:
+  supply: {value: 220V，50Hz, source: p19}
+  rated_power_w: {value: 600, source: p19}
+  min_fuse_a: {value: 10, source: p19,
+    text: 原文「最小接线保险 10A」；插座与线路按此配置}
+  grounding: {value: true, source: null,
+    note: 说明书要求居家电气安装符合当地法规并包含漏电保护断路器}
+  cord_length_cm: {value: 145, source: p19, note: 插座需在电源线可达范围内}
+
+water:
+  inlet_required: {value: false, source: null,
+    text: 热泵干衣机不需要进水管，这是与洗衣机最大的差别}
+  condensate: {value: true, source: "p8",
+    text: 冷凝水可存于水箱定期倒掉，也可用软管直排；直排时必须正确固定软管，否则有漏水风险}
+
+drain:
+  required: {value: false, source: null,
+    text: 不接排水也可以使用（倒水箱）；接直排更省事}
+
+space:
+  body_mm: {w: 598, h: 842, d: 613, source: p19}
+  door_open_depth_mm: {value: 1096, source: p19,
+    text: 门打开时的深度；过道宽度与门洞转弯必须按这个算，只看机身深度会判断错误}
+  stackable: {value: null, source: null,
+    text: 是否可叠放需看是否配叠放支架与机型组合，说明书未给通用结论，不得口头承诺}
+
+transport:
+  net_weight_kg: {value: 50.1, source: p19}
+  transport_bolts: {value: 4, source: 'p7',
+    text: 背面 4 颗运输固定螺栓，用 13 号扳手松开拆下，再装入孔塞；不拆就脱水会剧烈震动}
+
+pre_visit_checklist:
+  - 放置位置附近有插座吗（不需要水龙头）
+  - 冷凝水打算倒水箱还是接软管直排
+  - 机器正面开门空间是否足够（门打开深度近 110cm）
+  - 是否需要与洗衣机叠放（需专用连接件）
+  - 从楼下到房间最窄门口宽度、楼梯转角
+  - 楼层与是否有电梯（影响上楼费）
+
+chargeable_items: [上楼费, 远程上门, 拆门/扩门洞, 叠放支架]
+not_applicable: [高空作业费, 加长冷媒管, 加长进水管, 加装水龙头, 地漏改造]
+
+missing:
+  - door_width_min_mm（说明书未给搬运最小门宽）
+  - 是否可叠放叠放支架型号（说明书未给通用结论）

@@ -1,0 +1,14 @@
+product_id: midea-kfr-35gw-ks2p
+updated: 2026-10-22
+
+features:
+  cooling: {supported: true, source: p20, phrase: 制冷}
+  heating: {supported: true, source: p20, phrase: 制热}
+  dry: {supported: true, source: p20, phrase: 抽湿}
+  fan_only: {supported: true, source: p20, phrase: 送风}
+  auxiliary_heat: {supported: true, source: p20, phrase: 电辅热}
+  anti_direct_blow: {supported: true, source: p20, phrase: 防直吹}
+  self_clean: {supported: null, phrase: 说明书全文未出现“自清洁”}
+  wifi: {supported: true, source: p26, phrase: 美的美居Lite小程序}
+  voice: {supported: null, phrase: 说明书未提语音}
+  fresh_air: {supported: false, phrase: 说明书无新风内容}

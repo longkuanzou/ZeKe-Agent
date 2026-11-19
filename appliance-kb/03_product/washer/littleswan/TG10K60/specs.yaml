@@ -1,0 +1,43 @@
+# 参数来源：小天鹅 TG10K60「产品介绍」页「规格及技术参数」表（图片资料 → OCR）
+# 键名受 00_schema/spec_dictionary/washer.yaml 约束
+# 注意：本型号资料是 JPG，数值来自 OCR，回填后已逐项与 OCR 原文核对；
+#       OCR 原文本身对错字敏感，涉及金额/合同前请再看一眼原图。
+product_id: littleswan-tg10k60
+updated: 2026-10-22
+
+specs:
+  capacity_kg:          {value: 10.0, unit: kg, source: "ocr#产品介绍.jpg"}
+  dry_capacity_kg:      {value: null, unit: kg, source: "ocr#产品介绍.jpg",
+                         note: 单洗机型，无干衣容量}
+  spin_speed_rpm:       {value: 1200, unit: r/min, source: "ocr#产品介绍.jpg",
+                         note: 面板最高可调转速；能效测试用 1000 转、噪音测试用 1200 转}
+  energy_grade:         {value: 1, unit: 级, source: "ocr#产品介绍.jpg"}
+  water_consumption_l:  null            # 说明书未给单次耗水量
+  power_w:              {value: 1800, unit: W, source: "ocr#产品介绍.jpg"}
+
+  size_mm:              {w: 595, h: 850, d: 560, unit: mm, source: "ocr#产品介绍.jpg",
+                         note: "原文「外形尺寸(W×D1×H) 595×560×850」，已按 W/D/H 拆开；D1 为机身深度"}
+  size_max_mm:          {w: 595, h: 850, d: 575, unit: mm, source: "ocr#产品介绍.jpg",
+                         note: "原文「最大外形尺寸(W×D2×H) 595×575×850」，D2 含凸出件，搬运/嵌入按此算"}
+  weight_kg:            {value: 69, unit: kg, source: "ocr#产品介绍.jpg", note: 机器净重}
+  door_width_min_mm:    null            # 说明书只给"正面预留 900mm 使用空间"，未给搬运门宽
+
+  loading_type:         {value: 滚筒, source: "ocr#产品介绍.jpg", note: 前开式}
+  needs_water_inlet:    {value: true, source: "ocr#产品介绍.jpg"}
+  needs_drain:          {value: true, source: "ocr#产品介绍.jpg"}
+  drain_type:           {value: 上排水, source: "ocr#产品介绍.jpg"}
+  water_pressure_mpa:   {min: 0.03, max: 1.0, unit: MPa, source: "ocr#产品介绍.jpg",
+                         note: 原文"0.03-1MPa"}
+  needs_level_ground:   {value: true, source: "ocr#常见问题.jpg",
+                         note: "机器须装在坚固水平地面并调平，否则震动大/噪音大"}
+
+  noise_wash_db:        {value: 46, unit: dB(A), source: "ocr#产品介绍.jpg",
+                         note: 声功率级，非声压级；不能与空调的声压级 dB 直接比较}
+  noise_spin_db:        {value: 68, unit: dB(A), source: "ocr#产品介绍.jpg",
+                         note: 声功率级，测试程序"混合"60℃/1200 转}
+
+  power_supply:         {value: "220V~/50Hz", source: "ocr#产品介绍.jpg"}
+
+missing:
+  - water_consumption_l
+  - door_width_min_mm
